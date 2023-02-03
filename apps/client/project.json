@@ -4,6 +4,46 @@
   "projectType": "application",
   "targets": {
     "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["pre-build"],
+      "options": {
+        "commands": [
+          "npx workbox-cli generateSW ./apps/client/workbox-config.js"
+        ],
+        "parallel": false
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "options": {
+        "buildTarget": "client:pre-build",
+        "hmr": true
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "client:pre-build:production"
+        },
+        "development": {
+          "buildTarget": "client:pre-build:development"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/client/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/client"],
+      "options": {
+        "jestConfig": "apps/client/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "pre-build": {
       "executor": "@nrwl/web:webpack",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
@@ -15,7 +55,12 @@
         "main": "apps/client/src/main.tsx",
         "polyfills": "apps/client/src/polyfills.ts",
         "tsConfig": "apps/client/tsconfig.app.json",
-        "assets": ["apps/client/src/favicon.ico", "apps/client/src/assets"],
+        "assets": [
+          "apps/client/src/favicon.ico",
+          "apps/client/src/assets",
+          "apps/client/src/robots.txt",
+          "apps/client/src/manifest.json"
+        ],
         "styles": ["apps/client/src/styles.css"],
         "scripts": [],
         "webpackConfig": "@nrwl/react/plugins/webpack"
@@ -35,34 +80,6 @@
           "extractLicenses": true,
           "vendorChunk": false
         }
-      }
-    },
-    "serve": {
-      "executor": "@nrwl/web:dev-server",
-      "options": {
-        "buildTarget": "client:build",
-        "hmr": true
-      },
-      "configurations": {
-        "production": {
-          "buildTarget": "client:build:production",
-          "hmr": false
-        }
-      }
-    },
-    "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/client/**/*.{ts,tsx,js,jsx}"]
-      }
-    },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/client"],
-      "options": {
-        "jestConfig": "apps/client/jest.config.js",
-        "passWithNoTests": true
       }
     }
   },

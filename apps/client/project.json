@@ -61,7 +61,10 @@
           "apps/client/src/robots.txt",
           "apps/client/src/manifest.json"
         ],
-        "styles": ["apps/client/src/styles.css"],
+        "styles": [
+          "libs/shared-assets/theme.css",
+          "apps/client/src/styles.css"
+        ],
         "scripts": [],
         "webpackConfig": "@nrwl/react/plugins/webpack"
       },

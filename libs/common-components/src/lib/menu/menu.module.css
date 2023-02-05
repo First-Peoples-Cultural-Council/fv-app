@@ -1,0 +1,3 @@
+.section:not(:last-child) {
+  border-bottom: #f3f4f6 solid 1px;
+}

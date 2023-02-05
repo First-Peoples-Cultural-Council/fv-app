@@ -54,7 +54,11 @@
           "apps/client/src/manifest.json"
         ],
         "styles": [
+          "libs/shared-assets/reset.css",
           "libs/shared-assets/theme.css",
+          "libs/shared-assets/variables.css",
+          "libs/shared-assets/fonts/css/animation.css",
+          "libs/shared-assets/fonts/css/first-voices.css",
           "apps/client/src/styles.css"
         ],
         "scripts": [],

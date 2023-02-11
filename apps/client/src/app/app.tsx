@@ -1,11 +1,12 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.css';
+import { Header } from '@fv-app/common-components';
+import { Outlet } from 'react-router-dom';
 
 export function App() {
   return (
-    <>
-      <div>Hi</div>
-    </>
+    <div>
+      <Header />
+      <Outlet />
+    </div>
   );
 }
 

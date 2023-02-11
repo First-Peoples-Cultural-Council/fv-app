@@ -5,8 +5,8 @@ export interface HeaderProps {}
 
 export function Header(props: HeaderProps) {
   return (
-    <header className=" p-2 w-full">
-      <img src={logo} alt="" /> hey there
+    <header className="bg-color-primary-0 p-2 w-full">
+      <img src={logo} alt="First Voices logo" /> hey there
     </header>
   );
 }

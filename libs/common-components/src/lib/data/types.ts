@@ -44,3 +44,17 @@ export type MenuSection = {
   id: string;
   menuItems: MenuItemType[];
 };
+
+export type Dialect = {
+  id: string;
+  image?: string;
+  label: string;
+};
+
+export type Language = {
+  id: string;
+  image?: string;
+  label: string;
+  color: string;
+  dialects?: Dialect[];
+};

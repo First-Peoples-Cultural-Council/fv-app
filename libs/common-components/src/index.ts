@@ -1,3 +1,5 @@
+export * from './lib/right-slider/right-slider';
+export * from './lib/mobile-accordion/mobile-accordion';
 export * from './lib/header/header';
 export * from './lib/alert/alert';
 export * from './lib/button/button';

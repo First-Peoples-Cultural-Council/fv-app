@@ -6,6 +6,17 @@ module.exports = {
   ],
   theme: {
     extend: {
+      transitionProperty: {
+        width: 'width',
+        height: 'height',
+        padding: 'padding',
+      },
+      fontFamily: {
+        regular: ['Regular', 'sans-serif'],
+        bold: ['Bold', 'sans-serif'],
+        italic: ['Italic', 'sans-serif'],
+        boldItalic: ['BoldItalic', 'sans-serif'],
+      },
       colors: {
         'color-primary-0': '#b40000',
         'color-primary-1': '#EF3F3F',

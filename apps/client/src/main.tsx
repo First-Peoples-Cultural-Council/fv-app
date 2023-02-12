@@ -11,7 +11,7 @@ import {
   Route,
 } from 'react-router-dom';
 import { PageNotFound } from '@fv-app/common-components';
-import ChooseALanguage from './app/choose-alanguage/choose-alanguage';
+import ChooseALanguage from './app/choose-a-language/choose-a-language';
 import Language from './app/language/language';
 
 const router = createBrowserRouter(

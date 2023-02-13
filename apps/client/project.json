@@ -51,7 +51,8 @@
           "apps/client/src/favicon.ico",
           "apps/client/src/assets",
           "apps/client/src/robots.txt",
-          "apps/client/src/manifest.json"
+          "apps/client/src/manifest.json",
+          "apps/client/src/service-worker.js"
         ],
         "styles": [
           "libs/shared-assets/reset.css",

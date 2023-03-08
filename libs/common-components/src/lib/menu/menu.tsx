@@ -10,11 +10,11 @@ import {
   SubmitButtonMenuItem,
 } from '@fv-app/common-components';
 
-import { Button } from '../button/button';
 import ClickAwayListener from 'react-click-away-listener';
 import classNames from 'classnames';
 import { usePopper } from 'react-popper';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export interface MenuProps {
   className?: string;
@@ -99,63 +99,55 @@ export function Menu({
             {section.menuItems.map((menuItem) => {
               if (isLinkMenu(menuItem)) {
                 return (
-                  <Button
+                  <Link
                     key={menuItem.id}
-                    type={menuItem.type}
                     to={menuItem.to}
                     className="z-10 text-gray-700 active:bg-gray-100 active:text-gray-900 block px-4 py-2 text-sm"
                     role="menuitem"
                     tabIndex={-1}
-                    buttonStyle="menuItem"
                   >
                     {menuItem.label}
-                  </Button>
+                  </Link>
                 );
               } else if (isButtonMenu(menuItem)) {
                 if (isSubmitButtonMenu(menuItem)) {
                   return (
-                    <Button
+                    <button
                       key={menuItem.id}
                       role="menuitem"
+                      type="submit"
                       tabIndex={-1}
-                      type={ButtonTypeEnum.button}
-                      buttonType={StandardButtonButtonTypeEnum.submit}
-                      buttonStyle="menuItem"
                       className="text-gray-700 active:bg-gray-100 active:text-gray-900 block px-4 py-2 text-sm"
                     >
                       {menuItem.label}
-                    </Button>
+                    </button>
                   );
                 } else if (isButtonButtonMenu(menuItem)) {
                   return (
-                    <Button
+                    <button
                       key={menuItem.id}
                       role="menuitem"
                       tabIndex={-1}
-                      type={ButtonTypeEnum.button}
-                      buttonType={StandardButtonButtonTypeEnum.button}
-                      buttonStyle="menuItem"
+                      type="button"
                       onClick={menuItem.onClick}
                       className="text-gray-700 active:bg-gray-100 active:text-gray-900 block px-4 py-2 text-sm"
                     >
                       {menuItem.label}
-                    </Button>
+                    </button>
                   );
                 }
                 return null;
               } else if (isAnchorMenu(menuItem)) {
                 return (
-                  <Button
+                  <a
                     key={menuItem.id}
                     role="menuitem"
                     tabIndex={-1}
-                    type={ButtonTypeEnum.a}
-                    buttonStyle="menuItem"
                     href={menuItem.href}
                     className="text-gray-700 active:bg-gray-100 active:text-gray-900 block px-4 py-2 text-sm"
                   >
                     {menuItem.label}
-                  </Button>
+                  </a>
                 );
               }
               return null;

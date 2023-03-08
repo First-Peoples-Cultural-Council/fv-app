@@ -1,12 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useButtonStyle } from './useButtonStyle';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
 interface Props {
   onClick: () => void;
 }
 
 const Buttons = ({ onClick }: Props) => {
+  const defaultButton = useButtonStyle();
   const primaryButtonStyle = useButtonStyle('primary', 'button');
   const primaryLinkStyle = useButtonStyle('primary', 'link');
   const secondaryButtonStyle = useButtonStyle('secondary', 'button');
@@ -15,6 +17,9 @@ const Buttons = ({ onClick }: Props) => {
   const tertiaryLinkStyle = useButtonStyle('tertiary', 'link');
   return (
     <div className="flex flex-col">
+      <button onClick={onClick} className={classNames(defaultButton, 'my-1')}>
+        Default Style Button
+      </button>
       <button onClick={onClick} className={primaryButtonStyle}>
         Primary Standard Button
       </button>

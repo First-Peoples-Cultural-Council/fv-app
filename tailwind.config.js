@@ -37,6 +37,7 @@ module.exports = {
         'color-phrases-0': '#C37829',
         'color-songs-0': '#830042',
         'color-stories-0': '#E9C46A',
+        'color-main-header-0': '#505050',
       },
     },
   },

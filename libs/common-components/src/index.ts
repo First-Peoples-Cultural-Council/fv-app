@@ -1,3 +1,4 @@
+export * from './lib/header/header';
 export * from './lib/right-slider/right-slider';
 export * from './lib/mobile-accordion/mobile-accordion';
 export * from './lib/header/header';

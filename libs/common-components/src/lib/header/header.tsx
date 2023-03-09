@@ -19,9 +19,7 @@ export function Header({ className }: HeaderProps) {
         <img src={FVLogo} alt="First Voices Logo" />
       </div>
       <IconMenu
-        icon={
-          <i className="fv-menu w-[18px] h-[18px] text-white relative -top-[5px] -left-[3px]" />
-        }
+        icon={<i className="fv-menu w-[24px] h-[24px] text-white relative" />}
         menuData={[
           {
             id: 'settings',

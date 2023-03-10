@@ -17,7 +17,7 @@ const Buttons = ({ onClick }: Props) => {
   const tertiaryLinkStyle = useButtonStyle('tertiary', 'link');
   return (
     <div className="flex flex-col">
-      <button onClick={onClick} className={classNames(defaultButton, 'my-1')}>
+      <button onClick={onClick} className={classNames(defaultButton)}>
         Default Style Button
       </button>
       <button onClick={onClick} className={primaryButtonStyle}>

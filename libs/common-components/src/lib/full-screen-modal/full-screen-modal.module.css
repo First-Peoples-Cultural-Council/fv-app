@@ -7,4 +7,6 @@ body.modal-active {
   overflow-y: visible !important;
 }
 
-.opacity-95 {opacity: .95;}
+.opacity-95 {
+  opacity: 0.95;
+}

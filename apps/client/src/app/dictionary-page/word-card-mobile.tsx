@@ -1,7 +1,4 @@
-import {
-  FvWord,
-  FullScreenModal,
-} from '@fv-app/common-components';
+import { FvWord, FullScreenModal } from '@fv-app/common-components';
 import React from 'react';
 import WordCard from './word-card';
 

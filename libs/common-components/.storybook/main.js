@@ -1,6 +1,9 @@
+import rootMain from '../../../.storybook/main';
+
 const config = {
   stories: ['../src/lib/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
   addons: ['@storybook/addon-essentials'],
+  docs: { ...rootMain.docs },
   framework: {
     name: '@storybook/react-vite',
     options: {

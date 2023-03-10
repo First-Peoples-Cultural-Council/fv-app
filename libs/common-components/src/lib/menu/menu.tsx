@@ -8,7 +8,7 @@ import {
   MenuSection,
   StandardButtonButtonTypeEnum,
   SubmitButtonMenuItem,
-} from '@fv-app/common-components';
+} from '../../';
 
 import ClickAwayListener from 'react-click-away-listener';
 import classNames from 'classnames';
@@ -81,7 +81,7 @@ export function Menu({
         style={popperStyles['popper']}
         {...attributes['popper']}
         className={classNames(
-          'z-10 mt-2 w-56 divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none',
+          'z-10 mt-2 w-56 divide-gray-100 bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none',
           className
         )}
         role="menu"

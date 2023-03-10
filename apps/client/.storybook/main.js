@@ -10,6 +10,7 @@ module.exports = {
     '../src/app/**/*.stories.@(js|jsx|ts|tsx|mdx)',
   ],
   addons: [...rootMain.addons],
+  docs: { ...rootMain.docs },
   async viteFinal(config, { configType }) {
     return mergeConfig(config, {
       plugins: [

@@ -1,4 +1,4 @@
-import { FvWord, Modal, useButtonStyle } from '@fv-app/common-components';
+import { FvWord, Modal } from '@fv-app/common-components';
 import React from 'react';
 import WordCard from './word-card';
 

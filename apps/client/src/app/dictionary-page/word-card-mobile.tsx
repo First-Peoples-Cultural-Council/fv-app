@@ -1,6 +1,5 @@
 import {
   FvWord,
-  useButtonStyle,
   FullScreenModal,
 } from '@fv-app/common-components';
 import React from 'react';

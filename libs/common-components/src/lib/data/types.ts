@@ -58,3 +58,27 @@ export type Language = {
   color: string;
   dialects?: Dialect[];
 };
+
+export type FvWord = {
+  source: string;
+  entryID: string;
+  word: string;
+  definition: string;
+  audio: FvAudio[];
+  img: string;
+  theme: string;
+  secondary_theme: string | null;
+  optional:
+    | {
+        [key: string]: string;
+      }[]
+    | null;
+  compare_form: string;
+  sort_form: string;
+  sorting_form: number[];
+};
+
+export type FvAudio = {
+  speaker: string | null;
+  filename: string;
+};

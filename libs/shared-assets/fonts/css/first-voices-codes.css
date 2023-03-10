@@ -1,6 +1,24 @@
-.fv-cancel:before {
+.fv-close:before {
   content: '\e800';
 } /* '' */
+.fv-volume-up:before {
+  content: '\e801';
+} /* '' */
+.fv-copy:before {
+  content: '\e802';
+} /* '' */
+.fv-right-open:before {
+  content: '\e803';
+} /* '' */
+.fv-left-open:before {
+  content: '\e804';
+} /* '' */
+.fv-play:before {
+  content: '\e805';
+} /* '' */
 .fv-menu:before {
   content: '\f0c9';
 } /* '' */
+.fv-share:before {
+  content: '\f1e0';
+} /* '' */

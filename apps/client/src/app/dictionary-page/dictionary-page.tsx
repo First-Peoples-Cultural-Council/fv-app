@@ -1,5 +1,5 @@
 import { dataDict } from '../temp-word-list';
-import styles from './dictionary.module.css';
+import styles from './dictionary-page.module.css';
 import WordCardDesktop from './word-card-desktop';
 import WordCardMobile from './word-card-mobile';
 

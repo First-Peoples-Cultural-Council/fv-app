@@ -1,5 +1,6 @@
 import { FvWord, Modal, useButtonStyle } from '@fv-app/common-components';
 import React from 'react';
+import WordCard from './word-card';
 
 function WordCardDesktop({
   word,
@@ -10,9 +11,6 @@ function WordCardDesktop({
   theme,
 }: FvWord) {
   const [showModal, setShowModal] = React.useState(false);
-
-  const secondaryButtonStyle = useButtonStyle('secondary', 'button');
-  const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 
   return (
     <>
@@ -27,7 +25,9 @@ function WordCardDesktop({
             </div>
             <div>
               {audio != null &&
-                audio.map((_element) => <i className="fv-volume-up" />)}
+                audio.map((fvAudio) => (
+                  <i key={fvAudio.filename} className="fv-volume-up" />
+                ))}
             </div>
           </div>
           <div>
@@ -66,41 +66,25 @@ function WordCardDesktop({
                 </div>
               </div>
             </div>
-            <p className="italic">
-              {optional != null &&
-                optional.map((element) => {
-                  if (element['Part of Speech'] !== null) {
-                    return `(${element['Part of Speech']}) `;
-                  } else {
-                    return '';
-                  }
-                })}
-            </p>
-            <p className="pt-10 pb-10">{definition}</p>
-            {audio != null &&
-              audio.map((fvAudio) => (
-                <button
-                  className={secondaryButtonStyle}
-                  onClick={() => playAudio(fvAudio.filename)}
-                >
-                  <i className="fv-play">{fvAudio.speaker}</i>
-                </button>
-              ))}
-            {img && (
-              <img className="pt-10 max-w-md max-h-md" src={img} alt={word} />
-            )}
-            <p className="pt-10">CATEGORIES</p>
-            <button className={tertiaryButtonStyle}>{theme}</button>
+            <WordCard
+              word={word}
+              definition={definition}
+              img={img}
+              optional={optional}
+              audio={audio}
+              theme={theme}
+              source={''}
+              entryID={''}
+              secondary_theme={null}
+              compare_form={''}
+              sort_form={''}
+              sorting_form={[]}
+            />
           </div>
         </Modal>
       )}
     </>
   );
-}
-
-async function playAudio(fileName: string) {
-  const audio = new Audio(fileName);
-  audio.play();
 }
 
 export default WordCardDesktop;

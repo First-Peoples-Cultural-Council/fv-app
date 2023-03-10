@@ -1,6 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './full-screen-modal.module.css';
-
 import React from 'react';
 
 export interface FullScreenModalProps {

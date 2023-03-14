@@ -29,22 +29,22 @@ export const Phrases: Story = {
   },
 };
 
-export const Songs: Story = {
+export const Alphabet: Story = {
   args: {
     title: 'Search',
     backgroundColors: {
-      to: 'to-color-songs-light',
-      from: 'from-color-songs-dark',
+      to: 'to-color-alphabet-light',
+      from: 'from-color-alphabet-dark',
     },
   },
 };
 
-export const Stories: Story = {
+export const Categories: Story = {
   args: {
     title: 'Search',
     backgroundColors: {
-      to: 'to-color-stories-light',
-      from: 'from-color-stories-dark',
+      to: 'to-color-categories-light',
+      from: 'from-color-categories-dark',
     },
   },
 };

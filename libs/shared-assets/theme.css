@@ -1,32 +1,34 @@
-/*@import "BC-Sans-Font-woff/BCSans-Regular.woff";*/
-/*@import "BC-Sans-Font-woff/BCSans-Bold.woff";*/
-/*@import "BC-Sans-Font-woff/BCSans-BoldItalic.woff";*/
-/*@import "BC-Sans-Font-woff/BCSans-Italic.woff";*/
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/*@font-face {*/
-/*  font-family: 'Regular';*/
-/*  src: local("BCSans-Regular"), url('/BC-Sans-Font-woff/BCSans-Regular.woff') format('woff');*/
-/*}*/
+@font-face {
+  font-family: 'BCSans';
+  font-style: normal;
+  src: url('./BCSans/BCSans-Regular.woff2') format('woff2'),
+    url('./BCSans/BCSans-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'BCSans';
+  font-style: italic;
+  src: url('./BCSans/BCSans-Italic.woff2') format('woff2'),
+    url('./BCSans/BCSans-Italic.woff') format('woff');
+}
+@font-face {
+  font-family: 'BCSans';
+  font-weight: 700;
+  src: url('./BCSans/BCSans-Bold.woff2') format('woff2'),
+    url('./BCSans/BCSans-Bold.woff') format('woff');
+}
+@font-face {
+  font-family: 'BCSans';
+  font-style: italic;
+  font-weight: 700;
+  src: url('./BCSans/BCSans-BoldItalic.woff2') format('woff2'),
+    url('./BCSans/BCSans-BoldItalic.woff') format('woff');
+}
 
-/*@font-face {*/
-/*  font-family: 'Bold';*/
-/*  src: local("BCSans-Bold"), url('/BC-Sans-Font-woff/BCSans-Bold.woff') format('woff');*/
-/*}*/
-
-/*@font-face {*/
-/*  font-family: 'BoldItalic';*/
-/*  src: local("BCSans-BoldItalic"), url('/BC-Sans-Font-woff/BCSans-BoldItalic.woff') format('woff');*/
-/*}*/
-
-/*@font-face {*/
-/*  font-family: 'Italic';*/
-/*  src: local("BCSans-Italic"), url('/BC-Sans-Font-woff/BCSans-Italic.woff') format('woff');*/
-/*}*/
-
-/*html,body {*/
-/*  font-family: 'Regular', sans-serif;*/
-/*}*/
+html,
+body {
+  font-family: 'BCSans', sans-serif;
+}

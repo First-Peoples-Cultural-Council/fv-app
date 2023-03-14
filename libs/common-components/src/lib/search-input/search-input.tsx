@@ -20,7 +20,7 @@ export function SearchInput({
         value={value}
         onChange={onChange}
         className={classNames(
-          'pl-2 rounded-l h-7 border border-gray-400 w-full',
+          'pl-2 rounded-l h-7 border border-gray-400 w-full shadow shadow-inner',
           className
         )}
       />

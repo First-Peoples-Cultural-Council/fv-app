@@ -17,5 +17,4 @@ export const Primary: Story = {
   args: {
     value: 'Search',
   },
-  render: (args) => <SearchInput {...args} />,
 };

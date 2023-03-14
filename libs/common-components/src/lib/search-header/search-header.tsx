@@ -8,6 +8,7 @@ export interface SearchHeaderProps {
 
 export function SearchHeader({ title, backgroundColors }: SearchHeaderProps) {
   const [searchValue, setSearchValue] = useState<string>('');
+
   return (
     <header
       className={`flex py-5 px-4 bg-gradient-to-t ${backgroundColors.from} ${backgroundColors.to} justify-between items-center`}

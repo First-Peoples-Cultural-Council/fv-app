@@ -34,6 +34,36 @@
     this.innerHTML = '&#xe805;&nbsp;'
   );
 }
+.fv-search {
+  *zoom: expression(
+    this.runtimeStyle[ 'zoom'] = '1',
+    this.innerHTML = '&#xe806;&nbsp;'
+  );
+}
+.fv-alphabet {
+  *zoom: expression(
+    this.runtimeStyle[ 'zoom'] = '1',
+    this.innerHTML = '&#xe807;&nbsp;'
+  );
+}
+.fv-categories {
+  *zoom: expression(
+    this.runtimeStyle[ 'zoom'] = '1',
+    this.innerHTML = '&#xe808;&nbsp;'
+  );
+}
+.fv-phrases {
+  *zoom: expression(
+    this.runtimeStyle[ 'zoom'] = '1',
+    this.innerHTML = '&#xe809;&nbsp;'
+  );
+}
+.fv-words {
+  *zoom: expression(
+    this.runtimeStyle[ 'zoom'] = '1',
+    this.innerHTML = '&#xe80a;&nbsp;'
+  );
+}
 .fv-menu {
   *zoom: expression(
     this.runtimeStyle[ 'zoom'] = '1',

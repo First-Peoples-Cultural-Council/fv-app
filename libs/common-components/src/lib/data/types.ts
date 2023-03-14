@@ -82,3 +82,18 @@ export type FvAudio = {
   speaker: string | null;
   filename: string;
 };
+
+export type DictionaryNavItem = {
+  id: string;
+  path: string;
+  activePathMatches?: { path: string }[];
+  icon: string;
+  title: string;
+  colors: {
+    to: string;
+    from: string;
+    hoverText: string;
+    activeText: string;
+    border: string;
+  };
+};

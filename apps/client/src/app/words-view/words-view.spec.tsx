@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import Language from './language';
+import WordsView from './words-view';
 
-describe('Language', () => {
+describe('WordsView', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Language />);
+    const { baseElement } = render(<WordsView />);
     expect(baseElement).toBeTruthy();
   });
 });

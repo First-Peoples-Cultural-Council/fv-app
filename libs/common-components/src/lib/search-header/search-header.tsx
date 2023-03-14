@@ -1,16 +1,18 @@
-import styles from './search-header.module.css';
 import SearchInput from '../search-input/search-input';
 import { useState } from 'react';
 
-/* eslint-disable-next-line */
 export interface SearchHeaderProps {
   title: string;
+  backgroundColors: { to: string; from: string };
 }
 
-export function SearchHeader({ title }: SearchHeaderProps) {
+export function SearchHeader({ title, backgroundColors }: SearchHeaderProps) {
   const [searchValue, setSearchValue] = useState<string>('');
+
   return (
-    <header className="flex py-5 px-4 bg-gradient-to-t from-color-dark-search-header to-color-light-search-header justify-between items-center">
+    <header
+      className={`flex py-5 px-4 bg-gradient-to-t ${backgroundColors.from} ${backgroundColors.to} justify-between items-center`}
+    >
       <div className="text-white uppercase">{title}</div>
       <SearchInput
         value={searchValue}

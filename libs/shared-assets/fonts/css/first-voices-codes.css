@@ -19,6 +19,18 @@
 .fv-search:before {
   content: '\e806';
 } /* '' */
+.fv-alphabet:before {
+  content: '\e807';
+} /* '' */
+.fv-categories:before {
+  content: '\e808';
+} /* '' */
+.fv-phrases:before {
+  content: '\e809';
+} /* '' */
+.fv-words:before {
+  content: '\e80a';
+} /* '' */
 .fv-menu:before {
   content: '\f0c9';
 } /* '' */

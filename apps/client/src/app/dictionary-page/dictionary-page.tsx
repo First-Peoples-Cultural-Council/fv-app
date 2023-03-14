@@ -1,48 +1,99 @@
-import { dataDict } from '../temp-word-list';
 import styles from './dictionary-page.module.css';
-import WordCardDesktop from './word-card-desktop';
-import WordCardMobile from './word-card-mobile';
+import { DictionaryNavItem, SearchHeader } from '@fv-app/common-components';
+import { matchRoutes, Outlet, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import DictionaryNavDesktop from '../dictionary-nav-desktop/dictionary-nav-desktop';
+import DictionaryNavMobile from '../dictionary-nav-mobile/dictionary-nav-mobile';
+
+const navItems: DictionaryNavItem[] = [
+  {
+    id: 'alphabet',
+    path: '/',
+    icon: 'fv-alphabet',
+    title: 'Alphabet',
+    colors: {
+      to: 'to-color-alphabet-light',
+      from: 'from-color-alphabet-dark',
+      hoverText: 'hover:text-color-alphabet-dark',
+      activeText: 'text-color-alphabet-dark',
+      border: 'border-color-alphabet-dark',
+    },
+  },
+  {
+    id: 'words',
+    path: 'words',
+    icon: 'fv-words',
+    title: 'Words',
+    colors: {
+      to: 'to-color-words-light',
+      from: 'from-color-words-dark',
+      hoverText: 'hover:text-color-words-dark',
+      activeText: 'text-color-words-dark',
+      border: 'border-color-words-dark',
+    },
+  },
+  {
+    id: 'phrases',
+    path: 'phrases',
+    icon: 'fv-phrases',
+    title: 'Phrases',
+    colors: {
+      to: 'to-color-phrases-light',
+      from: 'from-color-phrases-dark',
+      hoverText: 'hover:text-color-phrases-dark',
+      activeText: 'text-color-phrases-dark',
+      border: 'border-color-phrases-dark',
+    },
+  },
+  {
+    id: 'categories',
+    path: 'categories',
+    icon: 'fv-categories',
+    title: 'Categories',
+    colors: {
+      to: 'to-color-categories-light',
+      from: 'from-color-categories-dark',
+      hoverText: 'hover:text-color-categories-dark',
+      activeText: 'text-color-categories-dark',
+      border: 'border-color-categories-dark',
+    },
+  },
+];
 
 /* eslint-disable-next-line */
 export interface DictionaryProps {}
 
 export function Dictionary(props: DictionaryProps) {
+  const location = useLocation();
+  const [currentNavItem, setCurrentNavItem] = useState(
+    navItems.find((item) => matchRoutes([{ path: item.path }], location)) ||
+      navItems[0]
+  );
+
+  useEffect(() => {
+    const currentNavItem = navItems.find((item) =>
+      matchRoutes([{ path: item.path }], location)
+    );
+    if (currentNavItem) {
+      setCurrentNavItem(currentNavItem);
+    }
+  }, [location]);
+
+  if (!currentNavItem) return null;
   return (
     <div className={styles['container']}>
-      {dataDict.map((term) => {
-        return (
-          <>
-            <WordCardMobile
-              word={term.word}
-              definition={term.definition}
-              audio={term.audio}
-              img={term.img}
-              source={term.source}
-              entryID={term.entryID}
-              theme={term.theme}
-              secondary_theme={term.secondary_theme}
-              optional={term.optional}
-              compare_form={term.compare_form}
-              sort_form={term.sort_form}
-              sorting_form={term.sorting_form}
-            />
-            <WordCardDesktop
-              word={term.word}
-              definition={term.definition}
-              audio={term.audio}
-              img={term.img}
-              source={term.source}
-              entryID={term.entryID}
-              theme={term.theme}
-              secondary_theme={term.secondary_theme}
-              optional={term.optional}
-              compare_form={term.compare_form}
-              sort_form={term.sort_form}
-              sorting_form={term.sorting_form}
-            />
-          </>
-        );
-      })}
+      <SearchHeader
+        title={currentNavItem.title}
+        backgroundColors={{
+          to: currentNavItem.colors.to,
+          from: currentNavItem.colors.from,
+        }}
+      />
+      <DictionaryNavMobile navItems={navItems} />
+      <div className="flex w-full">
+        <DictionaryNavDesktop navItems={navItems} />
+        <Outlet />
+      </div>
     </div>
   );
 }

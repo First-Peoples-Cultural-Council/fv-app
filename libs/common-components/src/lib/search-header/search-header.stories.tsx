@@ -9,7 +9,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Words: Story = {
   args: {
     title: 'Search',
     backgroundColors: {
@@ -17,5 +17,34 @@ export const Primary: Story = {
       from: 'from-color-words-dark',
     },
   },
-  render: (args) => <SearchHeader {...args} />,
+};
+
+export const Phrases: Story = {
+  args: {
+    title: 'Search',
+    backgroundColors: {
+      to: 'to-color-phrases-light',
+      from: 'from-color-phrases-dark',
+    },
+  },
+};
+
+export const Songs: Story = {
+  args: {
+    title: 'Search',
+    backgroundColors: {
+      to: 'to-color-songs-light',
+      from: 'from-color-songs-dark',
+    },
+  },
+};
+
+export const Stories: Story = {
+  args: {
+    title: 'Search',
+    backgroundColors: {
+      to: 'to-color-stories-light',
+      from: 'from-color-stories-dark',
+    },
+  },
 };

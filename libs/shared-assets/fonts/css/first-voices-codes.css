@@ -16,6 +16,9 @@
 .fv-play:before {
   content: '\e805';
 } /* '' */
+.fv-search:before {
+  content: '\e806';
+} /* '' */
 .fv-menu:before {
   content: '\f0c9';
 } /* '' */

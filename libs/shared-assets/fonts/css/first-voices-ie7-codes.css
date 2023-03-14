@@ -34,6 +34,12 @@
     this.innerHTML = '&#xe805;&nbsp;'
   );
 }
+.fv-search {
+  *zoom: expression(
+    this.runtimeStyle[ 'zoom'] = '1',
+    this.innerHTML = '&#xe806;&nbsp;'
+  );
+}
 .fv-menu {
   *zoom: expression(
     this.runtimeStyle[ 'zoom'] = '1',

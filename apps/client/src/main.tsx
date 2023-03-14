@@ -11,16 +11,13 @@ import {
   Route,
 } from 'react-router-dom';
 import { PageNotFound } from '@fv-app/common-components';
-import ChooseALanguage from './app/choose-a-language/choose-a-language';
-import Language from './app/language/language';
 import Dictionary from './app/dictionary-page/dictionary-page';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<App />}>
-        <Route index element={<ChooseALanguage />} />
-        <Route path="/language" element={<Language />} />
+        <Route index element={<div>Hi</div>} />
         <Route path="/dictionary" element={<Dictionary />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />

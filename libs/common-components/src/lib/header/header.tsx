@@ -11,7 +11,7 @@ export function Header({ className }: HeaderProps) {
   return (
     <header
       className={classNames(
-        'w-full bg-color-main-header-0 flex p-4 justify-between items-center',
+        'w-full bg-color-main-header flex p-4 justify-between items-center',
         className
       )}
     >

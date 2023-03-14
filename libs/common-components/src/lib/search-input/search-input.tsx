@@ -18,6 +18,7 @@ export function SearchInput({
     <div className="flex items-center w-full max-w-md">
       <input
         value={value}
+        onChange={onChange}
         className={classNames(
           'pl-2 rounded-l h-7 border border-gray-400 w-full',
           className

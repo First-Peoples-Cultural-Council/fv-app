@@ -80,6 +80,7 @@ const Buttons = ({ onClick }: Props) => {
 
 const meta = {
   component: Buttons,
+  tags: ['autodocs'],
   argTypes: { onClick: { action: 'clicked' } },
 } satisfies Meta<typeof Buttons>;
 
@@ -87,5 +88,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-  render: () => <Buttons onClick={() => null} />,
+  render: (args) => <Buttons {...args} />,
 };

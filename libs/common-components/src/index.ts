@@ -1,4 +1,5 @@
 export * from './lib/full-screen-modal/full-screen-modal';
+export * from './lib/search-header/search-header';
 export * from './lib/modal/modal';
 export * from './lib/header/header';
 export * from './lib/right-slider/right-slider';

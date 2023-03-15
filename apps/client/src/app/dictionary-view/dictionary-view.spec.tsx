@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import WordsView from './words-view';
+import DictionaryView from './dictionary-view';
 
 describe('WordsView', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<WordsView />);
+    const { baseElement } = render(<DictionaryView />);
     expect(baseElement).toBeTruthy();
   });
 });

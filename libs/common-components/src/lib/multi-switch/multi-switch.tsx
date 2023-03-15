@@ -24,7 +24,7 @@ export function MultiSwitch({
         {items.map((item, index) => {
           return (
             <button
-              key={index}
+              key={`${index}-${item.name}`}
               className={classNames(
                 'py-2 px-4 border-solid border-gray-300 border-2 shadow-md text-center',
                 {

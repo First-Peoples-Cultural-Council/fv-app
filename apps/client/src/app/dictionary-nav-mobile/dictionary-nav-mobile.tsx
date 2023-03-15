@@ -1,4 +1,3 @@
-import styles from './dictionary-nav-mobile.module.css';
 import { DictionaryNavItem } from '@fv-app/common-components';
 import { Link, matchRoutes } from 'react-router-dom';
 import classNames from 'classnames';

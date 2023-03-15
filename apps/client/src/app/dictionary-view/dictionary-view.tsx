@@ -1,9 +1,9 @@
-import styles from './words-view.module.css';
+import styles from './dictionary-view.module.css';
 
 /* eslint-disable-next-line */
 export interface WordsViewProps {}
 
-export function WordsView(props: WordsViewProps) {
+export function DictionaryView(props: WordsViewProps) {
   return (
     <div className={styles['container']}>
       <h1>Welcome to WordsView!</h1>
@@ -11,4 +11,4 @@ export function WordsView(props: WordsViewProps) {
   );
 }
 
-export default WordsView;
+export default DictionaryView;

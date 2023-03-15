@@ -13,8 +13,7 @@ import {
 import { PageNotFound } from '@fv-app/common-components';
 import Dictionary from './app/dictionary-page/dictionary-page';
 import AlphabetView from './app/alphabet-view/alphabet-view';
-import WordsView from './app/words-view/words-view';
-import PhrasesView from './app/phrases-view/phrases-view';
+import DictionaryView from './app/dictionary-view/dictionary-view';
 import CategoriesView from './app/categories-view/categories-view';
 
 const router = createBrowserRouter(
@@ -23,8 +22,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<App />}>
         <Route path="/" element={<Dictionary />}>
           <Route index element={<AlphabetView />} />
-          <Route path="words" element={<WordsView />} />
-          <Route path="phrases" element={<PhrasesView />} />
+          <Route path="dictionary" element={<DictionaryView />} />
           <Route path="categories" element={<CategoriesView />} />
         </Route>
       </Route>

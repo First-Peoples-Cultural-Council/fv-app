@@ -20,29 +20,16 @@ const navItems: DictionaryNavItem[] = [
     },
   },
   {
-    id: 'words',
-    path: 'words',
+    id: 'dictionary',
+    path: 'dictionary',
     icon: 'fv-words',
-    title: 'Words',
+    title: 'Dictionary',
     colors: {
       to: 'to-color-words-light',
       from: 'from-color-words-dark',
       hoverText: 'hover:text-color-words-dark',
       activeText: 'text-color-words-dark',
       border: 'border-color-words-dark',
-    },
-  },
-  {
-    id: 'phrases',
-    path: 'phrases',
-    icon: 'fv-phrases',
-    title: 'Phrases',
-    colors: {
-      to: 'to-color-phrases-light',
-      from: 'from-color-phrases-dark',
-      hoverText: 'hover:text-color-phrases-dark',
-      activeText: 'text-color-phrases-dark',
-      border: 'border-color-phrases-dark',
     },
   },
   {

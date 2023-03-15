@@ -119,6 +119,12 @@
         "width": 1000
       },
       "search": ["words"]
+    },
+    {
+      "uid": "d745d7c05b94e609decabade2cae12cb",
+      "css": "quote-right",
+      "code": 61710,
+      "src": "fontawesome"
     }
   ]
 }

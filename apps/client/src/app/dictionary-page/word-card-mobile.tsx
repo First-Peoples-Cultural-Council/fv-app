@@ -9,6 +9,7 @@ function WordCardMobile({
   img,
   optional,
   theme,
+  secondary_theme,
 }: FvWord) {
   const [showModal, setShowModal] = React.useState(false);
 
@@ -69,7 +70,7 @@ function WordCardMobile({
               theme={theme}
               source={''}
               entryID={''}
-              secondary_theme={null}
+              secondary_theme={secondary_theme}
               compare_form={''}
               sort_form={''}
               sorting_form={[]}

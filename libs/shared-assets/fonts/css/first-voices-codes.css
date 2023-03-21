@@ -10,6 +10,9 @@
 .fv-categories:before { content: '\e808'; } /* '' */
 .fv-phrases:before { content: '\e809'; } /* '' */
 .fv-words:before { content: '\e80a'; } /* '' */
+.fv-body:before { content: '\e80b'; } /* '' */
+.fv-colours:before { content: '\e80c'; } /* '' */
+.fv-events:before { content: '\e80d'; } /* '' */
 .fv-menu:before { content: '\f0c9'; } /* '' */
 .fv-quote-right:before { content: '\f10e'; } /* '' */
 .fv-share:before { content: '\f1e0'; } /* '' */

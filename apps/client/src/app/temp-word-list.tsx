@@ -12,7 +12,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c9eef16-4665-40b9-89ce-debc0301f93b/file:content/pexels-stijn-dijkstra-2583852.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -37,7 +37,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/79982479-27f0-4de6-8594-ad2c32d69f34/file:content/pexels-james-wheeler-3793045.jpg',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -62,7 +62,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5154eea2-a55c-47ad-b529-6ce27dfd1011/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -187,7 +187,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5154eea2-a55c-47ad-b529-6ce27dfd1011/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -212,7 +212,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e8d43dd1-2e33-4380-abb3-601a288a7d86/file:content/pexels-roman-odintsov-4555468.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -312,7 +312,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -437,7 +437,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/fde3d142-b460-43b4-83aa-d59eea294dda/file:content/pexels-james-wheeler-3934949.jpg',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -462,7 +462,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5154eea2-a55c-47ad-b529-6ce27dfd1011/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -487,7 +487,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -537,7 +537,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -562,7 +562,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/26e79193-ba91-460a-bcf5-76c15ef9b7c7/file:content/Wikipedia20_animated_Fashion.gif',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -587,7 +587,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5154eea2-a55c-47ad-b529-6ce27dfd1011/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -612,7 +612,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/79982479-27f0-4de6-8594-ad2c32d69f34/file:content/pexels-james-wheeler-3793045.jpg',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -738,7 +738,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/51299cb7-232f-4ee0-ae43-1d1387cfb285/file:content/martin-bisof-xsIOCYmlI1g-unsplash.jpg',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -839,7 +839,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -964,7 +964,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -989,7 +989,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c9eef16-4665-40b9-89ce-debc0301f93b/file:content/pexels-stijn-dijkstra-2583852.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -1014,7 +1014,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -1039,7 +1039,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c9eef16-4665-40b9-89ce-debc0301f93b/file:content/pexels-stijn-dijkstra-2583852.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -1264,7 +1264,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a71e880e-4316-4f8e-8801-6386a91d76c3/file:content/logo.png',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -1289,7 +1289,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -1314,7 +1314,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a94f28aa-26ce-4376-b22b-651ecac7b9d8/file:content/pexels-james-wheeler-3985392.jpg',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -1339,7 +1339,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e82c72be-5637-423a-86ac-472b4382357e/file:content/pexels-james-wheeler-3988366.jpg',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -1364,7 +1364,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/aae644a2-d6ec-415f-b820-5339a9e594be/file:content/pexels-james-wheeler-1522284.jpg',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -1464,7 +1464,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/26e79193-ba91-460a-bcf5-76c15ef9b7c7/file:content/Wikipedia20_animated_Fashion.gif',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -1539,7 +1539,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/fde3d142-b460-43b4-83aa-d59eea294dda/file:content/pexels-james-wheeler-3934949.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -1564,8 +1564,8 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/79982479-27f0-4de6-8594-ad2c32d69f34/file:content/pexels-james-wheeler-3793045.jpg',
-    theme: 'Phrase Book \u026c',
-    secondary_theme: null,
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
+    secondary_theme: 'd22cc64b-3386-4746-a4fa-d2b4e056da4c',
     optional: [
       {
         Reference: '',
@@ -1639,7 +1639,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -1664,7 +1664,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a94f28aa-26ce-4376-b22b-651ecac7b9d8/file:content/pexels-james-wheeler-3985392.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -1689,7 +1689,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -1815,7 +1815,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c9eef16-4665-40b9-89ce-debc0301f93b/file:content/pexels-stijn-dijkstra-2583852.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -1840,7 +1840,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a94f28aa-26ce-4376-b22b-651ecac7b9d8/file:content/pexels-james-wheeler-3985392.jpg',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -1865,7 +1865,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/fde3d142-b460-43b4-83aa-d59eea294dda/file:content/pexels-james-wheeler-3934949.jpg',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -1890,7 +1890,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/fde3d142-b460-43b4-83aa-d59eea294dda/file:content/pexels-james-wheeler-3934949.jpg',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -1990,7 +1990,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/1254595a-715a-4d80-922d-5bdbf3a9a98e/file:content/background-image.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -2015,7 +2015,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/98845b1a-0070-4810-b834-5602a36cac93/file:content/pexels-daniil-ustinov-8360550.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -2040,7 +2040,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e82c72be-5637-423a-86ac-472b4382357e/file:content/pexels-james-wheeler-3988366.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -2065,7 +2065,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/98845b1a-0070-4810-b834-5602a36cac93/file:content/pexels-daniil-ustinov-8360550.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -2090,7 +2090,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/aae644a2-d6ec-415f-b820-5339a9e594be/file:content/pexels-james-wheeler-1522284.jpg',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -2115,7 +2115,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a71e880e-4316-4f8e-8801-6386a91d76c3/file:content/logo.png',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -2266,8 +2266,8 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Parent Category \u0112',
-    secondary_theme: null,
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
+    secondary_theme: '8d036fc1-c28a-4360-a440-ad1420dad138',
     optional: [
       {
         Reference: '',
@@ -2291,7 +2291,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/1254595a-715a-4d80-922d-5bdbf3a9a98e/file:content/background-image.jpg',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -2316,7 +2316,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/aae644a2-d6ec-415f-b820-5339a9e594be/file:content/pexels-james-wheeler-1522284.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -2341,7 +2341,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/1254595a-715a-4d80-922d-5bdbf3a9a98e/file:content/background-image.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -2366,7 +2366,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a71e880e-4316-4f8e-8801-6386a91d76c3/file:content/logo.png',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -2391,7 +2391,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e82c72be-5637-423a-86ac-472b4382357e/file:content/pexels-james-wheeler-3988366.jpg',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -2516,7 +2516,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -2691,7 +2691,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/98845b1a-0070-4810-b834-5602a36cac93/file:content/pexels-daniil-ustinov-8360550.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -2716,7 +2716,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -2741,7 +2741,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5154eea2-a55c-47ad-b529-6ce27dfd1011/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -2766,7 +2766,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5154eea2-a55c-47ad-b529-6ce27dfd1011/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -2941,7 +2941,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e8d43dd1-2e33-4380-abb3-601a288a7d86/file:content/pexels-roman-odintsov-4555468.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -2966,7 +2966,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -2991,8 +2991,8 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5154eea2-a55c-47ad-b529-6ce27dfd1011/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Phrase Book \u026c',
-    secondary_theme: null,
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
+    secondary_theme: 'd22cc64b-3386-4746-a4fa-d2b4e056da4c',
     optional: [
       {
         Reference: '',
@@ -3041,7 +3041,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -3166,7 +3166,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -3216,7 +3216,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c9eef16-4665-40b9-89ce-debc0301f93b/file:content/pexels-stijn-dijkstra-2583852.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -3241,7 +3241,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -3266,7 +3266,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -3291,7 +3291,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e8d43dd1-2e33-4380-abb3-601a288a7d86/file:content/pexels-roman-odintsov-4555468.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -3316,7 +3316,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/98845b1a-0070-4810-b834-5602a36cac93/file:content/pexels-daniil-ustinov-8360550.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -3341,7 +3341,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -3366,7 +3366,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/79982479-27f0-4de6-8594-ad2c32d69f34/file:content/pexels-james-wheeler-3793045.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -3391,7 +3391,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/1254595a-715a-4d80-922d-5bdbf3a9a98e/file:content/background-image.jpg',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -3566,8 +3566,8 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/fde3d142-b460-43b4-83aa-d59eea294dda/file:content/pexels-james-wheeler-3934949.jpg',
-    theme: 'Parent Category \u0112',
-    secondary_theme: null,
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
+    secondary_theme: '8d036fc1-c28a-4360-a440-ad1420dad138',
     optional: [
       {
         Reference: '',
@@ -3591,7 +3591,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/26e79193-ba91-460a-bcf5-76c15ef9b7c7/file:content/Wikipedia20_animated_Fashion.gif',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -3666,7 +3666,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -3716,7 +3716,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/79982479-27f0-4de6-8594-ad2c32d69f34/file:content/pexels-james-wheeler-3793045.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -3741,7 +3741,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/fde3d142-b460-43b4-83aa-d59eea294dda/file:content/pexels-james-wheeler-3934949.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -3816,7 +3816,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -3841,7 +3841,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -3866,7 +3866,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e82c72be-5637-423a-86ac-472b4382357e/file:content/pexels-james-wheeler-3988366.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -3916,8 +3916,8 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/aae644a2-d6ec-415f-b820-5339a9e594be/file:content/pexels-james-wheeler-1522284.jpg',
-    theme: 'Phrase Book \u026c',
-    secondary_theme: null,
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
+    secondary_theme: 'd22cc64b-3386-4746-a4fa-d2b4e056da4c',
     optional: [
       {
         Reference: '',
@@ -3966,7 +3966,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/1254595a-715a-4d80-922d-5bdbf3a9a98e/file:content/background-image.jpg',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -3991,7 +3991,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5154eea2-a55c-47ad-b529-6ce27dfd1011/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -4041,7 +4041,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5154eea2-a55c-47ad-b529-6ce27dfd1011/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -4191,7 +4191,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -4216,7 +4216,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/79982479-27f0-4de6-8594-ad2c32d69f34/file:content/pexels-james-wheeler-3793045.jpg',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -4266,7 +4266,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/fde3d142-b460-43b4-83aa-d59eea294dda/file:content/pexels-james-wheeler-3934949.jpg',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -4316,7 +4316,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -4416,7 +4416,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a71e880e-4316-4f8e-8801-6386a91d76c3/file:content/logo.png',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -4491,7 +4491,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -4516,7 +4516,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/aae644a2-d6ec-415f-b820-5339a9e594be/file:content/pexels-james-wheeler-1522284.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -4716,7 +4716,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/98845b1a-0070-4810-b834-5602a36cac93/file:content/pexels-daniil-ustinov-8360550.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -4742,7 +4742,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c9eef16-4665-40b9-89ce-debc0301f93b/file:content/pexels-stijn-dijkstra-2583852.jpg',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -4817,8 +4817,8 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/51299cb7-232f-4ee0-ae43-1d1387cfb285/file:content/martin-bisof-xsIOCYmlI1g-unsplash.jpg',
-    theme: 'Parent Category \u0112',
-    secondary_theme: null,
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
+    secondary_theme: '8d036fc1-c28a-4360-a440-ad1420dad138',
     optional: [
       {
         Reference: '',
@@ -4867,7 +4867,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -4892,7 +4892,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/51299cb7-232f-4ee0-ae43-1d1387cfb285/file:content/martin-bisof-xsIOCYmlI1g-unsplash.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -4917,7 +4917,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -4943,7 +4943,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e8d43dd1-2e33-4380-abb3-601a288a7d86/file:content/pexels-roman-odintsov-4555468.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -4968,7 +4968,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/1254595a-715a-4d80-922d-5bdbf3a9a98e/file:content/background-image.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -5043,7 +5043,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -5068,7 +5068,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e8d43dd1-2e33-4380-abb3-601a288a7d86/file:content/pexels-roman-odintsov-4555468.jpg',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -5118,7 +5118,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e82c72be-5637-423a-86ac-472b4382357e/file:content/pexels-james-wheeler-3988366.jpg',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -5168,7 +5168,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -5343,7 +5343,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/aae644a2-d6ec-415f-b820-5339a9e594be/file:content/pexels-james-wheeler-1522284.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -5368,7 +5368,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e8d43dd1-2e33-4380-abb3-601a288a7d86/file:content/pexels-roman-odintsov-4555468.jpg',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -5393,7 +5393,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/51299cb7-232f-4ee0-ae43-1d1387cfb285/file:content/martin-bisof-xsIOCYmlI1g-unsplash.jpg',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -5418,7 +5418,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -5469,7 +5469,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -5494,7 +5494,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -5519,7 +5519,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5154eea2-a55c-47ad-b529-6ce27dfd1011/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -5619,7 +5619,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -5644,7 +5644,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a94f28aa-26ce-4376-b22b-651ecac7b9d8/file:content/pexels-james-wheeler-3985392.jpg',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -5669,8 +5669,8 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a71e880e-4316-4f8e-8801-6386a91d76c3/file:content/logo.png',
-    theme: 'Parent Category \u0112',
-    secondary_theme: null,
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
+    secondary_theme: 'ecad07f6-4fa7-4dc0-a50c-e3da40960808',
     optional: [
       {
         Reference: '',
@@ -5719,7 +5719,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5154eea2-a55c-47ad-b529-6ce27dfd1011/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -5769,7 +5769,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/26e79193-ba91-460a-bcf5-76c15ef9b7c7/file:content/Wikipedia20_animated_Fashion.gif',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -5819,7 +5819,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a71e880e-4316-4f8e-8801-6386a91d76c3/file:content/logo.png',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -5869,7 +5869,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e8d43dd1-2e33-4380-abb3-601a288a7d86/file:content/pexels-roman-odintsov-4555468.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -5894,7 +5894,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/fde3d142-b460-43b4-83aa-d59eea294dda/file:content/pexels-james-wheeler-3934949.jpg',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -5919,7 +5919,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5154eea2-a55c-47ad-b529-6ce27dfd1011/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -5995,7 +5995,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5154eea2-a55c-47ad-b529-6ce27dfd1011/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -6020,8 +6020,8 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/fde3d142-b460-43b4-83aa-d59eea294dda/file:content/pexels-james-wheeler-3934949.jpg',
-    theme: 'Phrase Book \u026c',
-    secondary_theme: null,
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
+    secondary_theme: 'd22cc64b-3386-4746-a4fa-d2b4e056da4c',
     optional: [
       {
         Reference: '',
@@ -6095,7 +6095,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a71e880e-4316-4f8e-8801-6386a91d76c3/file:content/logo.png',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -6145,7 +6145,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e8d43dd1-2e33-4380-abb3-601a288a7d86/file:content/pexels-roman-odintsov-4555468.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -6170,8 +6170,8 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/79982479-27f0-4de6-8594-ad2c32d69f34/file:content/pexels-james-wheeler-3793045.jpg',
-    theme: 'Parent Category \u0112',
-    secondary_theme: null,
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
+    secondary_theme: 'ecad07f6-4fa7-4dc0-a50c-e3da40960808',
     optional: [
       {
         Reference: '',
@@ -6195,7 +6195,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c9eef16-4665-40b9-89ce-debc0301f93b/file:content/pexels-stijn-dijkstra-2583852.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -6270,7 +6270,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a94f28aa-26ce-4376-b22b-651ecac7b9d8/file:content/pexels-james-wheeler-3985392.jpg',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -6295,7 +6295,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -6345,7 +6345,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -6395,7 +6395,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -6445,7 +6445,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e82c72be-5637-423a-86ac-472b4382357e/file:content/pexels-james-wheeler-3988366.jpg',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -6520,7 +6520,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -6595,7 +6595,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -6620,7 +6620,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a94f28aa-26ce-4376-b22b-651ecac7b9d8/file:content/pexels-james-wheeler-3985392.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -6645,7 +6645,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e8d43dd1-2e33-4380-abb3-601a288a7d86/file:content/pexels-roman-odintsov-4555468.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -6745,7 +6745,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5154eea2-a55c-47ad-b529-6ce27dfd1011/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -6795,7 +6795,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a71e880e-4316-4f8e-8801-6386a91d76c3/file:content/logo.png',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -6870,7 +6870,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -6895,7 +6895,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -6945,7 +6945,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/98845b1a-0070-4810-b834-5602a36cac93/file:content/pexels-daniil-ustinov-8360550.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -6970,7 +6970,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/1254595a-715a-4d80-922d-5bdbf3a9a98e/file:content/background-image.jpg',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -7145,7 +7145,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -7170,7 +7170,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/51299cb7-232f-4ee0-ae43-1d1387cfb285/file:content/martin-bisof-xsIOCYmlI1g-unsplash.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -7320,7 +7320,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/fde3d142-b460-43b4-83aa-d59eea294dda/file:content/pexels-james-wheeler-3934949.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -7345,8 +7345,8 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/51299cb7-232f-4ee0-ae43-1d1387cfb285/file:content/martin-bisof-xsIOCYmlI1g-unsplash.jpg',
-    theme: 'Parent Category \u0112',
-    secondary_theme: null,
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
+    secondary_theme: 'ecad07f6-4fa7-4dc0-a50c-e3da40960808',
     optional: [
       {
         Reference: '',
@@ -7370,7 +7370,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -7495,7 +7495,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5154eea2-a55c-47ad-b529-6ce27dfd1011/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -7544,7 +7544,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/ef582005-7659-44b4-b783-01c091654df4/file:content/logo.png',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -7616,7 +7616,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -7664,7 +7664,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a71e880e-4316-4f8e-8801-6386a91d76c3/file:content/logo.png',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -7784,7 +7784,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/1254595a-715a-4d80-922d-5bdbf3a9a98e/file:content/background-image.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -7808,7 +7808,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a71e880e-4316-4f8e-8801-6386a91d76c3/file:content/logo.png',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -7880,7 +7880,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e8d43dd1-2e33-4380-abb3-601a288a7d86/file:content/pexels-roman-odintsov-4555468.jpg',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -7928,7 +7928,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/aae644a2-d6ec-415f-b820-5339a9e594be/file:content/pexels-james-wheeler-1522284.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -7952,7 +7952,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a71e880e-4316-4f8e-8801-6386a91d76c3/file:content/logo.png',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -8048,7 +8048,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/9c716052-c534-490a-a4f6-8b68eb7fd905/file:content/IMG_2027.JPG',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -8072,8 +8072,8 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a71e880e-4316-4f8e-8801-6386a91d76c3/file:content/logo.png',
-    theme: 'Phrase Book \u026c',
-    secondary_theme: null,
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
+    secondary_theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     optional: [
       {
         Reference: '',
@@ -8120,7 +8120,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/1254595a-715a-4d80-922d-5bdbf3a9a98e/file:content/background-image.jpg',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -8192,7 +8192,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/8078db85-52ec-435e-919f-9f55ff41b765/file:content/pexels-james-wheeler-3793045.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -8216,8 +8216,8 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a71e880e-4316-4f8e-8801-6386a91d76c3/file:content/logo.png',
-    theme: 'Phrase Book \u026c',
-    secondary_theme: null,
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
+    secondary_theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     optional: [
       {
         Reference: '',
@@ -8336,8 +8336,8 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/9161a072-af0b-4697-9b27-7a988fe30b28/file:content/',
-    theme: 'Phrase Book \u026c',
-    secondary_theme: null,
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
+    secondary_theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     optional: [
       {
         Reference: '',
@@ -8360,7 +8360,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/98845b1a-0070-4810-b834-5602a36cac93/file:content/pexels-daniil-ustinov-8360550.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -8408,7 +8408,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/7be8481f-36af-4893-8b01-064fdae71027/file:content/pexels-james-wheeler-1522284.jpg',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -8480,7 +8480,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/ef582005-7659-44b4-b783-01c091654df4/file:content/logo.png',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -8504,7 +8504,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/74e4dce9-4667-484f-a35a-0d8b48cd1381/file:content/pexels-stijn-dijkstra-2583852.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -8552,7 +8552,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/26e79193-ba91-460a-bcf5-76c15ef9b7c7/file:content/Wikipedia20_animated_Fashion.gif',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -8576,7 +8576,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/7be8481f-36af-4893-8b01-064fdae71027/file:content/pexels-james-wheeler-1522284.jpg',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -8648,8 +8648,8 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e8d43dd1-2e33-4380-abb3-601a288a7d86/file:content/pexels-roman-odintsov-4555468.jpg',
-    theme: 'Phrase Book \u026c',
-    secondary_theme: null,
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
+    secondary_theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     optional: [
       {
         Reference: '',
@@ -8744,7 +8744,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/9c716052-c534-490a-a4f6-8b68eb7fd905/file:content/IMG_2027.JPG',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -8865,7 +8865,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/fde3d142-b460-43b4-83aa-d59eea294dda/file:content/pexels-james-wheeler-3934949.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -8913,7 +8913,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/aae644a2-d6ec-415f-b820-5339a9e594be/file:content/pexels-james-wheeler-1522284.jpg',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -8937,7 +8937,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/79982479-27f0-4de6-8594-ad2c32d69f34/file:content/pexels-james-wheeler-3793045.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -8985,7 +8985,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/98845b1a-0070-4810-b834-5602a36cac93/file:content/pexels-daniil-ustinov-8360550.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -9033,7 +9033,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/ef582005-7659-44b4-b783-01c091654df4/file:content/logo.png',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -9177,7 +9177,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/98845b1a-0070-4810-b834-5602a36cac93/file:content/pexels-daniil-ustinov-8360550.jpg',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -9273,7 +9273,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/26e79193-ba91-460a-bcf5-76c15ef9b7c7/file:content/Wikipedia20_animated_Fashion.gif',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -9321,7 +9321,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/26e79193-ba91-460a-bcf5-76c15ef9b7c7/file:content/Wikipedia20_animated_Fashion.gif',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -9345,7 +9345,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/9c716052-c534-490a-a4f6-8b68eb7fd905/file:content/IMG_2027.JPG',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -9369,7 +9369,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/98845b1a-0070-4810-b834-5602a36cac93/file:content/pexels-daniil-ustinov-8360550.jpg',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -9393,7 +9393,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/1254595a-715a-4d80-922d-5bdbf3a9a98e/file:content/background-image.jpg',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -9442,7 +9442,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/8cce7bbd-7052-4bcc-b6c1-7b8c9e77adb4/file:content/martin-bisof-xsIOCYmlI1g-unsplash.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -9466,7 +9466,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/9161a072-af0b-4697-9b27-7a988fe30b28/file:content/pexels-james-wheeler-3985392.jpg',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -9538,7 +9538,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e8d43dd1-2e33-4380-abb3-601a288a7d86/file:content/pexels-roman-odintsov-4555468.jpg',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -9562,7 +9562,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e8d43dd1-2e33-4380-abb3-601a288a7d86/file:content/pexels-roman-odintsov-4555468.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -9586,7 +9586,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e8d43dd1-2e33-4380-abb3-601a288a7d86/file:content/pexels-roman-odintsov-4555468.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -9610,7 +9610,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a71e880e-4316-4f8e-8801-6386a91d76c3/file:content/logo.png',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -9634,7 +9634,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/79982479-27f0-4de6-8594-ad2c32d69f34/file:content/pexels-james-wheeler-3793045.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -9658,7 +9658,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/98845b1a-0070-4810-b834-5602a36cac93/file:content/pexels-daniil-ustinov-8360550.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -9682,7 +9682,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a71e880e-4316-4f8e-8801-6386a91d76c3/file:content/logo.png',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -9778,7 +9778,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/fde3d142-b460-43b4-83aa-d59eea294dda/file:content/pexels-james-wheeler-3934949.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -9850,7 +9850,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5d31c0b0-40e7-46fd-bcc2-16345ed5d2c8/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -9898,7 +9898,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/8078db85-52ec-435e-919f-9f55ff41b765/file:content/pexels-james-wheeler-3793045.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -9970,7 +9970,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e82c72be-5637-423a-86ac-472b4382357e/file:content/pexels-james-wheeler-3988366.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -10018,7 +10018,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/98845b1a-0070-4810-b834-5602a36cac93/file:content/pexels-daniil-ustinov-8360550.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -10042,7 +10042,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/9161a072-af0b-4697-9b27-7a988fe30b28/file:content/pexels-james-wheeler-3985392.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -10066,7 +10066,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5154eea2-a55c-47ad-b529-6ce27dfd1011/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -10114,7 +10114,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/9161a072-af0b-4697-9b27-7a988fe30b28/file:content/',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -10210,8 +10210,8 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/98845b1a-0070-4810-b834-5602a36cac93/file:content/pexels-daniil-ustinov-8360550.jpg',
-    theme: 'Parent Category \u0112',
-    secondary_theme: null,
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
+    secondary_theme: 'eae692e3-3107-413f-a3e1-8888599f1969',
     optional: [
       {
         Reference: '',
@@ -10330,7 +10330,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/7be8481f-36af-4893-8b01-064fdae71027/file:content/pexels-james-wheeler-1522284.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -10354,8 +10354,8 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e82c72be-5637-423a-86ac-472b4382357e/file:content/pexels-james-wheeler-3988366.jpg',
-    theme: 'Parent Category \u0112',
-    secondary_theme: null,
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
+    secondary_theme: 'eae692e3-3107-413f-a3e1-8888599f1969',
     optional: [
       {
         Reference: '',
@@ -10378,7 +10378,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e82c72be-5637-423a-86ac-472b4382357e/file:content/pexels-james-wheeler-3988366.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -10402,7 +10402,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/ef582005-7659-44b4-b783-01c091654df4/file:content/logo.png',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -10426,7 +10426,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/98845b1a-0070-4810-b834-5602a36cac93/file:content/pexels-daniil-ustinov-8360550.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -10522,7 +10522,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5154eea2-a55c-47ad-b529-6ce27dfd1011/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -10570,7 +10570,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/1254595a-715a-4d80-922d-5bdbf3a9a98e/file:content/background-image.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -10642,7 +10642,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5d31c0b0-40e7-46fd-bcc2-16345ed5d2c8/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -10786,7 +10786,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/9c716052-c534-490a-a4f6-8b68eb7fd905/file:content/IMG_2027.JPG',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -10859,7 +10859,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5154eea2-a55c-47ad-b529-6ce27dfd1011/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -10907,7 +10907,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/98845b1a-0070-4810-b834-5602a36cac93/file:content/pexels-daniil-ustinov-8360550.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -11003,7 +11003,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/aae644a2-d6ec-415f-b820-5339a9e594be/file:content/pexels-james-wheeler-1522284.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -11027,7 +11027,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/9161a072-af0b-4697-9b27-7a988fe30b28/file:content/pexels-james-wheeler-3985392.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -11075,7 +11075,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/26e79193-ba91-460a-bcf5-76c15ef9b7c7/file:content/Wikipedia20_animated_Fashion.gif',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -11099,8 +11099,8 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/aae644a2-d6ec-415f-b820-5339a9e594be/file:content/pexels-james-wheeler-1522284.jpg',
-    theme: 'Parent Category \u0112',
-    secondary_theme: null,
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
+    secondary_theme: 'eae692e3-3107-413f-a3e1-8888599f1969',
     optional: [
       {
         Reference: '',
@@ -11123,7 +11123,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e82c72be-5637-423a-86ac-472b4382357e/file:content/pexels-james-wheeler-3988366.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -11291,8 +11291,8 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Parent Category \u0112',
-    secondary_theme: null,
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
+    secondary_theme: 'eae692e3-3107-413f-a3e1-8888599f1969',
     optional: [
       {
         Reference: '',
@@ -11339,7 +11339,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/79982479-27f0-4de6-8594-ad2c32d69f34/file:content/pexels-james-wheeler-3793045.jpg',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -11411,7 +11411,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c9eef16-4665-40b9-89ce-debc0301f93b/file:content/pexels-stijn-dijkstra-2583852.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -11507,7 +11507,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -11579,7 +11579,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/79982479-27f0-4de6-8594-ad2c32d69f34/file:content/pexels-james-wheeler-3793045.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -11603,7 +11603,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/51299cb7-232f-4ee0-ae43-1d1387cfb285/file:content/martin-bisof-xsIOCYmlI1g-unsplash.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -11771,7 +11771,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/aae644a2-d6ec-415f-b820-5339a9e594be/file:content/pexels-james-wheeler-1522284.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -11795,7 +11795,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5d31c0b0-40e7-46fd-bcc2-16345ed5d2c8/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -11819,7 +11819,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e8d43dd1-2e33-4380-abb3-601a288a7d86/file:content/pexels-roman-odintsov-4555468.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -11891,7 +11891,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -11915,7 +11915,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/26e79193-ba91-460a-bcf5-76c15ef9b7c7/file:content/Wikipedia20_animated_Fashion.gif',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -11963,7 +11963,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/98845b1a-0070-4810-b834-5602a36cac93/file:content/pexels-daniil-ustinov-8360550.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -11987,7 +11987,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e8d43dd1-2e33-4380-abb3-601a288a7d86/file:content/pexels-roman-odintsov-4555468.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -12035,7 +12035,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e82c72be-5637-423a-86ac-472b4382357e/file:content/pexels-james-wheeler-3988366.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -12059,7 +12059,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5d31c0b0-40e7-46fd-bcc2-16345ed5d2c8/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -12107,7 +12107,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/8078db85-52ec-435e-919f-9f55ff41b765/file:content/pexels-james-wheeler-3793045.jpg',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -12155,7 +12155,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -12299,7 +12299,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/98845b1a-0070-4810-b834-5602a36cac93/file:content/pexels-daniil-ustinov-8360550.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -12419,7 +12419,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/26e79193-ba91-460a-bcf5-76c15ef9b7c7/file:content/Wikipedia20_animated_Fashion.gif',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -12516,7 +12516,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/98845b1a-0070-4810-b834-5602a36cac93/file:content/pexels-daniil-ustinov-8360550.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -12564,7 +12564,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a71e880e-4316-4f8e-8801-6386a91d76c3/file:content/logo.png',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -12636,7 +12636,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/98845b1a-0070-4810-b834-5602a36cac93/file:content/pexels-daniil-ustinov-8360550.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -12684,7 +12684,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/9161a072-af0b-4697-9b27-7a988fe30b28/file:content/',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -12756,7 +12756,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c6e8916-0b1c-4b82-97dc-d103dd00f855/file:content/IMG_2027.JPG',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -12900,7 +12900,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5d31c0b0-40e7-46fd-bcc2-16345ed5d2c8/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -12972,7 +12972,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a71e880e-4316-4f8e-8801-6386a91d76c3/file:content/logo.png',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -13021,7 +13021,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e82c72be-5637-423a-86ac-472b4382357e/file:content/pexels-james-wheeler-3988366.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -13045,7 +13045,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/9c716052-c534-490a-a4f6-8b68eb7fd905/file:content/IMG_2027.JPG',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -13117,7 +13117,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/8078db85-52ec-435e-919f-9f55ff41b765/file:content/pexels-james-wheeler-3793045.jpg',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -13141,7 +13141,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e82c72be-5637-423a-86ac-472b4382357e/file:content/pexels-james-wheeler-3988366.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -13165,7 +13165,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/79982479-27f0-4de6-8594-ad2c32d69f34/file:content/pexels-james-wheeler-3793045.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -13261,7 +13261,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/51299cb7-232f-4ee0-ae43-1d1387cfb285/file:content/martin-bisof-xsIOCYmlI1g-unsplash.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -13285,7 +13285,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/9c716052-c534-490a-a4f6-8b68eb7fd905/file:content/IMG_2027.JPG',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -13333,7 +13333,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/9161a072-af0b-4697-9b27-7a988fe30b28/file:content/',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -13405,7 +13405,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/9161a072-af0b-4697-9b27-7a988fe30b28/file:content/',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -13453,7 +13453,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e82c72be-5637-423a-86ac-472b4382357e/file:content/pexels-james-wheeler-3988366.jpg',
-    theme: 'Parent Category \u0112',
+    theme: 'd5884e24-6b00-46cb-8b02-d60e3a7651b1',
     secondary_theme: null,
     optional: [
       {
@@ -13477,7 +13477,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/8078db85-52ec-435e-919f-9f55ff41b765/file:content/pexels-james-wheeler-3793045.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -13525,7 +13525,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/9161a072-af0b-4697-9b27-7a988fe30b28/file:content/',
-    theme: 'Child Category \u0112\u015a',
+    theme: 'dfedb1c3-0b5b-4fa8-8bfe-78686f4b6132',
     secondary_theme: null,
     optional: [
       {
@@ -13549,7 +13549,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/1254595a-715a-4d80-922d-5bdbf3a9a98e/file:content/background-image.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -13573,7 +13573,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/fde3d142-b460-43b4-83aa-d59eea294dda/file:content/pexels-james-wheeler-3934949.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -13597,7 +13597,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/9c716052-c534-490a-a4f6-8b68eb7fd905/file:content/IMG_2027.JPG',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -13621,7 +13621,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/9161a072-af0b-4697-9b27-7a988fe30b28/file:content/',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -13670,7 +13670,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/26e79193-ba91-460a-bcf5-76c15ef9b7c7/file:content/Wikipedia20_animated_Fashion.gif',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -13694,7 +13694,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/ef582005-7659-44b4-b783-01c091654df4/file:content/logo.png',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -13742,7 +13742,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/79982479-27f0-4de6-8594-ad2c32d69f34/file:content/pexels-james-wheeler-3793045.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -13766,7 +13766,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/9c716052-c534-490a-a4f6-8b68eb7fd905/file:content/IMG_2027.JPG',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -13862,7 +13862,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5d31c0b0-40e7-46fd-bcc2-16345ed5d2c8/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -13886,7 +13886,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -13958,7 +13958,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/8078db85-52ec-435e-919f-9f55ff41b765/file:content/pexels-james-wheeler-3793045.jpg',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -14006,7 +14006,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/e82c72be-5637-423a-86ac-472b4382357e/file:content/pexels-james-wheeler-3988366.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -14030,7 +14030,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/98845b1a-0070-4810-b834-5602a36cac93/file:content/pexels-daniil-ustinov-8360550.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -14054,7 +14054,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/51299cb7-232f-4ee0-ae43-1d1387cfb285/file:content/martin-bisof-xsIOCYmlI1g-unsplash.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -14174,7 +14174,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/fde3d142-b460-43b4-83aa-d59eea294dda/file:content/pexels-james-wheeler-3934949.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -14270,7 +14270,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/9161a072-af0b-4697-9b27-7a988fe30b28/file:content/',
-    theme: 'Child Category \u015a\u015a',
+    theme: 'c5cf65bd-f19b-44fe-b7d6-85ae93d2520f',
     secondary_theme: null,
     optional: [
       {
@@ -14294,7 +14294,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/eff2f2d3-f6c1-4a34-a578-7499fa1e1595/file:content/TestPhoto.jpg',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -14318,7 +14318,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5d31c0b0-40e7-46fd-bcc2-16345ed5d2c8/file:content/pexels-tobias-1559817.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -14342,7 +14342,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/98845b1a-0070-4810-b834-5602a36cac93/file:content/pexels-daniil-ustinov-8360550.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -14366,7 +14366,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/a71e880e-4316-4f8e-8801-6386a91d76c3/file:content/logo.png',
-    theme: 'Child Category \u015a\u026c',
+    theme: 'bd99eaac-c07f-414b-ab7b-45ce4ff06170',
     secondary_theme: null,
     optional: [
       {
@@ -14438,7 +14438,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/74e4dce9-4667-484f-a35a-0d8b48cd1381/file:content/pexels-stijn-dijkstra-2583852.jpg',
-    theme: 'Child Category \u026c\u026c',
+    theme: '98e74c3c-773f-4eae-b219-82367ca12fab',
     secondary_theme: null,
     optional: [
       {
@@ -14510,7 +14510,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/5c9eef16-4665-40b9-89ce-debc0301f93b/file:content/pexels-stijn-dijkstra-2583852.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -14560,7 +14560,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/9161a072-af0b-4697-9b27-7a988fe30b28/file:content/',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {
@@ -14608,7 +14608,7 @@ export const dataDict = [
       },
     ],
     img: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/1254595a-715a-4d80-922d-5bdbf3a9a98e/file:content/background-image.jpg',
-    theme: 'Phrase Book \u026c',
+    theme: 'bcba03e5-27be-4a57-a7b7-623e19d2023b',
     secondary_theme: null,
     optional: [
       {

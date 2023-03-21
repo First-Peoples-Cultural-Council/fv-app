@@ -97,3 +97,10 @@ export type DictionaryNavItem = {
     border: string;
   };
 };
+
+export type FvCategory = {
+  id: string;
+  name: string;
+  icon: string | null;
+  parent: string | null;
+}

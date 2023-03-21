@@ -26,9 +26,9 @@ function WordCard({
   return (
     <>
       <p className="italic">
-        {optional != null &&
+        {optional !== null &&
           optional.map((element) => {
-            if (element['Part of Speech'] !== null) {
+            if (element['Part of Speech'] !== undefined) {
               return `(${element['Part of Speech']}) `;
             } else {
               return '';

@@ -61,7 +61,7 @@ export function CategoryView(props: CategoryViewProps) {
             <Link
               to={`/categories/${primaryCategory.id}`}
               className={classNames(
-                'flex items-center cursor-pointer bg-slate-400 p-5 mt-2 mb-2 rounded-md'
+                'transition duration-500 ease-in-out rounded-lg pr-4 flex items-center cursor-pointer text-tertiaryB bg-gray-300 p-2 mt-2'
               )}
             >
               <i
@@ -70,19 +70,22 @@ export function CategoryView(props: CategoryViewProps) {
                   'text-3xl'
                 )}
               />
-              <div className="pt-2 text-lg">{primaryCategory.name}</div>
+              <div className="inline-flex text-lg font-medium">{primaryCategory.name}</div>
             </Link>
 
             {subCategories.map((subCategory) => {
               return (
                 <Link
                   to={`/categories/${subCategory.id}`}
-                  className={classNames('flex cursor-pointer ml-5 mb-6', {
-                    'bg-slate-400 rounded-md':
-                      subCategory.id === currentCategory.id,
-                  })}
+                  className={classNames(
+                    'mt-2 transition duration-500 ease-in-out ml-4 lg:ml-8 pr-4 lg:px-0 rounded-lg flex items-center cursor-pointer',
+                    {
+                      'bg-gray-300 rounded-md':
+                        subCategory.id === currentCategory.id,
+                    }
+                  )}
                 >
-                  <div className="pt-2 text-lg">{subCategory.name}</div>
+                  <div className="inline-flex text-lg font-medium pl-2">{subCategory.name}</div>
                 </Link>
               );
             })}
@@ -97,7 +100,9 @@ export function CategoryView(props: CategoryViewProps) {
                 return (
                   <Link
                     to={`/categories/${category.id}`}
-                    className={classNames('flex items-center cursor-pointer mb-6')}
+                    className={classNames(
+                      'flex items-center cursor-pointer mb-6'
+                    )}
                   >
                     <i
                       className={classNames(

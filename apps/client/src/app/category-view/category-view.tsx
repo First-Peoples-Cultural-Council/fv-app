@@ -61,7 +61,7 @@ export function CategoryView(props: CategoryViewProps) {
             <Link
               to={`/categories/${primaryCategory.id}`}
               className={classNames(
-                'flex cursor-pointer bg-slate-400 p-5 mt-2 mb-2 rounded-md'
+                'flex items-center cursor-pointer bg-slate-400 p-5 mt-2 mb-2 rounded-md'
               )}
             >
               <i
@@ -97,7 +97,7 @@ export function CategoryView(props: CategoryViewProps) {
                 return (
                   <Link
                     to={`/categories/${category.id}`}
-                    className={classNames('flex cursor-pointer mb-6')}
+                    className={classNames('flex items-center cursor-pointer mb-6')}
                   >
                     <i
                       className={classNames(

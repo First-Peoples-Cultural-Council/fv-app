@@ -56,18 +56,18 @@ export function CategoryView(props: CategoryViewProps) {
   return (
     <div className={styles['container']}>
       <div className="flex flex-row">
-        <div className="min-w-400">
+        <div className="min-w-400 mr-8">
           <div>
             <Link
               to={`/categories/${primaryCategory.id}`}
               className={classNames(
-                'transition duration-500 ease-in-out rounded-lg pr-4 flex items-center cursor-pointer text-tertiaryB bg-gray-300 p-2 mt-2'
+                'transition duration-500 ease-in-out rounded-lg pr-4 flex items-center cursor-pointer text-tertiaryB bg-gray-300 p-2 mt-2 hover:opacity-75'
               )}
             >
               <i
                 className={classNames(
                   primaryCategory.icon ?? 'fv-categories',
-                  'text-3xl'
+                  'text-3xl hover:opacity-75'
                 )}
               />
               <div className="inline-flex text-lg font-medium">{primaryCategory.name}</div>
@@ -78,14 +78,14 @@ export function CategoryView(props: CategoryViewProps) {
                 <Link
                   to={`/categories/${subCategory.id}`}
                   className={classNames(
-                    'mt-2 transition duration-500 ease-in-out ml-4 lg:ml-8 pr-4 lg:px-0 rounded-lg flex items-center cursor-pointer',
+                    'mt-2 transition duration-500 ease-in-out ml-4 lg:ml-8 pr-4 lg:px-0 rounded-lg flex items-center cursor-pointer hover:opacity-75',
                     {
                       'bg-gray-300 rounded-md':
                         subCategory.id === currentCategory.id,
                     }
                   )}
                 >
-                  <div className="inline-flex text-lg font-medium pl-2">{subCategory.name}</div>
+                  <div className="inline-flex text-lg font-medium pl-2 hover:opacity-75">{subCategory.name}</div>
                 </Link>
               );
             })}
@@ -101,13 +101,13 @@ export function CategoryView(props: CategoryViewProps) {
                   <Link
                     to={`/categories/${category.id}`}
                     className={classNames(
-                      'flex items-center cursor-pointer mb-6'
+                      'flex items-center cursor-pointer mb-6 hover:opacity-75'
                     )}
                   >
                     <i
                       className={classNames(
                         category.icon ?? 'fv-categories',
-                        'text-3xl'
+                        'text-3xl hover:opacity-75'
                       )}
                     />
                     <div className="pt-2 text-lg">{category.name}</div>

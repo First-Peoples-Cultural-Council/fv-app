@@ -11,7 +11,7 @@ export function CategoriesView(props: CategoriesViewProps) {
 
   return (
     <div className={classNames('')}>
-      <div className="block sm:hidden flex flex-wrap">
+      <div className="block md:hidden flex flex-wrap">
         {dataCategories
           .filter((category) => category.parent == null)
           .map((category) => {
@@ -35,7 +35,7 @@ export function CategoriesView(props: CategoriesViewProps) {
             );
           })}
       </div>
-      <div className="hidden sm:block">
+      <div className="hidden md:block">
         <div className="grid grid-cols-2 gap-2 lg:gap-3 lg:grid-cols-3 mt-5">
           {dataCategories
             .filter((category) => category.parent == null)

@@ -8,7 +8,7 @@ import DictionaryNavMobile from '../dictionary-nav-mobile/dictionary-nav-mobile'
 const navItems: DictionaryNavItem[] = [
   {
     id: 'alphabet',
-    path: '/',
+    path: 'alphabet',
     icon: 'fv-alphabet',
     title: 'Alphabet',
     colors: {

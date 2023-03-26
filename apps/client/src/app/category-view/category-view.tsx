@@ -60,7 +60,7 @@ export function CategoryView(props: CategoryViewProps) {
           {selectedCategory()}
           {subcategories()}
         </div>
-        <div className={"w-full"}>
+        <div className={'w-full'}>
           {wordsPhrasesBoth()}
           {data
             .filter((term) => {
@@ -96,7 +96,7 @@ export function CategoryView(props: CategoryViewProps) {
         </div>
       </div>
 
-      <div className="flex flex-row hidden md:block">
+      <div className="flex flex-row hidden md:block pr-5">
         <div className={styles['container']}>
           <div className="flex flex-row">
             <div className="min-w-400 mr-8">

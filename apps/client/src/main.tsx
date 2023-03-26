@@ -25,7 +25,7 @@ const router = createBrowserRouter(
           <Route path="alphabet" element={<AlphabetView />} />
           <Route path="dictionary" element={<DictionaryView />} />
           <Route path="categories/:id" element={<CategoryView />} />
-          <Route path="categories/" element={<CategoriesView />} />
+          <Route path="categories" element={<CategoriesView />} />
         </Route>
       </Route>
       <Route path="*" element={<PageNotFound />} />

@@ -34,7 +34,7 @@ const navItems: DictionaryNavItem[] = [
   },
   {
     id: 'categories',
-    path: 'categories/',
+    path: 'categories',
     icon: 'fv-categories',
     title: 'Categories',
     colors: {
@@ -53,8 +53,9 @@ export interface DictionaryProps {}
 export function Dictionary(props: DictionaryProps) {
   const location = useLocation();
   const [currentNavItem, setCurrentNavItem] = useState(
-    navItems.find((item) => matchRoutes([{ path: `${item.path}:id` }], location)) ||
-      navItems[0]
+    navItems.find((item) =>
+      matchRoutes([{ path: `${item.path}:id` }], location)
+    ) || navItems[0]
   );
 
   useEffect(() => {

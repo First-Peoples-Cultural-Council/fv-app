@@ -8,7 +8,7 @@ export interface DictionaryNavDesktopProps {
 
 export function DictionaryNavDesktop({ navItems }: DictionaryNavDesktopProps) {
   return (
-    <nav className="w-[100px] flex flex-col hidden md:block">
+    <nav className="w-[100px] flex flex-col hidden md:block mr-5">
       {navItems.map((item) => {
         return (
           <Link

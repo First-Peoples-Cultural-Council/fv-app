@@ -44,6 +44,7 @@ const navItems: DictionaryNavItem[] = [
       activeText: 'text-color-categories-dark',
       border: 'border-color-categories-dark',
     },
+    activePathMatches: [{ path: 'categories/:id' }],
   },
 ];
 
@@ -54,7 +55,10 @@ export function Dictionary(props: DictionaryProps) {
   const location = useLocation();
   const [currentNavItem, setCurrentNavItem] = useState(
     navItems.find((item) =>
-      matchRoutes([{ path: `${item.path}:id` }], location)
+      matchRoutes(
+        [{ path: item.path }, ...(item?.activePathMatches || [])],
+        location
+      )
     ) || navItems[0]
   );
 

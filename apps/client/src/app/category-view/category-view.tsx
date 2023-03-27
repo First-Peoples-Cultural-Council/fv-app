@@ -105,7 +105,7 @@ export function CategoryView(props: CategoryViewProps) {
                 {subcategories()}
               </div>
               <div className="border-gray-700 border-solid border w-full mt-5 mb-5" />
-              <div className="">
+              <div>
                 {dataCategories
                   .filter(
                     (category) => category.parent == null && category.id !== id
@@ -133,37 +133,45 @@ export function CategoryView(props: CategoryViewProps) {
 
             <div>
               {wordsPhrasesBoth()}
-              {data
-                .filter((term) => {
-                  if (currentCategory === primaryCategory) {
-                    return term.theme === primaryCategory.id;
-                  } else {
+              <div
+                className={classNames(
+                  'overflow-y-auto',
+                  styles['wordsPhrasesContainer']
+                )}
+              >
+                {data
+                  .filter((term) => {
+                    if (currentCategory === primaryCategory) {
+                      return term.theme === primaryCategory.id;
+                    } else {
+                      return (
+                        term.theme === primaryCategory.id &&
+                        term.secondary_theme === currentCategory.id
+                      );
+                    }
+                  })
+                  .map((term) => {
                     return (
-                      term.theme === primaryCategory.id &&
-                      term.secondary_theme === currentCategory.id
+                      <Fragment key={`${term.source}-${term.entryID}`}>
+                        <WordCardDesktop
+                          word={term.word}
+                          definition={term.definition}
+                          audio={term.audio}
+                          img={term.img}
+                          source={term.source}
+                          entryID={term.entryID}
+                          theme={term.theme}
+                          secondary_theme={term.secondary_theme}
+                          optional={term.optional}
+                          compare_form={term.compare_form}
+                          sort_form={term.sort_form}
+                          sorting_form={term.sorting_form}
+                        />
+                      </Fragment>
                     );
-                  }
-                })
-                .map((term) => {
-                  return (
-                    <Fragment key={`${term.source}-${term.entryID}`}>
-                      <WordCardDesktop
-                        word={term.word}
-                        definition={term.definition}
-                        audio={term.audio}
-                        img={term.img}
-                        source={term.source}
-                        entryID={term.entryID}
-                        theme={term.theme}
-                        secondary_theme={term.secondary_theme}
-                        optional={term.optional}
-                        compare_form={term.compare_form}
-                        sort_form={term.sort_form}
-                        sorting_form={term.sorting_form}
-                      />
-                    </Fragment>
-                  );
-                })}{' '}
+                  })}
+                <div className="h-48" />
+              </div>
             </div>
           </div>
         </div>

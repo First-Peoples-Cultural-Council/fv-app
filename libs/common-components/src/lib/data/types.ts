@@ -106,3 +106,8 @@ export type FvCategory = {
   icon: string | null;
   parent: string | null;
 }
+
+export type FvLetter = {
+  letter: string;
+  audio: FvAudio[];
+}

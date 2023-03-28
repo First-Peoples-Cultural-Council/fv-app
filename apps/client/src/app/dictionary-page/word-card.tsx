@@ -3,15 +3,10 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { dataCategories } from '../temp-category-list';
 
-function WordCard({
-  word,
-  definition,
-  audio,
-  img,
-  optional,
-  theme,
-  secondary_theme,
-}: FvWord) {
+function WordCard({ term }: FvWord) {
+  const { word, definition, audio, img, optional, theme, secondary_theme } =
+    term;
+
   const secondaryButtonStyle = useButtonStyle('secondary', 'button');
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 

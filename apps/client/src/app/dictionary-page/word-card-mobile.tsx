@@ -2,16 +2,9 @@ import { FvWord, FullScreenModal } from '@fv-app/common-components';
 import React from 'react';
 import WordCard from './word-card';
 
-function WordCardMobile({
-  word,
-  definition,
-  audio,
-  img,
-  optional,
-  theme,
-  secondary_theme,
-}: FvWord) {
+function WordCardMobile({ term }: FvWord) {
   const [showModal, setShowModal] = React.useState(false);
+  const { word, definition, audio } = term;
 
   return (
     <>
@@ -61,20 +54,7 @@ function WordCardMobile({
         >
           <div className="p-10">
             <p className="grow font-bold text-3xl">{word}</p>
-            <WordCard
-              word={word}
-              definition={definition}
-              img={img}
-              optional={optional}
-              audio={audio}
-              theme={theme}
-              source={''}
-              entryID={''}
-              secondary_theme={secondary_theme}
-              compare_form={''}
-              sort_form={''}
-              sorting_form={[]}
-            />
+            <WordCard term={term} />
           </div>
         </FullScreenModal>
       )}

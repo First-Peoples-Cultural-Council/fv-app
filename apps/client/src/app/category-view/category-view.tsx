@@ -76,20 +76,7 @@ export function CategoryView(props: CategoryViewProps) {
             .map((term) => {
               return (
                 <Fragment key={`${term.source}-${term.entryID}`}>
-                  <WordCardMobile
-                    word={term.word}
-                    definition={term.definition}
-                    audio={term.audio}
-                    img={term.img}
-                    source={term.source}
-                    entryID={term.entryID}
-                    theme={term.theme}
-                    secondary_theme={term.secondary_theme}
-                    optional={term.optional}
-                    compare_form={term.compare_form}
-                    sort_form={term.sort_form}
-                    sorting_form={term.sorting_form}
-                  />
+                  <WordCardMobile term={term} />
                 </Fragment>
               );
             })}{' '}
@@ -113,6 +100,7 @@ export function CategoryView(props: CategoryViewProps) {
                   .map((category) => {
                     return (
                       <Link
+                        key={category.id}
                         to={`/categories/${category.id}`}
                         className={classNames(
                           'flex items-center cursor-pointer mb-6 hover:opacity-75'
@@ -153,20 +141,7 @@ export function CategoryView(props: CategoryViewProps) {
                   .map((term) => {
                     return (
                       <Fragment key={`${term.source}-${term.entryID}`}>
-                        <WordCardDesktop
-                          word={term.word}
-                          definition={term.definition}
-                          audio={term.audio}
-                          img={term.img}
-                          source={term.source}
-                          entryID={term.entryID}
-                          theme={term.theme}
-                          secondary_theme={term.secondary_theme}
-                          optional={term.optional}
-                          compare_form={term.compare_form}
-                          sort_form={term.sort_form}
-                          sorting_form={term.sorting_form}
-                        />
+                        <WordCardDesktop term={term} />
                       </Fragment>
                     );
                   })}
@@ -206,6 +181,7 @@ export function CategoryView(props: CategoryViewProps) {
         {subCategories.map((subCategory) => {
           return (
             <Link
+              key={subCategory.id}
               to={`/categories/${subCategory.id}`}
               className={classNames(
                 'mt-2 transition duration-500 ease-in-out ml-4 lg:ml-8 pr-4 lg:px-0 rounded-lg flex items-center cursor-pointer hover:opacity-75',

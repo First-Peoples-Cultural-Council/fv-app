@@ -2,16 +2,9 @@ import { FvWord, Modal } from '@fv-app/common-components';
 import React from 'react';
 import WordCard from './word-card';
 
-function WordCardDesktop({
-  word,
-  definition,
-  audio,
-  img,
-  optional,
-  theme,
-  secondary_theme,
-}: FvWord) {
+function WordCardDesktop({ term }: FvWord) {
   const [showModal, setShowModal] = React.useState(false);
+  const { word, definition, audio } = term;
 
   return (
     <>
@@ -20,7 +13,7 @@ function WordCardDesktop({
         onClick={() => setShowModal(true)}
       >
         <div className="grid grid-flow-col auto-cols-[minmax(0,_2fr)]">
-          <div className="flex grid-flow-col space-x-5">
+          <div className="flex grid-flow-col space-x-5 items-center">
             <div>
               <h1 className="font-bold">{word}</h1>
             </div>
@@ -67,20 +60,7 @@ function WordCardDesktop({
                 </div>
               </div>
             </div>
-            <WordCard
-              word={word}
-              definition={definition}
-              img={img}
-              optional={optional}
-              audio={audio}
-              theme={theme}
-              source={''}
-              entryID={''}
-              secondary_theme={secondary_theme}
-              compare_form={''}
-              sort_form={''}
-              sorting_form={[]}
-            />
+            <WordCard term={term} />
           </div>
         </Modal>
       )}

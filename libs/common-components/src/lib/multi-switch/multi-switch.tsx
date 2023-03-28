@@ -28,8 +28,9 @@ export function MultiSwitch({
               className={classNames(
                 'py-2 px-4 border-solid border-gray-300 border-2 shadow-md text-center',
                 {
-                  'bg-cyan-900 text-white': selected === index,
-                  'bg-gray-200': selected !== index,
+                  'bg-cyan-900 text-white hover:bg-cyan-700':
+                    selected === index,
+                  'bg-gray-200 hover:bg-gray-300': selected !== index,
                   'rounded-l-lg': index === 0,
                   'rounded-r-lg': index === items.length - 1,
                 }

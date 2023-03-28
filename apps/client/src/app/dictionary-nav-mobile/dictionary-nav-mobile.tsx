@@ -9,7 +9,7 @@ export interface DictionaryNavMobileProps {
 
 export function DictionaryNavMobile({ navItems }: DictionaryNavMobileProps) {
   return (
-    <div className="sm:hidden flex justify-around">
+    <div className="md:hidden flex justify-around bg-white border border-black border-solid">
       {navItems.map((item) => {
         return (
           <Link

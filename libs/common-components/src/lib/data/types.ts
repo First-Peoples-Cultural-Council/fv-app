@@ -60,22 +60,24 @@ export type Language = {
 };
 
 export type FvWord = {
-  source: string;
-  entryID: string;
-  word: string;
-  definition: string;
-  audio: FvAudio[];
-  img: string;
-  theme: string;
-  secondary_theme: string | null;
-  optional:
-    | {
-        [key: string]: string;
-      }[]
-    | null;
-  compare_form: string;
-  sort_form: string;
-  sorting_form: number[];
+  term: {
+    source: string;
+    entryID: string;
+    word: string;
+    definition: string;
+    audio: FvAudio[];
+    img: string;
+    theme: string;
+    secondary_theme: string | null;
+    optional:
+      | {
+          [key: string]: string;
+        }[]
+      | null;
+    compare_form: string;
+    sort_form: string;
+    sorting_form: number[];
+  };
 };
 
 export type FvAudio = {
@@ -96,4 +98,11 @@ export type DictionaryNavItem = {
     activeText: string;
     border: string;
   };
+};
+
+export type FvCategory = {
+  id: string;
+  name: string;
+  icon: string | null;
+  parent: string | null;
 };

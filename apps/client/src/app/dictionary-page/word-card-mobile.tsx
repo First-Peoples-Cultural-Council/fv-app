@@ -2,20 +2,14 @@ import { FvWord, FullScreenModal } from '@fv-app/common-components';
 import React from 'react';
 import WordCard from './word-card';
 
-function WordCardMobile({
-  word,
-  definition,
-  audio,
-  img,
-  optional,
-  theme,
-}: FvWord) {
+function WordCardMobile({ term }: FvWord) {
   const [showModal, setShowModal] = React.useState(false);
+  const { word, definition, audio } = term;
 
   return (
     <>
       <div
-        className="block md:hidden w-full rounded-lg bg-white p-6 m-1 shadow-lg hover:bg-slate-100 cursor-pointer"
+        className="block md:hidden w-full rounded-lg bg-white p-6 m-2 shadow-lg hover:bg-slate-100 cursor-pointer"
         onClick={() => setShowModal(true)}
       >
         <div className="grid grid-cols-10 gap-4">
@@ -60,20 +54,7 @@ function WordCardMobile({
         >
           <div className="p-10">
             <p className="grow font-bold text-3xl">{word}</p>
-            <WordCard
-              word={word}
-              definition={definition}
-              img={img}
-              optional={optional}
-              audio={audio}
-              theme={theme}
-              source={''}
-              entryID={''}
-              secondary_theme={null}
-              compare_form={''}
-              sort_form={''}
-              sorting_form={[]}
-            />
+            <WordCard term={term} />
           </div>
         </FullScreenModal>
       )}

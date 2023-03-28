@@ -1,3 +1,4 @@
+export * from './lib/icon-label-button/icon-label-button';
 export * from './lib/multi-switch/multi-switch';
 export * from './lib/full-screen-modal/full-screen-modal';
 export * from './lib/search-header/search-header';

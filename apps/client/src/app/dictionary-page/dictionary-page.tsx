@@ -8,7 +8,7 @@ import DictionaryNavMobile from '../dictionary-nav-mobile/dictionary-nav-mobile'
 const navItems: DictionaryNavItem[] = [
   {
     id: 'alphabet',
-    path: '/',
+    path: 'alphabet',
     icon: 'fv-alphabet',
     title: 'Alphabet',
     colors: {
@@ -44,6 +44,7 @@ const navItems: DictionaryNavItem[] = [
       activeText: 'text-color-categories-dark',
       border: 'border-color-categories-dark',
     },
+    activePathMatches: [{ path: 'categories/:id' }],
   },
 ];
 
@@ -53,8 +54,12 @@ export interface DictionaryProps {}
 export function Dictionary(props: DictionaryProps) {
   const location = useLocation();
   const [currentNavItem, setCurrentNavItem] = useState(
-    navItems.find((item) => matchRoutes([{ path: item.path }], location)) ||
-      navItems[0]
+    navItems.find((item) =>
+      matchRoutes(
+        [{ path: item.path }, ...(item?.activePathMatches || [])],
+        location
+      )
+    ) || navItems[0]
   );
 
   useEffect(() => {

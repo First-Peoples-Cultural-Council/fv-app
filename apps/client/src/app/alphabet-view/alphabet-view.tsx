@@ -5,6 +5,7 @@ import styles from '../dictionary-view/dictionary-view.module.css';
 import { dataAlphabet } from '../temp-alphabet-list';
 import { dataDict } from '../temp-word-list';
 import WordAlphabetRowCard from './word-row-card';
+import _ from 'lodash';
 
 /* eslint-disable-next-line */
 export interface AlphabetViewProps {}
@@ -14,15 +15,17 @@ export function AlphabetView(props: AlphabetViewProps) {
   const [data, setData] = useState(dataDict);
 
   return (
-    <div className={styles['container']}>
-      <div className="block md:hidden">{keyboard()}</div>
-      <div className="hidden md:block">
+    <>
+      <div className="block md:hidden flex justify-center w-full">
+        {keyboard()}
+      </div>
+      <div className="hidden md:block w-full">
         <div className="flex flex-row">
           <div>
             {selectedLetterDisplay()}
             {keyboard()}
           </div>
-          <div>
+          <div className="w-full">
             <div className="p-5">
               <span className="text-xl pr-2">WORDS STARTING WITH</span>
               <span className="text-5xl bold">{selected.letter}</span>
@@ -41,13 +44,15 @@ export function AlphabetView(props: AlphabetViewProps) {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 
   function selectedLetterDisplay() {
     return (
       <>
-        <div className="flex text-8xl justify-center pb-6">{selected.letter}</div>
+        <div className="flex text-8xl justify-center pb-6">
+          {selected.letter}
+        </div>
         <div className="grid grid-cols-2">
           <button
             onClick={() => {
@@ -72,25 +77,42 @@ export function AlphabetView(props: AlphabetViewProps) {
   }
 
   function keyboard() {
+    const alphabetRows: FvLetter[][] = _.chunk(dataAlphabet, 4);
+
     return (
-      <div className="mt-5 mb-5 grid grid-cols-6 sm:grid-cols-8 md:grid-cols-4 gap-2">
-        {dataAlphabet.map((letterData) => {
+      <div className="mt-5 mb-5">
+        {alphabetRows.map((row) => {
+          let showLetterDisplay = false;
           return (
-            <button
-              className={classNames(
-                'border col-span-1 font-medium inline-flex justify-center p-3 sm:p-5 xl:p-3 rounded shadow text-2xl',
-                {
-                  'bg-cyan-900 text-white hover:bg-cyan-700':
-                    letterData === selected,
-                  'hover:bg-gray-200': letterData !== selected,
-                }
+            <>
+              <div className="grid gap-4 md:gap-2 grid-cols-4 pb-4">
+                {row.map((letterData) => {
+                  if (letterData === selected) {
+                    showLetterDisplay = true;
+                  }
+                  return (
+                    <button
+                      className={classNames(
+                        'border col-span-1 font-medium inline-flex justify-center p-5 md:p-3 rounded shadow text-2xl',
+                        {
+                          'bg-cyan-900 text-white hover:bg-cyan-700':
+                            letterData === selected,
+                          'hover:bg-gray-200': letterData !== selected,
+                        }
+                      )}
+                      onClick={() => {
+                        setSelected(letterData);
+                      }}
+                    >
+                      {letterData.letter}
+                    </button>
+                  );
+                })}
+              </div>
+              {showLetterDisplay && (
+                <div className="pb-10">{selectedLetterDisplay()}</div>
               )}
-              onClick={() => {
-                setSelected(letterData);
-              }}
-            >
-              {letterData.letter}
-            </button>
+            </>
           );
         })}
       </div>

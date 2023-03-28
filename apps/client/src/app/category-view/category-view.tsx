@@ -113,6 +113,7 @@ export function CategoryView(props: CategoryViewProps) {
                   .map((category) => {
                     return (
                       <Link
+                        key={category.id}
                         to={`/categories/${category.id}`}
                         className={classNames(
                           'flex items-center cursor-pointer mb-6 hover:opacity-75'
@@ -198,6 +199,7 @@ export function CategoryView(props: CategoryViewProps) {
         {subCategories.map((subCategory) => {
           return (
             <Link
+              key={subCategory.id}
               to={`/categories/${subCategory.id}`}
               className={classNames(
                 'mt-2 transition duration-500 ease-in-out ml-4 lg:ml-8 pr-4 lg:px-0 rounded-lg flex items-center cursor-pointer hover:opacity-75',

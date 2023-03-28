@@ -15,18 +15,22 @@ export function AlphabetView(props: AlphabetViewProps) {
 
   return (
     <div className={styles['container']}>
-      <div className="block sm:hidden">{keyboard()}</div>
-      <div className="hidden sm:block">
+      <div className="block md:hidden">{keyboard()}</div>
+      <div className="hidden md:block">
         <div className="flex flex-row">
           <div>
             {selectedLetterDisplay()}
             {keyboard()}
           </div>
           <div>
+            <div className="p-5">
+              <span className="text-xl pr-2">WORDS STARTING WITH</span>
+              <span className="text-5xl bold">{selected.letter}</span>
+            </div>
             {data
-              // .filter((term) => {
-
-              // })
+              .filter((term) => {
+                return term.word.startsWith(selected.letter);
+              })
               .map((term) => {
                 return (
                   <Fragment key={`${term.source}-${term.entryID}`}>

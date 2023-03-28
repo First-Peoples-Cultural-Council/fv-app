@@ -110,6 +110,16 @@ export const dataAlphabet = [
     ]
   },
   {
+    letter:'ś',
+    audio: [
+      {
+        speaker: 'Pricilla Ritchie',
+        filename:
+          'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
+      },
+    ]
+  },
+  {
     letter:'ao',
     audio: [
       {

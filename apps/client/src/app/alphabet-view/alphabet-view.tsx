@@ -89,6 +89,7 @@ export function AlphabetView(props: AlphabetViewProps) {
                   }
                   return (
                     <button
+                      key={letterData.letter}
                       className={classNames(
                         'border col-span-1 font-medium inline-flex justify-center p-5 md:p-3 rounded shadow text-2xl',
                         {

@@ -1,4 +1,5 @@
 import { ButtonTypeEnum, StandardButtonButtonTypeEnum } from './enums';
+import { ReactNode } from 'react';
 
 export type SelectOption = {
   id: string;
@@ -9,6 +10,7 @@ export type BasicMenuItem = {
   id: string;
   type: ButtonTypeEnum;
   label: string;
+  icon?: ReactNode;
 };
 
 export type ButtonMenuItem = {
@@ -105,4 +107,11 @@ export type FvCategory = {
   name: string;
   icon: string | null;
   parent: string | null;
+};
+
+export type NavigationItem = {
+  id: string;
+  to: string;
+  label: string;
+  icon?: ReactNode;
 };

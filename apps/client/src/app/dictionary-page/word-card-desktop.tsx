@@ -9,7 +9,7 @@ function WordCardDesktop({ term }: FvWord) {
   return (
     <>
       <div
-        className="hidden md:block w-full rounded-lg bg-white p-6 m-1 shadow-lg hover:bg-slate-100 cursor-pointer"
+        className="hidden md:block rounded-lg bg-white p-6 m-1 shadow-lg hover:bg-slate-100 cursor-pointer"
         onClick={() => setShowModal(true)}
       >
         <div className="grid grid-flow-col auto-cols-[minmax(0,_2fr)]">

@@ -4,7 +4,7 @@ import WordCard from './word-card';
 
 function WordCardMobile({ term }: FvWord) {
   const [showModal, setShowModal] = React.useState(false);
-  const { word, definition, audio, } = term;
+  const { word, definition, audio } = term;
 
   return (
     <>

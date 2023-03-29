@@ -44,8 +44,8 @@ export function DictionaryView(props: WordsViewProps) {
       {data.map((term) => {
         return (
           <Fragment key={`${term.source}-${term.entryID}`}>
-            <WordCardMobile term={term}/>
-            <WordCardDesktop term={term}/>
+            <WordCardMobile term={term} />
+            <WordCardDesktop term={term} />
           </Fragment>
         );
       })}{' '}

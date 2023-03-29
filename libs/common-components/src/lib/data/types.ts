@@ -77,7 +77,7 @@ export type FvWord = {
     compare_form: string;
     sort_form: string;
     sorting_form: number[];
-  }
+  };
 };
 
 export type FvAudio = {
@@ -105,9 +105,9 @@ export type FvCategory = {
   name: string;
   icon: string | null;
   parent: string | null;
-}
+};
 
 export type FvLetter = {
   letter: string;
   audio: FvAudio[];
-}
+};

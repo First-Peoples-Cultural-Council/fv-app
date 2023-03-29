@@ -76,7 +76,7 @@ export function CategoryView(props: CategoryViewProps) {
             .map((term) => {
               return (
                 <Fragment key={`${term.source}-${term.entryID}`}>
-                  <WordCardMobile term={term}/>
+                  <WordCardMobile term={term} />
                 </Fragment>
               );
             })}{' '}
@@ -92,7 +92,7 @@ export function CategoryView(props: CategoryViewProps) {
                 {subcategories()}
               </div>
               <div className="border-gray-700 border-solid border w-full mt-5 mb-5" />
-              <div className="">
+              <div>
                 {dataCategories
                   .filter(
                     (category) => category.parent == null && category.id !== id
@@ -121,24 +121,32 @@ export function CategoryView(props: CategoryViewProps) {
 
             <div>
               {wordsPhrasesBoth()}
-              {data
-                .filter((term) => {
-                  if (currentCategory === primaryCategory) {
-                    return term.theme === primaryCategory.id;
-                  } else {
+              <div
+                className={classNames(
+                  'overflow-y-auto',
+                  styles['wordsPhrasesContainer']
+                )}
+              >
+                {data
+                  .filter((term) => {
+                    if (currentCategory === primaryCategory) {
+                      return term.theme === primaryCategory.id;
+                    } else {
+                      return (
+                        term.theme === primaryCategory.id &&
+                        term.secondary_theme === currentCategory.id
+                      );
+                    }
+                  })
+                  .map((term) => {
                     return (
-                      term.theme === primaryCategory.id &&
-                      term.secondary_theme === currentCategory.id
+                      <Fragment key={`${term.source}-${term.entryID}`}>
+                        <WordCardDesktop term={term} />
+                      </Fragment>
                     );
-                  }
-                })
-                .map((term) => {
-                  return (
-                    <Fragment key={`${term.source}-${term.entryID}`}>
-                      <WordCardDesktop term={term}/>
-                    </Fragment>
-                  );
-                })}{' '}
+                  })}
+                <div className="h-48" />
+              </div>
             </div>
           </div>
         </div>

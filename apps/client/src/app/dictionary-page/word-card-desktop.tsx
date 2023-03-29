@@ -2,10 +2,9 @@ import { FvWord, Modal } from '@fv-app/common-components';
 import React from 'react';
 import WordCard from './word-card';
 
-function WordCardDesktop({term}: FvWord) {
+function WordCardDesktop({ term }: FvWord) {
   const [showModal, setShowModal] = React.useState(false);
-  const { word, definition, audio, } =
-    term;
+  const { word, definition, audio } = term;
 
   return (
     <>
@@ -61,7 +60,7 @@ function WordCardDesktop({term}: FvWord) {
                 </div>
               </div>
             </div>
-            <WordCard term={term}/>
+            <WordCard term={term} />
           </div>
         </Modal>
       )}

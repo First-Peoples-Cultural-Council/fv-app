@@ -1,18 +1,24 @@
-import { FvLetter } from '@fv-app/common-components';
+import { FvLetter, useButtonStyle } from '@fv-app/common-components';
 import classNames from 'classnames';
 import { Fragment, useState } from 'react';
-import styles from '../dictionary-view/dictionary-view.module.css';
 import { dataAlphabet } from '../temp-alphabet-list';
 import { dataDict } from '../temp-word-list';
 import WordAlphabetRowCard from './word-row-card';
 import _ from 'lodash';
+import { useIsMobile } from '../../util/useMediaQuery';
 
 /* eslint-disable-next-line */
 export interface AlphabetViewProps {}
 
 export function AlphabetView(props: AlphabetViewProps) {
-  const [selected, setSelected] = useState<FvLetter>(dataAlphabet[0]);
-  const [data, setData] = useState(dataDict);
+  const [selected, setSelected] = useState<FvLetter | null>(null);
+  const [showMobileWordList, setShowMobileWordList] = useState(false);
+
+  const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
+
+  if (!useIsMobile() && selected === null) {
+    setSelected(dataAlphabet[0]);
+  }
 
   return (
     <>
@@ -25,23 +31,7 @@ export function AlphabetView(props: AlphabetViewProps) {
             {selectedLetterDisplay()}
             {keyboard()}
           </div>
-          <div className="w-full">
-            <div className="p-5">
-              <span className="text-xl pr-2">WORDS STARTING WITH</span>
-              <span className="text-5xl bold">{selected.letter}</span>
-            </div>
-            {data
-              .filter((term) => {
-                return term.word.startsWith(selected.letter);
-              })
-              .map((term) => {
-                return (
-                  <Fragment key={`${term.source}-${term.entryID}`}>
-                    <WordAlphabetRowCard term={term} />
-                  </Fragment>
-                );
-              })}{' '}
-          </div>
+          {wordList()}
         </div>
       </div>
     </>
@@ -50,18 +40,25 @@ export function AlphabetView(props: AlphabetViewProps) {
   function selectedLetterDisplay() {
     return (
       <>
+        <button
+          className="fv-close float-right block md:hidden"
+          onClick={() => {
+            setSelected(null);
+            setShowMobileWordList(false);
+          }}
+        />
         <div className="flex text-8xl justify-center pb-6">
-          {selected.letter}
+          {selected?.letter}
         </div>
         <div className="grid grid-cols-2">
           <button
             onClick={() => {
-              navigator.clipboard.writeText(selected.letter);
+              navigator.clipboard.writeText(selected?.letter ?? '');
             }}
           >
             <span className="fv-copy text-4xl" />
           </button>
-          {selected.audio.map((fvAudio) => {
+          {selected?.audio.map((fvAudio) => {
             return (
               <button
                 key={fvAudio.filename}
@@ -80,7 +77,7 @@ export function AlphabetView(props: AlphabetViewProps) {
     const alphabetRows: FvLetter[][] = _.chunk(dataAlphabet, 4);
 
     return (
-      <div className="mt-5 mb-5">
+      <div className="mt-5 mb-5 w-full">
         {alphabetRows.map((row) => {
           let showLetterDisplay = false;
           return (
@@ -110,11 +107,51 @@ export function AlphabetView(props: AlphabetViewProps) {
                 })}
               </div>
               {showLetterDisplay && (
-                <div className="pb-10">{selectedLetterDisplay()}</div>
+                <div className=" md:hidden">
+                  <div className="pb-10 pt-10">{selectedLetterDisplay()}</div>
+                  {!showMobileWordList && (
+                    <div className="w-full flex justify-center pb-8">
+                      <button
+                        className={tertiaryButtonStyle}
+                        onClick={() => setShowMobileWordList(true)}
+                      >
+                        <span className="pr-2">
+                          See all words starting with
+                        </span>
+                        <span className="text-2xl font-bold">
+                          {selected?.letter}
+                        </span>
+                      </button>
+                    </div>
+                  )}
+                  {showMobileWordList && wordList()}
+                </div>
               )}
             </>
           );
         })}
+      </div>
+    );
+  }
+
+  function wordList() {
+    return (
+      <div className="w-full">
+        <div className="p-5">
+          <span className="text-xl pr-2">WORDS STARTING WITH</span>
+          <span className="text-5xl bold">{selected?.letter}</span>
+        </div>
+        {dataDict
+          .filter((term) => {
+            return term.word.startsWith(selected?.letter ?? '');
+          })
+          .map((term) => {
+            return (
+              <Fragment key={`${term.source}-${term.entryID}`}>
+                <WordAlphabetRowCard term={term} />
+              </Fragment>
+            );
+          })}{' '}
       </div>
     );
   }

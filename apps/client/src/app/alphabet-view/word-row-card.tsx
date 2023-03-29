@@ -10,7 +10,7 @@ function WordAlphabetRowCard({term}: FvWord) {
   return (
     <>
       <div
-        className="hidden md:block rounded-lg bg-white p-6 m-2 shadow-lg hover:bg-slate-100 cursor-pointer"
+        className="rounded-lg bg-white p-6 m-2 shadow-lg hover:bg-slate-100 cursor-pointer"
         onClick={() => setShowModal(true)}
       >
         <div className="grid grid-cols-10 gap-4">

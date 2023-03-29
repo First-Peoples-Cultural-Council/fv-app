@@ -99,6 +99,7 @@ export function AlphabetView(props: AlphabetViewProps) {
                       )}
                       onClick={() => {
                         setSelected(letterData);
+                        setShowMobileWordList(false);
                       }}
                     >
                       {letterData.letter}

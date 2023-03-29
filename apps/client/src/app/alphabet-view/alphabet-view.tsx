@@ -77,7 +77,7 @@ export function AlphabetView(props: AlphabetViewProps) {
     const alphabetRows: FvLetter[][] = _.chunk(dataAlphabet, 4);
 
     return (
-      <div className="mt-5 mb-5 w-full">
+      <div className="mt-5 mb-5 p-10 md:p-2 w-full">
         {alphabetRows.map((row) => {
           let showLetterDisplay = false;
           return (

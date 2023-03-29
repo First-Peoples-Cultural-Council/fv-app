@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 export function App() {
   return (
-    <div className="max-h-[100vh] overflow-hidden">
+    <div className="">
       <Header />
       <Outlet />
     </div>

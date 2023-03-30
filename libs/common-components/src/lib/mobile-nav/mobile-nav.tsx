@@ -14,11 +14,11 @@ export function MobileNav({ navItems }: MobileNavProps) {
       <nav className="fixed bottom-0 left-0 w-full bg-color-main-header flex p-4 justify-between items-center sm:hidden">
         <ul className="flex justify-around w-full">
           {navItems?.map((item) => (
-            <li key={item.id} className="ml-4">
+            <li key={item.id}>
               <Link
                 to={item.to}
                 className={classNames(
-                  'flex items-center text-white cursor-pointer',
+                  'flex items-center text-white cursor-pointer text-3xl',
                   { 'ml-2': !!item.icon }
                 )}
               >

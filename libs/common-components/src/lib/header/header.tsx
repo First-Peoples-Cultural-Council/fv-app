@@ -22,7 +22,7 @@ export function Header({ className, navItems }: HeaderProps) {
       <nav>
         <ul className="flex">
           {navItems?.map((item) => (
-            <li key={item.id} className="ml-4">
+            <li key={item.id} className="mr-5">
               <Link
                 to={item.to}
                 className={classNames(
@@ -30,7 +30,7 @@ export function Header({ className, navItems }: HeaderProps) {
                   { 'ml-2': !!item.icon }
                 )}
               >
-                {item.icon}
+                <div className="mr-2">{item.icon}</div>
                 {item.label}
               </Link>
             </li>

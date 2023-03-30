@@ -1,4 +1,4 @@
-import { FvLetter, useButtonStyle } from '@fv-app/common-components';
+import { FvAudio, FvLetter, useButtonStyle } from '@fv-app/common-components';
 import classNames from 'classnames';
 import { Fragment, useState } from 'react';
 import { dataAlphabet } from '../temp-alphabet-list';
@@ -38,6 +38,8 @@ export function AlphabetView(props: AlphabetViewProps) {
   );
 
   function selectedLetterDisplay() {
+    const audioCount = selected?.audio.length ?? 0;
+
     return (
       <>
         <button
@@ -50,26 +52,51 @@ export function AlphabetView(props: AlphabetViewProps) {
         <div className="flex text-8xl justify-center pb-6">
           {selected?.letter}
         </div>
-        <div className="grid grid-cols-2">
-          <button
-            onClick={() => {
-              navigator.clipboard.writeText(selected?.letter ?? '');
-            }}
-          >
-            <span className="fv-copy text-4xl" />
-          </button>
-          {selected?.audio.map((fvAudio) => {
-            return (
-              <button
-                key={fvAudio.filename}
-                onClick={() => playAudio(fvAudio.filename)}
-              >
-                <span className="fv-volume-up text-4xl justify-self-end cursor-pointer" />
-              </button>
-            );
-          })}
-        </div>
+        {audioCount === 0 && (
+          <div className="flex w-full justify-center">{copyButton()}</div>
+        )}
+        {audioCount === 1 && (
+          <div className="grid grid-cols-2">
+            {copyButton()}
+            {selected?.audio.map((fvAudio) => {
+              return audioButton(fvAudio);
+            })}
+          </div>
+        )}
+        {audioCount > 1 && (
+          <>
+            <div className="flex w-full justify-center">{copyButton()}</div>
+            <div className="flex justify-center">
+              {selected?.audio.map((fvAudio) => {
+                return audioButton(fvAudio);
+              })}
+            </div>
+          </>
+        )}
       </>
+    );
+  }
+
+  function copyButton() {
+    return (
+      <button
+        onClick={() => {
+          navigator.clipboard.writeText(selected?.letter ?? '');
+        }}
+      >
+        <span className="fv-copy text-4xl" />
+      </button>
+    );
+  }
+
+  function audioButton(fvAudio: FvAudio) {
+    return (
+      <button
+        key={fvAudio.filename}
+        onClick={() => playAudio(fvAudio.filename)}
+      >
+        <span className="fv-volume-up text-4xl justify-self-end cursor-pointer" />
+      </button>
     );
   }
 

@@ -1,570 +1,738 @@
 export const dataAlphabet = [
   {
-    letter:'a',
+    letter: 'a',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 1,
   },
   {
-    letter:'á',
+    letter: 'á',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 2,
   },
   {
-    letter:'e',
+    letter: 'e',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 3,
   },
   {
-    letter:'é',
+    letter: 'é',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 4,
   },
   {
-    letter:'i',
+    letter: 'i',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 5,
   },
   {
-    letter:'í',
+    letter: 'í',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 6,
   },
   {
-    letter:'o',
+    letter: 'o',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 7,
   },
   {
-    letter:'ó',
+    letter: 'ó',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 8,
   },
   {
-    letter:'ii',
+    letter: 'ii',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 9,
   },
   {
-    letter:'u',
+    letter: 'u',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 10,
   },
   {
-    letter:'ú',
+    letter: 'ú',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 11,
   },
   {
-    letter:'ś',
+    letter: 'ś',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 12,
   },
   {
-    letter:'ao',
+    letter: 'ao',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 13,
   },
   {
-    letter:'aó',
+    letter: 'aó',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 14,
   },
   {
-    letter:'v',
+    letter: 'v',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 15,
   },
   {
-    letter:'v́',
+    letter: 'v́',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 16,
   },
   {
-    letter:'p',
+    letter: 'p',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 17,
   },
   {
-    letter:'t',
+    letter: 't',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 18,
   },
   {
-    letter:'ts',
+    letter: 'ts',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 19,
   },
   {
-    letter:'k',
+    letter: 'k',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 20,
   },
   {
-    letter:'kw',
+    letter: 'kw',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 21,
   },
   {
-    letter:'s',
+    letter: 's',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 22,
   },
   {
-    letter:'z',
+    letter: 'z',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 23,
   },
   {
-    letter:'l',
+    letter: 'l',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 24,
   },
   {
-    letter:'m',
+    letter: 'm',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 25,
   },
   {
-    letter:'n',
+    letter: 'n',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 26,
   },
   {
-    letter:'w',
+    letter: 'w',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 27,
   },
   {
-    letter:'y',
+    letter: 'y',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 28,
   },
   {
-    letter:'h',
+    letter: 'h',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 29,
   },
   {
-    letter:'c',
+    letter: 'c',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 30,
   },
   {
-    letter:'cw',
+    letter: 'cw',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 31,
   },
   {
-    letter:'lh',
+    letter: 'lh',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 32,
   },
   {
-    letter:'q',
+    letter: 'q',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 33,
   },
   {
-    letter:'qw',
+    letter: 'qw',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 34,
   },
   {
-    letter:'x',
+    letter: 'x',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 35,
   },
   {
-    letter:'xw',
+    letter: 'xw',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 36,
   },
   {
-    letter:'g',
+    letter: 'g',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 37,
   },
   {
-    letter:'gw',
+    letter: 'gw',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 38,
   },
   {
-    letter:'r',
+    letter: 'r',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 39,
   },
   {
-    letter:'7',
+    letter: '7',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 40,
   },
   {
-    letter:'p̓',
+    letter: 'p̓',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 41,
   },
   {
-    letter:'t̓',
+    letter: 't̓',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 42,
   },
   {
-    letter:'ts̓',
+    letter: 'ts̓',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 43,
   },
   {
-    letter:'k̓',
+    letter: 'k̓',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 44,
   },
   {
-    letter:'k̓w',
+    letter: 'k̓w',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 45,
   },
   {
-    letter:'q̓',
+    letter: 'q̓',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 46,
   },
   {
-    letter:'q̓w',
+    letter: 'q̓w',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 47,
   },
   {
-    letter:'z̓',
+    letter: 'z̓',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 48,
   },
   {
-    letter:'l̓',
+    letter: 'l̓',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 49,
   },
   {
-    letter:'m̓',
+    letter: 'm̓',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 50,
   },
   {
-    letter:'n̓',
+    letter: 'n̓',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 51,
   },
   {
-    letter:'w̓',
+    letter: 'w̓',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 52,
   },
   {
-    letter:'y̓',
+    letter: 'y̓',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 53,
   },
   {
-    letter:'r̓',
+    letter: 'r̓',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 54,
   },
   {
-    letter:'g̓',
+    letter: 'g̓',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 55,
   },
   {
-    letter:'g̓w',
+    letter: 'g̓w',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 56,
   },
   {
-    letter:'l̲',
-    audio: []
+    letter: 'l̲',
+    audio: [],
   },
   {
-    letter:'s̲',
+    letter: 's̲',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
@@ -576,16 +744,42 @@ export const dataAlphabet = [
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 57,
   },
   {
-    letter:'t̲s̲',
+    letter: 't̲s̲',
     audio: [
       {
         speaker: 'Pricilla Ritchie',
         filename:
           'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
       },
-    ]
-  }
+      {
+        speaker: 'Pricilla Ritchie',
+        filename:
+          'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
+      },
+      {
+        speaker: 'Pricilla Ritchie',
+        filename:
+          'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
+      },
+      {
+        speaker: 'Pricilla Ritchie',
+        filename:
+          'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
+      },
+      {
+        speaker: 'Pricilla Ritchie',
+        filename:
+          'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/136e1a0a-a707-41a9-9ec8-1a4f05b55454/file:content/TestMP3.mp3',
+      },
+    ],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 58,
+  },
 ];

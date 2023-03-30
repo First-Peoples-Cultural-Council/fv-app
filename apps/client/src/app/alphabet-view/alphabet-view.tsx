@@ -66,7 +66,7 @@ export function AlphabetView(props: AlphabetViewProps) {
         {audioCount > 1 && (
           <>
             <div className="flex w-full justify-center">{copyButton()}</div>
-            <div className="flex justify-center">
+            <div className="flex justify-evenly mt-5">
               {selected?.audio.map((fvAudio) => {
                 return audioButton(fvAudio);
               })}

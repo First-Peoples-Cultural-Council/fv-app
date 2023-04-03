@@ -1,6 +1,11 @@
-import { FvAudio, FvLetter, useButtonStyle } from '@fv-app/common-components';
+import {
+  FullScreenModal,
+  FvAudio,
+  FvLetter,
+  useButtonStyle,
+} from '@fv-app/common-components';
 import classNames from 'classnames';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { dataAlphabet } from '../temp-alphabet-list';
 import { dataDict } from '../temp-word-list';
 import WordAlphabetRowCard from './word-row-card';
@@ -20,6 +25,14 @@ export function AlphabetView(props: AlphabetViewProps) {
     setSelected(dataAlphabet[0]);
   }
 
+  useEffect(() => {
+    if (showMobileWordList) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [showMobileWordList]);
+
   return (
     <>
       <div className="block md:hidden flex justify-center w-full">
@@ -31,9 +44,21 @@ export function AlphabetView(props: AlphabetViewProps) {
             {selectedLetterDisplay()}
             {keyboard()}
           </div>
-          {wordList()}
+          <div>
+            {selected?.examples.length !== 0 && exampleWordList()}
+            {selected?.notes !== undefined && notes()}
+            {wordList()}
+          </div>
         </div>
       </div>
+      {showMobileWordList && (
+        <FullScreenModal
+          onClose={() => setShowMobileWordList(false)}
+          actions={<></>}
+        >
+          {wordList()}
+        </FullScreenModal>
+      )}
     </>
   );
 
@@ -138,27 +163,57 @@ export function AlphabetView(props: AlphabetViewProps) {
               {showLetterDisplay && (
                 <div className=" md:hidden">
                   <div className="pb-10 pt-10">{selectedLetterDisplay()}</div>
-                  {!showMobileWordList && (
-                    <div className="w-full flex justify-center pb-8">
-                      <button
-                        className={tertiaryButtonStyle}
-                        onClick={() => setShowMobileWordList(true)}
-                      >
-                        <span className="pr-2">
-                          See all words starting with
-                        </span>
-                        <span className="text-2xl font-bold">
-                          {selected?.letter}
-                        </span>
-                      </button>
-                    </div>
-                  )}
-                  {showMobileWordList && wordList()}
+
+                  {selected?.examples.length !== 0 && exampleWordList()}
+                  {selected?.notes !== undefined && notes()}
+
+                  <div className="w-full flex justify-center pb-8">
+                    <button
+                      className={tertiaryButtonStyle}
+                      onClick={() => setShowMobileWordList(true)}
+                    >
+                      <span className="pr-2">See all words starting with</span>
+                      <span className="text-2xl font-bold">
+                        {selected?.letter}
+                      </span>
+                    </button>
+                  </div>
                 </div>
               )}
             </>
           );
         })}
+      </div>
+    );
+  }
+
+  function exampleWordList() {
+    return (
+      <div className="w-full">
+        <div className="p-5">
+          <span className="text-xl pr-2">EXAMPLE WORDS WITH</span>
+          <span className="text-5xl bold">{selected?.letter}</span>
+        </div>
+        {selected?.examples.map((termId) => {
+          const term = dataDict.find((word) => word.entryID === termId);
+          if (term === undefined) {
+            return <div></div>;
+          }
+          return (
+            <Fragment key={`${term.source}-${term.entryID}`}>
+              <WordAlphabetRowCard term={term} />
+            </Fragment>
+          );
+        })}
+      </div>
+    );
+  }
+
+  function notes() {
+    return (
+      <div className="p-5">
+        <div className="text-xl pb-2">NOTES</div>
+        <div>{selected?.notes}</div>
       </div>
     );
   }

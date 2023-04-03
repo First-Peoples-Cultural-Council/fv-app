@@ -730,6 +730,9 @@ export const dataAlphabet = [
   {
     letter: 'l̲',
     audio: [],
+    notes: 'a as in Hat.',
+    examples: ['243', '246'],
+    order: 57,
   },
   {
     letter: 's̲',
@@ -747,7 +750,7 @@ export const dataAlphabet = [
     ],
     notes: 'a as in Hat.',
     examples: ['243', '246'],
-    order: 57,
+    order: 58,
   },
   {
     letter: 't̲s̲',
@@ -780,6 +783,6 @@ export const dataAlphabet = [
     ],
     notes: 'a as in Hat.',
     examples: ['243', '246'],
-    order: 58,
+    order: 59,
   },
 ];

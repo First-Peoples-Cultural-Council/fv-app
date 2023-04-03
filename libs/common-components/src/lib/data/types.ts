@@ -110,4 +110,7 @@ export type FvCategory = {
 export type FvLetter = {
   letter: string;
   audio: FvAudio[];
+  examples: string[];
+  notes: string;
+  order: number;
 };

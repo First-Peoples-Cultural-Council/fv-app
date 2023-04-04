@@ -21,3 +21,9 @@ export enum AccessLevelEnum {
   Subscriber = 'subscriber',
   SuperAdmin = 'super-admin',
 }
+
+export enum DictionaryType {
+  Words = 0,
+  Phrases = 1,
+  Both = 2
+}

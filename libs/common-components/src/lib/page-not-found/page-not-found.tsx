@@ -1,11 +1,13 @@
-import { ButtonTypeEnum, StandardButtonButtonTypeEnum } from '../data';
-import Button from '../button/button';
 import { noop } from 'lodash';
+import { Link } from 'react-router-dom';
+import { useButtonStyle } from '../hooks/useButtonStyle';
 
 /* eslint-disable-next-line */
 export interface PageNotFoundProps {}
 
 export function PageNotFound(props: PageNotFoundProps) {
+  const primaryButtonStyle = useButtonStyle('primary');
+  const secondaryButtonStyle = useButtonStyle('primary');
   return (
     <div className="min-h-full bg-white px-4 py-16 sm:px-6 sm:py-24 md:grid md:place-items-center lg:px-8">
       <div className="mx-auto max-w-max">
@@ -23,18 +25,16 @@ export function PageNotFound(props: PageNotFoundProps) {
               </p>
             </div>
             <div className="mt-10 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6">
-              <Button type={ButtonTypeEnum.Link} to="/">
+              <Link className={primaryButtonStyle} to="/">
                 Go back home
-              </Button>
-              <Button
+              </Link>
+              <button
                 onClick={noop}
-                type={ButtonTypeEnum.button}
-                buttonType={StandardButtonButtonTypeEnum.button}
-                buttonStyle="button"
-                secondary
+                type="button"
+                className={secondaryButtonStyle}
               >
                 Contact support
-              </Button>
+              </button>
             </div>
           </div>
         </main>

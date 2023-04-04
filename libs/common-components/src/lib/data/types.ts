@@ -87,7 +87,7 @@ export type FvAudio = {
   filename: string;
 };
 
-export type DictionaryNavItem = {
+export type SubNavItem = {
   id: string;
   path: string;
   activePathMatches?: { path: string }[];

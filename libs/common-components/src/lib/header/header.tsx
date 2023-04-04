@@ -12,7 +12,7 @@ export function Header({ className, navItems }: HeaderProps) {
   return (
     <header
       className={classNames(
-        'w-full bg-color-main-header hidden p-4 justify-between items-center sm:flex',
+        'w-full bg-color-main-header hidden p-4 justify-between items-center md:flex',
         className
       )}
     >

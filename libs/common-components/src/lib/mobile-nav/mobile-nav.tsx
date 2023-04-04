@@ -10,8 +10,8 @@ export function MobileNav({ navItems }: MobileNavProps) {
   return (
     <>
       {/* Mobile Nav Spacer */}
-      <div className="w-full block sm:hidden h-[56px]"></div>
-      <nav className="fixed bottom-0 left-0 w-full bg-color-main-header flex p-4 justify-between items-center sm:hidden">
+      <div className="w-full block md:hidden h-[56px]"></div>
+      <nav className="fixed bottom-0 left-0 w-full bg-color-main-header flex p-4 justify-between items-center md:hidden">
         <ul className="flex justify-around w-full">
           {navItems?.map((item) => (
             <li key={item.id}>

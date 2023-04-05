@@ -1,4 +1,4 @@
-import styles from './dictionary-page.module.css';
+import styles from './learn.module.css';
 import { SubNavItem, SearchHeader } from '@fv-app/common-components';
 import { matchRoutes, Outlet, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -7,10 +7,10 @@ import SubNavMobile from '../sub-nav-mobile/sub-nav-mobile';
 
 const navItems: SubNavItem[] = [
   {
-    id: 'alphabet',
-    path: 'alphabet',
+    id: 'stories',
+    path: 'stories',
     icon: 'fv-alphabet',
-    title: 'Alphabet',
+    title: 'Stories',
     colors: {
       to: 'to-color-alphabet-light',
       from: 'from-color-alphabet-dark',
@@ -20,10 +20,10 @@ const navItems: SubNavItem[] = [
     },
   },
   {
-    id: 'dictionary',
-    path: 'dictionary',
+    id: 'songs',
+    path: 'songs',
     icon: 'fv-words',
-    title: 'Dictionary',
+    title: 'Songs',
     colors: {
       to: 'to-color-words-light',
       from: 'from-color-words-dark',
@@ -33,10 +33,10 @@ const navItems: SubNavItem[] = [
     },
   },
   {
-    id: 'categories',
-    path: 'categories',
+    id: 'flashcards',
+    path: 'flashcards',
     icon: 'fv-categories',
-    title: 'Categories',
+    title: 'Flashcards',
     colors: {
       to: 'to-color-categories-light',
       from: 'from-color-categories-dark',
@@ -44,14 +44,14 @@ const navItems: SubNavItem[] = [
       activeText: 'text-color-categories-dark',
       border: 'border-color-categories-dark',
     },
-    activePathMatches: [{ path: 'categories/:id' }],
+    activePathMatches: [{ path: 'stories' }],
   },
 ];
 
 /* eslint-disable-next-line */
-export interface DictionaryProps {}
+export interface LearnViewProps {}
 
-export function Dictionary(props: DictionaryProps) {
+export function LearnView(props: LearnViewProps) {
   const location = useLocation();
   const [currentNavItem, setCurrentNavItem] = useState(
     navItems.find((item) =>
@@ -90,4 +90,4 @@ export function Dictionary(props: DictionaryProps) {
   );
 }
 
-export default Dictionary;
+export default LearnView;

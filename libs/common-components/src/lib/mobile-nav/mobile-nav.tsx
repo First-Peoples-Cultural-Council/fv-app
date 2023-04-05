@@ -4,9 +4,10 @@ import { NavigationItem } from '../data';
 
 export interface MobileNavProps {
   navItems?: NavigationItem[];
+  currentTab: string;
 }
 
-export function MobileNav({ navItems }: MobileNavProps) {
+export function MobileNav({ navItems, currentTab }: MobileNavProps) {
   return (
     <>
       {/* Mobile Nav Spacer */}
@@ -21,6 +22,10 @@ export function MobileNav({ navItems }: MobileNavProps) {
                   'flex items-center text-white cursor-pointer text-3xl',
                   { 'ml-2': !!item.icon }
                 )}
+                style={{
+                  textShadow:
+                    item.id === currentTab ? '0 0 10px #9F6' : '0 0 0px #000',
+                }}
               >
                 {item.icon}
               </Link>

@@ -1,13 +1,13 @@
-import { DictionaryNavItem } from '@fv-app/common-components';
+import { SubNavItem } from '@fv-app/common-components';
 import { Link, matchRoutes } from 'react-router-dom';
 import classNames from 'classnames';
 
 /* eslint-disable-next-line */
-export interface DictionaryNavMobileProps {
-  navItems: DictionaryNavItem[];
+export interface SubNavMobileProps {
+  navItems: SubNavItem[];
 }
 
-export function DictionaryNavMobile({ navItems }: DictionaryNavMobileProps) {
+export function SubNavMobile({ navItems }: SubNavMobileProps) {
   return (
     <div className="md:hidden flex justify-around bg-white border border-black border-solid">
       {navItems.map((item) => {
@@ -34,4 +34,4 @@ export function DictionaryNavMobile({ navItems }: DictionaryNavMobileProps) {
   );
 }
 
-export default DictionaryNavMobile;
+export default SubNavMobile;

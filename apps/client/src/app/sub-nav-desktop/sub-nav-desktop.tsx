@@ -1,12 +1,12 @@
 import { Link, matchRoutes } from 'react-router-dom';
 import classNames from 'classnames';
-import { DictionaryNavItem } from '@fv-app/common-components';
+import { SubNavItem } from '@fv-app/common-components';
 
-export interface DictionaryNavDesktopProps {
-  navItems: DictionaryNavItem[];
+export interface SubNavDesktopProps {
+  navItems: SubNavItem[];
 }
 
-export function DictionaryNavDesktop({ navItems }: DictionaryNavDesktopProps) {
+export function SubNavDesktop({ navItems }: SubNavDesktopProps) {
   return (
     <nav className="w-[100px] flex flex-col hidden md:block mr-5">
       {navItems.map((item) => {
@@ -35,4 +35,4 @@ export function DictionaryNavDesktop({ navItems }: DictionaryNavDesktopProps) {
   );
 }
 
-export default DictionaryNavDesktop;
+export default SubNavDesktop;

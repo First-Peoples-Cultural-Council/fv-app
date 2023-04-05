@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import LearnView from './learn-view';
+import SongsView from './songs-view';
 
-describe('LearnView', () => {
+describe('SongsView', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<LearnView />);
+    const { baseElement } = render(<SongsView />);
     expect(baseElement).toBeTruthy();
   });
 });

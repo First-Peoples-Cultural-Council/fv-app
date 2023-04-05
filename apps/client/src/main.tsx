@@ -1,5 +1,3 @@
-import './registerServiceWorker.js';
-
 import { StrictMode } from 'react';
 import * as ReactDOMClient from 'react-dom/client';
 
@@ -22,6 +20,7 @@ import SettingsView from './app/settings-view/settings-view';
 import StoriesView from './app/stories-view/stories-view';
 import SongsView from './app/songs-view/songs-view';
 import FlashcardsView from './app/flashcards-view/flashcards-view';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -55,3 +54,6 @@ root.render(
     <RouterProvider router={router} />
   </StrictMode>
 );
+
+
+serviceWorkerRegistration.register();

@@ -7,6 +7,7 @@
     "icons:open": "fontello-cli open --config fontello.config.json",
     "start": "nx serve",
     "build": "nx build",
+    "buildnserve": "react-scripts build && serve -s build",
     "test": "nx test",
     "migrate:nx": "nx migrate latest",
     "storybook:client:build": "nx build-storybook client",
@@ -31,7 +32,19 @@
     "react-popper": "^2.3.0",
     "react-router-dom": "^6.8.1",
     "regenerator-runtime": "0.13.11",
-    "tslib": "^2.5.0"
+    "tslib": "^2.5.0",
+    "workbox-background-sync": "^6.5.4",
+    "workbox-broadcast-update": "^6.5.4",
+    "workbox-cacheable-response": "^6.5.4",
+    "workbox-core": "^6.5.4",
+    "workbox-expiration": "^6.5.4",
+    "workbox-google-analytics": "^6.5.4",
+    "workbox-navigation-preload": "^6.5.4",
+    "workbox-precaching": "^6.5.4",
+    "workbox-range-requests": "^6.5.4",
+    "workbox-routing": "^6.5.4",
+    "workbox-strategies": "^6.5.4",
+    "workbox-streams": "^6.5.4"
   },
   "devDependencies": {
     "@badgers-ua/nx-react-pwa": "^1.0.4",

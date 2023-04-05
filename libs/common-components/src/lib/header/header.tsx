@@ -6,9 +6,10 @@ import { Link } from 'react-router-dom';
 export interface HeaderProps {
   className?: string;
   navItems?: NavigationItem[];
+  currentTab: string;
 }
 
-export function Header({ className, navItems }: HeaderProps) {
+export function Header({ className, navItems, currentTab }: HeaderProps) {
   return (
     <header
       className={classNames(
@@ -29,6 +30,10 @@ export function Header({ className, navItems }: HeaderProps) {
                   'flex items-center text-white cursor-pointer',
                   { 'ml-2': !!item.icon }
                 )}
+                style={{
+                  textShadow:
+                    item.id === currentTab ? '0 0 10px #9F6' : '0 0 0px #000',
+                }}
               >
                 <div className="mr-2">{item.icon}</div>
                 {item.label}

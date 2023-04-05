@@ -1,37 +1,13 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { NavigationItem } from '../data';
 
 export interface MobileNavProps {
   navItems?: NavigationItem[];
+  currentTab: string;
 }
 
-export function MobileNav({ navItems }: MobileNavProps) {
-
-  let currentTab = "dictionary";
-  const location = useLocation();
-  switch(location.pathname) {
-    case '/alphabet':
-    case '/dictionary':
-    case '/categories':
-      currentTab = "dictionary";
-      break;
-
-    case '/stories':
-    case '/songs':
-    case '/flashcards':
-      currentTab = "learn";
-      break;
-
-    case '/profile':
-      currentTab = "profile";
-      break;
-
-    case '/settings':
-      currentTab = "misc";
-      break;
-  }
-
+export function MobileNav({ navItems, currentTab }: MobileNavProps) {
   return (
     <>
       {/* Mobile Nav Spacer */}

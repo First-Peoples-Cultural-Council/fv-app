@@ -1,6 +1,6 @@
 // Files to cache
 const cacheName = 'fvapp-v1';
-const appFiles = ['/', '/index.html'];
+const appFiles = ['/', '/index.html', '/manifest.json', '/favicon.ico'];
 
 self.addEventListener('install', (event) => {
   const cacheKey = cacheName;

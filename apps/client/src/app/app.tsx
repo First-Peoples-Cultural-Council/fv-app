@@ -54,7 +54,7 @@ export function App() {
   }
 
   return (
-    <div className="">
+    <div>
       <Header navItems={navItems} currentTab={currentTab} />
       <Outlet />
       <MobileNav navItems={navItems} currentTab={currentTab} />

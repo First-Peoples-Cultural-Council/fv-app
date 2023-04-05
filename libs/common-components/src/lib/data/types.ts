@@ -109,6 +109,14 @@ export type FvCategory = {
   parent: string | null;
 };
 
+export type FvLetter = {
+  letter: string;
+  audio: FvAudio[];
+  examples: string[];
+  notes: string;
+  order: number;
+};
+
 export type NavigationItem = {
   id: string;
   to: string;

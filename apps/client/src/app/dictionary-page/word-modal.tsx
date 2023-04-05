@@ -1,7 +1,7 @@
-import { FvWord } from "@fv-app/common-components";
-import WordCard from "./word-card";
+import { FvWord } from '@fv-app/common-components';
+import WordCard from './word-card';
 
-function WordModal({term}: FvWord) {
+function WordModal({ term }: FvWord) {
   const { word } = term;
 
   return (
@@ -22,7 +22,7 @@ function WordModal({term}: FvWord) {
           <div className="pl-2 pr-2">
             <button
               onClick={() => {
-                // TODO:
+                console.log('clicked share');
               }}
             >
               <i className="fv-share pr-2" />
@@ -31,9 +31,9 @@ function WordModal({term}: FvWord) {
           </div>
         </div>
       </div>
-      <WordCard term={term}/>
+      <WordCard term={term} />
     </div>
-  )
+  );
 }
 
 export default WordModal;

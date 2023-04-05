@@ -30,7 +30,7 @@ const navItems: NavigationItem[] = [
 
 export function App() {
   return (
-    <div className="">
+    <div>
       <Header navItems={navItems} />
       <Outlet />
       <MobileNav navItems={navItems} />

@@ -1,15 +1,23 @@
 import { FvWord, FullScreenModal } from '@fv-app/common-components';
-import React from 'react';
+import React, { useEffect } from 'react';
 import WordCard from './word-card';
 
 function WordCardMobile({ term }: FvWord) {
   const [showModal, setShowModal] = React.useState(false);
   const { word, definition, audio } = term;
 
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [showModal]);
+
   return (
     <>
       <div
-        className="block md:hidden w-full rounded-lg bg-white p-6 m-2 shadow-lg hover:bg-slate-100 cursor-pointer"
+        className="block md:hidden rounded-lg bg-white p-6 m-2 shadow-lg hover:bg-slate-100 cursor-pointer"
         onClick={() => setShowModal(true)}
       >
         <div className="grid grid-cols-10 gap-4">

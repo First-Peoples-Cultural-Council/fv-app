@@ -1,12 +1,12 @@
 @font-face {
   font-family: 'first-voices';
-  src: url('../font/first-voices.eot?57476426');
-  src: url('../font/first-voices.eot?57476426#iefix')
+  src: url('../font/first-voices.eot?83644298');
+  src: url('../font/first-voices.eot?83644298#iefix')
       format('embedded-opentype'),
-    url('../font/first-voices.woff2?57476426') format('woff2'),
-    url('../font/first-voices.woff?57476426') format('woff'),
-    url('../font/first-voices.ttf?57476426') format('truetype'),
-    url('../font/first-voices.svg?57476426#first-voices') format('svg');
+    url('../font/first-voices.woff2?83644298') format('woff2'),
+    url('../font/first-voices.woff?83644298') format('woff'),
+    url('../font/first-voices.ttf?83644298') format('truetype'),
+    url('../font/first-voices.svg?83644298#first-voices') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -16,7 +16,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'first-voices';
-    src: url('../font/first-voices.svg?57476426#first-voices') format('svg');
+    src: url('../font/first-voices.svg?83644298#first-voices') format('svg');
   }
 }
 */
@@ -98,6 +98,18 @@
 .fv-events:before {
   content: '\e80d';
 } /* '' */
+.fv-book:before {
+  content: '\e80e';
+} /* '' */
+.fv-star:before {
+  content: '\e80f';
+} /* '' */
+.fv-computer:before {
+  content: '\e810';
+} /* '' */
+.fv-user:before {
+  content: '\e811';
+} /* '' */
 .fv-menu:before {
   content: '\f0c9';
 } /* '' */

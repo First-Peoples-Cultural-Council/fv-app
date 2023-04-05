@@ -1,18 +1,63 @@
-
-.fv-close:before { content: '\e800'; } /* '' */
-.fv-volume-up:before { content: '\e801'; } /* '' */
-.fv-copy:before { content: '\e802'; } /* '' */
-.fv-right-open:before { content: '\e803'; } /* '' */
-.fv-left-open:before { content: '\e804'; } /* '' */
-.fv-play:before { content: '\e805'; } /* '' */
-.fv-search:before { content: '\e806'; } /* '' */
-.fv-alphabet:before { content: '\e807'; } /* '' */
-.fv-categories:before { content: '\e808'; } /* '' */
-.fv-phrases:before { content: '\e809'; } /* '' */
-.fv-words:before { content: '\e80a'; } /* '' */
-.fv-body:before { content: '\e80b'; } /* '' */
-.fv-colours:before { content: '\e80c'; } /* '' */
-.fv-events:before { content: '\e80d'; } /* '' */
-.fv-menu:before { content: '\f0c9'; } /* '' */
-.fv-quote-right:before { content: '\f10e'; } /* '' */
-.fv-share:before { content: '\f1e0'; } /* '' */
+.fv-close:before {
+  content: '\e800';
+} /* '' */
+.fv-volume-up:before {
+  content: '\e801';
+} /* '' */
+.fv-copy:before {
+  content: '\e802';
+} /* '' */
+.fv-right-open:before {
+  content: '\e803';
+} /* '' */
+.fv-left-open:before {
+  content: '\e804';
+} /* '' */
+.fv-play:before {
+  content: '\e805';
+} /* '' */
+.fv-search:before {
+  content: '\e806';
+} /* '' */
+.fv-alphabet:before {
+  content: '\e807';
+} /* '' */
+.fv-categories:before {
+  content: '\e808';
+} /* '' */
+.fv-phrases:before {
+  content: '\e809';
+} /* '' */
+.fv-words:before {
+  content: '\e80a';
+} /* '' */
+.fv-body:before {
+  content: '\e80b';
+} /* '' */
+.fv-colours:before {
+  content: '\e80c';
+} /* '' */
+.fv-events:before {
+  content: '\e80d';
+} /* '' */
+.fv-book:before {
+  content: '\e80e';
+} /* '' */
+.fv-star:before {
+  content: '\e80f';
+} /* '' */
+.fv-computer:before {
+  content: '\e810';
+} /* '' */
+.fv-user:before {
+  content: '\e811';
+} /* '' */
+.fv-menu:before {
+  content: '\f0c9';
+} /* '' */
+.fv-quote-right:before {
+  content: '\f10e';
+} /* '' */
+.fv-share:before {
+  content: '\f1e0';
+} /* '' */

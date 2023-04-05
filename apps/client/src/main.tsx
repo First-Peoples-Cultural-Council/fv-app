@@ -16,6 +16,9 @@ import AlphabetView from './app/alphabet-view/alphabet-view';
 import DictionaryView from './app/dictionary-view/dictionary-view';
 import CategoriesView from './app/categories-view/categories-view';
 import CategoryView from './app/category-view/category-view';
+import LearnView from './app/learn-view/learn-view';
+import ProfileView from './app/profile-view/profile-view';
+import SettingsView from './app/settings-view/settings-view';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +29,9 @@ const router = createBrowserRouter(
           <Route path="dictionary" element={<DictionaryView />} />
           <Route path="categories/:id" element={<CategoryView />} />
           <Route path="categories" element={<CategoriesView />} />
+          <Route path="learn" element={<LearnView />} />
+          <Route path="profile" element={<ProfileView />} />
+          <Route path="settings" element={<SettingsView />} />
         </Route>
       </Route>
       <Route path="*" element={<PageNotFound />} />

@@ -32,12 +32,6 @@ export function App() {
   let currentTab = 'dictionary';
   const location = useLocation();
   switch (location.pathname) {
-    case '/alphabet':
-    case '/dictionary':
-    case '/categories':
-      currentTab = 'dictionary';
-      break;
-
     case '/stories':
     case '/songs':
     case '/flashcards':

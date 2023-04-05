@@ -15,7 +15,7 @@ export function SearchInput({
   clickSearch,
 }: SearchInputProps) {
   return (
-    <div className="flex items-center w-full max-w-md">
+    <div className="flex items-center w-full max-w-md ml-2">
       <input
         value={value}
         onChange={onChange}

@@ -31,7 +31,9 @@ function WordModal({ term }: FvWord) {
           </div>
         </div>
       </div>
-      <WordCard term={term} />
+      <div className="pb-10">
+        <WordCard term={term}/>
+      </div>
     </div>
   );
 }

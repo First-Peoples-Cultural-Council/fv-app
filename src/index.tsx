@@ -10,18 +10,18 @@ import {
   RouterProvider,
   Route,
 } from 'react-router-dom';
-import Dictionary from './componets/dictionary-page/dictionary-page';
-import AlphabetView from './componets/alphabet-view/alphabet-view';
-import DictionaryView from './componets/dictionary-view/dictionary-view';
-import CategoryView from './componets/category-view/category-view';
-import CategoriesView from './componets/categories-view/categories-view';
-import Learn from './componets/learn/learn';
-import StoriesView from './componets/stories-view/stories-view';
-import SongsView from './componets/songs-view/songs-view';
-import FlashcardsView from './componets/flashcards-view/flashcards-view';
-import ProfileView from './componets/profile-view/profile-view';
-import SettingsView from './componets/settings-view/settings-view';
-import PageNotFound from './componets/common/page-not-found/page-not-found';
+import Dictionary from './components/dictionary-page/dictionary-page';
+import AlphabetView from './components/alphabet-view/alphabet-view';
+import DictionaryView from './components/dictionary-view/dictionary-view';
+import CategoryView from './components/category-view/category-view';
+import CategoriesView from './components/categories-view/categories-view';
+import Learn from './components/learn/learn';
+import StoriesView from './components/stories-view/stories-view';
+import SongsView from './components/songs-view/songs-view';
+import FlashcardsView from './components/flashcards-view/flashcards-view';
+import ProfileView from './components/profile-view/profile-view';
+import SettingsView from './components/settings-view/settings-view';
+import PageNotFound from './components/common/page-not-found/page-not-found';
 
 const router = createBrowserRouter(
   createRoutesFromElements(

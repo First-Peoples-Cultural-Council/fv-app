@@ -45,7 +45,6 @@ const navItems: SubNavItem[] = [
       activeText: 'text-color-categories-dark',
       border: 'border-color-categories-dark',
     },
-    activePathMatches: [{ path: 'stories' }],
   },
 ];
 

@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import { useState } from 'react';
 import { Dialect } from '../data';
 
 /* eslint-disable-next-line */

@@ -1,5 +1,4 @@
-import styles from './tooltip.module.css';
-import { cloneElement, ReactElement, useEffect, useRef, useState } from 'react';
+import { cloneElement, ReactElement, useEffect, useState } from 'react';
 import { usePopper } from 'react-popper';
 
 export interface TooltipProps {

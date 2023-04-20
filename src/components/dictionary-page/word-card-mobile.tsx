@@ -22,13 +22,13 @@ function WordCardMobile({ term }: FvWord) {
         onClick={() => setShowModal(true)}
       >
         <div className="grid grid-cols-10 gap-4">
-          <div className="col-span-7">
+          <div className="col-span-8">
             <div>
               <h1 className="font-bold">{word}</h1>
             </div>
-            <h1>{definition}</h1>
+            <h1 className="truncate">{definition}</h1>
           </div>
-          <div className="self-center col-span-2">
+          <div className="self-center col-span-1">
             {audio != null &&
               audio.map((fvAudio) => (
                 <i key={fvAudio.filename} className="fv-volume-up" />

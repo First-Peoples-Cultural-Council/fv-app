@@ -1,10 +1,12 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import WordModal from './word-modal';
 import { FvWord } from '../common/data';
 import Modal from '../common/modal/modal';
 
 function WordCardDesktop({ term }: FvWord) {
-  const [showModal, setShowModal] = React.useState(false);
+  const location = useLocation();
+  const [showModal, setShowModal] = React.useState((location.hash === `#${term.source}-${term.entryID}` && window.matchMedia("(min-width: 768px").matches));
   const { word, definition, audio } = term;
 
   return (

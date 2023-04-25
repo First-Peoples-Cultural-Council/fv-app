@@ -3,6 +3,11 @@ import WordCard from './word-card';
 
 function WordModal({ term }: FvWord) {
   const { word } = term;
+  const shareData = {
+    title: "FirstVoices",
+    text: `Learn what the word ${word} means from FirstVoices!`,
+    url: `${window.location.origin}${window.location.pathname}#${term.source}-${term.entryID}`
+  };
 
   return (
     <div className="p-10">
@@ -22,7 +27,12 @@ function WordModal({ term }: FvWord) {
           <div className="pl-2 pr-2">
             <button
               onClick={() => {
-                console.log('clicked share');
+                if (navigator.share && navigator.canShare(shareData)) {
+                  navigator.share(shareData);
+                }
+                else {
+                  navigator.clipboard.writeText(shareData.url);
+                }
               }}
             >
               <i className="fv-share pr-2" />

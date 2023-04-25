@@ -13,7 +13,7 @@ function WordModal({ term }: FvWord) {
     <div className="p-10">
       <div className="flex text-2xl">
         <p className="grow font-bold text-3xl">{word}</p>
-        <div className="grid grid-cols-2 divide-solid divide-black divide-x">
+        <div className="grid grid-cols-1">
           <div className="pl-2 pr-2">
             <i className="fv-copy pr-2" />
             <button
@@ -39,9 +39,19 @@ function WordModal({ term }: FvWord) {
               <span className="text-xl">SHARE</span>
             </button>
           </div>
+          <div className="pl-2 pr-2">
+            <button
+              onClick={() => {
+                console.log('Bookmark clicked');
+              }}
+            >
+              <i className="fv-book pr-2" />
+              <span className="text-xl">BOOKMARK</span>
+            </button>
+          </div>
         </div>
       </div>
-      <div className="pb-10">
+      <div className="-mt-14 pb-10">
         <WordCard term={term}/>
       </div>
     </div>

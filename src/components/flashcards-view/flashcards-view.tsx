@@ -240,8 +240,6 @@ export function FlashcardsView(props: FlashcardsViewProps) {
     setFlashcardIndex(fcIndex);
     setFlipped(false);
 
-    console.log('fcIndex: ' + fcIndex);
-
     // If set to mix select one of the type randomly.
     let displayType = selectedFlashcardDisplayType;
     if (selectedFlashcardDisplayType === 'mix') {

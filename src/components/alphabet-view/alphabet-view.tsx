@@ -5,9 +5,11 @@ import { dataDict } from '../temp-word-list';
 import WordAlphabetRowCard from './word-row-card';
 import _ from 'lodash';
 import { useIsMobile } from '../../util/useMediaQuery';
-import { FvAudio, FvLetter } from '../common/data/types';
+import { FvAudio, FvLetter } from "../common/data";
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
-import { useButtonStyle } from '../common/hooks/useButtonStyle';
+import { useButtonStyle } from "../common/hooks";
+
+const dataAlphabetMap = _.keyBy(dataAlphabet, 'letter');
 
 /* eslint-disable-next-line */
 export interface AlphabetViewProps {}
@@ -127,10 +129,10 @@ export function AlphabetView(props: AlphabetViewProps) {
 
     return (
       <div className="mt-5 mb-5 p-10 md:p-2 w-full">
-        {alphabetRows.map((row) => {
+        {alphabetRows.map((row, index) => {
           let showLetterDisplay = false;
           return (
-            <>
+            <Fragment key={`row-${index}`}>
               <div className="grid gap-4 md:gap-2 grid-cols-4 pb-4">
                 {row.map((letterData) => {
                   if (letterData === selected) {
@@ -177,7 +179,7 @@ export function AlphabetView(props: AlphabetViewProps) {
                   </div>
                 </div>
               )}
-            </>
+            </Fragment>
           );
         })}
       </div>
@@ -215,6 +217,20 @@ export function AlphabetView(props: AlphabetViewProps) {
     );
   }
 
+  function getAlphabetSort(a: string, b: string, letterIndex: number): number {
+    const aOrder = dataAlphabetMap[a[letterIndex]]?.order;
+    const bOrder = dataAlphabetMap[b[letterIndex]]?.order;
+    if (aOrder === undefined) {
+      return 1;
+    } else if (bOrder === undefined) {
+      return -1;
+    } else if (aOrder === bOrder) {
+      return getAlphabetSort(a, b, letterIndex + 1);
+    } else {
+      return aOrder - bOrder;
+    }
+  }
+
   function wordList() {
     return (
       <div className="w-full">
@@ -225,6 +241,9 @@ export function AlphabetView(props: AlphabetViewProps) {
         {dataDict
           .filter((term) => {
             return term.word.startsWith(selected?.letter ?? '');
+          })
+          .sort((a, b) => {
+            return getAlphabetSort(a.word, b.word, 1);
           })
           .map((term) => {
             return (

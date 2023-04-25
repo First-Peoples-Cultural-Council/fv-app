@@ -2,15 +2,18 @@ import classNames from 'classnames';
 import { useButtonStyle } from '../common/hooks';
 import { useEffect, useRef, useState } from 'react';
 import useOnClickOutside from '../../util/clickOutside';
-import { dataDict } from '../temp-word-list';
 import { Flashcard, FvAudio } from '../common/data';
 import shuffle from '../../util/shuffle';
+
+import { dataDict } from '../temp-word-list';
+import { dataCategories } from '../temp-category-list';
 
 /* eslint-disable-next-line */
 export interface FlashcardsViewProps {}
 
 export function FlashcardsView(props: FlashcardsViewProps) {
   const [showSelectModal, setShowSelectModal] = useState(false);
+  const [showCategoryModal, setShowCategoryModal] = useState(false);
   const [showFlashcardModal, setShowFlashcardModal] = useState(false);
   const [selectedFlashcardType, setSelectedFlashcardType] = useState<string>();
   const [selectedFlashcardDisplayType, setSelectedFlashcardDisplayType] =
@@ -23,10 +26,14 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   const secondaryButtonStyle = useButtonStyle('secondary', 'button');
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 
-  const ref = useRef<HTMLDivElement>(null);
+  const SelectModalRef = useRef<HTMLDivElement>(null);
+  const CategoryModalRef = useRef<HTMLDivElement>(null);
 
-  useOnClickOutside(ref, () => {
+  useOnClickOutside(SelectModalRef, () => {
     setShowSelectModal(false);
+  });
+  useOnClickOutside(CategoryModalRef, () => {
+    setShowCategoryModal(false);
   });
 
   useEffect(() => {
@@ -65,10 +72,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
             setData(shuffledData);
           })}
           {flashCardType('Category', 'fv-categories', () => {
-            // TODO:
-            setData(
-              shuffle(dataDict.filter((entry) => entry.source === 'words'))
-            );
+            setShowCategoryModal(true);
           })}
           {flashCardType('Bookmarks', 'fv-bookmarks', () => {
             // TODO:
@@ -85,7 +89,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
           className="fixed inset-0 w-full h-full backdrop"
         >
           <div className="grid h-screen place-items-center outline-none focus:outline-none">
-            <div ref={ref} className="p-4 grid bg-white">
+            <div ref={SelectModalRef} className="p-4 grid bg-white">
               <div className="pb-4">
                 <div className="float-left uppercase text-green-600 text-2xl">
                   {selectedFlashcardType}
@@ -113,6 +117,50 @@ export function FlashcardsView(props: FlashcardsViewProps) {
               })}
               {menuItem('Mix', 'fv-mix', () => {
                 setSelectedFlashcardDisplayType('mix');
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showCategoryModal && (
+        <div
+          style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
+          className="fixed inset-0 w-full h-full backdrop"
+        >
+          <div className="grid h-screen place-items-center overflow-y-auto outline-none focus:outline-none">
+            <div ref={CategoryModalRef} className="p-4 grid bg-white">
+              <div className="pb-4">
+                <div className="float-left uppercase text-green-600 text-2xl">
+                  {selectedFlashcardType}
+                </div>
+                <button
+                  className="p-1 ml-auto bg-transparent border-0 text-black float-right text-1xl leading-none font-semibold outline-none focus:outline-none"
+                  onClick={() => setShowCategoryModal(false)}
+                >
+                  <i className="fv-close"></i>
+                </button>
+              </div>
+              {dataCategories.map((category) => {
+                return (
+                  <>
+                    {menuItem(
+                      category.name,
+                      category.icon ?? 'fv-categories',
+                      () => {
+                        const categoryData = dataDict.filter((term) => {
+                          return (
+                            term.theme === category.id ||
+                            term.secondary_theme === category.id
+                          );
+                        });
+                        setSelectedFlashcardType(category.name);
+                        setData(shuffle(categoryData));
+                        setShowCategoryModal(false);
+                      }
+                    )}
+                  </>
+                );
               })}
             </div>
           </div>

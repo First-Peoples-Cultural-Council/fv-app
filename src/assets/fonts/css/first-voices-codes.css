@@ -27,6 +27,9 @@
 .fv-bookmarks:before { content: '\e817'; } /* '' */
 .fv-wordsfc:before { content: '\e818'; } /* '' */
 .fv-phrasesfc:before { content: '\e819'; } /* '' */
+.fv-ccw:before { content: '\e81a'; } /* '' */
+.fv-right-big:before { content: '\e81b'; } /* '' */
+.fv-check:before { content: '\e81c'; } /* '' */
 .fv-menu:before { content: '\f0c9'; } /* '' */
 .fv-quote-right:before { content: '\f10e'; } /* '' */
 .fv-share:before { content: '\f1e0'; } /* '' */

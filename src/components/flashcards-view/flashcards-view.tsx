@@ -15,11 +15,14 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   const [showSelectModal, setShowSelectModal] = useState(false);
   const [showCategoryModal, setShowCategoryModal] = useState(false);
   const [showFlashcardModal, setShowFlashcardModal] = useState(false);
+  const [showDonePromptModal, setShowDonePromptModal] = useState(false);
+
   const [selectedFlashcardType, setSelectedFlashcardType] = useState<string>();
   const [selectedFlashcardDisplayType, setSelectedFlashcardDisplayType] =
     useState('');
   const [flipped, setFlipped] = useState(false);
   const [data, setData] = useState<any>();
+  const [dataForFlashcardGroup, setDataForFlashcardGroup] = useState<any>();
   const [flashcardIndex, setFlashcardIndex] = useState<number>(0);
   const [flashcardData, setFlashcardData] = useState<Flashcard>();
 
@@ -29,6 +32,8 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   const SelectModalRef = useRef<HTMLDivElement>(null);
   const CategoryModalRef = useRef<HTMLDivElement>(null);
 
+  const flashcardsBatchSize = 25;
+
   useOnClickOutside(SelectModalRef, () => {
     setShowSelectModal(false);
   });
@@ -37,13 +42,17 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   });
 
   useEffect(() => {
-    if (data) {
-      setShowSelectModal(true);
+    if (dataForFlashcardGroup) {
+      if (selectedFlashcardDisplayType === '') {
+        setShowSelectModal(true);
+      } else {
+        setDataForFlashcard(0);
+      }
     }
-  }, [data]);
+  }, [dataForFlashcardGroup]);
 
   useEffect(() => {
-    if (selectedFlashcardDisplayType) {
+    if (selectedFlashcardDisplayType !== '') {
       setShowSelectModal(false);
       setDataForFlashcard(0);
     }
@@ -60,25 +69,24 @@ export function FlashcardsView(props: FlashcardsViewProps) {
       <div className="w-full">
         <div className="flex flex-wrap justify-center">
           {flashCardType('Words', 'fv-wordsfc', () => {
-            const shuffledData = shuffle(
+            setSelectedFlashcardDisplayType('');
+            saveDataForFlashcards(
               dataDict.filter((entry) => entry.source === 'words')
             );
-            setData(shuffledData);
           })}
           {flashCardType('Phrases', 'fv-phrasesfc', () => {
-            const shuffledData = shuffle(
+            setSelectedFlashcardDisplayType('');
+            saveDataForFlashcards(
               dataDict.filter((entry) => entry.source === 'phrases')
             );
-            setData(shuffledData);
           })}
           {flashCardType('Category', 'fv-categories', () => {
+            setSelectedFlashcardDisplayType('');
             setShowCategoryModal(true);
           })}
           {flashCardType('Bookmarks', 'fv-bookmarks', () => {
+            setSelectedFlashcardDisplayType('');
             // TODO:
-            setData(
-              shuffle(dataDict.filter((entry) => entry.source === 'phrases'))
-            );
           })}
         </div>
       </div>
@@ -155,7 +163,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                           );
                         });
                         setSelectedFlashcardType(category.name);
-                        setData(shuffle(categoryData));
+                        saveDataForFlashcards(categoryData);
                         setShowCategoryModal(false);
                       }
                     )}
@@ -191,11 +199,11 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                 )}
                 onClick={() => setFlipped(!flipped)}
               >
-                <div className="absolute inset-0 pl-2">
-                  Card: {flashcardIndex + 1}
+                <div className="absolute inset-0 pl-2 font-bold">
+                  {flashcardIndex + 1}/{dataForFlashcardGroup.length}
                 </div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-4xl text-center">
+                  <div className="text-4xl text-center break-words w-full">
                     {flashcardData?.type === 'word' && flashcardData?.frontWord}
                     {flashcardData?.type === 'audio' &&
                       flashcardData?.audio?.map((fvAudio: FvAudio) => (
@@ -213,7 +221,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                   </div>
                 </div>
                 <div className="absolute insert-0 h-full w-full rounded-xl bg-black px-12 text-slate-200 flex items-center justify-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
-                  <div className="text-4xl text-center">
+                  <div className="text-4xl text-center break-words w-full">
                     {flashcardData?.backWord}
                   </div>
                 </div>
@@ -223,33 +231,83 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                   <div className="grid h-10 w-10 bg-gray-50 float-left rounded-3xl mt-4 place-items-center">
                     <button
                       className="p-1 ml-auto bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none"
-                      onClick={() => {
-                        setDataForFlashcard(flashcardIndex - 1);
+                      onClick={async () => {
+                        setTimeout(() => {
+                          setDataForFlashcard(flashcardIndex - 1);
+                        }, 200);
                       }}
                     >
                       <i className="fv-left-bold text-2xl"></i>
                     </button>
                   </div>
                 )}
-                {flashcardIndex !== data.length - 1 && (
-                  <div className="grid h-10 w-10 bg-gray-50 float-right rounded-3xl mt-4 place-items-center">
-                    <button
-                      className="p-1 ml-auto bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none"
-                      onClick={() => {
-                        setDataForFlashcard(flashcardIndex + 1);
-                      }}
-                    >
-                      <i className="fv-right-bold text-2xl"></i>
-                    </button>
-                  </div>
-                )}
+
+                <div className="grid h-10 w-10 bg-gray-50 float-right rounded-3xl mt-4 place-items-center">
+                  <button
+                    className="p-1 ml-auto bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none"
+                    onClick={async () => {
+                      if (flashcardIndex !== dataForFlashcardGroup.length - 1) {
+                        setFlipped(false);
+                        setTimeout(() => {
+                          setDataForFlashcard(flashcardIndex + 1);
+                        }, 200);
+                      } else {
+                        setShowFlashcardModal(false);
+                        setShowDonePromptModal(true);
+                      }
+                    }}
+                  >
+                    <i className="fv-right-bold text-2xl"></i>
+                  </button>
+                </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showDonePromptModal && (
+        <div
+          style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
+          className="fixed inset-0 w-full h-full backdrop"
+        >
+          <div className="grid h-screen place-items-center overflow-y-auto outline-none focus:outline-none">
+            <div ref={CategoryModalRef} className="p-4 grid bg-white">
+              <div className="pb-4">
+                <button
+                  className="p-1 ml-auto bg-transparent border-0 text-black float-right text-1xl leading-none font-semibold outline-none focus:outline-none"
+                  onClick={() => setShowDonePromptModal(false)}
+                >
+                  <i className="fv-close"></i>
+                </button>
+              </div>
+              {menuItem('Restart Set', 'fv-ccw', () => {
+                setDataForFlashcard(0);
+                setShowDonePromptModal(false);
+                setShowFlashcardModal(true);
+              })}
+              {data.length !== 0 &&
+                menuItem('Next Set', 'fv-right-big', () => {
+                  saveDataForFlashcards(data);
+                  setShowDonePromptModal(false);
+                })}
+              {menuItem('Done', 'fv-check', () => {
+                setShowDonePromptModal(false);
+              })}
             </div>
           </div>
         </div>
       )}
     </>
   );
+
+  function saveDataForFlashcards(data: any[]) {
+    const shuffledData = shuffle(data);
+    const flashcardSet = shuffledData.slice(0, flashcardsBatchSize);
+    const remainingData = shuffledData.slice(flashcardsBatchSize + 1);
+    setData(remainingData);
+    setDataForFlashcardGroup(flashcardSet);
+  }
 
   function flashCardType(name: string, icon: string, getTypeData: Function) {
     return (
@@ -273,7 +331,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   function menuItem(name: string, icon: string, onClick: Function) {
     return (
       <div
-        className="border-2 border-solid border-slate-500 rounded-lg bg-slate-100 flex p-4 space-x-6 mb-2 hover:cursor"
+        className="border-2 border-solid border-slate-500 rounded-lg bg-slate-100 flex p-4 space-x-6 mb-2 cursor-pointer"
         onClick={() => onClick()}
       >
         <div className={classNames('text-7xl text-slate-700', icon)}></div>
@@ -300,8 +358,8 @@ export function FlashcardsView(props: FlashcardsViewProps) {
       case 'e2l': {
         setFlashcardData({
           type: 'word',
-          frontWord: data[fcIndex].definition,
-          backWord: data[fcIndex].word,
+          frontWord: dataForFlashcardGroup[fcIndex].definition ?? '',
+          backWord: dataForFlashcardGroup[fcIndex].word ?? '',
           audio: null,
         });
         break;
@@ -310,8 +368,8 @@ export function FlashcardsView(props: FlashcardsViewProps) {
       case 'l2e': {
         setFlashcardData({
           type: 'word',
-          frontWord: data[fcIndex].word,
-          backWord: data[fcIndex].definition,
+          frontWord: dataForFlashcardGroup[fcIndex].word ?? '',
+          backWord: dataForFlashcardGroup[fcIndex].definition ?? '',
           audio: null,
         });
         break;
@@ -321,8 +379,8 @@ export function FlashcardsView(props: FlashcardsViewProps) {
         setFlashcardData({
           type: 'audio',
           frontWord: null,
-          backWord: data[fcIndex].definition,
-          audio: data[fcIndex].audio,
+          backWord: dataForFlashcardGroup[fcIndex].definition ?? '',
+          audio: dataForFlashcardGroup[fcIndex].audio,
         });
         break;
       }

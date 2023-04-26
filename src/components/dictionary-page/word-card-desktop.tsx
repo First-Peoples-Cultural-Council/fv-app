@@ -1,10 +1,12 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import WordModal from './word-modal';
 import { FvWord } from '../common/data';
 import Modal from '../common/modal/modal';
 
 function WordCardDesktop({ term }: FvWord) {
-  const [showModal, setShowModal] = React.useState(false);
+  const location = useLocation();
+  const [showModal, setShowModal] = React.useState((location.hash === `#${term.source}-${term.entryID}` && window.matchMedia("(min-width: 768px").matches));
   const { word, definition, audio } = term;
 
   return (
@@ -14,7 +16,7 @@ function WordCardDesktop({ term }: FvWord) {
         onClick={() => setShowModal(true)}
       >
         <div className="grid grid-flow-col auto-cols-[minmax(0,_2fr)]">
-          <div className="flex grid-flow-col space-x-5 items-center">
+          <div className="flex grid-flow-col space-x-5 items-center col-span-2">
             <div>
               <h1 className="font-bold">{word}</h1>
             </div>
@@ -25,8 +27,8 @@ function WordCardDesktop({ term }: FvWord) {
                 ))}
             </div>
           </div>
-          <div>
-            <h1>{definition}</h1>
+          <div className="col-span-4">
+            <h1 className="truncate">{definition}</h1>
           </div>
           <div className="place-self-end">
             <i className="fv-right-open" />

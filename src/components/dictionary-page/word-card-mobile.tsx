@@ -1,11 +1,19 @@
 import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import WordCard from './word-card';
 import { FvWord } from '../common/data';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 
 function WordCardMobile({ term }: FvWord) {
-  const [showModal, setShowModal] = React.useState(false);
+  const location = useLocation();
+  const [showModal, setShowModal] = React.useState((location.hash === `#${term.source}-${term.entryID}` && !window.matchMedia("(min-width: 768px").matches));
   const { word, definition, audio } = term;
+  const shareData = {
+    title: "FirstVoices",
+    text: `Learn what the word ${word} means from FirstVoices!`,
+    url: `${window.location.origin}${window.location.pathname}#${term.source}-${term.entryID}`
+  };
+
 
   useEffect(() => {
     if (showModal) {
@@ -22,13 +30,13 @@ function WordCardMobile({ term }: FvWord) {
         onClick={() => setShowModal(true)}
       >
         <div className="grid grid-cols-10 gap-4">
-          <div className="col-span-7">
+          <div className="col-span-8">
             <div>
               <h1 className="font-bold">{word}</h1>
             </div>
-            <h1>{definition}</h1>
+            <h1 className="truncate">{definition}</h1>
           </div>
-          <div className="self-center col-span-2">
+          <div className="self-center col-span-1">
             {audio != null &&
               audio.map((fvAudio) => (
                 <i key={fvAudio.filename} className="fv-volume-up" />
@@ -53,7 +61,12 @@ function WordCardMobile({ term }: FvWord) {
               </button>
               <button
                 onClick={() => {
-                  // TODO:
+                  if (navigator.share && navigator.canShare(shareData)) {
+                    navigator.share(shareData);
+                  }
+                  else {
+                    navigator.clipboard.writeText(shareData.url);
+                  }
                 }}
               >
                 <i className="fv-share pr-5" />

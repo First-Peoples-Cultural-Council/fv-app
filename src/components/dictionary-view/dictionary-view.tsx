@@ -1,5 +1,5 @@
 import { dataDict } from '../temp-word-list';
-import { Fragment, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import WordCardMobile from '../dictionary-page/word-card-mobile';
 import WordCardDesktop from '../dictionary-page/word-card-desktop';
 import { DictionaryType } from '../common/data/enums';
@@ -44,10 +44,10 @@ export function DictionaryView(props: WordsViewProps) {
       />
       {data.map((term) => {
         return (
-          <Fragment key={`${term.source}-${term.entryID}`}>
+          <div id={`${term.source}-${term.entryID}`}>
             <WordCardMobile term={term} />
             <WordCardDesktop term={term} />
-          </Fragment>
+          </div>
         );
       })}{' '}
     </div>

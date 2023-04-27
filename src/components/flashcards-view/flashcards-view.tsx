@@ -202,7 +202,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                 <div className="absolute inset-0 pl-2 font-bold">
                   {flashcardIndex + 1}/{dataForFlashcardGroup.length}
                 </div>
-                <div className="absolute inset-0 flex items-center justify-center">
+                <div className="absolute inset-0 items-center justify-center flex flex-wrap">
                   <div className="text-4xl text-center break-words w-full">
                     {flashcardData?.type === 'word' && flashcardData?.frontWord}
                     {flashcardData?.type === 'audio' &&
@@ -219,6 +219,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                         </button>
                       ))}
                   </div>
+                  <span className="absolute bottom-0 text-center w-full italic text-gray-400">press to flip</span>
                 </div>
                 <div className="absolute insert-0 h-full w-full rounded-xl bg-black px-12 text-slate-200 flex items-center justify-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
                   <div className="text-4xl text-center break-words w-full">

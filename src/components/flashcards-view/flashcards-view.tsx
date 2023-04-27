@@ -235,6 +235,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                     <button
                       className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center"
                       onClick={async () => {
+                        setFlipped(false);
                         setTimeout(() => {
                           setDataForFlashcard(flashcardIndex - 1);
                         }, 200);

@@ -233,7 +233,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                 {flashcardIndex !== 0 && (
                   <div className="grid h-[55px] w-[55px] bg-gray-50 float-left rounded-3xl mt-4">
                     <button
-                      className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col  items-center justify-center"
+                      className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center"
                       onClick={async () => {
                         setTimeout(() => {
                           setDataForFlashcard(flashcardIndex - 1);
@@ -241,14 +241,14 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                       }}
                     >
                       <i className="fv-left-bold text-2xl"></i>
-                      <div className="italic text-gray-400 mt-0">prev</div>
+                      <div className="italic text-gray-400">prev</div>
                     </button>
                   </div>
                 )}
 
                 <div className="grid h-[55px] w-[55px] bg-gray-50 float-right rounded-3xl mt-4">
                   <button
-                    className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col  items-center justify-center"
+                    className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center"
                     onClick={async () => {
                       if (flashcardIndex !== dataForFlashcardGroup.length - 1) {
                         setFlipped(false);

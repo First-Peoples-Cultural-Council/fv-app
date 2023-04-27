@@ -49,6 +49,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
         setDataForFlashcard(0);
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataForFlashcardGroup]);
 
   useEffect(() => {
@@ -56,6 +57,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
       setShowSelectModal(false);
       setDataForFlashcard(0);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFlashcardDisplayType]);
 
   useEffect(() => {
@@ -286,6 +288,8 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                 >
                   <i className="fv-close"></i>
                 </button>
+                <div className="w-full text-center pl-7 text-xl bold">Congratulations!</div>
+                <div className="w-full text-center text-xl">Set complete!</div>
               </div>
               {menuItem('Restart Set', 'fv-ccw', () => {
                 setDataForFlashcard(0);

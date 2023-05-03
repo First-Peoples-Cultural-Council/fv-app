@@ -288,8 +288,15 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                 >
                   <i className="fv-close"></i>
                 </button>
-                <div className="w-full text-center pl-7 text-xl bold">Congratulations!</div>
+                <div className="w-full text-center pl-7 text-xl bold">
+                  Congratulations!
+                </div>
                 <div className="w-full text-center text-xl">Set complete!</div>
+                {data.length === 0 && (
+                  <div className="text-center text-slate-700 pt-4">
+                    You’ve gone through all the cards for this category.
+                  </div>
+                )}
               </div>
               {menuItem('Restart Set', 'fv-ccw', () => {
                 setDataForFlashcard(0);

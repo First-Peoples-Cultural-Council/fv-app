@@ -8,6 +8,7 @@ describe('DeletableList', () => {
       <DeletableList
         header={''}
         items={[]}
+        showSearch={true}
         onDelete={function (): void {
           throw new Error('Function not implemented.');
         }}

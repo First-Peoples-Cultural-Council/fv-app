@@ -2,18 +2,27 @@ import { useRef, useState } from 'react';
 import { DeleteListType } from '../data';
 import useOnClickOutside from '../../../util/clickOutside';
 import classNames from 'classnames';
+import SearchInput from '../search-input/search-input';
 
 interface Props {
   header: string;
   items: DeleteListType[];
+  showSearch: boolean;
   onDelete: (ids: string[]) => void;
   onClick: (id: string) => void;
 }
 
-function DeletableList({ header, items, onClick, onDelete }: Props) {
+function DeletableList({
+  header,
+  items,
+  showSearch,
+  onClick,
+  onDelete,
+}: Props) {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [showDelete, setShowDelete] = useState<boolean>(false);
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
+  const [searchValue, setSearchValue] = useState<string>('');
 
   const confirmModalRef = useRef<HTMLDivElement>(null);
 
@@ -73,6 +82,15 @@ function DeletableList({ header, items, onClick, onDelete }: Props) {
           )}
         </div>
       </div>
+      {showSearch && (
+        <div className="mb-4">
+          <SearchInput
+            value={searchValue}
+            onChange={(event) => setSearchValue(event?.target?.value)}
+            clickSearch={() => console.log(`search for ${searchValue}`)}
+          />
+        </div>
+      )}
       <div className="flex flex-col">
         {items.map((item: DeleteListType) => (
           <div

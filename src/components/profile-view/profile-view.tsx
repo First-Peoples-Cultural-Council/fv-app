@@ -89,6 +89,7 @@ export function ProfileView() {
       <DeletableList
         header="Bookmarks"
         items={list}
+        showSearch={true}
         onDelete={function (ids: string[]): void {
           setBookmarks(
             bookmarks.filter((bookmark) => !ids.includes(bookmark.name))

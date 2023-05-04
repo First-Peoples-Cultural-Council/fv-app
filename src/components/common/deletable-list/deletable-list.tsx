@@ -4,12 +4,13 @@ import useOnClickOutside from '../../../util/clickOutside';
 import classNames from 'classnames';
 
 interface Props {
+  header: string;
   items: DeleteListType[];
   onDelete: (ids: string[]) => void;
   onClick: (id: string) => void;
 }
 
-function DeletableList({ items, onClick, onDelete }: Props) {
+function DeletableList({ header, items, onClick, onDelete }: Props) {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [showDelete, setShowDelete] = useState<boolean>(false);
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
@@ -40,7 +41,7 @@ function DeletableList({ items, onClick, onDelete }: Props) {
   return (
     <>
       <div className="h-[70px]">
-        <div className="float-left text-4xl m-2">Bookmarks</div>
+        <div className="float-left text-4xl m-2">{header}</div>
         <div className="float-right">
           {!showDelete && (
             <button

@@ -6,6 +6,7 @@ describe('DeletableList', () => {
   it('should render successfully', () => {
     const { baseElement } = render(
       <DeletableList
+        header={''}
         items={[]}
         onDelete={function (): void {
           throw new Error('Function not implemented.');

@@ -87,6 +87,7 @@ export function ProfileView() {
   return (
     <div className={styles['container']}>
       <DeletableList
+        header="Bookmarks"
         items={list}
         onDelete={function (ids: string[]): void {
           setBookmarks(

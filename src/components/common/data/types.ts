@@ -123,3 +123,10 @@ export type NavigationItem = {
   label: string;
   icon?: ReactNode;
 };
+
+export type Flashcard = {
+  type: string;
+  frontWord: string | null;
+  backWord: string;
+  audio: FvAudio[] | null;
+}

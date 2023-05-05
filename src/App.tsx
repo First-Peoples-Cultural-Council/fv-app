@@ -22,11 +22,19 @@ const navItems: NavigationItem[] = [
     to: '/profile',
     icon: <i className="fv-user" />,
   },
+];
+const extraNavItems: NavigationItem[] = [
   {
-    id: 'misc',
-    label: 'Misc',
+    id: 'settings',
+    label: 'Settings',
     to: '/settings',
-    icon: <i className="fv-menu" />,
+    icon: <i className="fv-cog" />,
+  },
+  {
+    id: 'about',
+    label: 'About',
+    to: '/about',
+    icon: <i className="fv-info" />,
   },
 ];
 
@@ -45,15 +53,19 @@ export function App() {
       break;
 
     case '/settings':
-      currentTab = 'misc';
+      currentTab = 'settings';
+      break;
+
+    case '/about':
+      currentTab = 'about';
       break;
   }
 
   return (
     <div>
-      <Header navItems={navItems} currentTab={currentTab} />
+      <Header navItems={navItems} extraNavItems={extraNavItems} currentTab={currentTab} />
       <Outlet />
-      <MobileNav navItems={navItems} currentTab={currentTab} />
+      <MobileNav navItems={navItems} extraNavItems={extraNavItems} currentTab={currentTab} />
     </div>
   );
 }

@@ -45,7 +45,7 @@ function WordModal({ term }: FvWord) {
                 console.log('Bookmark clicked');
               }}
             >
-              <i className="fv-book pr-2" />
+              <i className="fv-bookmarks pr-2" />
               <span className="text-xl">BOOKMARK</span>
             </button>
           </div>

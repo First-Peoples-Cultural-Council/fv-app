@@ -76,7 +76,7 @@ function WordCardMobile({ term }: FvWord) {
                   console.log('Bookmark clicked');
                 }}
               >
-                <i className="fv-bookmark pr-5" />
+                <i className="fv-bookmarks pr-5" />
               </button>
             </>
           }

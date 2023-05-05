@@ -1,10 +1,12 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import WordModal from '../dictionary-page/word-modal';
 import { FvWord } from '../common/data';
 import Modal from '../common/modal/modal';
 
 function WordAlphabetRowCard({term}: FvWord) {
-  const [showModal, setShowModal] = React.useState(false);
+  const location = useLocation();
+  const [showModal, setShowModal] = React.useState((location.hash === `#${term.source}-${term.entryID}`));
   const { word, definition, } =
     term;
 

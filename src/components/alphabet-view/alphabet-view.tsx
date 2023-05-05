@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { Fragment, useEffect, useState } from 'react';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { dataAlphabet } from '../temp-alphabet-list';
 import { dataDict } from '../temp-word-list';
 import WordAlphabetRowCard from './word-row-card';
@@ -15,8 +16,12 @@ const dataAlphabetMap = _.keyBy(dataAlphabet, 'letter');
 export interface AlphabetViewProps {}
 
 export function AlphabetView(props: AlphabetViewProps) {
-  const [selected, setSelected] = useState<FvLetter | null>(null);
-  const [showMobileWordList, setShowMobileWordList] = useState(false);
+  const { letter } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  const [selected, setSelected] = useState<FvLetter | null>(dataAlphabet.find(letterData => letterData.letter === decodeURIComponent(letter ?? '')) as FvLetter ?? null);
+  const [showMobileWordList, setShowMobileWordList] = useState((location.hash && !window.matchMedia("(min-width: 768px").matches));
 
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 
@@ -71,6 +76,7 @@ export function AlphabetView(props: AlphabetViewProps) {
           onClick={() => {
             setSelected(null);
             setShowMobileWordList(false);
+            navigate('/alphabet');
           }}
         />
         <div className="flex text-8xl justify-center pb-6">
@@ -151,6 +157,7 @@ export function AlphabetView(props: AlphabetViewProps) {
                       )}
                       onClick={() => {
                         setSelected(letterData);
+                        navigate(`/alphabet/${encodeURIComponent(letterData.letter)}`);
                         setShowMobileWordList(false);
                       }}
                     >
@@ -199,9 +206,9 @@ export function AlphabetView(props: AlphabetViewProps) {
             return <div key={termId} />;
           }
           return (
-            <Fragment key={`${term.source}-${term.entryID}`}>
+            <div id={`${term.source}-${term.entryID}`}>
               <WordAlphabetRowCard term={term} />
-            </Fragment>
+            </div>
           );
         })}
       </div>

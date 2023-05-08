@@ -1,5 +1,6 @@
 import { FvWord } from '../common/data';
 import WordCard from './word-card';
+import {bookmarksCollection} from "../../browser-db/db";
 
 function WordModal({ term }: FvWord) {
   const { word } = term;
@@ -42,7 +43,7 @@ function WordModal({ term }: FvWord) {
           <div className="pl-2 pr-2">
             <button
               onClick={() => {
-                console.log('Bookmark clicked');
+                bookmarksCollection.insert(term);
               }}
             >
               <i className="fv-bookmarks pr-2" />

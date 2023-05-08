@@ -21,6 +21,7 @@ import SongsView from './components/songs-view/songs-view';
 import FlashcardsView from './components/flashcards-view/flashcards-view';
 import ProfileView from './components/profile-view/profile-view';
 import SettingsView from './components/settings-view/settings-view';
+import AboutView from './components/about-view/about-view';
 import PageNotFound from './components/common/page-not-found/page-not-found';
 
 const router = createBrowserRouter(
@@ -28,7 +29,7 @@ const router = createBrowserRouter(
     <>
       <Route path="/" element={<App />}>
         <Route path="/" element={<Dictionary />}>
-          <Route path="alphabet" element={<AlphabetView />} />
+          <Route path="alphabet/:letter?" element={<AlphabetView />} />
           <Route path="dictionary" element={<DictionaryView />} />
           <Route path="categories/:id" element={<CategoryView />} />
           <Route path="categories" element={<CategoriesView />} />
@@ -40,6 +41,7 @@ const router = createBrowserRouter(
         </Route>
         <Route path="/profile" element={<ProfileView />} />
         <Route path="/settings" element={<SettingsView />} />
+        <Route path="/about" element={<AboutView />} />
 
       </Route>
       <Route path="*" element={<PageNotFound />} />

@@ -71,6 +71,13 @@ function WordCardMobile({ term }: FvWord) {
               >
                 <i className="fv-share pr-5" />
               </button>
+              <button
+                onClick={() => {
+                  console.log('Bookmark clicked');
+                }}
+              >
+                <i className="fv-bookmarks pr-5" />
+              </button>
             </>
           }
         >

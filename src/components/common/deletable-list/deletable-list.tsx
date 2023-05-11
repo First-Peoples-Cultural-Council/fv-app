@@ -1,13 +1,15 @@
 import { useRef, useState } from 'react';
 import { DeleteListType } from '../data';
 import useOnClickOutside from '../../../util/clickOutside';
-import classNames from 'classnames';
 import SearchInput from '../search-input/search-input';
 
 interface Props {
   header: string;
   items: DeleteListType[];
   showSearch: boolean;
+  confirmMessage: string;
+  removeButtonText: string;
+  removeSelectedButtonText: string;
   onDelete: (ids: string[]) => void;
   onClick: (id: string) => void;
 }
@@ -16,6 +18,9 @@ function DeletableList({
   header,
   items,
   showSearch,
+  confirmMessage,
+  removeButtonText,
+  removeSelectedButtonText,
   onClick,
   onDelete,
 }: Props) {
@@ -57,16 +62,21 @@ function DeletableList({
               onClick={() => setShowDelete(true)}
               className="m-2 bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded"
             >
-              <span>Delete</span>
+              <span>{removeButtonText}</span>
             </button>
           )}
           {showDelete && (
             <>
               <button
-                onClick={() => setShowConfirm(true)}
-                className="m-2 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                disabled={selectedItems.length === 0}
+                onClick={() => {
+                  setShowConfirm(true);
+                }}
+                className={`m-2 bg-red-500 ${
+                  selectedItems.length !== 0 ? 'hover:bg-red-600' : 'opacity-50'
+                } text-white font-bold py-2 px-4 rounded `}
               >
-                <span>Delete Selected</span>
+                <span>{removeSelectedButtonText}</span>
               </button>
               <button
                 onClick={() => {
@@ -92,25 +102,37 @@ function DeletableList({
         </div>
       )}
       <div className="flex flex-col">
-        {items.map((item: DeleteListType) => (
-          <div
-            key={item.id}
-            className={classNames(
-              'flex items-center block rounded-lg bg-white m-1 shadow-lg cursor-pointer outline outline-slate-200 outline-1',
-              selectedItems.includes(item.id) ? 'bg-red-200' : '',
-              showDelete ? 'hover:bg-red-100' : 'hover:bg-slate-100'
-            )}
-            onClick={() => {
-              if (showDelete) {
-                handleItemSelect(item.id);
-              } else {
-                onClick(item.id);
-              }
-            }}
-          >
-            {item.display}
-          </div>
-        ))}
+        {items.map((item: DeleteListType) => {
+          if (selectedItems.includes(item.id)) {
+            return (
+              <div
+                key={item.id}
+                className={`bg-red-300 flex items-center block rounded-lg m-1 shadow-lg cursor-pointer outline outline-slate-200 outline-1}`}
+                onClick={() => handleItemSelect(item.id)}
+              >
+                {item.display}
+              </div>
+            );
+          } else {
+            return (
+              <div
+                key={item.id}
+                className={`flex items-center block rounded-lg bg-white m-1 shadow-lg cursor-pointer outline outline-slate-200 outline-1 ${
+                  showDelete ? 'hover:bg-red-100' : 'hover:bg-slate-100'
+                }`}
+                onClick={() => {
+                  if (showDelete) {
+                    handleItemSelect(item.id);
+                  } else {
+                    onClick(item.id);
+                  }
+                }}
+              >
+                {item.display}
+              </div>
+            );
+          }
+        })}
       </div>
 
       {showConfirm && (
@@ -121,7 +143,7 @@ function DeletableList({
           <div className="grid h-screen place-items-center overflow-y-auto outline-none focus:outline-none">
             <div ref={confirmModalRef} className="p-4 grid bg-white">
               <div className="pb-4">
-                <div className="text-2xl">Delete selected bookmarks?</div>
+                <div className="text-2xl">{confirmMessage}</div>
               </div>
               <div className="grid grid-cols-2 place-items-center">
                 <button

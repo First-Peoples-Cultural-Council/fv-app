@@ -1,14 +1,27 @@
-import { FvWord } from '../common/data';
+import { Bookmark, FvWord } from '../common/data';
 import WordCard from './word-card';
-import {bookmarksCollection} from "../../browser-db/db";
+import { db } from "../../browser-db/db";
+import classNames from 'classnames';
+import { useState } from 'react';
 
 function WordModal({ term }: FvWord) {
+  const bookmarkCollection = db.getCollection("bookmarks");
   const { word } = term;
   const shareData = {
     title: "FirstVoices",
     text: `Learn what the word ${word} means from FirstVoices!`,
     url: `${window.location.origin}${window.location.pathname}#${term.source}-${term.entryID}`
   };
+  const bookmark: Bookmark = {
+    type: term.source,
+    name: term.word,
+    url: `${window.location.pathname}#${term.source}-${term.entryID}`,
+    timestamp: new Date()
+  }
+
+  const [bookmarked, setBookmarked] = useState<boolean>(
+    bookmarkCollection.find({'url': bookmark.url}).length > 0
+  )
 
   return (
     <div className="p-10">
@@ -43,10 +56,16 @@ function WordModal({ term }: FvWord) {
           <div className="pl-2 pr-2">
             <button
               onClick={() => {
-                bookmarksCollection.insert(term);
+                if (bookmarked) {
+                  const record = bookmarkCollection.find({'url': bookmark.url});
+                  bookmarkCollection.remove(record);
+                } else {
+                  bookmarkCollection.insert(bookmark);
+                }
+                setBookmarked(!bookmarked);
               }}
             >
-              <i className="fv-bookmarks pr-2" />
+              <i className={classNames(bookmarked ? 'fv-bookmark' : 'fv-bookmark-empty', 'pr-2')} />
               <span className="text-xl">BOOKMARK</span>
             </button>
           </div>

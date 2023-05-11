@@ -135,6 +135,7 @@ export type Bookmark = {
   type: string;
   name: string;
   url: string;
+  timestamp: Date;
 };
 
 export type DeleteListType = {

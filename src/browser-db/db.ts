@@ -1,4 +1,19 @@
-import loki from 'lokijs';
+import Loki, { LokiLocalStorageAdapter } from 'lokijs';
 
-export const lokiDb = new loki('first-voices.db');
-export const bookmarksCollection = lokiDb.addCollection('bookmarks');
+export const db = new Loki('firstVoices', {
+  adapter: new LokiLocalStorageAdapter(),
+  autoload: true,
+  autoloadCallback : databaseInitialize,
+  autosave: true,
+});
+
+function databaseInitialize() {
+  if (!db.getCollection("bookmarks")) {
+    db.addCollection("bookmarks");
+  }
+}
+
+window.addEventListener('beforeunload', () => {
+  db.saveDatabase();
+});
+

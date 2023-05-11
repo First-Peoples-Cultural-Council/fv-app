@@ -7,6 +7,9 @@ describe('DeletableList', () => {
     const { baseElement } = render(
       <DeletableList
         header={''}
+        confirmMessage={''}
+        removeButtonText={''}
+        removeSelectedButtonText={''}
         items={[]}
         showSearch={true}
         onDelete={function (): void {

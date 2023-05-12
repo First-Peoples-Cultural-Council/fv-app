@@ -11,7 +11,8 @@ export function SearchHeader({ title, backgroundColors }: SearchHeaderProps) {
 
   return (
     <header
-      className={`flex py-5 px-4 bg-gradient-to-t ${backgroundColors.from} ${backgroundColors.to} justify-between items-center`}
+      role="banner"
+      className={`sub-header flex py-5 px-4 bg-gradient-to-t ${backgroundColors.from} ${backgroundColors.to} justify-between items-center`}
     >
       <div className="text-white uppercase">{title}</div>
       <SearchInput

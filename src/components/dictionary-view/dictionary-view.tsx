@@ -2,7 +2,7 @@ import { dataDict } from '../temp-word-list';
 import { useState, useEffect } from 'react';
 import WordCardMobile from '../dictionary-page/word-card-mobile';
 import WordCardDesktop from '../dictionary-page/word-card-desktop';
-import { DictionaryType } from '../common/data/enums';
+import { DictionaryType } from '../common/data';
 import MultiSwitch from '../common/multi-switch/multi-switch';
 
 /* eslint-disable-next-line */

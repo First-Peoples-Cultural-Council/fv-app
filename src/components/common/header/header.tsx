@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import FVLogo from '../../../assets/images/FVlogo.svg';
 import { NavigationItem } from '../data';
 import { Link } from 'react-router-dom';
-import Modal from '../modal/modal';
 
 export interface HeaderProps {
   className?: string;
@@ -18,7 +17,8 @@ export function Header({ className, navItems, extraNavItems, currentTab }: Heade
   return (
     <>
       <header
-        className={classNames(
+        role="banner"
+        className={classNames('main-header',
           'w-full bg-color-main-header hidden p-4 justify-between items-center md:flex',
           className
         )}

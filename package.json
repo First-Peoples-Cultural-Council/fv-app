@@ -48,6 +48,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:e2e": "npx playwright test",
     "eject": "react-scripts eject",
     "buildnserve": "react-scripts build && serve -s build",
     "serve": "serve -s build",
@@ -73,6 +74,7 @@
     ]
   },
   "devDependencies": {
+    "@playwright/test": "^1.33.0",
     "@types/lokijs": "^1.5.8",
     "tailwindcss": "^3.3.1"
   }

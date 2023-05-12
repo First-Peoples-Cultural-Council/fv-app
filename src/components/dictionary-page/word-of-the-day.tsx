@@ -10,7 +10,7 @@ function WordOfTheDay() {
   return (
     <>
       {showModal && (
-        <Modal onClose={() => wordOfTheDaySeen(true)} title="Word of the Day">
+        <Modal onClose={() => wordOfTheDaySeen()} title="Word of the Day">
           <WordModal term={getWordOfTheDay()} />
         </Modal>
       )}
@@ -21,7 +21,7 @@ function WordOfTheDay() {
     return dataDict[Math.floor(Math.random()*dataDict.length)];
   }
 
-  function wordOfTheDaySeen(seen: boolean) {
+  function wordOfTheDaySeen() {
     localStorage.setItem('lastWOTDSeenOn', today.toDateString());
     setShowModal(false);
   }

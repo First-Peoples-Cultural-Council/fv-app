@@ -6,7 +6,7 @@ function WordModal({ term }: FvWord) {
   const shareData = {
     title: "FirstVoices",
     text: `Learn what the word ${word} means from FirstVoices!`,
-    url: `${window.location.origin}${window.location.pathname}#${term.source}-${term.entryID}`
+    url: `${window.location.origin}${(window.location.pathname !== '/' ? window.location.pathname : '/dictionary')}#${term.source}-${term.entryID}`
   };
 
   return (

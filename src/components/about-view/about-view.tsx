@@ -1,5 +1,3 @@
-import styles from './about-view.module.css';
-
 /* eslint-disable-next-line */
 export interface AboutViewProps {}
 

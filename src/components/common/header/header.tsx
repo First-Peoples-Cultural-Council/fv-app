@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import FVLogo from '../../../assets/images/FVlogo.svg';
 import { NavigationItem } from '../data';
 import { Link } from 'react-router-dom';
-import Modal from '../modal/modal';
 
 export interface HeaderProps {
   className?: string;

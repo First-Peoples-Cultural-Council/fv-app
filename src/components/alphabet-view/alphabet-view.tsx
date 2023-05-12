@@ -206,7 +206,7 @@ export function AlphabetView(props: AlphabetViewProps) {
             return <div key={termId} />;
           }
           return (
-            <div id={`${term.source}-${term.entryID}`}>
+            <div key={`${term.source}-${term.entryID}`} id={`${term.source}-${term.entryID}`}>
               <WordAlphabetRowCard term={term} />
             </div>
           );

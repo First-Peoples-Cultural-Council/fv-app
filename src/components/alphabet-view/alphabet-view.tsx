@@ -19,7 +19,7 @@ export function AlphabetView(props: AlphabetViewProps) {
   const { letter } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   const [selected, setSelected] = useState<FvLetter | null>(dataAlphabet.find(letterData => letterData.letter === decodeURIComponent(letter ?? '')) as FvLetter ?? null);
   const [showMobileWordList, setShowMobileWordList] = useState((location.hash && !window.matchMedia("(min-width: 768px").matches));
 
@@ -123,6 +123,8 @@ export function AlphabetView(props: AlphabetViewProps) {
     return (
       <button
         key={fvAudio.filename}
+        id={`audio-${fvAudio.filename}`}
+        className="audio-button"
         onClick={() => playAudio(fvAudio.filename)}
       >
         <span className="fv-volume-up text-4xl justify-self-end cursor-pointer" />
@@ -147,6 +149,7 @@ export function AlphabetView(props: AlphabetViewProps) {
                   return (
                     <button
                       key={letterData.letter}
+                      id={`letter-${letterData.letter}`}
                       className={classNames(
                         'border col-span-1 font-medium inline-flex justify-center p-5 md:p-3 rounded shadow text-2xl',
                         {

@@ -134,6 +134,8 @@ export type Flashcard = {
 export type Bookmark = {
   type: string;
   name: string;
+  definition: string;
+  hasAudio: boolean;
   url: string;
   timestamp: Date;
 };

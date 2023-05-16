@@ -14,7 +14,9 @@ function WordModal({ term }: FvWord) {
   };
   const bookmark: Bookmark = {
     type: term.source,
+    definition: term.definition,
     name: term.word,
+    hasAudio: term.audio.length !== 0,
     url: `${window.location.pathname}#${term.source}-${term.entryID}`,
     timestamp: new Date()
   }

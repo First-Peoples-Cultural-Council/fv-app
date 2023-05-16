@@ -18,8 +18,8 @@ export function ProfileView() {
       const initializedDb: Loki = new Loki('firstVoices', {
         autoload: true,
         autoloadCallback: async () => {
-          if (!initializedDb.getCollection("bookmarks")) {
-            initializedDb.addCollection("bookmarks");
+          if (!initializedDb.getCollection('bookmarks')) {
+            initializedDb.addCollection('bookmarks');
           }
           setDb(initializedDb);
         },
@@ -83,7 +83,7 @@ export function ProfileView() {
     return {
       id: bookmark.url,
       display: (
-        <div className="relative h-[75px]">
+        <div className="relative h-[75px] w-full">
           <div
             className={classNames(
               'text-white w-fit ml-4 pr-1 pl-1 top-0',
@@ -93,8 +93,36 @@ export function ProfileView() {
             {bookmark.type}
           </div>
 
-          <div className="absolute text-2xl ml-[100px] top-5">
-            {bookmark.name}
+          <div className="hidden md:block text-2xl ml-[100px] top-5 w-full">
+            <div className="grid grid-flow-col auto-cols-[minmax(0,_2fr)]">
+              <div className="flex grid-flow-col space-x-5 items-center col-span-2 w-full">
+                <div>
+                  <h1 className="font-bold">{bookmark.name}</h1>
+                </div>
+                <div>{bookmark.hasAudio && <i className="fv-volume-up" />}</div>
+              </div>
+              <div className="col-span-3">
+                <h1 className="truncate text-xl">{bookmark.definition}</h1>
+              </div>
+              <div className="absolute right-0">
+                <i className="fv-right-open" />
+              </div>
+            </div>
+          </div>
+
+          <div className="block md:hidden grid grid-cols-10 gap-4 ml-[100px] top-5 w-full">
+            <div className="col-span-8">
+              <div>
+                <h1 className="font-bold">{bookmark.name}</h1>
+              </div>
+              <h1 className="truncate">{bookmark.definition}</h1>
+            </div>
+            <div className="absolute right-10">
+              {bookmark.hasAudio && <i className="fv-volume-up" />}
+            </div>
+            <div className="absolute right-0">
+              <i className="fv-right-open" />
+            </div>
           </div>
         </div>
       ),
@@ -106,16 +134,16 @@ export function ProfileView() {
       <DeletableList
         header="Bookmarks"
         confirmMessage="Unbookmark selected bookmarks?"
-        removeButtonText='Unbookmark'
-        removeSelectedButtonText='Unbookmark Selected'
+        removeButtonText="Unbookmark"
+        removeSelectedButtonText="Unbookmark Selected"
         items={list}
         showSearch={true}
         onDelete={function (ids: string[]): void {
           for (let i = 0; i < ids.length; i++) {
-            let bookmark = db?.getCollection("bookmarks").find({'url': ids[i]});
+            let bookmark = db?.getCollection('bookmarks').find({ url: ids[i] });
             if (bookmark) {
-              db?.getCollection("bookmarks").remove(bookmark);
-              db?.saveDatabase()
+              db?.getCollection('bookmarks').remove(bookmark);
+              db?.saveDatabase();
             }
           }
           setBookmarks(
@@ -134,6 +162,5 @@ export function ProfileView() {
     </div>
   );
 }
-
 
 export default ProfileView;

@@ -101,7 +101,7 @@ function DeletableList({
           />
         </div>
       )}
-      <div className="flex flex-col">
+      <div className="flex flex-col w-full pr-2">
         {items.map((item: DeleteListType) => {
           if (selectedItems.includes(item.id)) {
             return (

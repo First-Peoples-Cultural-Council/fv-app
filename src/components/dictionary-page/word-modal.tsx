@@ -1,12 +1,19 @@
 import { Bookmark, FvWord } from '../common/data';
 import WordCard from './word-card';
-import { db } from "../../browser-db/db";
+import { dbPromise } from "../../browser-db/db";
 import classNames from 'classnames';
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 
 function WordModal({ term }: FvWord) {
-  const bookmarkCollection = db.getCollection("bookmarks");
+  const [bookmarkCollection, setBookmarkCollection] = useState<any>(null);
   const { word } = term;
+
+  useEffect(() => {
+    dbPromise.then((db) => {
+      setBookmarkCollection(db.bookmarks);
+    });
+  }, []);
+
   const shareData = {
     title: "FirstVoices",
     text: `Learn what the word ${word} means from FirstVoices!`,

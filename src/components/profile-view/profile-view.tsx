@@ -4,56 +4,51 @@ import DeletableList from '../common/deletable-list/deletable-list';
 import styles from './profile-view.module.css';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
-import Loki, { LokiLocalStorageAdapter } from 'lokijs';
+import { dbPromise } from "../../browser-db/db";
+import {RxDatabase} from "rxdb";
 
 /* eslint-disable-next-line */
 export interface ProfileViewProps {}
 
 export function ProfileView() {
-  const [db, setDb] = useState<Loki | null>(null);
+  const [db, setDb] = useState<RxDatabase | null>(null);
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
 
   useEffect(() => {
-    const initializeDb = async () => {
-      const initializedDb: Loki = new Loki('firstVoices', {
-        autoload: true,
-        autoloadCallback: async () => {
-          if (!initializedDb.getCollection('bookmarks')) {
-            initializedDb.addCollection('bookmarks');
+    dbPromise.then((db) => {
+      db.addCollections({
+        bookmarks: {
+          schema: {
+            primaryKey: 'url',
+            title: 'bookmarks schema',
+            version: 0,
+            description: 'describes a simple bookmark',
+            type: 'object',
+            properties: {
+              url: {
+                type: 'string',
+              },
+              type: {type: 'string'},
+              name: {type: 'string'},
+              definition: {type: 'string'},
+              hasAudio: {type: 'boolean'},
+              timestamp: {type: 'Date'},
+            }
           }
-          setDb(initializedDb);
-        },
-        autosave: true,
-        autosaveInterval: 1000,
-        adapter: new LokiLocalStorageAdapter(),
+        }
+      }).then((collection) => {
+        setDb(db);
       });
-    };
-
-    initializeDb();
+    });
   }, []);
 
   useEffect(() => {
     if (db !== null) {
-      setBookmarks(
-        db
-          .getCollection('bookmarks')
-          .find()
-          .sort((bookmark1: Bookmark, bookmark2: Bookmark) => {
-            if (bookmark1.timestamp < bookmark2.timestamp) {
-              return 1;
-            }
-            if (bookmark1.timestamp > bookmark2.timestamp) {
-              return -1;
-            }
-            return 0;
-          })
-      );
+      db.bookmark.find()
+        .$ // the $ returns an observable that emits each time the result set of the query changes
+        .subscribe(allBookmarks => setBookmarks(allBookmarks));
     }
   }, [db]);
-
-  window.addEventListener('beforeunload', () => {
-    db?.saveDatabase();
-  });
 
   const navigate = useNavigate();
 
@@ -139,13 +134,7 @@ export function ProfileView() {
         items={list}
         showSearch={true}
         onDelete={function (ids: string[]): void {
-          for (let i = 0; i < ids.length; i++) {
-            let bookmark = db?.getCollection('bookmarks').find({ url: ids[i] });
-            if (bookmark) {
-              db?.getCollection('bookmarks').remove(bookmark);
-              db?.saveDatabase();
-            }
-          }
+          db?.bookmarks.findByIds(ids).remove();
           setBookmarks(
             bookmarks.filter((bookmark) => !ids.includes(bookmark.url))
           );

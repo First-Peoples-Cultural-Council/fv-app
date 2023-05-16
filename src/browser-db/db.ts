@@ -1,19 +1,18 @@
-import Loki, { LokiLocalStorageAdapter } from 'lokijs';
+import {
+  createRxDatabase
+} from 'rxdb';
 
-export const db = new Loki('firstVoices', {
-  adapter: new LokiLocalStorageAdapter(),
-  autoload: true,
-  autoloadCallback : databaseInitialize,
-  autosave: true,
-});
+/**
+ * For browsers, we use the dexie.js based storage
+ * which stores data in IndexedDB in the browser.
+ * In other JavaScript runtimes, we can use different storages:
+ * @link https://rxdb.info/rx-storage.html
+ */
+import { getRxStorageDexie } from 'rxdb/plugins/storage-dexie';
 
-function databaseInitialize() {
-  if (!db.getCollection("bookmarks")) {
-    db.addCollection("bookmarks");
-  }
-}
-
-window.addEventListener('beforeunload', () => {
-  db.saveDatabase();
+// create a database
+export const dbPromise = createRxDatabase({
+  name: 'firstvoices', // the name of the database
+  storage: getRxStorageDexie()
 });
 

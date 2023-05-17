@@ -117,8 +117,8 @@ export function ProfileView() {
         items={list}
         showSearch={true}
         onDelete={function (ids: string[]) {
-          for (let i = 0; i < ids.length; i++) {
-            db?.removeBookmark(ids[i]);
+          for (let id of ids) {
+            db?.removeBookmark(id);
           }
           setBookmarks(
             bookmarks.filter((bookmark) => !ids.includes(bookmark.url))

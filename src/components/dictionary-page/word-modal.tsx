@@ -87,7 +87,9 @@ function WordModal({ term }: FvWord) {
                     await setBookmarkIcon();
                   }
                 };
-                await bookmarkIcon();
+                bookmarkIcon().catch((err: any) => {
+                  console.log(err);
+                });
               }}
             >
               <i

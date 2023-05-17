@@ -30,9 +30,13 @@ function WordModal({ term }: FvWord) {
   }, []);
 
   useEffect(() => {
-    if (db) {
-      setBookmarkIcon();
-    } // eslint-disable-next-line react-hooks/exhaustive-deps
+    const bookmarkIcon = async () => {
+      if (db) {
+        await setBookmarkIcon();
+      }
+    };
+    bookmarkIcon();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [db]);
 
   async function setBookmarkIcon() {
@@ -76,7 +80,12 @@ function WordModal({ term }: FvWord) {
                 } else {
                   await db?.addBookmark(bookmark);
                 }
-                setBookmarkIcon();
+                const bookmarkIcon = async () => {
+                  if (db) {
+                    await setBookmarkIcon();
+                  }
+                };
+                bookmarkIcon();
               }}
             >
               <i

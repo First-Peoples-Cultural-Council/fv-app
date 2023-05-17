@@ -18,14 +18,17 @@ export function ProfileView() {
   }, []);
 
   useEffect(() => {
-    if (db) {
-      setUsersBookmarks()
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    const usersBookmarks = async () => {
+      if (db) {
+        await setUsersBookmarks();
+      }
+    };
+    usersBookmarks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [db]);
 
   async function setUsersBookmarks() {
-    setBookmarks(await db?.getBookmarks() ?? []);
+    setBookmarks((await db?.getBookmarks()) ?? []);
   }
 
   const navigate = useNavigate();
@@ -111,9 +114,9 @@ export function ProfileView() {
         removeSelectedButtonText="Unbookmark Selected"
         items={list}
         showSearch={true}
-        onDelete={async function (ids: string[]): Promise<void> {
+        onDelete={function (ids: string[]) {
           for (let i = 0; i < ids.length; i++) {
-            await db?.removeBookmark(ids[i]);
+            db?.removeBookmark(ids[i]);
           }
           setBookmarks(
             bookmarks.filter((bookmark) => !ids.includes(bookmark.url))

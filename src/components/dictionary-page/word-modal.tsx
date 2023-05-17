@@ -82,12 +82,12 @@ function WordModal({ term }: FvWord) {
                 } else {
                   await db?.addBookmark(bookmark);
                 }
-                const bookmarkIcon = async () => {
+                const updateBookmarkIcon = async () => {
                   if (db) {
                     await setBookmarkIcon();
                   }
                 };
-                bookmarkIcon().catch((err: any) => {
+                updateBookmarkIcon().catch((err: any) => {
                   console.log(err);
                 });
               }}

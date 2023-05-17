@@ -23,7 +23,9 @@ export function ProfileView() {
         await setUsersBookmarks();
       }
     };
-    usersBookmarks();
+    usersBookmarks().catch((err) => {
+      console.log(err);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [db]);
 

@@ -4,51 +4,29 @@ import DeletableList from '../common/deletable-list/deletable-list';
 import styles from './profile-view.module.css';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
-import { dbPromise } from "../../browser-db/db";
-import {RxDatabase} from "rxdb";
+import IndexedDBService from '../../browser-db/indexedDb';
 
 /* eslint-disable-next-line */
 export interface ProfileViewProps {}
 
 export function ProfileView() {
-  const [db, setDb] = useState<RxDatabase | null>(null);
+  const [db, setDb] = useState<IndexedDBService>();
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
 
   useEffect(() => {
-    dbPromise.then((db) => {
-      db.addCollections({
-        bookmarks: {
-          schema: {
-            primaryKey: 'url',
-            title: 'bookmarks schema',
-            version: 0,
-            description: 'describes a simple bookmark',
-            type: 'object',
-            properties: {
-              url: {
-                type: 'string',
-              },
-              type: {type: 'string'},
-              name: {type: 'string'},
-              definition: {type: 'string'},
-              hasAudio: {type: 'boolean'},
-              timestamp: {type: 'Date'},
-            }
-          }
-        }
-      }).then((collection) => {
-        setDb(db);
-      });
-    });
+    setDb(new IndexedDBService('firstVoicesIndexedDb'));
   }, []);
 
   useEffect(() => {
-    if (db !== null) {
-      db.bookmark.find()
-        .$ // the $ returns an observable that emits each time the result set of the query changes
-        .subscribe(allBookmarks => setBookmarks(allBookmarks));
+    if (db) {
+      setUsersBookmarks()
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [db]);
+
+  async function setUsersBookmarks() {
+    setBookmarks(await db?.getBookmarks() ?? []);
+  }
 
   const navigate = useNavigate();
 
@@ -133,8 +111,10 @@ export function ProfileView() {
         removeSelectedButtonText="Unbookmark Selected"
         items={list}
         showSearch={true}
-        onDelete={function (ids: string[]): void {
-          db?.bookmarks.findByIds(ids).remove();
+        onDelete={async function (ids: string[]): Promise<void> {
+          for (let i = 0; i < ids.length; i++) {
+            await db?.removeBookmark(ids[i]);
+          }
           setBookmarks(
             bookmarks.filter((bookmark) => !ids.includes(bookmark.url))
           );

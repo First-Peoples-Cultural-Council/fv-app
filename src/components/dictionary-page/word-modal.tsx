@@ -1,36 +1,43 @@
 import { Bookmark, FvWord } from '../common/data';
 import WordCard from './word-card';
-import { dbPromise } from "../../browser-db/db";
 import classNames from 'classnames';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
+import IndexedDBService from '../../browser-db/indexedDb';
 
 function WordModal({ term }: FvWord) {
-  const [bookmarkCollection, setBookmarkCollection] = useState<any>(null);
+  const [db, setDb] = useState<IndexedDBService>();
+  const [bookmarked, setBookmarked] = useState<boolean>(false);
+
   const { word } = term;
 
-  useEffect(() => {
-    dbPromise.then((db) => {
-      setBookmarkCollection(db.bookmarks);
-    });
-  }, []);
-
   const shareData = {
-    title: "FirstVoices",
+    title: 'FirstVoices',
     text: `Learn what the word ${word} means from FirstVoices!`,
-    url: `${window.location.origin}${window.location.pathname}#${term.source}-${term.entryID}`
+    url: `${window.location.origin}${window.location.pathname}#${term.source}-${term.entryID}`,
   };
+
   const bookmark: Bookmark = {
     type: term.source,
     definition: term.definition,
     name: term.word,
     hasAudio: term.audio.length !== 0,
     url: `${window.location.pathname}#${term.source}-${term.entryID}`,
-    timestamp: new Date()
-  }
+    timestamp: new Date(),
+  };
 
-  const [bookmarked, setBookmarked] = useState<boolean>(
-    bookmarkCollection.find({'url': bookmark.url}).length > 0
-  )
+  useEffect(() => {
+    setDb(new IndexedDBService('firstVoicesIndexedDb'));
+  }, []);
+
+  useEffect(() => {
+    if (db) {
+      setBookmarkIcon();
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [db]);
+
+  async function setBookmarkIcon() {
+    setBookmarked((await db?.getBookmarkByUrl(bookmark.url)) ? true : false);
+  }
 
   return (
     <div className="p-10">
@@ -52,8 +59,7 @@ function WordModal({ term }: FvWord) {
               onClick={() => {
                 if (navigator.share && navigator.canShare(shareData)) {
                   navigator.share(shareData);
-                }
-                else {
+                } else {
                   navigator.clipboard.writeText(shareData.url);
                 }
               }}
@@ -64,24 +70,28 @@ function WordModal({ term }: FvWord) {
           </div>
           <div className="pl-2 pr-2">
             <button
-              onClick={() => {
+              onClick={async () => {
                 if (bookmarked) {
-                  const record = bookmarkCollection.find({'url': bookmark.url});
-                  bookmarkCollection.remove(record);
+                  await db?.removeBookmark(bookmark.url);
                 } else {
-                  bookmarkCollection.insert(bookmark);
+                  await db?.addBookmark(bookmark);
                 }
-                setBookmarked(!bookmarked);
+                setBookmarkIcon();
               }}
             >
-              <i className={classNames(bookmarked ? 'fv-bookmark' : 'fv-bookmark-empty', 'pr-2')} />
+              <i
+                className={classNames(
+                  bookmarked ? 'fv-bookmark' : 'fv-bookmark-empty',
+                  'pr-2'
+                )}
+              />
               <span className="text-xl">BOOKMARK</span>
             </button>
           </div>
         </div>
       </div>
       <div className="-mt-14 pb-10">
-        <WordCard term={term}/>
+        <WordCard term={term} />
       </div>
     </div>
   );

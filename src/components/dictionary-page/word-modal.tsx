@@ -30,20 +30,17 @@ function WordModal({ term }: FvWord) {
   }, []);
 
   useEffect(() => {
-    const bookmarkIcon = async () => {
-      if (db) {
-        await setBookmarkIcon();
-      }
-    };
-    bookmarkIcon().catch((err: any) => {
+    bookmarkIcon(db).catch((err: any) => {
       console.log(err);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [db]);
 
-  async function setBookmarkIcon() {
-    setBookmarked((await db?.getBookmarkByUrl(bookmark.url)) ? true : false);
-  }
+  const bookmarkIcon = async (db: IndexedDBService | undefined) => {
+    if (db) {
+      setBookmarked((await db?.getBookmarkByUrl(bookmark.url)) ? true : false);
+    }
+  };
 
   return (
     <div className="p-10">
@@ -82,12 +79,7 @@ function WordModal({ term }: FvWord) {
                 } else {
                   await db?.addBookmark(bookmark);
                 }
-                const updateBookmarkIcon = async () => {
-                  if (db) {
-                    await setBookmarkIcon();
-                  }
-                };
-                updateBookmarkIcon().catch((err: any) => {
+                bookmarkIcon(db).catch((err: any) => {
                   console.log(err);
                 });
               }}

@@ -35,7 +35,9 @@ function WordModal({ term }: FvWord) {
         await setBookmarkIcon();
       }
     };
-    bookmarkIcon();
+    bookmarkIcon().catch((err: any) => {
+      console.log(err);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [db]);
 
@@ -85,7 +87,7 @@ function WordModal({ term }: FvWord) {
                     await setBookmarkIcon();
                   }
                 };
-                bookmarkIcon();
+                await bookmarkIcon();
               }}
             >
               <i

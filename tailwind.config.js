@@ -37,6 +37,8 @@ module.exports = {
         'color-alphabet-dark': '#420022',
         'color-categories-light': '#E9C46A',
         'color-categories-dark': '#A37D21',
+        'color-profile-light': '#FF7F7F',
+        'color-profile-dark': '#8E3B3E',
         'color-main-header': '#505050',
       },
     },

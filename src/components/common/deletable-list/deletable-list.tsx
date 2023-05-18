@@ -55,7 +55,7 @@ function DeletableList({
   return (
     <>
       <div className="h-[70px]">
-        <div className="float-left text-4xl m-2">{header}</div>
+        <div className="float-left text-3xl m-2">{header}</div>
         <div className="float-right">
           {!showDelete && (
             <button

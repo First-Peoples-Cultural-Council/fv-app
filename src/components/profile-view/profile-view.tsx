@@ -5,6 +5,7 @@ import styles from './profile-view.module.css';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import IndexedDBService from '../../browser-db/indexedDb';
+import SearchHeader from '../common/search-header/search-header';
 
 /* eslint-disable-next-line */
 export interface ProfileViewProps {}
@@ -109,13 +110,20 @@ export function ProfileView() {
 
   return (
     <div className={styles['container']}>
+       <SearchHeader
+        title='Profile'
+        backgroundColors={{
+          to: 'to-color-profile-light',
+          from: 'from-color-profile-dark',
+        }}
+      />
       <DeletableList
         header="Bookmarks"
         confirmMessage="Unbookmark selected bookmarks?"
         removeButtonText="Unbookmark"
         removeSelectedButtonText="Unbookmark Selected"
         items={list}
-        showSearch={true}
+        showSearch={false}
         onDelete={function (ids: string[]) {
           for (let id of ids) {
             db?.removeBookmark(id);

@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'first-voices';
-  src: url('../font/first-voices.eot?22450989');
-  src: url('../font/first-voices.eot?22450989#iefix') format('embedded-opentype'),
-       url('../font/first-voices.woff2?22450989') format('woff2'),
-       url('../font/first-voices.woff?22450989') format('woff'),
-       url('../font/first-voices.ttf?22450989') format('truetype'),
-       url('../font/first-voices.svg?22450989#first-voices') format('svg');
+  src: url('../font/first-voices.eot?8750112');
+  src: url('../font/first-voices.eot?8750112#iefix') format('embedded-opentype'),
+       url('../font/first-voices.woff2?8750112') format('woff2'),
+       url('../font/first-voices.woff?8750112') format('woff'),
+       url('../font/first-voices.ttf?8750112') format('truetype'),
+       url('../font/first-voices.svg?8750112#first-voices') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'first-voices';
-    src: url('../font/first-voices.svg?22450989#first-voices') format('svg');
+    src: url('../font/first-voices.svg?8750112#first-voices') format('svg');
   }
 }
 */
@@ -75,10 +75,7 @@
 .fv-refresh-counter-clockwise:before { content: '\e812'; } /* '' */
 .fv-refresh-clockwise:before { content: '\e813'; } /* '' */
 .fv-mix:before { content: '\e814'; } /* '' */
-.fv-left-bold:before { content: '\e815'; } /* '' */
-.fv-left-bold:before { content: '\e815'; } /* '' */
-.fv-right-bold:before { content: '\e816'; } /* '' */
-.fv-right-bold:before { content: '\e816'; } /* '' */
+.fv-left-big:before { content: '\e815'; } /* '' */
 .fv-games:before { content: '\e817'; } /* '' */
 .fv-wordsfc:before { content: '\e818'; } /* '' */
 .fv-phrasesfc:before { content: '\e819'; } /* '' */
@@ -86,12 +83,10 @@
 .fv-right-big:before { content: '\e81b'; } /* '' */
 .fv-check:before { content: '\e81c'; } /* '' */
 .fv-bookmark:before { content: '\e81d'; } /* '' */
-.fv-bookmark:before { content: '\e81d'; } /* '' */
 .fv-songs:before { content: '\e81e'; } /* '' */
 .fv-stories:before { content: '\e81f'; } /* '' */
 .fv-flashcard:before { content: '\e820'; } /* '' */
 .fv-cog:before { content: '\f013'; } /* '' */
-.fv-bookmark-empty:before { content: '\f097'; } /* '' */
 .fv-bookmark-empty:before { content: '\f097'; } /* '' */
 .fv-menu:before { content: '\f0c9'; } /* '' */
 .fv-quote-right:before { content: '\f10e'; } /* '' */

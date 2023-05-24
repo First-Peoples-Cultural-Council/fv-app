@@ -17,7 +17,7 @@ export function SubNavDesktop({ navItems }: SubNavDesktopProps) {
             key={item.id}
             to={item.path}
             className={classNames(
-              'w-[100px] h-[100px] flex flex-col justify-center items-center cursor-pointer border-r-4 border-r-solid border-transparent',
+              'w-[100px] h-[100px] flex flex-col justify-center text-center items-center cursor-pointer border-r-4 border-r-solid border-transparent',
               {
                 [`${item.colors.activeText} ${item.colors.border}`]:
                   matchRoutes(

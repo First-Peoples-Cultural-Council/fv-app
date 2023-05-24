@@ -14,16 +14,11 @@ export function SearchHeader({ title, backgroundColors }: SearchHeaderProps) {
       className={`flex py-5 px-4 bg-gradient-to-t ${backgroundColors.from} ${backgroundColors.to} justify-between items-center`}
     >
       <div className="text-white uppercase">{title}</div>
-      <div className={"flex"}>
-        <SearchInput
-          value={searchValue}
-          onChange={(e) => setSearchValue(e?.target?.value)}
-          clickSearch={() => console.log(`search for ${searchValue}`)}
-          />
-        {title == 'Dictionary' && <button className="text-white"  onClick={() => console.log('ten random entries GO!')}>
-          10 Random Entries
-        </button>}
-      </div>
+      <SearchInput
+        value={searchValue}
+        onChange={(e) => setSearchValue(e?.target?.value)}
+        clickSearch={() => console.log(`search for ${searchValue}`)}
+        />
     </header>
   );
 }

@@ -21,7 +21,7 @@ export function SubNavDesktop({ navItems }: SubNavDesktopProps) {
               {
                 [`${item.colors.activeText} ${item.colors.border}`]:
                   matchRoutes(
-                    [...(item?.activePathMatches || []), { path: item.path }],
+                    [...(item?.activePathMatches ?? []), { path: item.path }],
                     location
                   ),
               },

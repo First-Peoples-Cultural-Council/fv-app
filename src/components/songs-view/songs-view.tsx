@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './songs-view.module.css';
 import { dataSongs } from '../temp-songs-list';
 import { useEffect, useState } from 'react';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';

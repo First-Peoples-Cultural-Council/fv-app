@@ -117,7 +117,11 @@ export function AlphabetView(props: AlphabetViewProps) {
     return (
       <button
         onClick={() => {
-          navigator.clipboard.writeText(selected?.letter ?? '');
+          navigator.clipboard
+            .writeText(selected?.letter ?? '')
+            .catch((err: any) => {
+              console.log(err);
+            });
         }}
       >
         <span className="fv-copy text-4xl" />
@@ -144,7 +148,7 @@ export function AlphabetView(props: AlphabetViewProps) {
         {alphabetRows.map((row, index) => {
           let showLetterDisplay = false;
           return (
-            <Fragment key={`row-${index}`}>
+            <Fragment key={`row-${row}`}>
               <div className="grid gap-4 md:gap-2 grid-cols-4 pb-4">
                 {row.map((letterData) => {
                   if (letterData === selected) {
@@ -276,7 +280,9 @@ export function AlphabetView(props: AlphabetViewProps) {
 
   async function playAudio(fileName: string) {
     const audio = new Audio(fileName);
-    audio.play();
+    audio.play().catch((err: any) => {
+      console.log(err);
+    });
   }
 }
 

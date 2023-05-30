@@ -21,7 +21,7 @@ export function SubNavMobile({ navItems }: SubNavMobileProps) {
               'py-4 flex flex-col justify-center items-center cursor-pointer hover:underline',
               {
                 [`${item.colors.activeText} underline`]: matchRoutes(
-                  [...(item?.activePathMatches || []), { path: item.path }],
+                  [...(item?.activePathMatches ?? []), { path: item.path }],
                   location
                 ),
               },

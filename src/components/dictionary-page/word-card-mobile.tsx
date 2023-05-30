@@ -6,14 +6,16 @@ import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 
 function WordCardMobile({ term }: FvWord) {
   const location = useLocation();
-  const [showModal, setShowModal] = React.useState((location.hash === `#${term.source}-${term.entryID}` && !window.matchMedia("(min-width: 768px").matches));
+  const [showModal, setShowModal] = React.useState(
+    location.hash === `#${term.source}-${term.entryID}` &&
+      !window.matchMedia('(min-width: 768px').matches
+  );
   const { word, definition, audio } = term;
   const shareData = {
-    title: "FirstVoices",
+    title: 'FirstVoices',
     text: `Learn what the word ${word} means from FirstVoices!`,
-    url: `${window.location.origin}${window.location.pathname}#${term.source}-${term.entryID}`
+    url: `${window.location.origin}${window.location.pathname}#${term.source}-${term.entryID}`,
   };
-
 
   useEffect(() => {
     if (showModal) {
@@ -37,10 +39,9 @@ function WordCardMobile({ term }: FvWord) {
             <h1 className="truncate">{definition}</h1>
           </div>
           <div className="self-center col-span-1">
-            {audio != null &&
-              audio.map((fvAudio) => (
-                <i key={fvAudio.filename} className="fv-volume-up" />
-              ))}
+            {audio?.map((fvAudio) => (
+              <i key={fvAudio.filename} className="fv-volume-up" />
+            ))}
           </div>
           <div className="place-self-end self-center">
             <i className="fv-right-open" />
@@ -54,7 +55,9 @@ function WordCardMobile({ term }: FvWord) {
             <>
               <button
                 onClick={() => {
-                  navigator.clipboard.writeText(word);
+                  navigator.clipboard.writeText(word).catch((err: any) => {
+                    console.log(err);
+                  });
                 }}
               >
                 <i className="fv-copy pr-5" />
@@ -62,10 +65,15 @@ function WordCardMobile({ term }: FvWord) {
               <button
                 onClick={() => {
                   if (navigator.share && navigator.canShare(shareData)) {
-                    navigator.share(shareData);
-                  }
-                  else {
-                    navigator.clipboard.writeText(shareData.url);
+                    navigator.share(shareData).catch((err: any) => {
+                      console.log(err);
+                    });
+                  } else {
+                    navigator.clipboard
+                      .writeText(shareData.url)
+                      .catch((err: any) => {
+                        console.log(err);
+                      });
                   }
                 }}
               >

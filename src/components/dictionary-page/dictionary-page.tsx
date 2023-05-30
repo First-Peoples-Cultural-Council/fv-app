@@ -89,10 +89,10 @@ export function Dictionary(props: DictionaryProps) {
         <SubNavDesktop navItems={navItems} />
         <Outlet />
       </div>
-      {today.toDateString() !== (localStorage.getItem('lastWOTDSeenOn') || '') && <WordOfTheDay />}
+      {today.toDateString() !==
+        (localStorage.getItem('lastWOTDSeenOn') || '') && <WordOfTheDay />}
     </div>
   );
-
 }
 
 export default Dictionary;

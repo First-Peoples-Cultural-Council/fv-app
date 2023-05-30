@@ -16,7 +16,7 @@ export function FullScreenModal({
       <div className="modal-overlay absolute w-full h-full bg-white"></div>
 
       <div className="modal-container fixed w-full h-full z-50 overflow-hidden bg-grey">
-        <div className="flex justify-between p-5 rounded-t">
+        <div className="flex justify-between p-5 rounded-t w-full">
           <button
             className="p-1 bg-transparent border-0 text-black text-2xl leading-none outline-none focus:outline-none"
             onClick={() => onClose()}
@@ -26,7 +26,7 @@ export function FullScreenModal({
           <div className="ml-auto text-2xl">{actions}</div>
         </div>
 
-        <div className="modal-content container mx-auto h-full text-left p-4 overflow-scroll pb-10">
+        <div className="modal-content container mx-auto h-full text-left p-4 overflow-scroll pb-10 w-full">
           {children}
         </div>
       </div>

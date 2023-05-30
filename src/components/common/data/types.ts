@@ -144,3 +144,15 @@ export type DeleteListType = {
   id: string;
   display: ReactNode;
 };
+
+export type FVSong = {
+  id: string;
+  name: string;
+  description: string;
+  artist: string;
+  lyrics: string;
+  translation: string;
+  img: string[] | null;
+  audio: FvAudio[] | null;
+  media: string[] | null;
+};

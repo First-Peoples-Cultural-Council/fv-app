@@ -6,9 +6,9 @@ import { dataDict } from '../temp-word-list';
 import WordAlphabetRowCard from './word-row-card';
 import _ from 'lodash';
 import { useIsMobile } from '../../util/useMediaQuery';
-import { FvAudio, FvLetter } from "../common/data";
+import { FvAudio, FvLetter } from '../common/data';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
-import { useButtonStyle } from "../common/hooks";
+import { useButtonStyle } from '../common/hooks';
 
 const dataAlphabetMap = _.keyBy(dataAlphabet, 'letter');
 
@@ -19,9 +19,15 @@ export function AlphabetView(props: AlphabetViewProps) {
   const { letter } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  
-  const [selected, setSelected] = useState<FvLetter | null>(dataAlphabet.find(letterData => letterData.letter === decodeURIComponent(letter ?? '')) as FvLetter ?? null);
-  const [showMobileWordList, setShowMobileWordList] = useState((location.hash && !window.matchMedia("(min-width: 768px").matches));
+
+  const [selected, setSelected] = useState<FvLetter | null>(
+    (dataAlphabet.find(
+      (letterData) => letterData.letter === decodeURIComponent(letter ?? '')
+    ) as FvLetter) ?? null
+  );
+  const [showMobileWordList, setShowMobileWordList] = useState(
+    location.hash && !window.matchMedia('(min-width: 768px').matches
+  );
 
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 
@@ -157,7 +163,9 @@ export function AlphabetView(props: AlphabetViewProps) {
                       )}
                       onClick={() => {
                         setSelected(letterData);
-                        navigate(`/alphabet/${encodeURIComponent(letterData.letter)}`);
+                        navigate(
+                          `/alphabet/${encodeURIComponent(letterData.letter)}`
+                        );
                         setShowMobileWordList(false);
                       }}
                     >
@@ -206,7 +214,10 @@ export function AlphabetView(props: AlphabetViewProps) {
             return <div key={termId} />;
           }
           return (
-            <div key={`${term.source}-${term.entryID}`} id={`${term.source}-${term.entryID}`}>
+            <div
+              key={`${term.source}-${term.entryID}`}
+              id={`${term.source}-${term.entryID}`}
+            >
               <WordAlphabetRowCard term={term} />
             </div>
           );

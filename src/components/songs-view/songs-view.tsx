@@ -148,58 +148,7 @@ export function SongsView(props: SongsViewProps) {
         <div className="p-2 text-2xl font-bold">{selectedSong.name}</div>
         <div className="p-2">{selectedSong.description}</div>
 
-        <div className="grid grid-cols-1">
-          <div className="pl-2 pr-2">
-            <i className="fv-copy pr-2" />
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(selectedSong.name);
-              }}
-            >
-              <span className="text-xl">COPY</span>
-            </button>
-          </div>
-          <div className="pl-2 pr-2">
-            <button
-              onClick={() => {
-                if (shareData) {
-                  if (navigator.share && navigator.canShare(shareData)) {
-                    navigator.share(shareData);
-                  } else {
-                    navigator.clipboard.writeText(shareData.url);
-                  }
-                }
-              }}
-            >
-              <i className="fv-share pr-2" />
-              <span className="text-xl">SHARE</span>
-            </button>
-          </div>
-          <div className="pl-2 pr-2">
-            <button
-              onClick={async () => {
-                if (bookmark) {
-                  if (bookmarked) {
-                    await db?.removeBookmark(bookmark.url);
-                  } else {
-                    await db?.addBookmark(bookmark);
-                  }
-                }
-                bookmarkIcon(db).catch((err: any) => {
-                  console.log(err);
-                });
-              }}
-            >
-              <i
-                className={classNames(
-                  bookmarked ? 'fv-bookmark' : 'fv-bookmark-empty',
-                  'pr-2'
-                )}
-              />
-              <span className="text-xl">BOOKMARK</span>
-            </button>
-          </div>
-        </div>
+        {actionButtons()}
 
         {selectedSong?.audio?.map((audio) => {
           return (
@@ -239,6 +188,91 @@ export function SongsView(props: SongsViewProps) {
         )}
         <div className="pb-6" />
       </>
+    );
+  }
+
+  function actionButtons() {
+    return (
+      <div className="grid grid-cols-1 pb-4">
+        {copyButton()}
+        {shareButton()}
+        {bookmarkButton()}
+      </div>
+    );
+  }
+
+  function copyButton() {
+    return (
+      <div className="pl-2 pr-2">
+        <i className="fv-copy pr-2" />
+        <button
+          onClick={async () => {
+            await navigator.clipboard
+              .writeText(selectedSong?.name ?? '')
+              .catch((err: any) => {
+                console.log(err);
+              });
+          }}
+        >
+          <span className="text-xl">COPY</span>
+        </button>
+      </div>
+    );
+  }
+
+  function shareButton() {
+    return (
+      <div className="pl-2 pr-2">
+        <button
+          onClick={() => {
+            if (shareData) {
+              if (navigator.share && navigator.canShare(shareData)) {
+                navigator.share(shareData).catch((err: any) => {
+                  console.log(err);
+                });
+              } else {
+                navigator.clipboard
+                  .writeText(shareData.url)
+                  .catch((err: any) => {
+                    console.log(err);
+                  });
+              }
+            }
+          }}
+        >
+          <i className="fv-share pr-2" />
+          <span className="text-xl">SHARE</span>
+        </button>
+      </div>
+    );
+  }
+
+  function bookmarkButton() {
+    return (
+      <div className="pl-2 pr-2">
+        <button
+          onClick={async () => {
+            if (bookmark) {
+              if (bookmarked) {
+                await db?.removeBookmark(bookmark.url);
+              } else {
+                await db?.addBookmark(bookmark);
+              }
+            }
+            bookmarkIcon(db).catch((err: any) => {
+              console.log(err);
+            });
+          }}
+        >
+          <i
+            className={classNames(
+              bookmarked ? 'fv-bookmark' : 'fv-bookmark-empty',
+              'pr-2'
+            )}
+          />
+          <span className="text-xl">BOOKMARK</span>
+        </button>
+      </div>
     );
   }
 }

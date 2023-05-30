@@ -90,7 +90,7 @@ export function Dictionary(props: DictionaryProps) {
         <Outlet />
       </div>
       {today.toDateString() !==
-        (localStorage.getItem('lastWOTDSeenOn') || '') && <WordOfTheDay />}
+        (localStorage.getItem('lastWOTDSeenOn') ?? '') && <WordOfTheDay />}
     </div>
   );
 }

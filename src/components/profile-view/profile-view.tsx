@@ -4,7 +4,7 @@ import DeletableList from '../common/deletable-list/deletable-list';
 import styles from './profile-view.module.css';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
-import IndexedDBService from '../../browser-db/indexedDb';
+import IndexedDBService from '../../services/indexedDbService';
 import SearchHeader from '../common/search-header/search-header';
 
 /* eslint-disable-next-line */

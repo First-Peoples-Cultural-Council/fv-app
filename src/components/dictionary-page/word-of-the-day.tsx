@@ -1,24 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { dataDict } from '../temp-word-list';
 import WordModal from './word-modal';
 import Modal from '../common/modal/modal';
+import fetchWordOfDayData from '../../services/apiService';
 
 function WordOfTheDay() {
   const today = new Date();
-  const [showModal, setShowModal] = React.useState(true)
+  const [showModal, setShowModal] = React.useState(true);
+  const [data, setData] = useState<any>(null);
+
+  useEffect(() => {
+    fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const fetchData = async () => {
+    setData(await getWordOfTheDay());
+  };
 
   return (
     <>
-      {showModal && (
-        <Modal onClose={() => wordOfTheDaySeen()} title="Word of the Day">
-          <WordModal term={getWordOfTheDay()} />
-        </Modal>
+      {data ? (
+        showModal && (
+          <Modal onClose={() => wordOfTheDaySeen()} title="Word of the Day">
+            <WordModal term={data} />
+          </Modal>
+        )
+      ) : (
+        <div>Loading...</div>
       )}
     </>
   );
 
-  function getWordOfTheDay() {
-    return dataDict[Math.floor(Math.random()*dataDict.length)];
+  async function getWordOfTheDay() {
+    try {
+      const data = await fetchWordOfDayData();
+      return (
+        dataDict.find((term) => term.entryID === data.dictionaryEntry.id) ??
+        dataDict[Math.floor(Math.random() * dataDict.length)]
+      );
+    } catch (error: any) {
+      return dataDict[Math.floor(Math.random() * dataDict.length)];
+    }
   }
 
   function wordOfTheDaySeen() {

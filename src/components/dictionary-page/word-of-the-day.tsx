@@ -10,7 +10,9 @@ function WordOfTheDay() {
   const [data, setData] = useState<any>(null);
 
   useEffect(() => {
-    fetchData();
+    fetchData().catch((err: any) => {
+      console.log(err);
+    });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

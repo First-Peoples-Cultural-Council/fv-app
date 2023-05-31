@@ -6,7 +6,7 @@ import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import { Bookmark, FVSong } from '../common/data/types';
 import classNames from 'classnames';
 import { useLocation } from 'react-router';
-import IndexedDBService from '../../browser-db/indexedDb';
+import IndexedDBService from '../../services/indexedDbService';
 
 /* eslint-disable-next-line */
 export interface SongsViewProps {}

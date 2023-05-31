@@ -2,7 +2,7 @@ import { Bookmark, FvWord } from '../common/data';
 import WordCard from './word-card';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
-import IndexedDBService from '../../browser-db/indexedDb';
+import IndexedDBService from '../../services/indexedDbService';
 
 function WordModal({ term }: FvWord) {
   const [db, setDb] = useState<IndexedDBService>();

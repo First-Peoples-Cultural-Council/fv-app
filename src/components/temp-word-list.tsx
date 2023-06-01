@@ -126,7 +126,7 @@ export const dataDict = [
   },
   {
     source: 'words',
-    entryID: '247',
+    entryID: '0475f80c-83d1-4257-b439-075c9cb462e4',
     word: '\u015bql\u01f3',
     definition: 'we (3+) are',
     audio: [

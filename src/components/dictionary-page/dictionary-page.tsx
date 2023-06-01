@@ -5,6 +5,7 @@ import SubNavDesktop from '../sub-nav-desktop/sub-nav-desktop';
 import SubNavMobile from '../sub-nav-mobile/sub-nav-mobile';
 import SearchHeader from '../common/search-header/search-header';
 import { SubNavItem } from '../common/data';
+import WordOfTheDay from './word-of-the-day';
 
 const navItems: SubNavItem[] = [
   {
@@ -70,6 +71,7 @@ export function Dictionary(props: DictionaryProps) {
       )
     ) || navItems[0]
   );
+  const today = new Date();
 
   useEffect(() => {
     const currentNavItem = navItems.find((item) =>
@@ -95,6 +97,8 @@ export function Dictionary(props: DictionaryProps) {
         <SubNavDesktop navItems={navItems} />
         <Outlet />
       </div>
+      {today.toDateString() !==
+        (localStorage.getItem('lastWOTDSeenOn') ?? '') && <WordOfTheDay />}
     </div>
   );
 }

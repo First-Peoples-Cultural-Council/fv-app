@@ -6,8 +6,11 @@
 $ npm install
 ```
 
+## Configure env
+> Rename ```.env.example``` to ```.env``` and inside of that update ```REACT_APP_API_URL``` and ```REACT_APP_API_SITE``` to the api that will be used.
+
 ## Run Dev Server
-    
+
 ```bash
 $ npm start
 ```

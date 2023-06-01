@@ -129,4 +129,30 @@ export type Flashcard = {
   frontWord: string | null;
   backWord: string;
   audio: FvAudio[] | null;
-}
+};
+
+export type Bookmark = {
+  type: string;
+  name: string;
+  definition: string;
+  hasAudio: boolean;
+  url: string;
+  timestamp: Date;
+};
+
+export type DeleteListType = {
+  id: string;
+  display: ReactNode;
+};
+
+export type FVSong = {
+  id: string;
+  name: string;
+  description: string;
+  artist: string;
+  lyrics: string;
+  translation: string;
+  img: string[] | null;
+  audio: FvAudio[] | null;
+  media: string[] | null;
+};

@@ -4,11 +4,12 @@ import WordModal from '../dictionary-page/word-modal';
 import { FvWord } from '../common/data';
 import Modal from '../common/modal/modal';
 
-function WordAlphabetRowCard({term}: FvWord) {
+function WordAlphabetRowCard({ term }: FvWord) {
   const location = useLocation();
-  const [showModal, setShowModal] = React.useState((location.hash === `#${term.source}-${term.entryID}`));
-  const { word, definition, } =
-    term;
+  const [showModal, setShowModal] = React.useState(
+    location.hash === `#${term.source}-${term.entryID}`
+  );
+  const { word, definition } = term;
 
   return (
     <>
@@ -30,7 +31,7 @@ function WordAlphabetRowCard({term}: FvWord) {
       </div>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <WordModal term={term}/>
+          <WordModal term={term} />
         </Modal>
       )}
     </>

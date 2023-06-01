@@ -1,8 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './apps/client/src/**/*.{html,js,ts,jsx,tsx}',
-    './libs/common-components/src/**/*.{html,jsx,js,ts,tsx}',
+    "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
@@ -12,10 +11,7 @@ module.exports = {
         padding: 'padding',
       },
       fontFamily: {
-        regular: ['Regular', 'sans-serif'],
-        bold: ['Bold', 'sans-serif'],
-        italic: ['Italic', 'sans-serif'],
-        boldItalic: ['BoldItalic', 'sans-serif'],
+        sans: ['BCSans', 'sans-serif'],
       },
       colors: {
         'color-primary-0': '#264753',
@@ -33,10 +29,17 @@ module.exports = {
         'color-tertiary-2': '#808572',
         'color-tertiary-3': '#272B20',
         'color-tertiary-4': '#272E16',
-        'color-words-0': '#2A9D8F',
-        'color-phrases-0': '#C37829',
-        'color-songs-0': '#830042',
-        'color-stories-0': '#E9C46A',
+        'color-words-light': '#2A9D8F',
+        'color-words-dark': '#057266',
+        'color-phrases-light': '#C37829',
+        'color-phrases-dark': '#753C00',
+        'color-alphabet-light': '#830042',
+        'color-alphabet-dark': '#420022',
+        'color-categories-light': '#E9C46A',
+        'color-categories-dark': '#A37D21',
+        'color-profile-light': '#FF7F7F',
+        'color-profile-dark': '#8E3B3E',
+        'color-main-header': '#505050',
       },
     },
   },

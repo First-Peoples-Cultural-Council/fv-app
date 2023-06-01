@@ -13,7 +13,11 @@ function WordModal({ term }: FvWord) {
   const shareData = {
     title: 'FirstVoices',
     text: `Learn what the word ${word} means from FirstVoices!`,
-    url: `${window.location.origin}${(window.location.pathname !== '/' ? window.location.pathname : '/dictionary')}#${term.source}-${term.entryID}`
+    url: `${window.location.origin}${
+      window.location.pathname !== '/'
+        ? window.location.pathname
+        : '/dictionary'
+    }#${term.source}-${term.entryID}`,
   };
 
   const bookmark: Bookmark = {
@@ -51,7 +55,9 @@ function WordModal({ term }: FvWord) {
             <i className="fv-copy pr-2" />
             <button
               onClick={() => {
-                navigator.clipboard.writeText(word);
+                navigator.clipboard.writeText(word).catch((err: any) => {
+                  console.log(err);
+                });
               }}
             >
               <span className="text-xl">COPY</span>
@@ -61,9 +67,15 @@ function WordModal({ term }: FvWord) {
             <button
               onClick={() => {
                 if (navigator.share && navigator.canShare(shareData)) {
-                  navigator.share(shareData);
+                  navigator.share(shareData).catch((err: any) => {
+                    console.log(err);
+                  });
                 } else {
-                  navigator.clipboard.writeText(shareData.url);
+                  navigator.clipboard
+                    .writeText(shareData.url)
+                    .catch((err: any) => {
+                      console.log(err);
+                    });
                 }
               }}
             >

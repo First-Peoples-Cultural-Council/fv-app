@@ -58,10 +58,10 @@ export function Dictionary(props: DictionaryProps) {
   const [currentNavItem, setCurrentNavItem] = useState(
     navItems.find((item) =>
       matchRoutes(
-        [{ path: item.path }, ...(item?.activePathMatches || [])],
+        [{ path: item.path }, ...(item?.activePathMatches ?? [])],
         location
       )
-    ) || navItems[0]
+    ) ?? navItems[0]
   );
   const today = new Date();
 

@@ -40,7 +40,7 @@ export function MultiSwitch({
                 onToggle(index);
               }}
             >
-              <i className={item.icon !== null ? item.icon : ''}>{item.name}</i>
+              <i className={item.icon ?? ''}>{item.name}</i>
             </button>
           );
         })}

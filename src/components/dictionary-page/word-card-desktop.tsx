@@ -6,7 +6,10 @@ import Modal from '../common/modal/modal';
 
 function WordCardDesktop({ term }: FvWord) {
   const location = useLocation();
-  const [showModal, setShowModal] = React.useState((location.hash === `#${term.source}-${term.entryID}` && window.matchMedia("(min-width: 768px").matches));
+  const [showModal, setShowModal] = React.useState(
+    location.hash === `#${term.source}-${term.entryID}` &&
+      window.matchMedia('(min-width: 768px').matches
+  );
   const { word, definition, audio } = term;
 
   return (
@@ -21,10 +24,9 @@ function WordCardDesktop({ term }: FvWord) {
               <h1 className="font-bold">{word}</h1>
             </div>
             <div>
-              {audio != null &&
-                audio.map((fvAudio) => (
-                  <i key={fvAudio.filename} className="fv-volume-up" />
-                ))}
+              {audio?.map((fvAudio) => (
+                <i key={fvAudio.filename} className="fv-volume-up" />
+              ))}
             </div>
           </div>
           <div className="col-span-4">

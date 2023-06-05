@@ -56,10 +56,10 @@ export function LearnView(props: LearnViewProps) {
   const [currentNavItem, setCurrentNavItem] = useState(
     navItems.find((item) =>
       matchRoutes(
-        [{ path: item.path }, ...(item?.activePathMatches || [])],
+        [{ path: item.path }, ...(item?.activePathMatches ?? [])],
         location
       )
-    ) || navItems[0]
+    ) ?? navItems[0]
   );
 
   useEffect(() => {

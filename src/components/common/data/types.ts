@@ -156,3 +156,23 @@ export type FVSong = {
   audio: FvAudio[] | null;
   media: string[] | null;
 };
+
+export type FVPage = {
+  img: string[] | null;
+  content: string;
+  translation: string;
+  audio: FvAudio[] | null;
+}
+
+export type FVStory = {
+  id: string;
+  name: string;
+  description: string;
+  artist: string;
+  introduction: string;
+  cover: string | null;
+  img: string[] | null;
+  audio: FvAudio[] | null;
+  media: string[] | null;
+  pages: FVPage[];
+};

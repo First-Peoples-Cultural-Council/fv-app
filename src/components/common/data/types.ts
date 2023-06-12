@@ -158,21 +158,36 @@ export type FVSong = {
 };
 
 export type FVPage = {
-  img: string[] | null;
-  content: string;
+  order: number;
+  content: FVContent;
+  audio: FvMedia[];
+  videos: FvMedia[];
+  images: FvMedia[];
+};
+
+export type FVContent = {
+  text: string;
   translation: string;
-  audio: FvAudio[] | null;
-}
+};
 
 export type FVStory = {
   id: string;
-  name: string;
-  description: string;
-  artist: string;
-  introduction: string;
-  cover: string | null;
-  img: string[] | null;
-  audio: FvAudio[] | null;
-  media: string[] | null;
+  title: string | null;
+  titleTranslation: string | null;
+  author_name: string | null;
+  coverVisual: FvMedia | null;
+  intro: FVContent | null;
+  acknowledgements: string[];
+  notes: string[];
+  audio: FvMedia[];
+  videos: FvMedia[];
+  images: FvMedia[];
   pages: FVPage[];
+};
+
+export type FvMedia = {
+  id: string;
+  title: string;
+  file: string;
+  mimetype: string;
 };

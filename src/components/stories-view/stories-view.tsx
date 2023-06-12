@@ -54,14 +54,14 @@ export function StoriesView(props: StoriesViewProps) {
     if (selectedStory) {
       setShareData({
         title: 'FirstVoices',
-        text: `Learn more about the ${selectedStory.name} story from FirstVoices!`,
+        text: `Learn more about the ${selectedStory.title} story from FirstVoices!`,
         url: `${window.location.origin}${window.location.pathname}#${selectedStory.id}`,
       });
 
       setBookmark({
         type: 'story',
-        definition: selectedStory?.description,
-        name: selectedStory.name,
+        definition: selectedStory?.titleTranslation ?? '',
+        name: selectedStory.title ?? '',
         hasAudio: selectedStory.audio?.length !== 0,
         url: `${window.location.pathname}#${selectedStory.id}`,
         timestamp: new Date(),
@@ -98,25 +98,25 @@ export function StoriesView(props: StoriesViewProps) {
               >
                 <div className="grid grid-cols-10 gap-4">
                   <div className="col-span-3 h-[75px] w-[75px] sm:h-[100px] sm:w-[100px]">
-                    {story?.img?.length === 0 && (
+                    {story?.images?.length === 0 && (
                       <div className="h-full w-full object-contain shadow-lg flex justify-center items-center">
                         <div className="fv-stories text-6xl"></div>
                       </div>
                     )}
-                    {story?.cover && (
+                    {story?.coverVisual && (
                       <img
                         className="h-full w-full object-contain shadow-lg"
-                        src={story?.cover}
-                        alt={story?.name}
+                        src={story?.coverVisual.file ?? ''}
+                        alt={story?.title ?? ''}
                         loading="lazy"
                       ></img>
                     )}
                   </div>
                   <div className="col-span-5">
                     <div>
-                      <h1 className="font-bold">{story.name}</h1>
+                      <h1 className="font-bold">{story.title}</h1>
                     </div>
-                    <h1 className="truncate">{story.description}</h1>
+                    <h1 className="truncate">{story.titleTranslation}</h1>
                   </div>
                   <div className="self-center col-span-1"></div>
                   <div className="place-self-end self-center">
@@ -166,7 +166,7 @@ export function StoriesView(props: StoriesViewProps) {
         <button
           onClick={async () => {
             await navigator.clipboard
-              .writeText(selectedStory?.name ?? '')
+              .writeText(selectedStory?.title ?? '')
               .catch((err: any) => {
                 console.log(err);
               });
@@ -239,14 +239,14 @@ export function StoriesView(props: StoriesViewProps) {
       <div className="max-w-5xl mx-auto">
         <div className="flex flex-col h-full">
           <div className="h-3/5 flex-1">
-            {selectedStory?.cover && (
+            {selectedStory?.coverVisual && (
               <img
                 className="h-full"
-                src={selectedStory?.cover ?? ''}
-                alt={selectedStory?.name}
+                src={selectedStory?.coverVisual.file ?? ''}
+                alt={selectedStory?.title ?? ''}
               />
             )}
-            {(selectedStory?.cover ?? '') === '' && (
+            {(selectedStory?.coverVisual?.file ?? '') === '' && (
               <div className="fv-stories text-20xl"></div>
             )}
           </div>
@@ -254,9 +254,9 @@ export function StoriesView(props: StoriesViewProps) {
             <div className="flex w-full">
               <div className="w-full">
                 <div className="p-2 text-2xl font-bold">
-                  {selectedStory?.name}
+                  {selectedStory?.title}
                 </div>
-                <div className="p-2">{selectedStory?.description}</div>{' '}
+                <div className="p-2">{selectedStory?.titleTranslation}</div>{' '}
               </div>
               <div className="items-end justify-self-end w-[300px]">
                 {actionButtons()}
@@ -281,22 +281,23 @@ export function StoriesView(props: StoriesViewProps) {
     return (
       <div className="max-w-5xl mx-auto">
         <div className="flex w-full">
-          {selectedStory?.img?.map((img) => {
-            return <img className="h-[200px]" src={img} alt="" />;
+          {selectedStory?.images?.map((img) => {
+            return <img className="h-[200px]" src={img.file} alt="" />;
           })}
         </div>
-        <div className="p-2 text-2xl font-bold">{selectedStory?.name}</div>
-        <div className="p-2">{selectedStory?.description}</div>
-        {(selectedStory?.introduction ?? '').length !== 0 && (
+        <div className="p-2 text-2xl font-bold">{selectedStory?.title}</div>
+        <div className="p-2">{selectedStory?.titleTranslation}</div>
+        {selectedStory?.intro !== undefined && (
           <>
             <div className="p-2 font-bold">Introduction</div>
-            <div>{selectedStory?.introduction}</div>
+            <div>{selectedStory?.intro?.text}</div>
+            <div>{selectedStory?.intro?.translation}</div>
           </>
         )}
         {selectedStory?.audio?.map((audio) => {
           return (
-            <audio className="mt-10" key={audio.filename} controls>
-              <source src={audio.filename} type="audio/mpeg"></source>
+            <audio className="mt-10" key={audio.file} controls>
+              <source src={audio.file} type="audio/mpeg"></source>
             </audio>
           );
         })}
@@ -309,25 +310,25 @@ export function StoriesView(props: StoriesViewProps) {
     return (
       <div className="max-w-5xl mx-auto">
         <div className="flex w-full justify-center">
-          {selectedStory?.pages[currentPage]?.img?.map((img) => {
-            return <img className="h-[300px] p-2" src={img} alt="" />;
+          {selectedStory?.pages[currentPage]?.images?.map((img) => {
+            return <img className="h-[300px] p-2" src={img.file} alt="" />;
           })}
         </div>
 
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/2 p-2">
-            {selectedStory?.pages[currentPage]?.content}
+            {selectedStory?.pages[currentPage]?.content.text}
           </div>
           <div className="md:w-1/2 p-2">
-            {selectedStory?.pages[currentPage]?.translation}
+            {selectedStory?.pages[currentPage]?.content.translation}
           </div>
         </div>
 
         <div className="flex w-full justify-center">
           {selectedStory?.pages[currentPage]?.audio?.map((audio) => {
             return (
-              <audio className="mt-10" key={audio.filename} controls>
-                <source src={audio.filename} type="audio/mpeg"></source>
+              <audio className="mt-10" key={audio.file} controls>
+                <source src={audio.file} type="audio/mpeg"></source>
               </audio>
             );
           })}

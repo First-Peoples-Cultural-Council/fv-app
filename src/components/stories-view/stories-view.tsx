@@ -98,7 +98,7 @@ export function StoriesView(props: StoriesViewProps) {
               >
                 <div className="grid grid-cols-10 gap-4">
                   <div className="col-span-3 h-[75px] w-[75px] sm:h-[100px] sm:w-[100px]">
-                    {story?.images?.length === 0 && (
+                    {story?.coverVisual === null && (
                       <div className="h-full w-full object-contain shadow-lg flex justify-center items-center">
                         <div className="fv-stories text-6xl"></div>
                       </div>
@@ -282,7 +282,9 @@ export function StoriesView(props: StoriesViewProps) {
       <div className="max-w-5xl mx-auto">
         <div className="flex w-full">
           {selectedStory?.images?.map((img) => {
-            return <img key={img.id} className="h-[200px]" src={img.file} alt="" />;
+            return (
+              <img key={img.id} className="h-[200px]" src={img.file} alt="" />
+            );
           })}
         </div>
         <div className="p-2 text-2xl font-bold">{selectedStory?.title}</div>
@@ -311,7 +313,14 @@ export function StoriesView(props: StoriesViewProps) {
       <div className="max-w-5xl mx-auto">
         <div className="flex w-full justify-center">
           {selectedStory?.pages[currentPage]?.images?.map((img) => {
-            return <img key={img.id} className="h-[300px] p-2" src={img.file} alt="" />;
+            return (
+              <img
+                key={img.id}
+                className="h-[300px] p-2"
+                src={img.file}
+                alt=""
+              />
+            );
           })}
         </div>
 

@@ -156,3 +156,38 @@ export type FVSong = {
   audio: FvAudio[] | null;
   media: string[] | null;
 };
+
+export type FVPage = {
+  order: number;
+  content: FVContent;
+  audio: FvMedia[];
+  videos: FvMedia[];
+  images: FvMedia[];
+};
+
+export type FVContent = {
+  text: string;
+  translation: string;
+};
+
+export type FVStory = {
+  id: string;
+  title: string | null;
+  titleTranslation: string | null;
+  author_name: string | null;
+  coverVisual: FvMedia | null;
+  intro: FVContent | null;
+  acknowledgements: string[];
+  notes: string[];
+  audio: FvMedia[];
+  videos: FvMedia[];
+  images: FvMedia[];
+  pages: FVPage[];
+};
+
+export type FvMedia = {
+  id: string;
+  title: string;
+  file: string;
+  mimetype: string;
+};

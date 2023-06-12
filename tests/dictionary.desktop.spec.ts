@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('Should load dictionary route', async ({ page }) => {
+test('Should load desktop dictionary route', async ({ page }) => {
   await page.goto('/dictionary');
   await page.waitForSelector('text=Dictionary');
 

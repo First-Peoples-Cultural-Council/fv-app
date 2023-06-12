@@ -165,15 +165,10 @@ export function SongsView(props: SongsViewProps) {
           <>
             <div className="p-2 text-lg font-bold">LYRICS</div>
             <div className="p-2">{selectedSong?.lyrics.text}</div>
+            <div className="p-2 text-lg font-bold">TRANSLATION</div>
+            <div className="p-2">{selectedSong?.lyrics.translation}</div>
           </>
         )}
-        {selectedSong?.lyrics !== null &&
-          selectedSong?.lyrics?.translation !== null && (
-            <>
-              <div className="p-2 text-lg font-bold">TRANSLATION</div>
-              <div className="p-2">{selectedSong?.lyrics?.translation}</div>
-            </>
-          )}
         {(selectedSong?.videos?.length !== 0 ||
           (selectedSong?.images?.length !== undefined &&
             selectedSong?.images?.length > 1)) && (

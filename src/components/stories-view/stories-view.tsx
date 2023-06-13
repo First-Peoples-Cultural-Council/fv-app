@@ -5,6 +5,7 @@ import IndexedDBService from '../../services/indexedDbService';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
+import Modal from '../common/modal/modal';
 
 /* eslint-disable-next-line */
 export interface StoriesViewProps {}
@@ -21,6 +22,7 @@ export function StoriesView(props: StoriesViewProps) {
     location.hash === `#${selectedStory?.id}` &&
       window.matchMedia('(min-width: 1024px').matches
   );
+  const [showPictureModal, setShowPictureModal] = useState<boolean>(false);
 
   const [shareData, setShareData] = useState<{
     title: string;
@@ -68,6 +70,17 @@ export function StoriesView(props: StoriesViewProps) {
       });
     }
   }, [selectedStory]);
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = '15px';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+      document.body.style.paddingRight = '0px';
+    };
+  }, [showModal]);
 
   const bookmarkIcon = async (db: IndexedDBService | undefined) => {
     if (db) {

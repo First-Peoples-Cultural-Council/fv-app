@@ -53,14 +53,14 @@ export function SongsView(props: SongsViewProps) {
     if (selectedSong) {
       setShareData({
         title: 'FirstVoices',
-        text: `Learn more about the ${selectedSong.name} song from FirstVoices!`,
+        text: `Learn more about the ${selectedSong.title} song from FirstVoices!`,
         url: `${window.location.origin}${window.location.pathname}#${selectedSong.id}`,
       });
 
       setBookmark({
         type: 'song',
-        definition: selectedSong?.description,
-        name: selectedSong.name,
+        definition: selectedSong?.titleTranslation ?? '',
+        name: selectedSong.title,
         hasAudio: selectedSong.audio?.length !== 0,
         url: `${window.location.pathname}#${selectedSong.id}`,
         timestamp: new Date(),
@@ -102,18 +102,21 @@ export function SongsView(props: SongsViewProps) {
               >
                 <div className="grid grid-cols-10 gap-4">
                   <div className="col-span-2 flex">
-                    {song?.img?.length === 0 && (
+                    {song?.coverVisual === null && (
                       <div className="fv-songs text-5xl self-center border border-solid" />
                     )}
-                    {song?.img?.length !== 0 && (
-                      <img src={song?.img![0]} alt=""></img>
+                    {song?.coverVisual !== null && (
+                      <img
+                        src={song?.coverVisual.file}
+                        alt={song?.coverVisual.title}
+                      ></img>
                     )}
                   </div>
                   <div className="col-span-6">
                     <div>
-                      <h1 className="font-bold">{song.name}</h1>
+                      <h1 className="font-bold">{song.title}</h1>
                     </div>
-                    <h1 className="truncate">{song.description}</h1>
+                    <h1 className="truncate">{song.titleTranslation}</h1>
                   </div>
                   <div className="self-center col-span-1"></div>
                   <div className="place-self-end self-center">
@@ -140,47 +143,46 @@ export function SongsView(props: SongsViewProps) {
     }
     return (
       <>
-        {selectedSong?.img?.length !== 0 && (
-          <img src={selectedSong?.img![0]} alt=""></img>
+        {selectedSong?.coverVisual !== null && (
+          <img
+            src={selectedSong?.coverVisual.file}
+            alt={selectedSong?.coverVisual.title}
+          ></img>
         )}
-        <div className="p-2 text-2xl font-bold">{selectedSong.name}</div>
-        <div className="p-2">{selectedSong.description}</div>
+        <div className="p-2 text-2xl font-bold">{selectedSong.title}</div>
+        <div className="p-2">{selectedSong.titleTranslation}</div>
 
         {actionButtons()}
 
         {selectedSong?.audio?.map((audio) => {
           return (
-            <audio key={audio.filename} controls>
-              <source src={audio.filename} type="audio/mpeg"></source>
+            <audio key={audio.file} controls>
+              <source src={audio.file} type="audio/mpeg"></source>
             </audio>
           );
         })}
-        {selectedSong?.lyrics !== '' && (
+        {selectedSong?.lyrics !== null && (
           <>
             <div className="p-2 text-lg font-bold">LYRICS</div>
-            <div className="p-2">{selectedSong?.lyrics}</div>
-          </>
-        )}
-        {selectedSong?.translation !== '' && (
-          <>
+            <div className="p-2">{selectedSong?.lyrics.text}</div>
             <div className="p-2 text-lg font-bold">TRANSLATION</div>
-            <div className="p-2">{selectedSong?.translation}</div>
+            <div className="p-2">{selectedSong?.lyrics.translation}</div>
           </>
         )}
-        {(selectedSong?.media?.length !== 0 ||
-          (selectedSong?.img?.length !== undefined &&
-            selectedSong?.img?.length > 1)) && (
+        {(selectedSong?.videos?.length !== 0 ||
+          (selectedSong?.images?.length !== undefined &&
+            selectedSong?.images?.length > 1)) && (
           <>
             <div className="p-2 text-lg font-bold">MEDIA</div>
-            {selectedSong?.media?.map((media) => {
+            {selectedSong?.videos?.map((video) => {
               return (
-                <video key={media} controls>
-                  <source src={media} type="video/mp4" />
+                <video key={video.id} controls>
+                  <source src={video.file} type="video/mp4" />
                 </video>
               );
             })}
-            {selectedSong?.img?.slice(1).map((img) => {
-              return <img key={img} src={img} alt="" />;
+            {selectedSong?.images?.slice(1).map((image) => {
+              return <img key={image.id} src={image.file} alt={image.title} />;
             })}
           </>
         )}
@@ -206,7 +208,7 @@ export function SongsView(props: SongsViewProps) {
         <button
           onClick={async () => {
             await navigator.clipboard
-              .writeText(selectedSong?.name ?? '')
+              .writeText(selectedSong?.title ?? '')
               .catch((err: any) => {
                 console.log(err);
               });

@@ -22,7 +22,6 @@ export function StoriesView(props: StoriesViewProps) {
     location.hash === `#${selectedStory?.id}` &&
       window.matchMedia('(min-width: 1024px').matches
   );
-  const [showPictureModal, setShowPictureModal] = useState<boolean>(false);
 
   const [shareData, setShareData] = useState<{
     title: string;

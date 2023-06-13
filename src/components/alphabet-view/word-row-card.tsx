@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import WordModal from '../dictionary-page/word-modal';
 import { FvWord } from '../common/data';
@@ -10,6 +10,15 @@ function WordAlphabetRowCard({ term }: FvWord) {
     location.hash === `#${term.source}-${term.entryID}`
   );
   const { word, definition } = term;
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showModal]);
 
   return (
     <>

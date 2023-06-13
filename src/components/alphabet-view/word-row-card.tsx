@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import WordModal from '../dictionary-page/word-modal';
 import { FvWord } from '../common/data';
 import Modal from '../common/modal/modal';
+import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 
 function WordAlphabetRowCard({ term }: FvWord) {
   const location = useLocation();
@@ -38,10 +39,15 @@ function WordAlphabetRowCard({ term }: FvWord) {
           </div>
         </div>
       </div>
-      {showModal && (
+      {window.matchMedia('(min-width: 768px').matches && showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <WordModal term={term} />
         </Modal>
+      )}
+      {!window.matchMedia('(min-width: 768px').matches && showModal && (
+        <FullScreenModal onClose={() => setShowModal(false)} actions={null}>
+          <WordModal term={term} />
+        </FullScreenModal>
       )}
     </>
   );

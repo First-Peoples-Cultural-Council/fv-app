@@ -93,7 +93,6 @@ export function SongsView(props: SongsViewProps) {
     <>
       <div className="grid grid-cols-1 lg:grid-cols-2 w-full h-full">
         <div className="scrollbar-none">
-          {/* {`${showModal ? 'scrollbar-none h-full' : ''}`}> */}
           {dataSongs.map((song: FVSong) => {
             return (
               <div

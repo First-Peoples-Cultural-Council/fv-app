@@ -149,10 +149,13 @@ export function SongsView(props: SongsViewProps) {
             alt={selectedSong?.coverVisual.title}
           ></img>
         )}
-        <div className="p-2 text-2xl font-bold">{selectedSong.title}</div>
-        <div className="p-2">{selectedSong.titleTranslation}</div>
-
-        {actionButtons()}
+        <div className="flex justify-between">
+          <div>
+            <div className="p-2 text-2xl font-bold">{selectedSong.title}</div>
+            <div className="p-2">{selectedSong.titleTranslation}</div>
+          </div>
+          <div className="whitespace-nowrap overflow-hidden flex-shrink-0">{actionButtons()}</div>
+        </div>
 
         {selectedSong?.audio?.map((audio) => {
           return (

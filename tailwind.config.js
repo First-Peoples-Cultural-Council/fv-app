@@ -13,6 +13,9 @@ module.exports = {
       fontFamily: {
         sans: ['BCSans', 'sans-serif'],
       },
+      fontSize: {
+        '20xl': '20rem',
+      },
       colors: {
         'color-primary-0': '#264753',
         'color-primary-1': '#597883',

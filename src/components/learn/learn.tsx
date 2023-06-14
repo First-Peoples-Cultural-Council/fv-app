@@ -11,6 +11,7 @@ const navItems: SubNavItem[] = [
     id: 'stories',
     path: 'stories',
     icon: 'fv-stories',
+    iconSize: 'text-3xl',
     title: 'Stories',
     colors: {
       to: 'to-color-alphabet-light',
@@ -24,6 +25,7 @@ const navItems: SubNavItem[] = [
     id: 'songs',
     path: 'songs',
     icon: 'fv-songs',
+    iconSize: 'text-4xl',
     title: 'Songs',
     colors: {
       to: 'to-color-words-light',
@@ -37,6 +39,7 @@ const navItems: SubNavItem[] = [
     id: 'flashcards',
     path: 'flashcards',
     icon: 'fv-flashcard',
+    iconSize: 'text-4xl',
     title: 'Flashcards',
     colors: {
       to: 'to-color-categories-light',

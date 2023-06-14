@@ -92,6 +92,7 @@ export type SubNavItem = {
   path: string;
   activePathMatches?: { path: string }[];
   icon: string;
+  iconSize: string
   title: string;
   colors: {
     to: string;
@@ -147,14 +148,16 @@ export type DeleteListType = {
 
 export type FVSong = {
   id: string;
-  name: string;
-  description: string;
-  artist: string;
-  lyrics: string;
-  translation: string;
-  img: string[] | null;
-  audio: FvAudio[] | null;
-  media: string[] | null;
+  type: string;
+  title: string;
+  titleTranslation: string | null;
+  coverVisual: FvMedia | null;
+  introduction: FVContent | null;
+  lyrics: FVContent | null;
+  author: string | null;
+  images: FvMedia[];
+  audio: FvMedia[];
+  videos: FvMedia[];
 };
 
 export type FVPage = {

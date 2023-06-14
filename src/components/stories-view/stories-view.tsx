@@ -5,7 +5,6 @@ import IndexedDBService from '../../services/indexedDbService';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
-import Modal from '../common/modal/modal';
 
 /* eslint-disable-next-line */
 export interface StoriesViewProps {}

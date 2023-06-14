@@ -4,6 +4,7 @@ import WordCardMobile from '../dictionary-page/word-card-mobile';
 import WordCardDesktop from '../dictionary-page/word-card-desktop';
 import { DictionaryType } from '../common/data/enums';
 import MultiSwitch from '../common/multi-switch/multi-switch';
+import WordModal from '../dictionary-page/word-modal';
 
 /* eslint-disable-next-line */
 export interface WordsViewProps {}

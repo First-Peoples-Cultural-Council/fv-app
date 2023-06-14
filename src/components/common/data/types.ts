@@ -92,6 +92,7 @@ export type SubNavItem = {
   path: string;
   activePathMatches?: { path: string }[];
   icon: string;
+  iconSize: string
   title: string;
   colors: {
     to: string;

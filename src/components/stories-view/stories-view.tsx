@@ -424,10 +424,6 @@ export function StoriesView(props: StoriesViewProps) {
         <img
           className="w-full"
           src={pictureUrl}
-          onClick={() => {
-            setPictureUrl(pictureUrl);
-            setShowPictureModal(true);
-          }}
           alt=""
         />
       </>

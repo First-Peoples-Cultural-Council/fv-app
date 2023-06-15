@@ -1,21 +1,16 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import WordCard from './word-card';
-import { FvWord } from '../common/data';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
+import WordModal from './word-modal';
+import { FvWord } from '../common/data/types';
 
 function WordCardMobile({ term }: FvWord) {
   const location = useLocation();
-  const [showModal, setShowModal] = React.useState(
+  const [showModal, setShowModal] = useState(
     location.hash === `#${term.source}-${term.entryID}` &&
       !window.matchMedia('(min-width: 768px').matches
   );
   const { word, definition, audio } = term;
-  const shareData = {
-    title: 'FirstVoices',
-    text: `Learn what the word ${word} means from FirstVoices!`,
-    url: `${window.location.origin}${window.location.pathname}#${term.source}-${term.entryID}`,
-  };
 
   useEffect(() => {
     if (showModal) {
@@ -23,6 +18,15 @@ function WordCardMobile({ term }: FvWord) {
     } else {
       document.body.style.overflow = 'unset';
     }
+  }, [showModal]);
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
   }, [showModal]);
 
   return (
@@ -51,48 +55,9 @@ function WordCardMobile({ term }: FvWord) {
       {showModal && (
         <FullScreenModal
           onClose={() => setShowModal(false)}
-          actions={
-            <>
-              <button
-                onClick={() => {
-                  navigator.clipboard.writeText(word).catch((err: any) => {
-                    console.log(err);
-                  });
-                }}
-              >
-                <i className="fv-copy pr-5" />
-              </button>
-              <button
-                onClick={() => {
-                  if (navigator.share && navigator.canShare(shareData)) {
-                    navigator.share(shareData).catch((err: any) => {
-                      console.log(err);
-                    });
-                  } else {
-                    navigator.clipboard
-                      .writeText(shareData.url)
-                      .catch((err: any) => {
-                        console.log(err);
-                      });
-                  }
-                }}
-              >
-                <i className="fv-share pr-5" />
-              </button>
-              <button
-                onClick={() => {
-                  console.log('Bookmark clicked');
-                }}
-              >
-                <i className="fv-bookmarks pr-5" />
-              </button>
-            </>
-          }
+          actions={null}
         >
-          <div className="p-10">
-            <p className="grow font-bold text-3xl">{word}</p>
-            <WordCard term={term} />
-          </div>
+            <WordModal term={term} />
         </FullScreenModal>
       )}
     </>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import WordModal from './word-modal';
 import { FvWord } from '../common/data';
@@ -11,6 +11,15 @@ function WordCardDesktop({ term }: FvWord) {
       window.matchMedia('(min-width: 768px').matches
   );
   const { word, definition, audio } = term;
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showModal]);
 
   return (
     <>

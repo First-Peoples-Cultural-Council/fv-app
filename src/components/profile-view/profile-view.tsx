@@ -72,7 +72,7 @@ export function ProfileView() {
             {bookmark.type}
           </div>
 
-          <div className="hidden md:block text-2xl ml-[100px] top-5 w-full">
+          <div className="hidden md:block top-5 w-full">
             <div className="grid grid-flow-col auto-cols-[minmax(0,_2fr)]">
               <div className="flex grid-flow-col space-x-5 items-center col-span-2 w-full">
                 <div>
@@ -81,22 +81,22 @@ export function ProfileView() {
                 <div>{bookmark.hasAudio && <i className="fv-volume-up" />}</div>
               </div>
               <div className="col-span-3">
-                <h1 className="truncate text-xl">{bookmark.definition}</h1>
+                <h1 className="truncate text-xl mr-[50px]">{bookmark.definition}</h1>
               </div>
-              <div className="absolute right-0">
+              <div className="absolute right-0 ">
                 <i className="fv-right-open" />
               </div>
             </div>
           </div>
 
-          <div className="block md:hidden grid grid-cols-10 gap-4 ml-[100px] top-5 w-full">
+          <div className="block md:hidden grid grid-cols-10 gap-4 top-5 w-full">
             <div className="col-span-8">
               <div>
                 <h1 className="font-bold">{bookmark.name}</h1>
               </div>
               <h1 className="truncate">{bookmark.definition}</h1>
             </div>
-            <div className="absolute right-10">
+            <div className="absolute right-10 ml-[100px]">
               {bookmark.hasAudio && <i className="fv-volume-up" />}
             </div>
             <div className="absolute right-0">

@@ -68,6 +68,17 @@ export function SongsView(props: SongsViewProps) {
     }
   }, [selectedSong]);
 
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = '15px';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+      document.body.style.paddingRight = '0px';
+    };
+  }, [showModal]);
+
   const bookmarkIcon = async (db: IndexedDBService | undefined) => {
     if (db) {
       if (bookmark) {
@@ -80,8 +91,8 @@ export function SongsView(props: SongsViewProps) {
 
   return (
     <>
-      <div className="grid grid-cols-1 lg:grid-cols-2 w-full">
-        <div className="">
+      <div className="grid grid-cols-1 lg:grid-cols-2 w-full h-full">
+        <div>
           {dataSongs.map((song: FVSong) => {
             return (
               <div
@@ -149,10 +160,15 @@ export function SongsView(props: SongsViewProps) {
             alt={selectedSong?.coverVisual.title}
           ></img>
         )}
-        <div className="p-2 text-2xl font-bold">{selectedSong.title}</div>
-        <div className="p-2">{selectedSong.titleTranslation}</div>
-
-        {actionButtons()}
+        <div className="flex justify-between">
+          <div>
+            <div className="p-2 text-2xl font-bold">{selectedSong.title}</div>
+            <div className="p-2">{selectedSong.titleTranslation}</div>
+          </div>
+          <div className="whitespace-nowrap overflow-hidden flex-shrink-0">
+            {actionButtons()}
+          </div>
+        </div>
 
         {selectedSong?.audio?.map((audio) => {
           return (

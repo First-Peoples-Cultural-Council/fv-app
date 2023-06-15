@@ -28,7 +28,7 @@ export function SubNavDesktop({ navItems }: SubNavDesktopProps) {
               item.colors.hoverText
             )}
           >
-            <i className={classNames(item.icon, 'text-2xl')} />
+            <i className={classNames(item.icon, item.iconSize)} />
             <div className="uppercase text-xs">{item.title}</div>
           </Link>
         );

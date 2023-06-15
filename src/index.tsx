@@ -23,6 +23,7 @@ import ProfileView from './components/profile-view/profile-view';
 import SettingsView from './components/settings-view/settings-view';
 import AboutView from './components/about-view/about-view';
 import PageNotFound from './components/common/page-not-found/page-not-found';
+import SearchProvider from './components/search-provider';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -54,7 +55,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <SearchProvider>
+      <RouterProvider router={router} />
+    </SearchProvider>
   </StrictMode>
 );
 

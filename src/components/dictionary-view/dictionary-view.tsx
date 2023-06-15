@@ -2,13 +2,15 @@ import { dataDict } from '../temp-word-list';
 import { useState, useEffect } from 'react';
 import WordCardMobile from '../dictionary-page/word-card-mobile';
 import WordCardDesktop from '../dictionary-page/word-card-desktop';
-import { DictionaryType } from '../common/data/enums';
+import { DictionaryType } from '../common/data';
 import MultiSwitch from '../common/multi-switch/multi-switch';
+import { useOutletContext } from 'react-router-dom';
 
 /* eslint-disable-next-line */
 export interface WordsViewProps {}
 
 export function DictionaryView(props: WordsViewProps) {
+  const { setSearchMatchRef }: any = useOutletContext();
   const [selected, setSelected] = useState<number>(DictionaryType.Both);
   const [data, setData] = useState(dataDict);
 
@@ -31,6 +33,7 @@ export function DictionaryView(props: WordsViewProps) {
 
   return (
     <div>
+      <div ref={setSearchMatchRef}></div>
       <MultiSwitch
         selected={selected}
         items={[
@@ -44,7 +47,10 @@ export function DictionaryView(props: WordsViewProps) {
       />
       {data.map((term) => {
         return (
-          <div key={`${term.source}-${term.entryID}`} id={`${term.source}-${term.entryID}`}>
+          <div
+            key={`${term.source}-${term.entryID}`}
+            id={`${term.source}-${term.entryID}`}
+          >
             <WordCardMobile term={term} />
             <WordCardDesktop term={term} />
           </div>

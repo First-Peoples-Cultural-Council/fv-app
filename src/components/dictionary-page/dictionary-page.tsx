@@ -54,6 +54,7 @@ const navItems: SubNavItem[] = [
 export interface DictionaryProps {}
 
 export function Dictionary(props: DictionaryProps) {
+  const [searchMatchRef, setSearchMatchRef] = useState<HTMLDivElement | null>(null);
   const location = useLocation();
   const [currentNavItem, setCurrentNavItem] = useState(
     navItems.find((item) =>
@@ -78,6 +79,7 @@ export function Dictionary(props: DictionaryProps) {
   return (
     <div className={styles['container']}>
       <SearchHeader
+        searchMatchRef={searchMatchRef}
         title={currentNavItem.title}
         backgroundColors={{
           to: currentNavItem.colors.to,
@@ -87,7 +89,7 @@ export function Dictionary(props: DictionaryProps) {
       <SubNavMobile navItems={navItems} />
       <div className="flex w-full">
         <SubNavDesktop navItems={navItems} />
-        <Outlet />
+        <Outlet context={{setSearchMatchRef}}/>
       </div>
       {today.toDateString() !==
         (localStorage.getItem('lastWOTDSeenOn') ?? '') && <WordOfTheDay />}

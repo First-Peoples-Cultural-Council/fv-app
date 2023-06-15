@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { IconMenu } from './icon-menu';
-import { ButtonTypeEnum } from '../data';
 
 const meta: Meta<typeof IconMenu> = {
   component: IconMenu,

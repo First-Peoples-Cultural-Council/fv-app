@@ -1,3 +1,37 @@
+declare const self: ServiceWorkerGlobalScope;
+
+function handleFetchEvent(event: FetchEvent) {
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      // If the request is already cached, return the cached response
+      if (response) {
+        return response;
+      }
+
+      // Clone the request since it can only be consumed once
+      const fetchRequest = event.request.clone();
+
+      return fetch(fetchRequest).then((fetchResponse) => {
+        // Check if the response is valid and cache it
+        if (
+          fetchResponse &&
+          fetchResponse.status === 200 &&
+          fetchResponse.type === 'basic'
+        ) {
+          const responseToCache = fetchResponse.clone();
+
+          caches.open('my-cache').then((cache) => {
+            cache.put(event.request, responseToCache);
+          });
+        }
+
+        return fetchResponse;
+      });
+    })
+  );
+}
+
+
 // This optional code is used to register a service worker.
 // register() is not called by default.
 
@@ -26,41 +60,30 @@ type Config = {
 };
 
 export function register(config?: Config) {
-  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
-    // The URL constructor is available in all browsers that support SW.
-    const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
-    if (publicUrl.origin !== window.location.origin) {
-      // Our service worker won't work if PUBLIC_URL is on a different origin
-      // from what our page is served on. This might happen if a CDN is used to
-      // serve assets; see https://github.com/facebook/create-react-app/issues/2374
-      return;
-    }
+  // if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+    // ...
 
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 
-      if (isLocalhost) {
-        // This is running on localhost. Let's check if a service worker still exists or not.
-        checkValidServiceWorker(swUrl, config);
-
-        // Add some additional logging to localhost, pointing developers to the
-        // service worker/PWA documentation.
-        navigator.serviceWorker.ready
-          .then(() => {
-            console.log(
-              'This web app is being served cache-first by a service ' +
-                'worker. To learn more, visit https://cra.link/PWA'
-            );
-          })
-          .catch((err: any) => {
-            console.log(err);
-          });
-      } else {
+      // if (isLocalhost) {
+      //   // This is running on localhost. Let's check if a service worker still exists or not.
+      //   checkValidServiceWorker(swUrl, config);
+      //
+      //   // ...
+      // } else {
         // Is not localhost. Just register service worker
         registerValidSW(swUrl, config);
-      }
+      // }
+
+      // Add the fetch event listener for non-localhost
+      // if (!isLocalhost) {
+        // Add the fetch event listener
+        // @ts-ignore
+        window.addEventListener('fetch', handleFetchEvent);
+      // }
     });
-  }
+  // }
 }
 
 function registerValidSW(swUrl: string, config?: Config) {
@@ -76,6 +99,9 @@ function registerValidSW(swUrl: string, config?: Config) {
           onStateChanged(installingWorker, registration, config);
         };
       };
+
+      // Add the fetch event listener
+      self.addEventListener('fetch', handleFetchEvent);
     })
     .catch((error) => {
       console.error('Error during service worker registration:', error);
@@ -89,18 +115,11 @@ function onStateChanged(
 ) {
   if (installingWorker.state === 'installed') {
     if (navigator.serviceWorker.controller) {
-      // At this point, the updated precached content has been fetched,
-      // but the previous service worker will still serve the older
-      // content until all client tabs are closed.
-      console.log(
-        'New content is available and will be used when all ' +
-          'tabs for this page are closed. See https://cra.link/PWA.'
-      );
-
-      // Execute callback
-      if (config?.onUpdate) {
-        config.onUpdate(registration);
-      }
+      // Unregister the old service worker to activate the new one
+      registration.unregister().then(() => {
+        // eslint-disable-next-line no-restricted-globals
+        location.reload();
+      });
     } else {
       // At this point, everything has been precached.
       // It's the perfect time to display a

@@ -3,7 +3,7 @@ import { Bookmark, FVStory } from '../common/data/types';
 import { dataStories } from '../temp-stories-list';
 import IndexedDBService from '../../services/indexedDbService';
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import Modal from '../common/modal/modal';
 import { useModal } from '../common/use-modal/use-modal';
@@ -269,12 +269,12 @@ export function StoriesView(props: StoriesViewProps) {
           <div className="flex-1">
             <div className="flex w-full">
               <div className="w-full">
-                <div className="p-2 text-2xl font-bold">
+                <div className="p-2 text-2xl font-bold pt-6">
                   {selectedStory?.title}
                 </div>
                 <div className="p-2">{selectedStory?.titleTranslation}</div>{' '}
               </div>
-              <div className="items-end justify-self-end w-[300px]">
+              <div className="items-end justify-self-end w-[300px] pt-6">
                 {actionButtons()}
               </div>
             </div>
@@ -317,13 +317,13 @@ export function StoriesView(props: StoriesViewProps) {
         {selectedStory?.intro !== undefined && (
           <>
             <div className="p-2 font-bold">Introduction</div>
-            <div>{selectedStory?.intro?.text}</div>
-            <div>{selectedStory?.intro?.translation}</div>
+            <div className="p-2">{selectedStory?.intro?.text}</div>
+            <div className="p-2">{selectedStory?.intro?.translation}</div>
           </>
         )}
         {selectedStory?.audio?.map((audio) => {
           return (
-            <audio className="mt-10" key={audio.file} controls>
+            <audio className="mt-10 p-2" key={audio.file} controls>
               <source src={audio.file} type="audio/mpeg"></source>
             </audio>
           );

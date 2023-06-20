@@ -3,16 +3,23 @@ import WordModal from './word-modal';
 import { FvWord } from '../common/data';
 import Modal from '../common/modal/modal';
 import { useModal } from '../common/use-modal/use-modal';
+import { useEffect } from 'react';
 
 function WordCardDesktop({ term }: FvWord) {
   const location = useLocation();
-  const { setShowModal, showModal, closeModal } = useModal(
-    (location.hash === `#${term.source}-${term.entryID}` ||
-      location.hash === `#${term.source}-${term.entryID}?source=/profile`) &&
-      window.matchMedia('(min-width: 768px').matches
-  );
-
+  const { setShowModal, showModal, closeModal } = useModal();
   const { word, definition, audio } = term;
+
+  useEffect(() => {
+    if (
+      (location.hash === `#${term.source}-${term.entryID}` ||
+        location.hash === `#${term.source}-${term.entryID}?source=/profile`) &&
+      window.matchMedia('(min-width: 768px').matches
+    ) {
+      setShowModal(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
 
   return (
     <>

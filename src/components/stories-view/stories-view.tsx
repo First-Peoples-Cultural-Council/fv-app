@@ -13,26 +13,31 @@ export interface StoriesViewProps {}
 
 export function StoriesView(props: StoriesViewProps) {
   const location = useLocation();
+  const { setShowModal, showModal, closeModal } = useModal();
 
   const [db, setDb] = useState<IndexedDBService>();
   const [selectedStory, setSelectedStory] = useState<FVStory | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(-2);
   const [bookmark, setBookmark] = useState<Bookmark | null>(null);
   const [bookmarked, setBookmarked] = useState<boolean>(false);
-  const { setShowModal, showModal, closeModal } = useModal(
-    (location.hash === `#${selectedStory?.id}` ||
-      location.hash === `#${selectedStory?.id}?source=/profile`) &&
-      window.matchMedia('(min-width: 1024px').matches
-  );
-
   const [showPictureModal, setShowPictureModal] = useState<boolean>(false);
   const [pictureUrl, setPictureUrl] = useState<string>('');
-
   const [shareData, setShareData] = useState<{
     title: string;
     text: string;
     url: string;
   } | null>(null);
+
+  useEffect(() => {
+    if (
+      (location.hash === `#${selectedStory?.id}` ||
+        location.hash === `#${selectedStory?.id}?source=/profile`) &&
+      window.matchMedia('(min-width: 1024px').matches
+    ) {
+      setShowModal(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
 
   useEffect(() => {
     setDb(new IndexedDBService('firstVoicesIndexedDb'));
@@ -141,7 +146,9 @@ export function StoriesView(props: StoriesViewProps) {
         </FullScreenModal>
       )}
       {showPictureModal && (
-        <Modal onClose={() => setShowPictureModal(false)}>{pictureModal()}</Modal>
+        <Modal onClose={() => setShowPictureModal(false)}>
+          {pictureModal()}
+        </Modal>
       )}
     </>
   );

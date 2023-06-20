@@ -12,16 +12,12 @@ export interface SongsViewProps {}
 
 export function SongsView(props: SongsViewProps) {
   const location = useLocation();
+  const { setShowModal, showModal, closeModal } = useModal();
 
   const [db, setDb] = useState<IndexedDBService>();
   const [selectedSong, setSelectedSong] = useState<FVSong | null>(null);
   const [bookmark, setBookmark] = useState<Bookmark | null>(null);
   const [bookmarked, setBookmarked] = useState<boolean>(false);
-  const { setShowModal, showModal, closeModal } = useModal(
-    (location.hash === `#${selectedSong?.id}` ||
-      location.hash === `#${selectedSong?.id}?source=/profile`) &&
-      window.matchMedia('(min-width: 1024px').matches
-  );
   const [shareData, setShareData] = useState<{
     title: string;
     text: string;

@@ -1,35 +1,17 @@
-import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import WordModal from './word-modal';
 import { FvWord } from '../common/data/types';
+import { useModal } from '../common/use-modal/use-modal';
 
 function WordCardMobile({ term }: FvWord) {
   const location = useLocation();
-  const [showModal, setShowModal] = useState(
+  const { setShowModal, showModal, closeModal } = useModal(
     (location.hash === `#${term.source}-${term.entryID}` ||
       location.hash === `#${term.source}-${term.entryID}?source=/profile`) &&
       !window.matchMedia('(min-width: 768px').matches
   );
   const { word, definition, audio } = term;
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (showModal) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [showModal]);
-
-  function closeModal() {
-    setShowModal(false);
-    const sourcePageUrl = window.location.hash.split('?')[1]?.split('=')[1];
-
-    if (sourcePageUrl) {
-      navigate(sourcePageUrl);
-    }
-  }
 
   return (
     <>

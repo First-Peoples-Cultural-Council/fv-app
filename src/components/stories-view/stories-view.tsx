@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import Modal from '../common/modal/modal';
+import { useModal } from '../common/use-modal/use-modal';
 
 /* eslint-disable-next-line */
 export interface StoriesViewProps {}
@@ -18,11 +19,12 @@ export function StoriesView(props: StoriesViewProps) {
   const [currentPage, setCurrentPage] = useState<number>(-2);
   const [bookmark, setBookmark] = useState<Bookmark | null>(null);
   const [bookmarked, setBookmarked] = useState<boolean>(false);
-  const [showModal, setShowModal] = useState(
+  const { setShowModal, showModal, closeModal } = useModal(
     (location.hash === `#${selectedStory?.id}` ||
       location.hash === `#${selectedStory?.id}?source=/profile`) &&
       window.matchMedia('(min-width: 1024px').matches
   );
+
   const [showPictureModal, setShowPictureModal] = useState<boolean>(false);
   const [pictureUrl, setPictureUrl] = useState<string>('');
 
@@ -31,7 +33,6 @@ export function StoriesView(props: StoriesViewProps) {
     text: string;
     url: string;
   } | null>(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     setDb(new IndexedDBService('firstVoicesIndexedDb'));
@@ -39,14 +40,13 @@ export function StoriesView(props: StoriesViewProps) {
 
   useEffect(() => {
     const storyId = location.hash.slice(1).split('?')[0];
-    const story = dataStories.find(
-      (story) => story.id === storyId
-    );
+    const story = dataStories.find((story) => story.id === storyId);
     if (story) {
       setSelectedStory(story);
       setCurrentPage(-2);
       setShowModal(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [db, location]);
 
   useEffect(() => {
@@ -75,17 +75,6 @@ export function StoriesView(props: StoriesViewProps) {
     }
   }, [selectedStory]);
 
-  useEffect(() => {
-    if (showModal) {
-      document.body.style.overflow = 'hidden';
-      document.body.style.paddingRight = '15px';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-      document.body.style.paddingRight = '0px';
-    };
-  }, [showModal]);
-
   const bookmarkIcon = async (db: IndexedDBService | undefined) => {
     if (db) {
       if (bookmark) {
@@ -95,16 +84,6 @@ export function StoriesView(props: StoriesViewProps) {
       }
     }
   };
-
-  function closeModal() {
-    setShowModal(false);
-    setShowPictureModal(false);
-    const sourcePageUrl = window.location.hash.split('?')[1]?.split('=')[1];
-
-    if (sourcePageUrl) {
-      navigate(sourcePageUrl);
-    }
-  }
 
   return (
     <>
@@ -162,9 +141,7 @@ export function StoriesView(props: StoriesViewProps) {
         </FullScreenModal>
       )}
       {showPictureModal && (
-        <Modal onClose={() => closeModal()}>
-          {pictureModal()}
-        </Modal>
+        <Modal onClose={() => setShowPictureModal(false)}>{pictureModal()}</Modal>
       )}
     </>
   );

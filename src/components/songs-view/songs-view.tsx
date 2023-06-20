@@ -5,7 +5,7 @@ import { Bookmark, FVSong } from '../common/data/types';
 import classNames from 'classnames';
 import { useLocation } from 'react-router';
 import IndexedDBService from '../../services/indexedDbService';
-import { useNavigate } from 'react-router-dom';
+import { useModal } from '../common/use-modal/use-modal';
 
 /* eslint-disable-next-line */
 export interface SongsViewProps {}
@@ -17,7 +17,7 @@ export function SongsView(props: SongsViewProps) {
   const [selectedSong, setSelectedSong] = useState<FVSong | null>(null);
   const [bookmark, setBookmark] = useState<Bookmark | null>(null);
   const [bookmarked, setBookmarked] = useState<boolean>(false);
-  const [showModal, setShowModal] = useState(
+  const { setShowModal, showModal, closeModal } = useModal(
     (location.hash === `#${selectedSong?.id}` ||
       location.hash === `#${selectedSong?.id}?source=/profile`) &&
       window.matchMedia('(min-width: 1024px').matches
@@ -27,7 +27,6 @@ export function SongsView(props: SongsViewProps) {
     text: string;
     url: string;
   } | null>(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     setDb(new IndexedDBService('firstVoicesIndexedDb'));
@@ -42,6 +41,7 @@ export function SongsView(props: SongsViewProps) {
         setShowModal(true);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [db, location]);
 
   useEffect(() => {
@@ -70,17 +70,6 @@ export function SongsView(props: SongsViewProps) {
     }
   }, [selectedSong]);
 
-  useEffect(() => {
-    if (showModal) {
-      document.body.style.overflow = 'hidden';
-      document.body.style.paddingRight = '15px';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-      document.body.style.paddingRight = '0px';
-    };
-  }, [showModal]);
-
   const bookmarkIcon = async (db: IndexedDBService | undefined) => {
     if (db) {
       if (bookmark) {
@@ -90,15 +79,6 @@ export function SongsView(props: SongsViewProps) {
       }
     }
   };
-
-  function closeModal() {
-    setShowModal(false);
-    const sourcePageUrl = window.location.hash.split('?')[1]?.split('=')[1];
-
-    if (sourcePageUrl) {
-      navigate(sourcePageUrl);
-    }
-  }
 
   return (
     <>

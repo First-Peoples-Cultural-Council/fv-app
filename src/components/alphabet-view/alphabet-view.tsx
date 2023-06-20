@@ -217,7 +217,7 @@ export function AlphabetView(props: AlphabetViewProps) {
         {selected?.examples.map((termId) => {
           const term = dataDict.find((word) => word.entryID === termId);
           if (term === undefined) {
-            return <div key={termId} />;
+            return <></>;
           }
           return (
             <div

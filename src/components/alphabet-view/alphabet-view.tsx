@@ -26,7 +26,9 @@ export function AlphabetView(props: AlphabetViewProps) {
     ) as FvLetter) ?? null
   );
   const [showMobileWordList, setShowMobileWordList] = useState(
-    location.hash && !window.matchMedia('(min-width: 768px').matches
+    location.hash &&
+      !location.hash.startsWith('#') &&
+      !window.matchMedia('(min-width: 768px').matches
   );
 
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');

@@ -3,7 +3,7 @@ import { Bookmark, FVStory } from '../common/data/types';
 import { dataStories } from '../temp-stories-list';
 import IndexedDBService from '../../services/indexedDbService';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import Modal from '../common/modal/modal';
 
@@ -19,7 +19,8 @@ export function StoriesView(props: StoriesViewProps) {
   const [bookmark, setBookmark] = useState<Bookmark | null>(null);
   const [bookmarked, setBookmarked] = useState<boolean>(false);
   const [showModal, setShowModal] = useState(
-    location.hash === `#${selectedStory?.id}` &&
+    (location.hash === `#${selectedStory?.id}` ||
+      location.hash === `#${selectedStory?.id}?source=/profile`) &&
       window.matchMedia('(min-width: 1024px').matches
   );
   const [showPictureModal, setShowPictureModal] = useState<boolean>(false);
@@ -30,14 +31,16 @@ export function StoriesView(props: StoriesViewProps) {
     text: string;
     url: string;
   } | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setDb(new IndexedDBService('firstVoicesIndexedDb'));
   }, []);
 
   useEffect(() => {
+    const storyId = location.hash.slice(1).split('?')[0];
     const story = dataStories.find(
-      (story) => story.id === location.hash.substring(1)
+      (story) => story.id === storyId
     );
     if (story) {
       setSelectedStory(story);
@@ -93,6 +96,16 @@ export function StoriesView(props: StoriesViewProps) {
     }
   };
 
+  function closeModal() {
+    setShowModal(false);
+    setShowPictureModal(false);
+    const sourcePageUrl = window.location.hash.split('?')[1]?.split('=')[1];
+
+    if (sourcePageUrl) {
+      navigate(sourcePageUrl);
+    }
+  }
+
   return (
     <>
       <div className="grid grid-cols-1 w-full">
@@ -144,12 +157,12 @@ export function StoriesView(props: StoriesViewProps) {
       </div>
 
       {showModal && (
-        <FullScreenModal onClose={() => setShowModal(false)} actions={<></>}>
+        <FullScreenModal onClose={() => closeModal()} actions={<></>}>
           {storyDetails()}
         </FullScreenModal>
       )}
       {showPictureModal && (
-        <Modal onClose={() => setShowPictureModal(false)}>
+        <Modal onClose={() => closeModal()}>
           {pictureModal()}
         </Modal>
       )}
@@ -421,11 +434,7 @@ export function StoriesView(props: StoriesViewProps) {
   function pictureModal() {
     return (
       <>
-        <img
-          className="w-full"
-          src={pictureUrl}
-          alt=""
-        />
+        <img className="w-full" src={pictureUrl} alt="" />
       </>
     );
   }

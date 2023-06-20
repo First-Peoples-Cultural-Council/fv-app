@@ -5,6 +5,7 @@ import { Bookmark, FVSong } from '../common/data/types';
 import classNames from 'classnames';
 import { useLocation } from 'react-router';
 import IndexedDBService from '../../services/indexedDbService';
+import { useNavigate } from 'react-router-dom';
 
 /* eslint-disable-next-line */
 export interface SongsViewProps {}
@@ -17,7 +18,8 @@ export function SongsView(props: SongsViewProps) {
   const [bookmark, setBookmark] = useState<Bookmark | null>(null);
   const [bookmarked, setBookmarked] = useState<boolean>(false);
   const [showModal, setShowModal] = useState(
-    location.hash === `#${selectedSong?.id}` &&
+    (location.hash === `#${selectedSong?.id}` ||
+      location.hash === `#${selectedSong?.id}?source=/profile`) &&
       window.matchMedia('(min-width: 1024px').matches
   );
   const [shareData, setShareData] = useState<{
@@ -25,15 +27,15 @@ export function SongsView(props: SongsViewProps) {
     text: string;
     url: string;
   } | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setDb(new IndexedDBService('firstVoicesIndexedDb'));
   }, []);
 
   useEffect(() => {
-    const song = dataSongs.find(
-      (song) => song.id === location.hash.substring(1)
-    );
+    const songId = location.hash.slice(1).split('?')[0];
+    const song = dataSongs.find((song) => song.id === songId);
     if (song) {
       setSelectedSong(song);
       if (window.matchMedia('(max-width: 1024px').matches) {
@@ -89,6 +91,15 @@ export function SongsView(props: SongsViewProps) {
     }
   };
 
+  function closeModal() {
+    setShowModal(false);
+    const sourcePageUrl = window.location.hash.split('?')[1]?.split('=')[1];
+
+    if (sourcePageUrl) {
+      navigate(sourcePageUrl);
+    }
+  }
+
   return (
     <>
       <div className="grid grid-cols-1 lg:grid-cols-2 w-full h-full">
@@ -141,7 +152,7 @@ export function SongsView(props: SongsViewProps) {
         <div className="hidden lg:block">{songDetails()}</div>
       </div>
       {showModal && (
-        <FullScreenModal onClose={() => setShowModal(false)} actions={<></>}>
+        <FullScreenModal onClose={() => closeModal()} actions={<></>}>
           {songDetails()}
         </FullScreenModal>
       )}

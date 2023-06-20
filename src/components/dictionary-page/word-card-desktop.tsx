@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import WordModal from './word-modal';
 import { FvWord } from '../common/data';
 import Modal from '../common/modal/modal';
@@ -7,10 +7,12 @@ import Modal from '../common/modal/modal';
 function WordCardDesktop({ term }: FvWord) {
   const location = useLocation();
   const [showModal, setShowModal] = React.useState(
-    location.hash === `#${term.source}-${term.entryID}` &&
+    (location.hash === `#${term.source}-${term.entryID}` ||
+      location.hash === `#${term.source}-${term.entryID}?source=/profile`) &&
       window.matchMedia('(min-width: 768px').matches
   );
   const { word, definition, audio } = term;
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (showModal) {
@@ -20,6 +22,15 @@ function WordCardDesktop({ term }: FvWord) {
       document.body.style.overflow = 'unset';
     };
   }, [showModal]);
+
+  function closeModal() {
+    setShowModal(false);
+    const sourcePageUrl = window.location.hash.split('?')[1]?.split('=')[1];
+
+    if (sourcePageUrl) {
+      navigate(sourcePageUrl);
+    }
+  }
 
   return (
     <>
@@ -47,7 +58,7 @@ function WordCardDesktop({ term }: FvWord) {
         </div>
       </div>
       {showModal && (
-        <Modal onClose={() => setShowModal(false)}>
+        <Modal onClose={() => closeModal()}>
           <WordModal term={term} />
         </Modal>
       )}

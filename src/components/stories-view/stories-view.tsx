@@ -5,6 +5,7 @@ import IndexedDBService from '../../services/indexedDbService';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
+import Modal from '../common/modal/modal';
 
 /* eslint-disable-next-line */
 export interface StoriesViewProps {}
@@ -21,6 +22,8 @@ export function StoriesView(props: StoriesViewProps) {
     location.hash === `#${selectedStory?.id}` &&
       window.matchMedia('(min-width: 1024px').matches
   );
+  const [showPictureModal, setShowPictureModal] = useState<boolean>(false);
+  const [pictureUrl, setPictureUrl] = useState<string>('');
 
   const [shareData, setShareData] = useState<{
     title: string;
@@ -68,6 +71,17 @@ export function StoriesView(props: StoriesViewProps) {
       });
     }
   }, [selectedStory]);
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = '15px';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+      document.body.style.paddingRight = '0px';
+    };
+  }, [showModal]);
 
   const bookmarkIcon = async (db: IndexedDBService | undefined) => {
     if (db) {
@@ -133,6 +147,11 @@ export function StoriesView(props: StoriesViewProps) {
         <FullScreenModal onClose={() => setShowModal(false)} actions={<></>}>
           {storyDetails()}
         </FullScreenModal>
+      )}
+      {showPictureModal && (
+        <Modal onClose={() => setShowPictureModal(false)}>
+          {pictureModal()}
+        </Modal>
       )}
     </>
   );
@@ -283,7 +302,16 @@ export function StoriesView(props: StoriesViewProps) {
         <div className="flex w-full">
           {selectedStory?.images?.map((img) => {
             return (
-              <img key={img.id} className="h-[200px]" src={img.file} alt="" />
+              <img
+                key={img.id}
+                className="h-[200px]"
+                src={img.file}
+                alt={img.title}
+                onClick={() => {
+                  setPictureUrl(img.file);
+                  setShowPictureModal(true);
+                }}
+              />
             );
           })}
         </div>
@@ -318,7 +346,11 @@ export function StoriesView(props: StoriesViewProps) {
                 key={img.id}
                 className="h-[300px] p-2"
                 src={img.file}
-                alt=""
+                alt={img.title}
+                onClick={() => {
+                  setPictureUrl(img.file);
+                  setShowPictureModal(true);
+                }}
               />
             );
           })}
@@ -383,6 +415,18 @@ export function StoriesView(props: StoriesViewProps) {
           )}
         </div>
       </div>
+    );
+  }
+
+  function pictureModal() {
+    return (
+      <>
+        <img
+          className="w-full"
+          src={pictureUrl}
+          alt=""
+        />
+      </>
     );
   }
 }

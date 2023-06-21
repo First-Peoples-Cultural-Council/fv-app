@@ -14,6 +14,8 @@ import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
 
+console.log("In service Worker");
+
 declare const self: ServiceWorkerGlobalScope;
 
 clientsClaim();
@@ -57,8 +59,9 @@ registerRoute(
 // precache, in this case same-origin .png requests like those from in public/
 registerRoute(
   // Add in any other file extensions or routing criteria as needed.
-  ({ url }) =>
-    url.origin === self.location.origin && url.pathname.endsWith('.png'),
+  ({ url }) => {
+    console.log('register route', url);
+    url.origin === self.location.origin && url.pathname.endsWith('.png')},
   // Customize this strategy as needed, e.g., by changing to CacheFirst.
   new StaleWhileRevalidate({
     cacheName: 'images',
@@ -81,3 +84,10 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
+
+self.addEventListener('fetch', function(event) {
+  const url = event.request.url;
+  console.log("fetch listener hit", url);
+});
+
+console.log("added event listener for fetch 3");

@@ -1,35 +1,36 @@
 declare const self: ServiceWorkerGlobalScope;
 
-function handleFetchEvent(event: FetchEvent) {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      // If the request is already cached, return the cached response
-      if (response) {
-        return response;
-      }
+// function handleFetchEvent(event: FetchEvent) {
+//   console.log("event.request", event.request);
+//   event.respondWith(
+//     caches.match(event.request).then((response) => {
+//       // If the request is already cached, return the cached response
+//       if (response) {
+//         return response;
+//       }
 
-      // Clone the request since it can only be consumed once
-      const fetchRequest = event.request.clone();
+//       // Clone the request since it can only be consumed once
+//       const fetchRequest = event.request.clone();
 
-      return fetch(fetchRequest).then((fetchResponse) => {
-        // Check if the response is valid and cache it
-        if (
-          fetchResponse &&
-          fetchResponse.status === 200 &&
-          fetchResponse.type === 'basic'
-        ) {
-          const responseToCache = fetchResponse.clone();
+//       return fetch(fetchRequest).then((fetchResponse) => {
+//         // Check if the response is valid and cache it
+//         if (
+//           fetchResponse &&
+//           fetchResponse.status === 200 &&
+//           fetchResponse.type === 'basic'
+//         ) {
+//           const responseToCache = fetchResponse.clone();
 
-          caches.open('my-cache').then((cache) => {
-            cache.put(event.request, responseToCache);
-          });
-        }
+//           caches.open('my-cache').then((cache) => {
+//             cache.put(event.request, responseToCache);
+//           });
+//         }
 
-        return fetchResponse;
-      });
-    })
-  );
-}
+//         return fetchResponse;
+//       });
+//     })
+//   );
+//}
 
 
 // This optional code is used to register a service worker.
@@ -62,9 +63,10 @@ type Config = {
 export function register(config?: Config) {
   // if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // ...
-
+    console.log('start of register');
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
+      console.log("swUrl", swUrl);
 
       // if (isLocalhost) {
       //   // This is running on localhost. Let's check if a service worker still exists or not.
@@ -73,6 +75,8 @@ export function register(config?: Config) {
       //   // ...
       // } else {
         // Is not localhost. Just register service worker
+        console.log('start register');
+        console.log('config', config);
         registerValidSW(swUrl, config);
       // }
 
@@ -80,7 +84,12 @@ export function register(config?: Config) {
       // if (!isLocalhost) {
         // Add the fetch event listener
         // @ts-ignore
-        window.addEventListener('fetch', handleFetchEvent);
+
+      //   self.addEventListener('fetch', function(event) {
+      //     const url = event.request.url;
+      //     console.log("fetch listener hit");
+      //  });
+      //   console.log("added event listener for fetch 2");
       // }
     });
   // }
@@ -90,18 +99,35 @@ function registerValidSW(swUrl: string, config?: Config) {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
+
+      console.log("Finished Registration", registration);
+
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
+        console.log("installing worker 2", installingWorker);
         if (installingWorker == null) {
+          console.log("issue installing worker");
           return;
         }
         installingWorker.onstatechange = () => {
+          console.log("installing state change");
           onStateChanged(installingWorker, registration, config);
         };
       };
 
       // Add the fetch event listener
-      self.addEventListener('fetch', handleFetchEvent);
+      //self.addEventListener('fetch', handleFetchEvent);
+    //   self.addEventListener('fetch', function(event) {
+    //     const url = event.request.url;
+    //     console.log("fetch listener hit");
+    //  });
+    //   console.log("added event listener for fetch -a 2");
+
+    // self.addEventListener('fetch', function(event) {
+    //   const url = event.request.url;
+    //   console.log("fetch listener hit 2", url);
+    // });
+
     })
     .catch((error) => {
       console.error('Error during service worker registration:', error);
@@ -113,25 +139,25 @@ function onStateChanged(
   registration: ServiceWorkerRegistration,
   config?: Config
 ) {
-  if (installingWorker.state === 'installed') {
-    if (navigator.serviceWorker.controller) {
-      // Unregister the old service worker to activate the new one
-      registration.unregister().then(() => {
-        // eslint-disable-next-line no-restricted-globals
-        location.reload();
-      });
-    } else {
-      // At this point, everything has been precached.
-      // It's the perfect time to display a
-      // "Content is cached for offline use." message.
-      console.log('Content is cached for offline use.');
+  // if (installingWorker.state === 'installed') {
+  //   if (navigator.serviceWorker.controller) {
+  //     // Unregister the old service worker to activate the new one
+  //     registration.unregister().then(() => {
+  //       // eslint-disable-next-line no-restricted-globals
+  //       location.reload();
+  //     });
+  //   } else {
+  //     // At this point, everything has been precached.
+  //     // It's the perfect time to display a
+  //     // "Content is cached for offline use." message.
+  //     console.log('Content is cached for offline use.');
 
-      // Execute callback
-      if (config?.onSuccess) {
-        config.onSuccess(registration);
-      }
-    }
-  }
+  //     // Execute callback
+  //     if (config?.onSuccess) {
+  //       config.onSuccess(registration);
+  //     }
+  //   }
+  // }
 }
 
 function checkValidServiceWorker(swUrl: string, config?: Config) {

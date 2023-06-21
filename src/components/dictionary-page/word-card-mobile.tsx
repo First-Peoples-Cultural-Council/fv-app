@@ -1,33 +1,25 @@
-import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import WordModal from './word-modal';
 import { FvWord } from '../common/data/types';
+import { useModal } from '../common/use-modal/use-modal';
+import { useEffect } from 'react';
 
 function WordCardMobile({ term }: FvWord) {
   const location = useLocation();
-  const [showModal, setShowModal] = useState(
-    location.hash === `#${term.source}-${term.entryID}` &&
-      !window.matchMedia('(min-width: 768px').matches
-  );
+  const { setShowModal, showModal, closeModal } = useModal();
   const { word, definition, audio } = term;
 
   useEffect(() => {
-    if (showModal) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
+    if (
+      (location.hash === `#${term.source}-${term.entryID}` ||
+        location.hash === `#${term.source}-${term.entryID}?source=/profile`) &&
+      !window.matchMedia('(min-width: 768px').matches
+    ) {
+      setShowModal(true);
     }
-  }, [showModal]);
-
-  useEffect(() => {
-    if (showModal) {
-      document.body.style.overflow = 'hidden';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [showModal]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
 
   return (
     <>
@@ -53,11 +45,8 @@ function WordCardMobile({ term }: FvWord) {
         </div>
       </div>
       {showModal && (
-        <FullScreenModal
-          onClose={() => setShowModal(false)}
-          actions={null}
-        >
-            <WordModal term={term} />
+        <FullScreenModal onClose={() => closeModal()} actions={null}>
+          <WordModal term={term} />
         </FullScreenModal>
       )}
     </>

@@ -1,25 +1,25 @@
-import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import WordModal from '../dictionary-page/word-modal';
 import { FvWord } from '../common/data';
 import Modal from '../common/modal/modal';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
+import { useModal } from '../common/use-modal/use-modal';
+import { useEffect } from 'react';
 
 function WordAlphabetRowCard({ term }: FvWord) {
   const location = useLocation();
-  const [showModal, setShowModal] = React.useState(
-    location.hash === `#${term.source}-${term.entryID}`
-  );
+  const { setShowModal, showModal, closeModal } = useModal();
   const { word, definition } = term;
 
   useEffect(() => {
-    if (showModal) {
-      document.body.style.overflow = 'hidden';
+    if (
+      location.hash === `#${term.source}-${term.entryID}` ||
+      location.hash === `#${term.source}-${term.entryID}?source=/profile`
+    ) {
+      setShowModal(true);
     }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [showModal]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
 
   return (
     <>
@@ -40,12 +40,12 @@ function WordAlphabetRowCard({ term }: FvWord) {
         </div>
       </div>
       {window.matchMedia('(min-width: 768px').matches && showModal && (
-        <Modal onClose={() => setShowModal(false)}>
+        <Modal onClose={() => closeModal()}>
           <WordModal term={term} />
         </Modal>
       )}
       {!window.matchMedia('(min-width: 768px').matches && showModal && (
-        <FullScreenModal onClose={() => setShowModal(false)} actions={null}>
+        <FullScreenModal onClose={() => closeModal()} actions={null}>
           <WordModal term={term} />
         </FullScreenModal>
       )}

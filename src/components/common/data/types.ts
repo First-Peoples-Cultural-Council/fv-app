@@ -92,6 +92,7 @@ export type SubNavItem = {
   path: string;
   activePathMatches?: { path: string }[];
   icon: string;
+  iconSize: string
   title: string;
   colors: {
     to: string;
@@ -143,4 +144,53 @@ export type Bookmark = {
 export type DeleteListType = {
   id: string;
   display: ReactNode;
+};
+
+export type FVSong = {
+  id: string;
+  type: string;
+  title: string;
+  titleTranslation: string | null;
+  coverVisual: FvMedia | null;
+  introduction: FVContent | null;
+  lyrics: FVContent | null;
+  author: string | null;
+  images: FvMedia[];
+  audio: FvMedia[];
+  videos: FvMedia[];
+};
+
+export type FVPage = {
+  order: number;
+  content: FVContent;
+  audio: FvMedia[];
+  videos: FvMedia[];
+  images: FvMedia[];
+};
+
+export type FVContent = {
+  text: string;
+  translation: string;
+};
+
+export type FVStory = {
+  id: string;
+  title: string | null;
+  titleTranslation: string | null;
+  author_name: string | null;
+  coverVisual: FvMedia | null;
+  intro: FVContent | null;
+  acknowledgements: string[];
+  notes: string[];
+  audio: FvMedia[];
+  videos: FvMedia[];
+  images: FvMedia[];
+  pages: FVPage[];
+};
+
+export type FvMedia = {
+  id: string;
+  title: string;
+  file: string;
+  mimetype: string;
 };

@@ -12,6 +12,7 @@ const navItems: SubNavItem[] = [
     id: 'alphabet',
     path: 'alphabet',
     icon: 'fv-alphabet',
+    iconSize: 'text-2xl',
     title: 'Alphabet',
     colors: {
       to: 'to-color-alphabet-light',
@@ -25,6 +26,7 @@ const navItems: SubNavItem[] = [
     id: 'dictionary',
     path: 'dictionary',
     icon: 'fv-words',
+    iconSize: 'text-2xl',
     title: 'Dictionary',
     colors: {
       to: 'to-color-words-light',
@@ -38,6 +40,7 @@ const navItems: SubNavItem[] = [
     id: 'categories',
     path: 'categories',
     icon: 'fv-categories',
+    iconSize: 'text-2xl',
     title: 'Categories',
     colors: {
       to: 'to-color-categories-light',
@@ -71,10 +74,10 @@ export function Dictionary(props: DictionaryProps) {
   const [currentNavItem, setCurrentNavItem] = useState(
     navItems.find((item) =>
       matchRoutes(
-        [{ path: item.path }, ...(item?.activePathMatches || [])],
+        [{ path: item.path }, ...(item?.activePathMatches ?? [])],
         location
       )
-    ) || navItems[0]
+    ) ?? navItems[0]
   );
   const today = new Date();
 
@@ -102,10 +105,10 @@ export function Dictionary(props: DictionaryProps) {
         <SubNavDesktop navItems={navItems} />
         <Outlet />
       </div>
-      {today.toDateString() !== (localStorage.getItem('lastWOTDSeenOn') || '') && <WordOfTheDay />}
+      {today.toDateString() !==
+        (localStorage.getItem('lastWOTDSeenOn') ?? '') && <WordOfTheDay />}
     </div>
   );
-
 }
 
 export default Dictionary;

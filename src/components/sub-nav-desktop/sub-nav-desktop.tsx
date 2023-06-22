@@ -21,14 +21,14 @@ export function SubNavDesktop({ navItems }: SubNavDesktopProps) {
               {
                 [`${item.colors.activeText} ${item.colors.border}`]:
                   matchRoutes(
-                    [...(item?.activePathMatches || []), { path: item.path }],
+                    [...(item?.activePathMatches ?? []), { path: item.path }],
                     location
                   ),
               },
               item.colors.hoverText
             )}
           >
-            <i className={classNames(item.icon, 'text-2xl')} />
+            <i className={classNames(item.icon, item.iconSize)} />
             <div className="uppercase text-xs">{item.title}</div>
           </Link>
         );

@@ -19,26 +19,24 @@ function WordCard({ term }: FvWord) {
   return (
     <>
       <p className="italic">
-        {term.optional !== null &&
-          term.optional.map((element) => {
-            if (element['Part of Speech'] !== undefined) {
-              return `(${element['Part of Speech']}) `;
-            } else {
-              return '';
-            }
-          })}
+        {term.optional?.map((element) => {
+          if (element['Part of Speech'] !== undefined) {
+            return `(${element['Part of Speech']}) `;
+          } else {
+            return '';
+          }
+        })}
       </p>
       <p className="pt-10 pb-10">{term.definition}</p>
-      {term.audio != null &&
-        term.audio.map((fvAudio: FvAudio) => (
-          <button
-            key={fvAudio.filename}
-            className={secondaryButtonStyle}
-            onClick={() => playAudio(fvAudio.filename)}
-          >
-            <i className="fv-play">{fvAudio.speaker}</i>
-          </button>
-        ))}
+      {term.audio?.map((fvAudio: FvAudio) => (
+        <button
+          key={fvAudio.filename}
+          className={secondaryButtonStyle}
+          onClick={() => playAudio(fvAudio.filename)}
+        >
+          <i className="fv-play">{fvAudio.speaker}</i>
+        </button>
+      ))}
       {term.img && (
         <img
           className="pt-10 max-w-sm max-h-sm"
@@ -69,7 +67,9 @@ function WordCard({ term }: FvWord) {
 
 async function playAudio(fileName: string) {
   const audio = new Audio(fileName);
-  audio.play();
+  audio.play().catch((err: any) => {
+    console.log(err);
+  });
 }
 
 export default WordCard;

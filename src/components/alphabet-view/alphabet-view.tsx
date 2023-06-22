@@ -6,9 +6,9 @@ import { dataDict } from '../temp-word-list';
 import WordAlphabetRowCard from './word-row-card';
 import _ from 'lodash';
 import { useIsMobile } from '../../util/useMediaQuery';
-import { FvAudio, FvLetter } from "../common/data";
+import { FvAudio, FvLetter } from '../common/data';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
-import { useButtonStyle } from "../common/hooks";
+import { useButtonStyle } from '../common/hooks';
 
 const dataAlphabetMap = _.keyBy(dataAlphabet, 'letter');
 
@@ -19,9 +19,17 @@ export function AlphabetView(props: AlphabetViewProps) {
   const { letter } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  
-  const [selected, setSelected] = useState<FvLetter | null>(dataAlphabet.find(letterData => letterData.letter === decodeURIComponent(letter ?? '')) as FvLetter ?? null);
-  const [showMobileWordList, setShowMobileWordList] = useState((location.hash && !window.matchMedia("(min-width: 768px").matches));
+
+  const [selected, setSelected] = useState<FvLetter | null>(
+    (dataAlphabet.find(
+      (letterData) => letterData.letter === decodeURIComponent(letter ?? '')
+    ) as FvLetter) ?? null
+  );
+  const [showMobileWordList, setShowMobileWordList] = useState(
+    location.hash &&
+      !location.hash.startsWith('#') &&
+      !window.matchMedia('(min-width: 768px').matches
+  );
 
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 
@@ -111,7 +119,11 @@ export function AlphabetView(props: AlphabetViewProps) {
     return (
       <button
         onClick={() => {
-          navigator.clipboard.writeText(selected?.letter ?? '');
+          navigator.clipboard
+            .writeText(selected?.letter ?? '')
+            .catch((err: any) => {
+              console.log(err);
+            });
         }}
       >
         <span className="fv-copy text-4xl" />
@@ -138,7 +150,7 @@ export function AlphabetView(props: AlphabetViewProps) {
         {alphabetRows.map((row, index) => {
           let showLetterDisplay = false;
           return (
-            <Fragment key={`row-${index}`}>
+            <Fragment key={`row-${row}`}>
               <div className="grid gap-4 md:gap-2 grid-cols-4 pb-4">
                 {row.map((letterData) => {
                   if (letterData === selected) {
@@ -157,7 +169,9 @@ export function AlphabetView(props: AlphabetViewProps) {
                       )}
                       onClick={() => {
                         setSelected(letterData);
-                        navigate(`/alphabet/${encodeURIComponent(letterData.letter)}`);
+                        navigate(
+                          `/alphabet/${encodeURIComponent(letterData.letter)}`
+                        );
                         setShowMobileWordList(false);
                       }}
                     >
@@ -203,10 +217,13 @@ export function AlphabetView(props: AlphabetViewProps) {
         {selected?.examples.map((termId) => {
           const term = dataDict.find((word) => word.entryID === termId);
           if (term === undefined) {
-            return <div key={termId} />;
+            return <></>;
           }
           return (
-            <div key={`${term.source}-${term.entryID}`} id={`${term.source}-${term.entryID}`}>
+            <div
+              key={`${term.source}-${term.entryID}`}
+              id={`${term.source}-${term.entryID}`}
+            >
               <WordAlphabetRowCard term={term} />
             </div>
           );
@@ -265,7 +282,9 @@ export function AlphabetView(props: AlphabetViewProps) {
 
   async function playAudio(fileName: string) {
     const audio = new Audio(fileName);
-    audio.play();
+    audio.play().catch((err: any) => {
+      console.log(err);
+    });
   }
 }
 

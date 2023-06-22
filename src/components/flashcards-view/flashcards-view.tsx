@@ -49,7 +49,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
         setDataForFlashcard(0);
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataForFlashcardGroup]);
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
       setShowSelectModal(false);
       setDataForFlashcard(0);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFlashcardDisplayType]);
 
   useEffect(() => {
@@ -214,7 +214,9 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                           className={secondaryButtonStyle}
                           onClick={(e) => {
                             e.stopPropagation();
-                            playAudio(fvAudio.filename);
+                            playAudio(fvAudio.filename).catch((err: any) => {
+                              console.log(err);
+                            });
                           }}
                         >
                           <i className="fv-play">{fvAudio.speaker}</i>
@@ -411,7 +413,9 @@ export function FlashcardsView(props: FlashcardsViewProps) {
 
   async function playAudio(fileName: string) {
     const audio = new Audio(fileName);
-    audio.play();
+    audio.play().catch((err: any) => {
+      console.log(err);
+    });
   }
 }
 

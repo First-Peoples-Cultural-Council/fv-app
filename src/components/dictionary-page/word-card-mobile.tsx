@@ -1,27 +1,25 @@
-import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import WordCard from './word-card';
-import { FvWord } from '../common/data';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
+import WordModal from './word-modal';
+import { FvWord } from '../common/data/types';
+import { useModal } from '../common/use-modal/use-modal';
+import { useEffect } from 'react';
 
 function WordCardMobile({ term }: FvWord) {
   const location = useLocation();
-  const [showModal, setShowModal] = React.useState((location.hash === `#${term.source}-${term.entryID}` && !window.matchMedia("(min-width: 768px").matches));
+  const { setShowModal, showModal, closeModal } = useModal();
   const { word, definition, audio } = term;
-  const shareData = {
-    title: "FirstVoices",
-    text: `Learn what the word ${word} means from FirstVoices!`,
-    url: `${window.location.origin}${window.location.pathname}#${term.source}-${term.entryID}`
-  };
-
 
   useEffect(() => {
-    if (showModal) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
+    if (
+      (location.hash === `#${term.source}-${term.entryID}` ||
+        location.hash === `#${term.source}-${term.entryID}?source=/profile`) &&
+      !window.matchMedia('(min-width: 768px').matches
+    ) {
+      setShowModal(true);
     }
-  }, [showModal]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
 
   return (
     <>
@@ -37,10 +35,9 @@ function WordCardMobile({ term }: FvWord) {
             <h1 className="truncate">{definition}</h1>
           </div>
           <div className="self-center col-span-1">
-            {audio != null &&
-              audio.map((fvAudio) => (
-                <i key={fvAudio.filename} className="fv-volume-up" />
-              ))}
+            {audio?.map((fvAudio) => (
+              <i key={fvAudio.filename} className="fv-volume-up" />
+            ))}
           </div>
           <div className="place-self-end self-center">
             <i className="fv-right-open" />
@@ -48,43 +45,8 @@ function WordCardMobile({ term }: FvWord) {
         </div>
       </div>
       {showModal && (
-        <FullScreenModal
-          onClose={() => setShowModal(false)}
-          actions={
-            <>
-              <button
-                onClick={() => {
-                  navigator.clipboard.writeText(word);
-                }}
-              >
-                <i className="fv-copy pr-5" />
-              </button>
-              <button
-                onClick={() => {
-                  if (navigator.share && navigator.canShare(shareData)) {
-                    navigator.share(shareData);
-                  }
-                  else {
-                    navigator.clipboard.writeText(shareData.url);
-                  }
-                }}
-              >
-                <i className="fv-share pr-5" />
-              </button>
-              <button
-                onClick={() => {
-                  console.log('Bookmark clicked');
-                }}
-              >
-                <i className="fv-bookmarks pr-5" />
-              </button>
-            </>
-          }
-        >
-          <div className="p-10">
-            <p className="grow font-bold text-3xl">{word}</p>
-            <WordCard term={term} />
-          </div>
+        <FullScreenModal onClose={() => closeModal()} actions={null}>
+          <WordModal term={term} />
         </FullScreenModal>
       )}
     </>

@@ -60,7 +60,6 @@ registerRoute(
 registerRoute(
   // Add in any other file extensions or routing criteria as needed.
   ({ url }) => {
-    console.log('register route', url);
     url.origin === self.location.origin && url.pathname.endsWith('.png')},
   // Customize this strategy as needed, e.g., by changing to CacheFirst.
   new StaleWhileRevalidate({
@@ -89,5 +88,3 @@ self.addEventListener('fetch', function(event) {
   const url = event.request.url;
   console.log("fetch listener hit", url);
 });
-
-console.log("added event listener for fetch 3");

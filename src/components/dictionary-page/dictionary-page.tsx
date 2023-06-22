@@ -55,6 +55,7 @@ const navItems: SubNavItem[] = [
     id: 'randomized',
     path: 'randomized',
     icon: 'fv-shuffle',
+    iconSize: 'text-2xl',
     title: '10 Random Entries',
     colors: {
       to: 'to-color-shuffle-light',

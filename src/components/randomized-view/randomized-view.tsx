@@ -49,9 +49,9 @@ export function RandomizedView(props: WordsViewProps) {
           onClick={()=>{
             setSubset(pickRandomItems(data, 10));
           }}
-          className="py-2 px-4 text-center"
+          className="ml-4"
         >
-          <i className="fv-arrows-cw" />
+          <i className="fv-arrows-cw text-lg" />
         </button>
       </div>
       {subset.map((term) => {

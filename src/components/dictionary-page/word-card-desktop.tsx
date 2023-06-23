@@ -1,25 +1,25 @@
-import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import WordModal from './word-modal';
 import { FvWord } from '../common/data';
 import Modal from '../common/modal/modal';
+import { useModal } from '../common/use-modal/use-modal';
+import { useEffect } from 'react';
 
 function WordCardDesktop({ term }: FvWord) {
   const location = useLocation();
-  const [showModal, setShowModal] = React.useState(
-    location.hash === `#${term.source}-${term.entryID}` &&
-      window.matchMedia('(min-width: 768px').matches
-  );
+  const { setShowModal, showModal, closeModal } = useModal();
   const { word, definition, audio } = term;
 
   useEffect(() => {
-    if (showModal) {
-      document.body.style.overflow = 'hidden';
+    if (
+      (location.hash === `#${term.source}-${term.entryID}` ||
+        location.hash === `#${term.source}-${term.entryID}?source=/profile`) &&
+      window.matchMedia('(min-width: 768px').matches
+    ) {
+      setShowModal(true);
     }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [showModal]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
 
   return (
     <>
@@ -47,7 +47,7 @@ function WordCardDesktop({ term }: FvWord) {
         </div>
       </div>
       {showModal && (
-        <Modal onClose={() => setShowModal(false)}>
+        <Modal onClose={() => closeModal()}>
           <WordModal term={term} />
         </Modal>
       )}

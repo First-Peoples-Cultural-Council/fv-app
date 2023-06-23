@@ -51,6 +51,20 @@ const navItems: SubNavItem[] = [
     },
     activePathMatches: [{ path: 'categories/:id' }],
   },
+  {
+    id: 'randomized',
+    path: 'randomized',
+    icon: 'fv-shuffle',
+    iconSize: 'text-2xl',
+    title: 'Random',
+    colors: {
+      to: 'to-color-shuffle-light',
+      from: 'from-color-shuffle-dark',
+      hoverText: 'hover:text-color-shuffle-dark',
+      activeText: 'text-color-shuffle-dark',
+      border: 'border-color-shuffle-dark',
+    },
+  }
 ];
 
 /* eslint-disable-next-line */

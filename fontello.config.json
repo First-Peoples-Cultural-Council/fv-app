@@ -53,7 +53,7 @@
     {
       "uid": "b5865674b8d142705027783d2183bbe8",
       "css": "close",
-      "code": 59392,
+      "code": 128256,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -408,6 +408,18 @@
       "uid": "555ef8c86832e686fef85f7af2eb7cde",
       "css": "left-big",
       "code": 59413,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "37c5ab63f10d7ad0b84d0978dcd0c7a8",
+      "css": "shuffle",
+      "code": 59392,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "a73c5deb486c8d66249811642e5d719a",
+      "css": "arrows-cw",
+      "code": 59414,
       "src": "fontawesome"
     }
   ]

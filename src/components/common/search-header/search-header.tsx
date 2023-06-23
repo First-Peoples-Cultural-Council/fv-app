@@ -18,7 +18,7 @@ export function SearchHeader({ title, backgroundColors }: SearchHeaderProps) {
         value={searchValue}
         onChange={(e) => setSearchValue(e?.target?.value)}
         clickSearch={() => console.log(`search for ${searchValue}`)}
-      />
+        />
     </header>
   );
 }

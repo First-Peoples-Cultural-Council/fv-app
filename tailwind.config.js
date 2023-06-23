@@ -34,6 +34,8 @@ module.exports = {
         'color-tertiary-4': '#272E16',
         'color-words-light': '#2A9D8F',
         'color-words-dark': '#057266',
+        'color-shuffle-light': '#78A0EB',
+        'color-shuffle-dark': '#153F8E',
         'color-phrases-light': '#C37829',
         'color-phrases-dark': '#753C00',
         'color-alphabet-light': '#830042',

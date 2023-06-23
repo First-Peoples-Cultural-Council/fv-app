@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 
 export interface ModalProps {
   onClose: () => void;
@@ -7,7 +8,7 @@ export interface ModalProps {
 }
 
 export function Modal({ onClose, children, title }: ModalProps) {
-  return (
+  return createPortal(
     <div
       style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
       className="fixed inset-0 w-full h-full backdrop"
@@ -16,9 +17,7 @@ export function Modal({ onClose, children, title }: ModalProps) {
         <div className="relative w-auto my-6 mx-auto max-w-3xl">
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             <div className="items-start justify-between p-5 rounded-t text-center">
-              <span className="inline-block text-3xl">
-                {title}
-              </span>
+              <span className="inline-block text-3xl">{title}</span>
               <button
                 className="p-1 ml-auto bg-transparent border-0 text-black float-right text-1xl leading-none font-semibold outline-none focus:outline-none"
                 onClick={() => onClose()}
@@ -30,7 +29,8 @@ export function Modal({ onClose, children, title }: ModalProps) {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 

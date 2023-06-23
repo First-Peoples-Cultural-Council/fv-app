@@ -5,21 +5,19 @@ import { Bookmark, FVSong } from '../common/data/types';
 import classNames from 'classnames';
 import { useLocation } from 'react-router';
 import IndexedDBService from '../../services/indexedDbService';
+import { useModal } from '../common/use-modal/use-modal';
 
 /* eslint-disable-next-line */
 export interface SongsViewProps {}
 
 export function SongsView(props: SongsViewProps) {
   const location = useLocation();
+  const { setShowModal, showModal, closeModal } = useModal();
 
   const [db, setDb] = useState<IndexedDBService>();
   const [selectedSong, setSelectedSong] = useState<FVSong | null>(null);
   const [bookmark, setBookmark] = useState<Bookmark | null>(null);
   const [bookmarked, setBookmarked] = useState<boolean>(false);
-  const [showModal, setShowModal] = useState(
-    location.hash === `#${selectedSong?.id}` &&
-      window.matchMedia('(min-width: 1024px').matches
-  );
   const [shareData, setShareData] = useState<{
     title: string;
     text: string;
@@ -31,15 +29,15 @@ export function SongsView(props: SongsViewProps) {
   }, []);
 
   useEffect(() => {
-    const song = dataSongs.find(
-      (song) => song.id === location.hash.substring(1)
-    );
+    const songId = location.hash.slice(1).split('?')[0];
+    const song = dataSongs.find((song) => song.id === songId);
     if (song) {
       setSelectedSong(song);
       if (window.matchMedia('(max-width: 1024px').matches) {
         setShowModal(true);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [db, location]);
 
   useEffect(() => {
@@ -80,8 +78,8 @@ export function SongsView(props: SongsViewProps) {
 
   return (
     <>
-      <div className="grid grid-cols-1 lg:grid-cols-2 w-full">
-        <div className="">
+      <div className="grid grid-cols-1 lg:grid-cols-2 w-full h-full">
+        <div>
           {dataSongs.map((song: FVSong) => {
             return (
               <div
@@ -130,7 +128,7 @@ export function SongsView(props: SongsViewProps) {
         <div className="hidden lg:block">{songDetails()}</div>
       </div>
       {showModal && (
-        <FullScreenModal onClose={() => setShowModal(false)} actions={<></>}>
+        <FullScreenModal onClose={() => closeModal()} actions={<></>}>
           {songDetails()}
         </FullScreenModal>
       )}
@@ -149,10 +147,15 @@ export function SongsView(props: SongsViewProps) {
             alt={selectedSong?.coverVisual.title}
           ></img>
         )}
-        <div className="p-2 text-2xl font-bold">{selectedSong.title}</div>
-        <div className="p-2">{selectedSong.titleTranslation}</div>
-
-        {actionButtons()}
+        <div className="flex justify-between">
+          <div>
+            <div className="p-2 text-2xl font-bold">{selectedSong.title}</div>
+            <div className="p-2">{selectedSong.titleTranslation}</div>
+          </div>
+          <div className="whitespace-nowrap overflow-hidden flex-shrink-0">
+            {actionButtons()}
+          </div>
+        </div>
 
         {selectedSong?.audio?.map((audio) => {
           return (

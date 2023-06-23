@@ -13,10 +13,11 @@ import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
-
-console.log("In service Worker");
+import IndexedDBService from './services/indexedDbService';
 
 declare const self: ServiceWorkerGlobalScope;
+
+const db = new IndexedDBService('firstVoicesIndexedDb');
 
 clientsClaim();
 
@@ -60,7 +61,8 @@ registerRoute(
 registerRoute(
   // Add in any other file extensions or routing criteria as needed.
   ({ url }) => {
-    url.origin === self.location.origin && url.pathname.endsWith('.png')},
+    url.origin === self.location.origin && url.pathname.endsWith('.png');
+  },
   // Customize this strategy as needed, e.g., by changing to CacheFirst.
   new StaleWhileRevalidate({
     cacheName: 'images',
@@ -84,7 +86,74 @@ self.addEventListener('message', (event) => {
 
 // Any other custom service worker logic can go here.
 
-self.addEventListener('fetch', function(event) {
+self.addEventListener('fetch', async function (event) {
   const url = event.request.url;
-  console.log("fetch listener hit", url);
+
+  event.respondWith(
+    (async function () {
+      try {
+        // Attempt to fetch the request
+        var response = await fetch(event.request);
+
+        // Check to see if the app should cache the file.
+        if (endsWithAny(url, ['.jpg', '.png', '.gif', '.mp3'])) {
+          if (await db.hasMediaFile(url)) {
+            const blob = (await db.getMediaFile(url)) as Blob;
+            const file = new File([blob], getFileNameFromUrl(url), {
+              type: blob.type,
+            });
+
+            return new Response(file, { status: 200 });
+          } else {
+            // Save the media file in the database.
+            const file = await getFileFromUrl(url);
+            db.saveMediaFile(url, file);
+
+            return response;
+          }
+        } else {
+          return response;
+        }
+      } catch (error) {
+        // Handle fetch error when app is offline
+        // Check to see if the db has the media file.
+        if (await db.hasMediaFile(url)) {
+          const blob = (await db.getMediaFile(url)) as Blob;
+          const file = new File([blob], getFileNameFromUrl(url), {
+            type: blob.type,
+          });
+          return new Response(file, { status: 200 });
+        } else {
+          // Return a custom offline response
+          return new Response('Offline', {
+            status: 503,
+            statusText: 'Service Unavailable',
+          });
+        }
+      }
+    })()
+  );
 });
+
+function endsWithAny(text: string, endings: string[]): boolean {
+  for (const ending of endings) {
+    if (text.endsWith(ending)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+async function getFileFromUrl(url: string): Promise<File> {
+  const response = await fetch(url);
+  const blob = await response.blob();
+  const fileName = getFileNameFromUrl(url);
+
+  return new File([blob], fileName);
+}
+
+function getFileNameFromUrl(url: string): string {
+  // Extract the file name from the URL
+  const parts = url.split('/');
+  return parts[parts.length - 1];
+}

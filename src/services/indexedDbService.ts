@@ -14,6 +14,10 @@ interface FVDB extends DBSchema {
     };
     indexes: { 'by-url': string };
   };
+  mediaFiles: {
+    key: string;
+    value: Blob;
+  };
 }
 
 class IndexedDBService {
@@ -28,6 +32,9 @@ class IndexedDBService {
             autoIncrement: true,
           });
           bookmarkStore.createIndex('by-url', 'url', { unique: false });
+        }
+        if (!db.objectStoreNames.contains('mediaFiles')) {
+          db.createObjectStore('mediaFiles');
         }
       },
     });
@@ -67,6 +74,29 @@ class IndexedDBService {
     const store = transaction.objectStore('bookmarks');
     const bookmarks = await store.getAll();
     return bookmarks;
+  }
+
+  async hasMediaFile(url: string): Promise<boolean> {
+    const db = await this.database;
+    const transaction = db.transaction(['mediaFiles'], 'readonly');
+    const store = transaction.objectStore('mediaFiles');
+    const mediaFile = await store.get(url);
+    return (mediaFile !== undefined);
+  }
+
+  async saveMediaFile(url: string, file: Blob) {
+    const db = await this.database;
+    const transaction = db.transaction('mediaFiles', 'readwrite');
+    const store = transaction.objectStore('mediaFiles');
+    await store.add(file, url);
+  }
+
+  async getMediaFile(url: string): Promise<Blob | undefined> {
+    const db = await this.database;
+    const transaction = db.transaction(['mediaFiles'], 'readonly');
+    const store = transaction.objectStore('mediaFiles');
+    const mediaFile = await store.get(url);
+    return mediaFile;
   }
 }
 

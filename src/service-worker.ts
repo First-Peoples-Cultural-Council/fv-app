@@ -93,7 +93,7 @@ self.addEventListener('fetch', function (event) {
     (async function () {
       try {
         // Attempt to fetch the request
-        var response = await fetch(event.request);
+        const response = await fetch(event.request);
 
         // Check to see if the app should cache the file.
         if (endsWithAny(url, ['.jpg', '.png', '.gif', '.mp3'])) {

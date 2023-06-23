@@ -119,6 +119,7 @@ export function ProfileView() {
   return (
     <div className={styles['container']}>
       <SearchHeader
+        searchMatchRef={null}
         title="Profile"
         backgroundColors={{
           to: 'to-color-profile-light',

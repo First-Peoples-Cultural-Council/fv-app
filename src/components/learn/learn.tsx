@@ -78,6 +78,7 @@ export function LearnView(props: LearnViewProps) {
   return (
     <div className={styles['container']}>
       <SearchHeader
+        searchMatchRef={null}
         title={currentNavItem.title}
         backgroundColors={{
           to: currentNavItem.colors.to,

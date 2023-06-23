@@ -33,7 +33,7 @@ export function RandomizedView(props: WordsViewProps) {
 
   return (
     <div>
-      <div className="flex flex-row">
+      <div className="flex flex-row flex-wrap">
         <MultiSwitch
           selected={selected}
           items={[

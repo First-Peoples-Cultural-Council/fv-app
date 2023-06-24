@@ -91,7 +91,7 @@ export function SearchHeader({
           getResults(e?.target?.value);
         }}
         clickSearch={() => console.log(`search for ${searchValue}`)}
-        />
+      />
     </header>
   );
 }

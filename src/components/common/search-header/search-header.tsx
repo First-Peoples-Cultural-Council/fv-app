@@ -30,10 +30,9 @@ export function SearchHeader({
       const mtd: any = window['mtd'];
       const searchQuery = mtd.convertQuery(rawSearchQuery);
 
-      const target = l1SearchAlgWord(searchQuery); // Will search for "word" and "compare_form" (if it exists) in each entry
-
       const populateTarget = () => {
         const allMatches: any[] = [];
+        const target = l1SearchAlgWord(searchQuery); // Will search for "word" and "compare_form" (if it exists) in each entry
         for (let result of target) {
           const entry = result[1];
           entry.type = 'L1';

@@ -1,4 +1,4 @@
-import { ReactNode, createContext } from 'react';
+import { ReactNode, createContext, useMemo } from 'react';
 import { dataDict } from './temp-word-list';
 
 const l1SearchAlgWord = (window as any).distanceCalculatorWord(dataDict);
@@ -11,12 +11,14 @@ export interface SearchProviderProps {
 }
 
 export const SearchProvider = ({ children }: SearchProviderProps) => {
+  const searchValue = useMemo(() => {
+    return {
+      l1SearchAlgWord,
+    };
+  }, []);
+
   return (
-    <SearchContext.Provider
-      value={{
-        l1SearchAlgWord,
-      }}
-    >
+    <SearchContext.Provider value={searchValue}>
       {children}
     </SearchContext.Provider>
   );

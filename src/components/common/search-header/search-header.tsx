@@ -3,59 +3,64 @@ import { useContext, useState } from 'react';
 import { SearchContext } from '../../search-provider';
 import { populateMatchesElements } from '../../../util/searchUtils';
 
+const MATCH_THRESHOLD = 0;
+const PARTIAL_THRESHOLD = 1;
+const MAYBE_THRESHOLD = 3;
+
 export interface SearchHeaderProps {
   searchMatchRef: HTMLDivElement | null;
   title: string;
   backgroundColors: { to: string; from: string };
 }
 
-export function SearchHeader({ searchMatchRef, title, backgroundColors }: SearchHeaderProps) {
+export function SearchHeader({
+  searchMatchRef,
+  title,
+  backgroundColors,
+}: SearchHeaderProps) {
   const [searchValue, setSearchValue] = useState<string>('');
-  const {l1SearchAlgWord} = useContext(SearchContext)
+  const { l1SearchAlgWord } = useContext(SearchContext);
 
   const getResults = (rawSearchQuery: string) => {
     // Edit Distance Thresholds
-    const matchThreshold = 0;
-    const partialThreshold = 1;
-    const maybeThreshold = 3;
 
     if (rawSearchQuery.length > 1) {
       // Normalize
       // @ts-ignore
-      let mtd: any = window["mtd"];
-      let searchQuery = mtd.convertQuery(rawSearchQuery);
+      const mtd: any = window['mtd'];
+      const searchQuery = mtd.convertQuery(rawSearchQuery);
 
-      let target = l1SearchAlgWord(searchQuery); // Will search for "word" and "compare_form" (if it exists) in each entry
-      // Match containers
-      let allMatches: any[] = [];
-      let matches: any[] = [];
-      let partMatches: any[] = [];
-      let maybeMatches: any[] = [];
+      const target = l1SearchAlgWord(searchQuery); // Will search for "word" and "compare_form" (if it exists) in each entry
 
-      var populateTarget = () => {
+      const populateTarget = () => {
+        const allMatches: any[] = [];
         for (let result of target) {
-          let entry = result[1];
-          entry.type = "L1";
-          entry.strategy = "lev" // In the production version of MTD we actually do more than just the Levenstein search, but for this demo this is sufficient.
-          entry.distance = result[0]
+          const entry = result[1];
+          entry.type = 'L1';
+          entry.strategy = 'lev'; // In the production version of MTD we actually do more than just the Levenstein search, but for this demo this is sufficient.
+          entry.distance = result[0];
           allMatches.push(entry);
         }
+        return allMatches;
       };
 
-      var mergeMatches = () => {
+      const mergeMatches = (allMatches: any[]) => {
+        const matches: any[] = [];
+        const partMatches: any[] = [];
+        const maybeMatches: any[] = [];
         for (let entry of allMatches) {
-          if ("distance" in entry) {
-            if (entry.distance === matchThreshold) {
+          if ('distance' in entry) {
+            if (entry.distance === MATCH_THRESHOLD) {
               matches.push(entry);
             } else if (
-              "distance" in entry &&
-              entry.distance <= partialThreshold &&
-              entry.distance > matchThreshold
+              'distance' in entry &&
+              entry.distance <= PARTIAL_THRESHOLD &&
+              entry.distance > MATCH_THRESHOLD
             ) {
               partMatches.push(entry);
             } else if (
-              entry.distance <= maybeThreshold &&
-              entry.distance > partialThreshold
+              entry.distance <= MAYBE_THRESHOLD &&
+              entry.distance > PARTIAL_THRESHOLD
             ) {
               maybeMatches.push(entry);
             }
@@ -63,10 +68,14 @@ export function SearchHeader({ searchMatchRef, title, backgroundColors }: Search
             matches.push(entry);
           }
         }
+        return { matches, maybeMatches, partMatches };
       };
-      populateTarget();
-      mergeMatches();
-      populateMatchesElements([...matches, ...partMatches, ...maybeMatches], searchMatchRef)
+      const allMatches = populateTarget();
+      const { matches, maybeMatches, partMatches } = mergeMatches(allMatches);
+      populateMatchesElements(
+        [...matches, ...partMatches, ...maybeMatches],
+        searchMatchRef
+      );
     }
   };
 
@@ -78,7 +87,7 @@ export function SearchHeader({ searchMatchRef, title, backgroundColors }: Search
       <SearchInput
         value={searchValue}
         onChange={(e) => {
-          setSearchValue(e?.target?.value)
+          setSearchValue(e?.target?.value);
           getResults(e?.target?.value);
         }}
         clickSearch={() => console.log(`search for ${searchValue}`)}

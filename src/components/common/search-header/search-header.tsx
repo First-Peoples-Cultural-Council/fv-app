@@ -21,6 +21,46 @@ export function SearchHeader({
   const [searchValue, setSearchValue] = useState<string>('');
   const { l1SearchAlgWord } = useContext(SearchContext);
 
+  const populateTarget = (searchQuery: any) => {
+    const allMatches: any[] = [];
+    const target = l1SearchAlgWord(searchQuery); // Will search for "word" and "compare_form" (if it exists) in each entry
+    for (let result of target) {
+      const entry = result[1];
+      entry.type = 'L1';
+      entry.strategy = 'lev'; // In the production version of MTD we actually do more than just the Levenstein search, but for this demo this is sufficient.
+      entry.distance = result[0];
+      allMatches.push(entry);
+    }
+    return allMatches;
+  };
+
+  const mergeMatches = (allMatches: any[]) => {
+    const matches: any[] = [];
+    const partMatches: any[] = [];
+    const maybeMatches: any[] = [];
+    for (let entry of allMatches) {
+      if ('distance' in entry) {
+        if (entry.distance === MATCH_THRESHOLD) {
+          matches.push(entry);
+        } else if (
+          'distance' in entry &&
+          entry.distance <= PARTIAL_THRESHOLD &&
+          entry.distance > MATCH_THRESHOLD
+        ) {
+          partMatches.push(entry);
+        } else if (
+          entry.distance <= MAYBE_THRESHOLD &&
+          entry.distance > PARTIAL_THRESHOLD
+        ) {
+          maybeMatches.push(entry);
+        }
+      } else {
+        matches.push(entry);
+      }
+    }
+    return { matches, maybeMatches, partMatches };
+  };
+
   const getResults = (rawSearchQuery: string) => {
     // Edit Distance Thresholds
 
@@ -30,46 +70,7 @@ export function SearchHeader({
       const mtd: any = window['mtd'];
       const searchQuery = mtd.convertQuery(rawSearchQuery);
 
-      const populateTarget = () => {
-        const allMatches: any[] = [];
-        const target = l1SearchAlgWord(searchQuery); // Will search for "word" and "compare_form" (if it exists) in each entry
-        for (let result of target) {
-          const entry = result[1];
-          entry.type = 'L1';
-          entry.strategy = 'lev'; // In the production version of MTD we actually do more than just the Levenstein search, but for this demo this is sufficient.
-          entry.distance = result[0];
-          allMatches.push(entry);
-        }
-        return allMatches;
-      };
-
-      const mergeMatches = (allMatches: any[]) => {
-        const matches: any[] = [];
-        const partMatches: any[] = [];
-        const maybeMatches: any[] = [];
-        for (let entry of allMatches) {
-          if ('distance' in entry) {
-            if (entry.distance === MATCH_THRESHOLD) {
-              matches.push(entry);
-            } else if (
-              'distance' in entry &&
-              entry.distance <= PARTIAL_THRESHOLD &&
-              entry.distance > MATCH_THRESHOLD
-            ) {
-              partMatches.push(entry);
-            } else if (
-              entry.distance <= MAYBE_THRESHOLD &&
-              entry.distance > PARTIAL_THRESHOLD
-            ) {
-              maybeMatches.push(entry);
-            }
-          } else {
-            matches.push(entry);
-          }
-        }
-        return { matches, maybeMatches, partMatches };
-      };
-      const allMatches = populateTarget();
+      const allMatches = populateTarget(searchQuery);
       const { matches, maybeMatches, partMatches } = mergeMatches(allMatches);
       populateMatchesElements(
         [...matches, ...partMatches, ...maybeMatches],

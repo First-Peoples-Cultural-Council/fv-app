@@ -1,15 +1,16 @@
-import { render } from "@testing-library/react";
+import { render } from '@testing-library/react';
 
-import SearchHeader from "./search-header";
+import SearchHeader from './search-header';
 
-describe("SearchHeader", () => {
-  it("should render successfully", () => {
+describe('SearchHeader', () => {
+  it('should render successfully', () => {
     const { baseElement } = render(
       <SearchHeader
-        title={""}
+        searchMatchRef={null}
+        title={''}
         backgroundColors={{
-          to: "",
-          from: "",
+          to: '',
+          from: '',
         }}
       />
     );

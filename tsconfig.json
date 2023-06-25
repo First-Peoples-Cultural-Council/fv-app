@@ -21,7 +21,8 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "src",
+    "public/mtd-ui.min.js"
   ],
   "exclude": [
     "node_modules",

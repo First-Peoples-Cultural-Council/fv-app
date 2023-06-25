@@ -1,11 +1,12 @@
+@charset "UTF-8";
 @font-face {
   font-family: 'first-voices';
-  src: url('../font/first-voices.eot?8750112');
-  src: url('../font/first-voices.eot?8750112#iefix') format('embedded-opentype'),
-       url('../font/first-voices.woff2?8750112') format('woff2'),
-       url('../font/first-voices.woff?8750112') format('woff'),
-       url('../font/first-voices.ttf?8750112') format('truetype'),
-       url('../font/first-voices.svg?8750112#first-voices') format('svg');
+  src: url('../font/first-voices.eot?87093510');
+  src: url('../font/first-voices.eot?87093510#iefix') format('embedded-opentype'),
+       url('../font/first-voices.woff2?87093510') format('woff2'),
+       url('../font/first-voices.woff?87093510') format('woff'),
+       url('../font/first-voices.ttf?87093510') format('truetype'),
+       url('../font/first-voices.svg?87093510#first-voices') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +16,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'first-voices';
-    src: url('../font/first-voices.svg?8750112#first-voices') format('svg');
+    src: url('../font/first-voices.svg?87093510#first-voices') format('svg');
   }
 }
 */
@@ -54,7 +55,7 @@
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
 
-.fv-close:before { content: '\e800'; } /* '' */
+.fv-shuffle:before { content: '\e800'; } /* '' */
 .fv-volume-up:before { content: '\e801'; } /* '' */
 .fv-copy:before { content: '\e802'; } /* '' */
 .fv-right-open:before { content: '\e803'; } /* '' */
@@ -76,6 +77,7 @@
 .fv-refresh-clockwise:before { content: '\e813'; } /* '' */
 .fv-mix:before { content: '\e814'; } /* '' */
 .fv-left-big:before { content: '\e815'; } /* '' */
+.fv-arrows-cw:before { content: '\e816'; } /* '' */
 .fv-games:before { content: '\e817'; } /* '' */
 .fv-wordsfc:before { content: '\e818'; } /* '' */
 .fv-phrasesfc:before { content: '\e819'; } /* '' */
@@ -92,3 +94,4 @@
 .fv-quote-right:before { content: '\f10e'; } /* '' */
 .fv-info:before { content: '\f129'; } /* '' */
 .fv-share:before { content: '\f1e0'; } /* '' */
+.fv-close:before { content: '🔀'; } /* '\1f500' */

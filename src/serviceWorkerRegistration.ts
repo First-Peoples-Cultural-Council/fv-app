@@ -27,34 +27,12 @@ type Config = {
 
 export function register(config?: Config) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
-    // The URL constructor is available in all browsers that support SW.
-    const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
-    if (publicUrl.origin !== window.location.origin) {
-      // Our service worker won't work if PUBLIC_URL is on a different origin
-      // from what our page is served on. This might happen if a CDN is used to
-      // serve assets; see https://github.com/facebook/create-react-app/issues/2374
-      return;
-    }
-
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
         checkValidServiceWorker(swUrl, config);
-
-        // Add some additional logging to localhost, pointing developers to the
-        // service worker/PWA documentation.
-        navigator.serviceWorker.ready
-          .then(() => {
-            console.log(
-              'This web app is being served cache-first by a service ' +
-                'worker. To learn more, visit https://cra.link/PWA'
-            );
-          })
-          .catch((err: any) => {
-            console.log(err);
-          });
       } else {
         // Is not localhost. Just register service worker
         registerValidSW(swUrl, config);
@@ -65,7 +43,7 @@ export function register(config?: Config) {
 
 function registerValidSW(swUrl: string, config?: Config) {
   navigator.serviceWorker
-    .register(swUrl)
+    .register(swUrl, { scope: '/' })
     .then((registration) => {
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
@@ -89,14 +67,6 @@ function onStateChanged(
 ) {
   if (installingWorker.state === 'installed') {
     if (navigator.serviceWorker.controller) {
-      // At this point, the updated precached content has been fetched,
-      // but the previous service worker will still serve the older
-      // content until all client tabs are closed.
-      console.log(
-        'New content is available and will be used when all ' +
-          'tabs for this page are closed. See https://cra.link/PWA.'
-      );
-
       // Execute callback
       if (config?.onUpdate) {
         config.onUpdate(registration);
@@ -106,7 +76,6 @@ function onStateChanged(
       // It's the perfect time to display a
       // "Content is cached for offline use." message.
       console.log('Content is cached for offline use.');
-
       // Execute callback
       if (config?.onSuccess) {
         config.onSuccess(registration);

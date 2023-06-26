@@ -51,12 +51,27 @@ const navItems: SubNavItem[] = [
     },
     activePathMatches: [{ path: 'categories/:id' }],
   },
+  {
+    id: 'randomized',
+    path: 'randomized',
+    icon: 'fv-shuffle',
+    iconSize: 'text-2xl',
+    title: 'Random',
+    colors: {
+      to: 'to-color-shuffle-light',
+      from: 'from-color-shuffle-dark',
+      hoverText: 'hover:text-color-shuffle-dark',
+      activeText: 'text-color-shuffle-dark',
+      border: 'border-color-shuffle-dark',
+    },
+  }
 ];
 
 /* eslint-disable-next-line */
 export interface DictionaryProps {}
 
 export function Dictionary(props: DictionaryProps) {
+  const [searchMatchRef, setSearchMatchRef] = useState<HTMLDivElement | null>(null);
   const location = useLocation();
   const [currentNavItem, setCurrentNavItem] = useState(
     navItems.find((item) =>
@@ -81,6 +96,7 @@ export function Dictionary(props: DictionaryProps) {
   return (
     <div className={styles['container']}>
       <SearchHeader
+        searchMatchRef={searchMatchRef}
         title={currentNavItem.title}
         backgroundColors={{
           to: currentNavItem.colors.to,
@@ -90,7 +106,7 @@ export function Dictionary(props: DictionaryProps) {
       <SubNavMobile navItems={navItems} />
       <div className="flex w-full">
         <SubNavDesktop navItems={navItems} />
-        <Outlet />
+        <Outlet context={{setSearchMatchRef}}/>
       </div>
       {today.toDateString() !==
         (localStorage.getItem('lastWOTDSeenOn') ?? '') && <WordOfTheDay />}

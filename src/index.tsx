@@ -20,9 +20,11 @@ import StoriesView from './components/stories-view/stories-view';
 import SongsView from './components/songs-view/songs-view';
 import FlashcardsView from './components/flashcards-view/flashcards-view';
 import ProfileView from './components/profile-view/profile-view';
+import RandomizedView from './components/randomized-view/randomized-view';
 import SettingsView from './components/settings-view/settings-view';
 import AboutView from './components/about-view/about-view';
 import PageNotFound from './components/common/page-not-found/page-not-found';
+import SearchProvider from './components/search-provider';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,6 +35,7 @@ const router = createBrowserRouter(
           <Route path="dictionary" element={<DictionaryView />} />
           <Route path="categories/:id" element={<CategoryView />} />
           <Route path="categories" element={<CategoriesView />} />
+          <Route path="randomized" element={<RandomizedView />} />
         </Route>
         <Route path="/" element={<Learn />} >
           <Route path="stories" element={<StoriesView />} />
@@ -54,7 +57,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <SearchProvider>
+      <RouterProvider router={router} />
+    </SearchProvider>
   </StrictMode>
 );
 

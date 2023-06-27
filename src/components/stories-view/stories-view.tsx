@@ -118,6 +118,7 @@ export function StoriesView(props: StoriesViewProps) {
                     {story?.coverVisual && (
                       <FvImage
                         className="h-full w-full object-contain shadow-lg"
+                        disabledClassName='text-6xl'
                         src={story?.coverVisual.file ?? ''}
                         alt={story?.title ?? ''}
                       />

@@ -3,12 +3,13 @@ import Alert from '../alert/alert';
 
 export interface FvImageProps {
   className?: string;
+  disabledClassName?: string;
   src: string;
   alt: string;
   onClick?: () => void;
 }
 
-export function FvImage({ className, src, alt, onClick }: FvImageProps) {
+export function FvImage({ className, disabledClassName, src, alt, onClick }: FvImageProps) {
   const [showAlt, setShowAlt] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
@@ -24,7 +25,7 @@ export function FvImage({ className, src, alt, onClick }: FvImageProps) {
     <>
       {showAlt ? (
         <div
-          className="fv-picture text-20xl text-gray-500/25"
+          className={`fv-picture text-20xl text-gray-500/25 ${disabledClassName}`}
           onClick={handleClick}
         ></div>
       ) : (
@@ -39,7 +40,7 @@ export function FvImage({ className, src, alt, onClick }: FvImageProps) {
 
       <Alert
         type={'warning'}
-        message="Image not able to be downloaded, please connect to internet"
+        message="Image not able to be downloaded, please connect to internet."
         showDismissButton={true}
         showAlert={showAlert}
         dismissAlert={function (): void {

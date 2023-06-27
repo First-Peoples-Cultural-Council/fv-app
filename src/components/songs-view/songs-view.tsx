@@ -106,6 +106,7 @@ export function SongsView(props: SongsViewProps) {
                     )}
                     {song?.coverVisual !== null && (
                       <FvImage
+                        disabledClassName='text-6xl'
                         src={song?.coverVisual.file}
                         alt={song?.coverVisual.title}
                       />

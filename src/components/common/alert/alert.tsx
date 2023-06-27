@@ -25,11 +25,7 @@ export function Alert({
 }: AlertProps) {
   if (showAlert) {
     return (
-      <div
-        className={classNames(styles['container'], {
-          'pointer-events-none': !makeBlocking,
-        })}
-      >
+      <div className={classNames(styles['container'], {})}>
         <div
           className={classNames('rounded-md p-4', styles['alert'], {
             'bg-yellow-50': type === 'warning',

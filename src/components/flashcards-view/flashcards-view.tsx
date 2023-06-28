@@ -2,11 +2,10 @@ import classNames from 'classnames';
 import { useButtonStyle } from '../common/hooks';
 import { useEffect, useRef, useState } from 'react';
 import useOnClickOutside from '../../util/clickOutside';
-import { Flashcard, FvAudio } from '../common/data';
+import { Flashcard, FvAudio, FvWord } from '../common/data';
 import shuffle from '../../util/shuffle';
-
-import { dataDict } from '../temp-word-list';
 import { dataCategories } from '../temp-category-list';
+import fetchWordsData from '../../services/wordsApiService';
 
 /* eslint-disable-next-line */
 export interface FlashcardsViewProps {}
@@ -21,7 +20,8 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   const [selectedFlashcardDisplayType, setSelectedFlashcardDisplayType] =
     useState('');
   const [flipped, setFlipped] = useState(false);
-  const [data, setData] = useState<any>();
+  const [dataDict, setDataDict] = useState<FvWord[]>([]);
+  const [data, setData] = useState<FvWord[]>([]);
   const [dataForFlashcardGroup, setDataForFlashcardGroup] = useState<any>();
   const [flashcardIndex, setFlashcardIndex] = useState<number>(0);
   const [flashcardData, setFlashcardData] = useState<Flashcard>();
@@ -40,6 +40,19 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   useOnClickOutside(CategoryModalRef, () => {
     setShowCategoryModal(false);
   });
+
+  useEffect(() => {
+    const fetchDataAsync = async () => {
+      try {
+        const result = await fetchWordsData();
+        setDataDict(result);
+      } catch (error) {
+        // Handle error scenarios
+      }
+    };
+
+    fetchDataAsync();
+  }, []);
 
   useEffect(() => {
     if (dataForFlashcardGroup) {

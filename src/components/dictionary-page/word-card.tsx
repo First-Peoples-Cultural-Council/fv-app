@@ -4,7 +4,8 @@ import { dataCategories } from '../temp-category-list';
 import { useButtonStyle } from '../common/hooks';
 import { FvAudio, FvWord } from '../common/data';
 
-function WordCard({ term }: FvWord) {
+function WordCard(props: { term: FvWord }) {
+  const { term } = props;
   const secondaryButtonStyle = useButtonStyle('secondary', 'button');
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 

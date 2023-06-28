@@ -6,7 +6,12 @@ function getRandomInt(min: number, max: number, crypto: any) {
 }
 
 function pickRandomItems(array: any[], count: number) {
-  const result = [];
+  const result: any[] = [];
+
+  if (array.length === 0) {
+    return result;
+  }
+
   const crypto = window.crypto || (window as any)?.msCrypto; // For IE support
 
   for (let i = 0; i < count; i++) {

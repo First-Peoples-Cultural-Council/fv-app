@@ -2,13 +2,13 @@ import classNames from 'classnames';
 import { Fragment, useEffect, useState } from 'react';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { dataAlphabet } from '../temp-alphabet-list';
-import { dataDict } from '../temp-word-list';
 import WordAlphabetRowCard from './word-row-card';
 import _ from 'lodash';
 import { useIsMobile } from '../../util/useMediaQuery';
-import { FvAudio, FvLetter } from '../common/data';
+import { FvAudio, FvLetter, FvWord } from '../common/data';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import { useButtonStyle } from '../common/hooks';
+import fetchWordsData from '../../services/wordsApiService';
 
 const dataAlphabetMap = _.keyBy(dataAlphabet, 'letter');
 
@@ -19,6 +19,7 @@ export function AlphabetView(props: AlphabetViewProps) {
   const { letter } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const [dataDict, setDataDict] = useState<FvWord[]>([]);
 
   const [selected, setSelected] = useState<FvLetter | null>(
     (dataAlphabet.find(
@@ -36,6 +37,19 @@ export function AlphabetView(props: AlphabetViewProps) {
   if (!useIsMobile() && selected === null) {
     setSelected(dataAlphabet[0]);
   }
+
+  useEffect(() => {
+    const fetchDataAsync = async () => {
+      try {
+        const result = await fetchWordsData();
+        setDataDict(result);
+      } catch (error) {
+        // Handle error scenarios
+      }
+    };
+
+    fetchDataAsync();
+  }, []);
 
   useEffect(() => {
     if (showMobileWordList) {

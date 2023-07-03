@@ -73,10 +73,10 @@ export function RandomizedView(props: WordsViewProps) {
           <i className="fv-arrows-cw text-lg" />
         </button>
       </div>
-      {subset.map((term, index) => {
+      {subset.map((term) => {
         return (
           <div
-            key={`${term.source}-${term.entryID}-${index}`}
+            key={`${term.source}-${term.entryID}-${Math.random()}`}
             id={`${term.source}-${term.entryID}`}
           >
             <WordCardMobile term={term} />

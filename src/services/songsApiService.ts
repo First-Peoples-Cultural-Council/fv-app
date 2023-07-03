@@ -1,18 +1,19 @@
 import axios from 'axios';
-import { FvWord } from '../components/common/data';
-import { dataDict } from '../components/temp-word-list';
+import { FVSong } from '../components/common/data';
+import { dataSongs } from '../components/temp-songs-list';
 import IndexedDBService from './indexedDbService';
 
-// export interface WordsDataResponse {
-//   data: FvWord[]
+// export interface SongsDataResponse {
+//   data: FvSongs[]
 // }
 
 const db = new IndexedDBService('firstVoicesIndexedDb');
 
-export const fetchWordsData = async (): Promise<FvWord[]> => {
+export const fetchSongsData = async (): Promise<FVSong[]> => {
   try {
+
     // Check the database to see if there is already data in there.
-    let data = await db.getData('words');
+    let data = await db.getData('songs');
     if (data) {
       return data;
     }
@@ -22,15 +23,15 @@ export const fetchWordsData = async (): Promise<FvWord[]> => {
     // const response = await axios.get(
     //   `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_SITE}`
     // );
-    data = dataDict; // TODO: TEMP.
+    data = dataSongs; // TODO: TEMP.
 
     // Store the data from the API call into the database.
-    await db.saveData('words', data);
+    await db.saveData('songs', data);
 
     return data;
   } catch (error) {
-    throw new Error('Failed to fetch data for the words from the API');
+    throw new Error('Failed to fetch data for the songs from the API');
   }
 };
 
-export default fetchWordsData;
+export default fetchSongsData;

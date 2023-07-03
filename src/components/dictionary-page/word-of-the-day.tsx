@@ -25,16 +25,16 @@ function WordOfTheDay() {
   }, []);
 
   useEffect(() => {
+    const fetchData = async () => {
+      setData(await getWordOfTheDay());
+    };
+
     fetchData().catch((err: any) => {
       console.log(err);
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
-
-  const fetchData = async () => {
-    setData(await getWordOfTheDay());
-  };
+  }, [dataDict]);
 
   return (
     <>
@@ -52,12 +52,15 @@ function WordOfTheDay() {
 
   async function getWordOfTheDay() {
     try {
+      console.log("getting word of the day data");
       const data = await fetchWordOfDayData();
+      console.log("returning word of the day data")
       return (
         dataDict.find((term) => term.entryID === data.dictionaryEntry.id) ??
         dataDict[Math.floor(Math.random() * dataDict.length)]
       );
     } catch (error: any) {
+      console.log("error getting word of the day data");
       return dataDict[Math.floor(Math.random() * dataDict.length)];
     }
   }

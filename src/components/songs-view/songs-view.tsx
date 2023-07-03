@@ -1,4 +1,3 @@
-import { dataSongs } from '../temp-songs-list';
 import { useEffect, useState } from 'react';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import { Bookmark, FVSong } from '../common/data/types';
@@ -6,6 +5,7 @@ import classNames from 'classnames';
 import { useLocation } from 'react-router';
 import IndexedDBService from '../../services/indexedDbService';
 import { useModal } from '../common/use-modal/use-modal';
+import fetchSongsData from '../../services/songsApiService';
 
 /* eslint-disable-next-line */
 export interface SongsViewProps {}
@@ -15,6 +15,7 @@ export function SongsView(props: SongsViewProps) {
   const { setShowModal, showModal, closeModal } = useModal();
 
   const [db, setDb] = useState<IndexedDBService>();
+  const [songsData, setSongsData] = useState<FVSong[]>([]);
   const [selectedSong, setSelectedSong] = useState<FVSong | null>(null);
   const [bookmark, setBookmark] = useState<Bookmark | null>(null);
   const [bookmarked, setBookmarked] = useState<boolean>(false);
@@ -25,12 +26,25 @@ export function SongsView(props: SongsViewProps) {
   } | null>(null);
 
   useEffect(() => {
+    const fetchDataAsync = async () => {
+      try {
+        const result = await fetchSongsData();
+        setSongsData(result);
+      } catch (error) {
+        // Handle error scenarios
+      }
+    };
+
+    fetchDataAsync();
+  }, []);
+
+  useEffect(() => {
     setDb(new IndexedDBService('firstVoicesIndexedDb'));
   }, []);
 
   useEffect(() => {
     const songId = location.hash.slice(1).split('?')[0];
-    const song = dataSongs.find((song) => song.id === songId);
+    const song = songsData.find((song) => song.id === songId);
     if (song) {
       setSelectedSong(song);
       if (window.matchMedia('(max-width: 1024px').matches) {
@@ -80,7 +94,7 @@ export function SongsView(props: SongsViewProps) {
     <>
       <div className="grid grid-cols-1 lg:grid-cols-2 w-full h-full">
         <div>
-          {dataSongs.map((song: FVSong) => {
+          {songsData.map((song: FVSong) => {
             return (
               <div
                 key={song.id}

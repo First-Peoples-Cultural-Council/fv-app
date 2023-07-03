@@ -1,18 +1,19 @@
 import axios from 'axios';
-import { FvWord } from '../components/common/data';
-import { dataDict } from '../components/temp-word-list';
+import { FVStory } from '../components/common/data';
+import { dataStories } from '../components/temp-stories-list';
 import IndexedDBService from './indexedDbService';
 
-// export interface WordsDataResponse {
-//   data: FvWord[]
+// export interface StoriesDataResponse {
+//   data: FvStory[]
 // }
 
 const db = new IndexedDBService('firstVoicesIndexedDb');
 
-export const fetchWordsData = async (): Promise<FvWord[]> => {
+export const fetchStoriesData = async (): Promise<FVStory[]> => {
   try {
+
     // Check the database to see if there is already data in there.
-    let data = await db.getData('words');
+    let data = await db.getData('stories');
     if (data) {
       return data;
     }
@@ -22,15 +23,15 @@ export const fetchWordsData = async (): Promise<FvWord[]> => {
     // const response = await axios.get(
     //   `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_SITE}`
     // );
-    data = dataDict; // TODO: TEMP.
+    data = dataStories; // TODO: TEMP.
 
     // Store the data from the API call into the database.
-    await db.saveData('words', data);
+    await db.saveData('stories', data);
 
     return data;
   } catch (error) {
-    throw new Error('Failed to fetch data for the words from the API');
+    throw new Error('Failed to fetch data for the stories from the API');
   }
 };
 
-export default fetchWordsData;
+export default fetchStoriesData;

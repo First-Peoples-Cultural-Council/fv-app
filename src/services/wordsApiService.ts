@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 import { FvWord } from '../components/common/data';
 import { dataDict } from '../components/temp-word-list';
 import IndexedDBService from './indexedDbService';

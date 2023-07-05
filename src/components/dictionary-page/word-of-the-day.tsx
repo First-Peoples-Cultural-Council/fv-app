@@ -52,15 +52,12 @@ function WordOfTheDay() {
 
   async function getWordOfTheDay() {
     try {
-      console.log("getting word of the day data");
       const data = await fetchWordOfDayData();
-      console.log("returning word of the day data")
       return (
         dataDict.find((term) => term.entryID === data.dictionaryEntry.id) ??
         dataDict[Math.floor(Math.random() * dataDict.length)]
       );
     } catch (error: any) {
-      console.log("error getting word of the day data");
       return dataDict[Math.floor(Math.random() * dataDict.length)];
     }
   }

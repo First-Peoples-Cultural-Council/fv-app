@@ -6,6 +6,7 @@ import MultiSwitch from '../common/multi-switch/multi-switch';
 import pickRandomItems from '../../util/randomSet';
 import { FvWord } from '../common/data';
 import fetchWordsData from '../../services/wordsApiService';
+import generateUniqueRandomItems from '../../util/randomSet';
 
 /* eslint-disable-next-line */
 export interface WordsViewProps {}
@@ -66,7 +67,7 @@ export function RandomizedView(props: WordsViewProps) {
         />
         <button
           onClick={() => {
-            setSubset(pickRandomItems(data, 10));
+            setSubset(generateUniqueRandomItems(data, 10));
           }}
           className="ml-4"
         >
@@ -76,7 +77,7 @@ export function RandomizedView(props: WordsViewProps) {
       {subset.map((term) => {
         return (
           <div
-            key={`${term.source}-${term.entryID}-${Math.random()}`}
+            key={`${term.source}-${term.entryID}`}
             id={`${term.source}-${term.entryID}`}
           >
             <WordCardMobile term={term} />

@@ -1,25 +1,19 @@
-function getRandomInt(min: number, max: number, crypto: any) {
-  const randomBytes = new Uint32Array(1);
-  crypto.getRandomValues(randomBytes);
-  const randomNumber = randomBytes[0] / (0xffffffff + 1);
-  return Math.floor(randomNumber * (max - min + 1)) + min;
-}
-
-function pickRandomItems(array: any[], count: number) {
-  const result: any[] = [];
-
-  if (array.length === 0) {
-    return result;
+function generateUniqueRandomItems(items: any[], count: number): any[] {
+  if (count > items.length - 1) {
+    count = items.length;
   }
 
-  const crypto = window.crypto || (window as any)?.msCrypto; // For IE support
+  const randomItems: any[] = [];
 
-  for (let i = 0; i < count; i++) {
-    const randomIndex = getRandomInt(0, array.length - 1, crypto);
-    result.push(array[randomIndex]);
+  while (randomItems.length < count) {
+    const randomIndex = Math.floor(Math.random() * (items.length - 1));
+    const randomItem = items[randomIndex];
+    if (!randomItems.includes(randomItem)) {
+      randomItems.push(randomItem);
+    }
   }
 
-  return result;
+  return randomItems;
 }
 
-export default pickRandomItems;
+export default generateUniqueRandomItems;

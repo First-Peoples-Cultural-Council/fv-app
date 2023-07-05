@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { dataCategories } from '../temp-category-list';
 import { useButtonStyle } from '../common/hooks';
 import { FvAudio, FvWord } from '../common/data';
+import { FvImage } from '../common/image/image';
 
 function WordCard({ term }: FvWord) {
   const secondaryButtonStyle = useButtonStyle('secondary', 'button');
@@ -38,7 +39,7 @@ function WordCard({ term }: FvWord) {
         </button>
       ))}
       {term.img && (
-        <img
+        <FvImage
           className="pt-10 max-w-sm max-h-sm"
           src={term.img}
           alt={term.word}

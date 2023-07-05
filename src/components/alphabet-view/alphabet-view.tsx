@@ -164,7 +164,11 @@ export function AlphabetView(props: AlphabetViewProps) {
         {alphabetRows.map((row) => {
           let showLetterDisplay = false;
           return (
-            <Fragment key={`row-${row}-${Math.random()}`}>
+            <Fragment
+              key={`row-${row.map((letterData) => {
+                return letterData.letter;
+              })}`}
+            >
               <div className="grid gap-4 md:gap-2 grid-cols-4 pb-4">
                 {row.map((letterData) => {
                   if (letterData === selected) {
@@ -172,7 +176,7 @@ export function AlphabetView(props: AlphabetViewProps) {
                   }
                   return (
                     <button
-                      key={`${letterData.letter}-${Math.random()}`}
+                      key={`${letterData.letter}`}
                       className={classNames(
                         'border col-span-1 font-medium inline-flex justify-center p-5 md:p-3 rounded shadow text-2xl',
                         {
@@ -235,7 +239,7 @@ export function AlphabetView(props: AlphabetViewProps) {
           }
           return (
             <div
-              key={`${term.source}-${term.entryID}-${Math.random()}`}
+              key={`${term.source}-${term.entryID}-example`}
               id={`${term.source}-${term.entryID}`}
             >
               <WordAlphabetRowCard term={term} />
@@ -285,7 +289,7 @@ export function AlphabetView(props: AlphabetViewProps) {
           })
           .map((term) => {
             return (
-              <Fragment key={`${term.source}-${term.entryID}-${Math.random()}`}>
+              <Fragment key={`${term.source}-${term.entryID}`}>
                 <WordAlphabetRowCard term={term} />
               </Fragment>
             );

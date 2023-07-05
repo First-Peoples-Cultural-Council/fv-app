@@ -3,7 +3,6 @@ import WordCardMobile from '../dictionary-page/word-card-mobile';
 import WordCardDesktop from '../dictionary-page/word-card-desktop';
 import { DictionaryType } from '../common/data/enums';
 import MultiSwitch from '../common/multi-switch/multi-switch';
-import pickRandomItems from '../../util/randomSet';
 import { FvWord } from '../common/data';
 import fetchWordsData from '../../services/wordsApiService';
 import generateUniqueRandomItems from '../../util/randomSet';
@@ -48,7 +47,7 @@ export function RandomizedView(props: WordsViewProps) {
   }, [selected, dataDict]);
 
   useEffect(() => {
-    setSubset(pickRandomItems(data, 10));
+    setSubset(generateUniqueRandomItems(data, 10));
   }, [data]);
 
   return (

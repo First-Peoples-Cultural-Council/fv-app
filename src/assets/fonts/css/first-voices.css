@@ -1,12 +1,12 @@
 @charset "UTF-8";
 @font-face {
-  font-family: 'first-voices', sans-serif;
-  src: url('../font/first-voices.eot?14136917');
-  src: url('../font/first-voices.eot?14136917#iefix') format('embedded-opentype'),
-       url('../font/first-voices.woff2?14136917') format('woff2'),
-       url('../font/first-voices.woff?14136917') format('woff'),
-       url('../font/first-voices.ttf?14136917') format('truetype'),
-       url('../font/first-voices.svg?14136917#first-voices') format('svg');
+  font-family: 'first-voices';
+  src: url('../font/first-voices.eot?14640590');
+  src: url('../font/first-voices.eot?14640590#iefix') format('embedded-opentype'),
+       url('../font/first-voices.woff2?14640590') format('woff2'),
+       url('../font/first-voices.woff?14640590') format('woff'),
+       url('../font/first-voices.ttf?14640590') format('truetype'),
+       url('../font/first-voices.svg?14640590#first-voices') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -16,12 +16,12 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'first-voices';
-    src: url('../font/first-voices.svg?14136917#first-voices') format('svg');
+    src: url('../font/first-voices.svg?14640590#first-voices') format('svg');
   }
 }
 */
 [class^="fv-"]:before, [class*=" fv-"]:before {
-  font-family: "first-voices", sans-serif;
+  font-family: "first-voices";
   font-style: normal;
   font-weight: normal;
   speak: never;

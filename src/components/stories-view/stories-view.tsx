@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import { Bookmark, FVStory } from '../common/data/types';
-import { dataStories } from '../temp-stories-list';
 import IndexedDBService from '../../services/indexedDbService';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import Modal from '../common/modal/modal';
 import { useModal } from '../common/use-modal/use-modal';
+import fetchStoriesData from '../../services/storiesApiService';
 import FvImage from '../common/image/image';
 
 /* eslint-disable-next-line */
@@ -17,6 +17,7 @@ export function StoriesView(props: StoriesViewProps) {
   const { setShowModal, showModal, closeModal } = useModal();
 
   const [db, setDb] = useState<IndexedDBService>();
+  const [storiesData, setStoriesData] = useState<FVStory[]>([]);
   const [selectedStory, setSelectedStory] = useState<FVStory | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(-2);
   const [bookmark, setBookmark] = useState<Bookmark | null>(null);
@@ -28,6 +29,19 @@ export function StoriesView(props: StoriesViewProps) {
     text: string;
     url: string;
   } | null>(null);
+
+  useEffect(() => {
+    const fetchDataAsync = async () => {
+      try {
+        const result = await fetchStoriesData();
+        setStoriesData(result);
+      } catch (error) {
+        // Handle error scenarios
+      }
+    };
+
+    fetchDataAsync();
+  }, []);
 
   useEffect(() => {
     if (
@@ -46,7 +60,7 @@ export function StoriesView(props: StoriesViewProps) {
 
   useEffect(() => {
     const storyId = location.hash.slice(1).split('?')[0];
-    const story = dataStories.find((story) => story.id === storyId);
+    const story = storiesData.find((story) => story.id === storyId);
     if (story) {
       setSelectedStory(story);
       setCurrentPage(-2);
@@ -95,7 +109,7 @@ export function StoriesView(props: StoriesViewProps) {
     <>
       <div className="grid grid-cols-1 w-full">
         <div className="">
-          {dataStories.map((story: FVStory) => {
+          {storiesData.map((story: FVStory) => {
             return (
               <div
                 key={story.id}

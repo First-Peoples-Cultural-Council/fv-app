@@ -1,5 +1,5 @@
 import { openDB, DBSchema, IDBPDatabase } from 'idb';
-import { Bookmark } from '../components/common/data';
+import { Bookmark, FvWord } from '../components/common/data';
 
 interface FVDB extends DBSchema {
   bookmarks: {
@@ -18,6 +18,10 @@ interface FVDB extends DBSchema {
     key: string;
     value: Blob;
   };
+  data: {
+    key: string;
+    value: FvWord[];
+  }
 }
 
 class IndexedDBService {
@@ -35,6 +39,9 @@ class IndexedDBService {
         }
         if (!db.objectStoreNames.contains('mediaFiles')) {
           db.createObjectStore('mediaFiles');
+        }
+        if (!db.objectStoreNames.contains('data')) {
+          db.createObjectStore('data');
         }
       },
     });
@@ -97,6 +104,21 @@ class IndexedDBService {
     const store = transaction.objectStore('mediaFiles');
     const mediaFile = await store.get(url);
     return mediaFile;
+  }
+
+  async saveData(key: string, data: FvWord[]) {
+    const db = await this.database;
+    const transaction = db.transaction('data', 'readwrite');
+    const store = transaction.objectStore('data');
+    await store.add(data, key);
+  }
+
+  async getData(key: string): Promise<any[] | undefined> {
+    const db = await this.database;
+    const transaction = db.transaction(['data'], 'readonly');
+    const store = transaction.objectStore('data');
+    const data = await store.get(key);
+    return data;
   }
 }
 

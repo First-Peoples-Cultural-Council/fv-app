@@ -1,24 +1,40 @@
 import React, { useEffect, useState } from 'react';
-import { dataDict } from '../temp-word-list';
 import WordModal from './word-modal';
 import Modal from '../common/modal/modal';
-import fetchWordOfDayData from '../../services/apiService';
+import fetchWordOfDayData from '../../services/wordOfTheDayApiService';
+import { FvWord } from '../common/data';
+import fetchWordsData from '../../services/wordsApiService';
 
 function WordOfTheDay() {
   const today = new Date();
   const [showModal, setShowModal] = React.useState(true);
   const [data, setData] = useState<any>(null);
+  const [dataDict, setDataDict] = useState<FvWord[]>([]);
 
   useEffect(() => {
+    const fetchDataAsync = async () => {
+      try {
+        const result = await fetchWordsData();
+        setDataDict(result);
+      } catch (error) {
+        // Handle error scenarios
+      }
+    };
+
+    fetchDataAsync();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setData(await getWordOfTheDay());
+    };
+
     fetchData().catch((err: any) => {
       console.log(err);
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
-  const fetchData = async () => {
-    setData(await getWordOfTheDay());
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataDict]);
 
   return (
     <>

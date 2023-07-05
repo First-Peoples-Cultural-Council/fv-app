@@ -62,24 +62,22 @@ export type Language = {
 };
 
 export type FvWord = {
-  term: {
-    source: string;
-    entryID: string;
-    word: string;
-    definition: string;
-    audio: FvAudio[];
-    img: string;
-    theme: string;
-    secondary_theme: string | null;
-    optional:
-      | {
-          [key: string]: string;
-        }[]
-      | null;
-    compare_form: string;
-    sort_form: string;
-    sorting_form: number[];
-  };
+  source: string;
+  entryID: string;
+  word: string;
+  definition: string;
+  audio: FvAudio[];
+  img: string;
+  theme: string;
+  secondary_theme: string | null;
+  optional:
+    | {
+        [key: string]: string;
+      }[]
+    | null;
+  compare_form: string;
+  sort_form: string;
+  sorting_form: number[];
 };
 
 export type FvAudio = {
@@ -92,7 +90,7 @@ export type SubNavItem = {
   path: string;
   activePathMatches?: { path: string }[];
   icon: string;
-  iconSize: string
+  iconSize: string;
   title: string;
   colors: {
     to: string;

@@ -7,6 +7,7 @@ import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import Modal from '../common/modal/modal';
 import { useModal } from '../common/use-modal/use-modal';
 import fetchStoriesData from '../../services/storiesApiService';
+import FvImage from '../common/image/image';
 
 /* eslint-disable-next-line */
 export interface StoriesViewProps {}
@@ -129,12 +130,12 @@ export function StoriesView(props: StoriesViewProps) {
                       </div>
                     )}
                     {story?.coverVisual && (
-                      <img
+                      <FvImage
                         className="h-full w-full object-contain shadow-lg"
+                        disabledClassName='text-6xl'
                         src={story?.coverVisual.file ?? ''}
                         alt={story?.title ?? ''}
-                        loading="lazy"
-                      ></img>
+                      />
                     )}
                   </div>
                   <div className="col-span-5">
@@ -270,7 +271,7 @@ export function StoriesView(props: StoriesViewProps) {
         <div className="flex flex-col h-full">
           <div className="h-3/5 flex-1">
             {selectedStory?.coverVisual && (
-              <img
+              <FvImage
                 className="h-full"
                 src={selectedStory?.coverVisual.file ?? ''}
                 alt={selectedStory?.title ?? ''}
@@ -313,7 +314,7 @@ export function StoriesView(props: StoriesViewProps) {
         <div className="flex w-full">
           {selectedStory?.images?.map((img) => {
             return (
-              <img
+              <FvImage
                 key={img.id}
                 className="h-[200px]"
                 src={img.file}
@@ -353,7 +354,7 @@ export function StoriesView(props: StoriesViewProps) {
         <div className="flex w-full justify-center">
           {selectedStory?.pages[currentPage]?.images?.map((img) => {
             return (
-              <img
+              <FvImage
                 key={img.id}
                 className="h-[300px] p-2"
                 src={img.file}
@@ -432,7 +433,7 @@ export function StoriesView(props: StoriesViewProps) {
   function pictureModal() {
     return (
       <>
-        <img className="w-full" src={pictureUrl} alt="" />
+        <FvImage className="w-full" src={pictureUrl} alt="" />
       </>
     );
   }

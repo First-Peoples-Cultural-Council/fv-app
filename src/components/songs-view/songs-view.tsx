@@ -6,6 +6,7 @@ import { useLocation } from 'react-router';
 import IndexedDBService from '../../services/indexedDbService';
 import { useModal } from '../common/use-modal/use-modal';
 import fetchSongsData from '../../services/songsApiService';
+import FvImage from '../common/image/image';
 
 /* eslint-disable-next-line */
 export interface SongsViewProps {}
@@ -118,10 +119,11 @@ export function SongsView(props: SongsViewProps) {
                       <div className="fv-songs text-5xl self-center border border-solid" />
                     )}
                     {song?.coverVisual !== null && (
-                      <img
+                      <FvImage
+                        disabledClassName='text-6xl'
                         src={song?.coverVisual.file}
                         alt={song?.coverVisual.title}
-                      ></img>
+                      />
                     )}
                   </div>
                   <div className="col-span-6">
@@ -156,10 +158,10 @@ export function SongsView(props: SongsViewProps) {
     return (
       <>
         {selectedSong?.coverVisual !== null && (
-          <img
+          <FvImage
             src={selectedSong?.coverVisual.file}
             alt={selectedSong?.coverVisual.title}
-          ></img>
+          />
         )}
         <div className="flex justify-between">
           <div>
@@ -199,7 +201,9 @@ export function SongsView(props: SongsViewProps) {
               );
             })}
             {selectedSong?.images?.slice(1).map((image) => {
-              return <img key={image.id} src={image.file} alt={image.title} />;
+              return (
+                <FvImage key={image.id} src={image.file} alt={image.title} />
+              );
             })}
           </>
         )}

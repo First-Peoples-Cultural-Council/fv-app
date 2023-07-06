@@ -26,7 +26,7 @@ import AboutView from './components/about-view/about-view';
 import PageNotFound from './components/common/page-not-found/page-not-found';
 import SearchProvider from './components/search-provider';
 
-const router = createBrowserRouter(
+export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<App />}>

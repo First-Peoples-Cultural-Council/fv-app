@@ -71,6 +71,7 @@ export function SongsView(props: SongsViewProps) {
       });
 
       setBookmark({
+        id: selectedSong.id,
         type: 'song',
         definition: selectedSong?.titleTranslation ?? '',
         name: selectedSong.title,

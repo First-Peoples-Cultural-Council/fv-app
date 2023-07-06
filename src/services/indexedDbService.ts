@@ -5,6 +5,7 @@ interface FVDB extends DBSchema {
   bookmarks: {
     key: string;
     value: {
+      id: string;
       type: string;
       name: string;
       definition: string;

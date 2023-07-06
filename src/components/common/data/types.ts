@@ -131,6 +131,7 @@ export type Flashcard = {
 };
 
 export type Bookmark = {
+  id: string;
   type: string;
   name: string;
   definition: string;

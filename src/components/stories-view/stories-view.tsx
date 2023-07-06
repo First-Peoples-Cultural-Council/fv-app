@@ -85,6 +85,7 @@ export function StoriesView(props: StoriesViewProps) {
       });
 
       setBookmark({
+        id: selectedStory.id,
         type: 'story',
         definition: selectedStory?.titleTranslation ?? '',
         name: selectedStory.title ?? '',

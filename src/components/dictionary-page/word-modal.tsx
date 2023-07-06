@@ -23,6 +23,7 @@ function WordModal(props: { term: FvWord }) {
   };
 
   const bookmark: Bookmark = {
+    id: term.entryID,
     type: term.source,
     definition: term.definition,
     name: term.word,

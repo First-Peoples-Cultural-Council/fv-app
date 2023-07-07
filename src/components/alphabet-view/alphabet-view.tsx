@@ -105,11 +105,15 @@ export function AlphabetView(props: AlphabetViewProps) {
           {selected?.letter}
         </div>
         {audioCount === 0 && (
-          <div className="flex w-full justify-center">{copyButton()}</div>
+          <div className="flex w-full justify-center">
+            {copyButton()}
+            {downloadButton()}
+          </div>
         )}
         {audioCount === 1 && (
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-3">
             {copyButton()}
+            {downloadButton()}
             {selected?.audio.map((fvAudio) => {
               return audioButton(fvAudio);
             })}
@@ -118,6 +122,7 @@ export function AlphabetView(props: AlphabetViewProps) {
         {audioCount > 1 && (
           <>
             <div className="flex w-full justify-center">{copyButton()}</div>
+            <div className="flex w-full justify-center">{downloadButton()}</div>
             <div className="flex justify-evenly mt-5">
               {selected?.audio.map((fvAudio) => {
                 return audioButton(fvAudio);
@@ -131,28 +136,40 @@ export function AlphabetView(props: AlphabetViewProps) {
 
   function copyButton() {
     return (
-      <button
-        onClick={() => {
-          navigator.clipboard
-            .writeText(selected?.letter ?? '')
-            .catch((err: any) => {
-              console.log(err);
-            });
-        }}
-      >
-        <span className="fv-copy text-4xl" />
-      </button>
+      <div className="flex justify-center items-center">
+        <span
+          className="fv-copy text-4xl cursor-pointer"
+          onClick={() => {
+            navigator.clipboard
+              .writeText(selected?.letter ?? '')
+              .catch((err: any) => {
+                console.log(err);
+              });
+          }}
+        />
+      </div>
+    );
+  }
+
+  function downloadButton() {
+    return (
+      <div className="flex justify-center items-center">
+        <span
+          className="fv-cloud-arrow-down-regular text-4xl justify-self-end cursor-pointer"
+          onClick={() => (letter ? downloadAssets(letter) : null)}
+        />
+      </div>
     );
   }
 
   function audioButton(fvAudio: FvAudio) {
     return (
-      <button
-        key={fvAudio.filename}
-        onClick={() => playAudio(fvAudio.filename)}
-      >
-        <span className="fv-volume-up text-4xl justify-self-end cursor-pointer" />
-      </button>
+      <div key={fvAudio.filename} className="flex justify-center items-center">
+        <span
+          className="fv-volume-up text-4xl justify-self-end cursor-pointer"
+          onClick={() => playAudio(fvAudio.filename)}
+        />
+      </div>
     );
   }
 
@@ -303,6 +320,10 @@ export function AlphabetView(props: AlphabetViewProps) {
     audio.play().catch((err: any) => {
       console.log(err);
     });
+  }
+
+  async function downloadAssets(letter: string) {
+    console.log('downloading assets for letter', letter);
   }
 }
 

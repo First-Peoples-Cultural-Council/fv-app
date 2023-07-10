@@ -31,7 +31,7 @@ function WordCard(props: { term: FvWord }) {
       </p>
       <p className="pt-10 pb-10">{term.definition}</p>
       {term.audio?.map((fvAudio: FvAudio) => (
-        <AudioButton fvAudio={fvAudio}/>
+        <AudioButton key={fvAudio.filename} fvAudio={fvAudio}/>
       ))}
       {term.img && (
         <FvImage

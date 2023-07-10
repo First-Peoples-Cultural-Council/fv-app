@@ -4,10 +4,10 @@ import { dataCategories } from '../temp-category-list';
 import { useButtonStyle } from '../common/hooks';
 import { FvAudio, FvWord } from '../common/data';
 import { FvImage } from '../common/image/image';
+import { AudioButton } from '../common/audio-button/audio';
 
 function WordCard(props: { term: FvWord }) {
   const { term } = props;
-  const secondaryButtonStyle = useButtonStyle('secondary', 'button');
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 
   const primaryCategory = dataCategories.find(
@@ -31,13 +31,7 @@ function WordCard(props: { term: FvWord }) {
       </p>
       <p className="pt-10 pb-10">{term.definition}</p>
       {term.audio?.map((fvAudio: FvAudio) => (
-        <button
-          key={fvAudio.filename}
-          className={secondaryButtonStyle}
-          onClick={() => playAudio(fvAudio.filename)}
-        >
-          <i className="fv-play">{fvAudio.speaker}</i>
-        </button>
+        <AudioButton fvAudio={fvAudio}/>
       ))}
       {term.img && (
         <FvImage
@@ -65,13 +59,6 @@ function WordCard(props: { term: FvWord }) {
       )}
     </>
   );
-}
-
-async function playAudio(fileName: string) {
-  const audio = new Audio(fileName);
-  audio.play().catch((err: any) => {
-    console.log(err);
-  });
 }
 
 export default WordCard;

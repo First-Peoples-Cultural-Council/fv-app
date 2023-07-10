@@ -7,7 +7,7 @@ import fetchWordsData from '../../services/wordsApiService';
 
 function WordOfTheDay() {
   const today = new Date();
-  const [showModal, setShowModal] = React.useState(true);
+  const [showModal, setShowModal] = React.useState(false);
   const [data, setData] = useState<any>(null);
   const [dataDict, setDataDict] = useState<FvWord[]>([]);
 
@@ -22,7 +22,25 @@ function WordOfTheDay() {
     };
 
     fetchDataAsync();
+
+    if (today.toDateString() !==
+      (localStorage.getItem('lastWOTDSeenOn') ?? '')) {
+      setShowModal(true);
+    }
+
   }, []);
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.classList.add('word-of-the-day-modal-open');
+    } else {
+      document.body.classList.remove('word-of-the-day-modal-open');
+    }
+
+    return () => {
+      document.body.classList.remove('word-of-the-day-modal-open');
+    }
+  }, [showModal]);
 
   useEffect(() => {
     const fetchData = async () => {

@@ -2,10 +2,11 @@ import classNames from 'classnames';
 import { useButtonStyle } from '../common/hooks';
 import { useEffect, useRef, useState } from 'react';
 import useOnClickOutside from '../../util/clickOutside';
-import { Flashcard, FvAudio, FvWord } from '../common/data';
+import { Bookmark, Flashcard, FvAudio, FvWord } from '../common/data';
 import shuffle from '../../util/shuffle';
 import { dataCategories } from '../temp-category-list';
 import fetchWordsData from '../../services/wordsApiService';
+import IndexedDBService from '../../services/indexedDbService';
 
 /* eslint-disable-next-line */
 export interface FlashcardsViewProps {}
@@ -20,7 +21,9 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   const [selectedFlashcardDisplayType, setSelectedFlashcardDisplayType] =
     useState('');
   const [flipped, setFlipped] = useState(false);
-  const [dataDict, setDataDict] = useState<FvWord[]>([]);
+  const [db, setDb] = useState<IndexedDBService>();
+  const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
+  const [dictionaryData, setDataDict] = useState<FvWord[]>([]);
   const [data, setData] = useState<FvWord[]>([]);
   const [dataForFlashcardGroup, setDataForFlashcardGroup] = useState<any>();
   const [flashcardIndex, setFlashcardIndex] = useState<number>(0);
@@ -42,6 +45,8 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   });
 
   useEffect(() => {
+    setDb(new IndexedDBService('firstVoicesIndexedDb'));
+
     const fetchDataAsync = async () => {
       try {
         const result = await fetchWordsData();
@@ -53,6 +58,18 @@ export function FlashcardsView(props: FlashcardsViewProps) {
 
     fetchDataAsync();
   }, []);
+
+  useEffect(() => {
+    const usersBookmarks = async () => {
+      if (db) {
+        await setUsersBookmarks();
+      }
+    };
+    usersBookmarks().catch((err) => {
+      console.log(err);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [db]);
 
   useEffect(() => {
     if (dataForFlashcardGroup) {
@@ -79,6 +96,10 @@ export function FlashcardsView(props: FlashcardsViewProps) {
     }
   }, [flashcardData]);
 
+  async function setUsersBookmarks() {
+    setBookmarks((await db?.getBookmarks()) ?? []);
+  }
+
   return (
     <>
       <div className="w-full">
@@ -86,22 +107,30 @@ export function FlashcardsView(props: FlashcardsViewProps) {
           {flashCardType('Words', 'fv-wordsfc', () => {
             setSelectedFlashcardDisplayType('');
             saveDataForFlashcards(
-              dataDict.filter((entry) => entry.source === 'words')
+              dictionaryData.filter((entry) => entry.source === 'words')
             );
           })}
           {flashCardType('Phrases', 'fv-phrasesfc', () => {
             setSelectedFlashcardDisplayType('');
             saveDataForFlashcards(
-              dataDict.filter((entry) => entry.source === 'phrases')
+              dictionaryData.filter((entry) => entry.source === 'phrases')
             );
           })}
           {flashCardType('Category', 'fv-categories', () => {
             setSelectedFlashcardDisplayType('');
             setShowCategoryModal(true);
           })}
-          {flashCardType('Bookmarks', 'fv-bookmarks', () => {
+          {flashCardType('Bookmarks', 'fv-bookmark', () => {
             setSelectedFlashcardDisplayType('');
-            // TODO:
+            saveDataForFlashcards(
+              dictionaryData.filter((entry) =>
+                bookmarks.some(
+                  (bookmark) =>
+                    bookmark.id === entry.entryID &&
+                    bookmark.type === entry.source
+                )
+              )
+            );
           })}
         </div>
       </div>
@@ -171,7 +200,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                       category.name,
                       category.icon ?? 'fv-categories',
                       () => {
-                        const categoryData = dataDict.filter((term) => {
+                        const categoryData = dictionaryData.filter((term) => {
                           return (
                             term.theme === category.id ||
                             term.secondary_theme === category.id
@@ -334,6 +363,11 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   );
 
   function saveDataForFlashcards(data: any[]) {
+    // Don't continue if there is no data to show.
+    if (data.length === 0) {
+      return;
+    }
+
     const shuffledData = shuffle(data);
     const flashcardSet = shuffledData.slice(0, flashcardsBatchSize);
     const remainingData = shuffledData.slice(flashcardsBatchSize + 1);

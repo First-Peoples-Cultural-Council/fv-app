@@ -9,6 +9,9 @@ import { FvAudio, FvLetter, FvWord } from '../common/data';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import { useButtonStyle } from '../common/hooks';
 import fetchWordsData from '../../services/wordsApiService';
+import axios from 'axios';
+import ConfirmDialog from '../common/confirm/confirm';
+import Modal from '../common/modal/modal';
 
 const dataAlphabetMap = _.keyBy(dataAlphabet, 'letter');
 
@@ -20,7 +23,6 @@ export function AlphabetView(props: AlphabetViewProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const [dataDict, setDataDict] = useState<FvWord[]>([]);
-
   const [selected, setSelected] = useState<FvLetter | null>(
     (dataAlphabet.find(
       (letterData) => letterData.letter === decodeURIComponent(letter ?? '')
@@ -31,6 +33,10 @@ export function AlphabetView(props: AlphabetViewProps) {
       !location.hash.startsWith('#') &&
       !window.matchMedia('(min-width: 768px').matches
   );
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [downloadPercentage, setDownloadedPercentage] = useState(0);
+  const [showDownloadProgress, setShowDownloadProgress] = useState(false);
+  const [currentlyDownloading, setCurrentlyDownloading] = useState(false);
 
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 
@@ -84,6 +90,34 @@ export function AlphabetView(props: AlphabetViewProps) {
         >
           {wordList()}
         </FullScreenModal>
+      )}
+      {showConfirmDialog && (
+        <ConfirmDialog
+          title="Confirm Download"
+          message="Are you sure you want to download all of the media files for this letter?"
+          onConfirm={() => downloadAssets()}
+          onCancel={() => setShowConfirmDialog(false)}
+        />
+      )}
+      {showDownloadProgress && (
+        <Modal
+          title="Download Progress"
+          onClose={() => setShowDownloadProgress(false)}
+        >
+          <>
+            <div className="grid place-items-center">
+              <div className={`rounded-md bg-gray-300 w-[400px] h-2 ml-10 mr-10`}>
+                <div
+                  className={`rounded-l-md bg-green-500 h-2`}
+                  style={{
+                    width: `${downloadPercentage}%`,
+                  }}
+                />
+              </div>
+              <div className="text-xl p-2">{downloadPercentage}%</div>
+            </div>
+          </>
+        </Modal>
       )}
     </>
   );
@@ -156,7 +190,7 @@ export function AlphabetView(props: AlphabetViewProps) {
       <div className="flex justify-center items-center">
         <span
           className="fv-cloud-arrow-down-regular text-4xl justify-self-end cursor-pointer"
-          onClick={() => (letter ? downloadAssets(letter) : null)}
+          onClick={() => promptForDownload()}
         />
       </div>
     );
@@ -322,8 +356,59 @@ export function AlphabetView(props: AlphabetViewProps) {
     });
   }
 
-  async function downloadAssets(letter: string) {
-    console.log('downloading assets for letter', letter);
+  async function promptForDownload() {
+    if (currentlyDownloading) {
+      setShowDownloadProgress(true);
+    } else {
+      setShowConfirmDialog(true);
+    }
+  }
+
+  async function downloadAssets() {
+    setDownloadedPercentage(0);
+    setCurrentlyDownloading(true);
+
+    const mediaList: Set<string> = new Set();
+
+    // Get a list of the assets associated with the words/phrases
+    // that start with the selected letter.
+    dataDict
+      .filter((term) => {
+        return term.word.startsWith(selected?.letter ?? '');
+      })
+      .forEach((term) => {
+        // Get the image associated with the word/phrase.
+        mediaList.add(term.img);
+        // Get all of the audio files associated with the word/phrase.
+        term.audio.forEach((audio) => {
+          mediaList.add(audio.filename);
+        });
+      });
+
+    // If there is media to download get it and update the percentage.
+    if (mediaList.size > 0) {
+      const promises: Promise<void>[] = [];
+
+      setShowDownloadProgress(true);
+      let downloadComplete = 0;
+
+      mediaList.forEach((media) => {
+        const promise = new Promise<void>(async (resolve) => {
+          await axios.get(media);
+          downloadComplete++;
+          setDownloadedPercentage(
+            Math.round((downloadComplete / mediaList.size) * 100)
+          );
+          resolve();
+        });
+
+        promises.push(promise);
+      });
+
+      await Promise.all(promises);
+      setCurrentlyDownloading(false);
+      setShowDownloadProgress(false);
+    }
   }
 }
 

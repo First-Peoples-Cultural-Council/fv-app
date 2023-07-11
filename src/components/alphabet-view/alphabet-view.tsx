@@ -106,7 +106,9 @@ export function AlphabetView(props: AlphabetViewProps) {
         >
           <>
             <div className="grid place-items-center">
-              <div className={`rounded-md bg-gray-300 w-[400px] h-2 ml-10 mr-10`}>
+              <div
+                className={`rounded-md bg-gray-300 w-[400px] h-2 ml-10 mr-10`}
+              >
                 <div
                   className={`rounded-l-md bg-green-500 h-2`}
                   style={{
@@ -393,13 +395,21 @@ export function AlphabetView(props: AlphabetViewProps) {
       let downloadComplete = 0;
 
       mediaList.forEach((media) => {
-        const promise = new Promise<void>(async (resolve) => {
-          await axios.get(media);
-          downloadComplete++;
-          setDownloadedPercentage(
-            Math.round((downloadComplete / mediaList.size) * 100)
-          );
-          resolve();
+        const promise = new Promise<void>((resolve) => {
+          axios
+            .get(media)
+            .then(() => {
+              downloadComplete++;
+              setDownloadedPercentage(
+                Math.round((downloadComplete / mediaList.size) * 100)
+              );
+              resolve();
+            })
+            .catch((error) => {
+              // Handle error
+              console.error('Error occurred:', error);
+              resolve();
+            });
         });
 
         promises.push(promise);

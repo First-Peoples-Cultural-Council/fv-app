@@ -35,6 +35,7 @@
 .fv-flashcard:before { content: '\e820'; } /* '' */
 .fv-picture:before { content: '\e821'; } /* '' */
 .fv-cloud-arrow-down-regular:before { content: '\e822'; } /* '' */
+.fv-video:before { content: '\e823'; } /* '' */
 .fv-cog:before { content: '\f013'; } /* '' */
 .fv-bookmark-empty:before { content: '\f097'; } /* '' */
 .fv-menu:before { content: '\f0c9'; } /* '' */

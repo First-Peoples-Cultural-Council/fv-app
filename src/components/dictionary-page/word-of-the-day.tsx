@@ -7,6 +7,7 @@ import fetchWordsData from '../../services/wordsApiService';
 
 function WordOfTheDay() {
   const today = new Date();
+
   const [showModal, setShowModal] = React.useState(false);
   const [data, setData] = useState<any>(null);
   const [dataDict, setDataDict] = useState<FvWord[]>([]);
@@ -28,6 +29,7 @@ function WordOfTheDay() {
       setShowModal(true);
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

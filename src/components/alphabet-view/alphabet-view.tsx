@@ -94,7 +94,9 @@ export function AlphabetView(props: AlphabetViewProps) {
       {showConfirmDialog && (
         <ConfirmDialog
           title="Confirm Download"
-          message="Are you sure you want to download all of the media files for this letter?"
+          message="You are about to download all the media files for this letter."
+          confirmLabel="Continue"
+          cancelLabel="No, Thanks"
           onConfirm={() => downloadAssets()}
           onCancel={() => setShowConfirmDialog(false)}
         />

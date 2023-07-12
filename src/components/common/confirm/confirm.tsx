@@ -5,6 +5,8 @@ import Modal from '../modal/modal';
 type ConfirmDialogProps = {
   title: string;
   message: string;
+  confirmLabel?: string;
+  cancelLabel?: string;
   onConfirm: () => void;
   onCancel: () => void;
 };
@@ -12,6 +14,8 @@ type ConfirmDialogProps = {
 export function ConfirmDialog({
   title,
   message,
+  confirmLabel = "Confirm",
+  cancelLabel = "Cancel",
   onConfirm,
   onCancel,
 }: ConfirmDialogProps) {
@@ -36,13 +40,13 @@ export function ConfirmDialog({
             className={classNames('mr-2', primaryButtonStyle)}
             onClick={handleConfirm}
           >
-            Confirm
+            {confirmLabel}
           </button>
           <button
             className={classNames('mr-2', secondaryButtonStyle)}
             onClick={closeModal}
           >
-            Cancel
+            {cancelLabel}
           </button>
         </div>
       </div>

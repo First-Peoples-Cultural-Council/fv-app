@@ -9,6 +9,9 @@ import { FvAudio, FvLetter, FvWord } from '../common/data';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import { useButtonStyle } from '../common/hooks';
 import fetchWordsData from '../../services/wordsApiService';
+import axios from 'axios';
+import ConfirmDialog from '../common/confirm/confirm';
+import Modal from '../common/modal/modal';
 
 const dataAlphabetMap = _.keyBy(dataAlphabet, 'letter');
 
@@ -20,7 +23,6 @@ export function AlphabetView(props: AlphabetViewProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const [dataDict, setDataDict] = useState<FvWord[]>([]);
-
   const [selected, setSelected] = useState<FvLetter | null>(
     (dataAlphabet.find(
       (letterData) => letterData.letter === decodeURIComponent(letter ?? '')
@@ -31,6 +33,10 @@ export function AlphabetView(props: AlphabetViewProps) {
       !location.hash.startsWith('#') &&
       !window.matchMedia('(min-width: 768px').matches
   );
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [downloadPercentage, setDownloadedPercentage] = useState(0);
+  const [showDownloadProgress, setShowDownloadProgress] = useState(false);
+  const [currentlyDownloading, setCurrentlyDownloading] = useState(false);
 
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 
@@ -85,6 +91,36 @@ export function AlphabetView(props: AlphabetViewProps) {
           {wordList()}
         </FullScreenModal>
       )}
+      {showConfirmDialog && (
+        <ConfirmDialog
+          title="Confirm Download"
+          message="Are you sure you want to download all of the media files for this letter?"
+          onConfirm={() => downloadAssets()}
+          onCancel={() => setShowConfirmDialog(false)}
+        />
+      )}
+      {showDownloadProgress && (
+        <Modal
+          title="Download Progress"
+          onClose={() => setShowDownloadProgress(false)}
+        >
+          <>
+            <div className="grid place-items-center">
+              <div
+                className={`rounded-md bg-gray-300 w-[400px] h-2 ml-10 mr-10`}
+              >
+                <div
+                  className={`rounded-l-md bg-green-500 h-2`}
+                  style={{
+                    width: `${downloadPercentage}%`,
+                  }}
+                />
+              </div>
+              <div className="text-xl p-2">{downloadPercentage}%</div>
+            </div>
+          </>
+        </Modal>
+      )}
     </>
   );
 
@@ -105,11 +141,15 @@ export function AlphabetView(props: AlphabetViewProps) {
           {selected?.letter}
         </div>
         {audioCount === 0 && (
-          <div className="flex w-full justify-center">{copyButton()}</div>
+          <div className="flex w-full justify-center">
+            {copyButton()}
+            {downloadButton()}
+          </div>
         )}
         {audioCount === 1 && (
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-3">
             {copyButton()}
+            {downloadButton()}
             {selected?.audio.map((fvAudio) => {
               return audioButton(fvAudio);
             })}
@@ -118,6 +158,7 @@ export function AlphabetView(props: AlphabetViewProps) {
         {audioCount > 1 && (
           <>
             <div className="flex w-full justify-center">{copyButton()}</div>
+            <div className="flex w-full justify-center">{downloadButton()}</div>
             <div className="flex justify-evenly mt-5">
               {selected?.audio.map((fvAudio) => {
                 return audioButton(fvAudio);
@@ -131,28 +172,40 @@ export function AlphabetView(props: AlphabetViewProps) {
 
   function copyButton() {
     return (
-      <button
-        onClick={() => {
-          navigator.clipboard
-            .writeText(selected?.letter ?? '')
-            .catch((err: any) => {
-              console.log(err);
-            });
-        }}
-      >
-        <span className="fv-copy text-4xl" />
-      </button>
+      <div className="flex justify-center items-center">
+        <span
+          className="fv-copy text-4xl cursor-pointer"
+          onClick={() => {
+            navigator.clipboard
+              .writeText(selected?.letter ?? '')
+              .catch((err: any) => {
+                console.log(err);
+              });
+          }}
+        />
+      </div>
+    );
+  }
+
+  function downloadButton() {
+    return (
+      <div className="flex justify-center items-center">
+        <span
+          className="fv-cloud-arrow-down-regular text-4xl justify-self-end cursor-pointer"
+          onClick={() => promptForDownload()}
+        />
+      </div>
     );
   }
 
   function audioButton(fvAudio: FvAudio) {
     return (
-      <button
-        key={fvAudio.filename}
-        onClick={() => playAudio(fvAudio.filename)}
-      >
-        <span className="fv-volume-up text-4xl justify-self-end cursor-pointer" />
-      </button>
+      <div key={fvAudio.filename} className="flex justify-center items-center">
+        <span
+          className="fv-volume-up text-4xl justify-self-end cursor-pointer"
+          onClick={() => playAudio(fvAudio.filename)}
+        />
+      </div>
     );
   }
 
@@ -303,6 +356,69 @@ export function AlphabetView(props: AlphabetViewProps) {
     audio.play().catch((err: any) => {
       console.log(err);
     });
+  }
+
+  async function promptForDownload() {
+    if (currentlyDownloading) {
+      setShowDownloadProgress(true);
+    } else {
+      setShowConfirmDialog(true);
+    }
+  }
+
+  async function downloadAssets() {
+    setDownloadedPercentage(0);
+    setCurrentlyDownloading(true);
+
+    const mediaList: Set<string> = new Set();
+
+    // Get a list of the assets associated with the words/phrases
+    // that start with the selected letter.
+    dataDict
+      .filter((term) => {
+        return term.word.startsWith(selected?.letter ?? '');
+      })
+      .forEach((term) => {
+        // Get the image associated with the word/phrase.
+        mediaList.add(term.img);
+        // Get all of the audio files associated with the word/phrase.
+        term.audio.forEach((audio) => {
+          mediaList.add(audio.filename);
+        });
+      });
+
+    // If there is media to download get it and update the percentage.
+    if (mediaList.size > 0) {
+      const promises: Promise<void>[] = [];
+
+      setShowDownloadProgress(true);
+      let downloadComplete = 0;
+
+      mediaList.forEach((media) => {
+        const promise = new Promise<void>((resolve) => {
+          axios
+            .get(media)
+            .then(() => {
+              downloadComplete++;
+              setDownloadedPercentage(
+                Math.round((downloadComplete / mediaList.size) * 100)
+              );
+              resolve();
+            })
+            .catch((error) => {
+              // Handle error
+              console.error('Error occurred:', error);
+              resolve();
+            });
+        });
+
+        promises.push(promise);
+      });
+
+      await Promise.all(promises);
+      setCurrentlyDownloading(false);
+      setShowDownloadProgress(false);
+    }
   }
 }
 

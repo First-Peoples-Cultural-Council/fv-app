@@ -441,6 +441,12 @@
       "search": [
         "cloud-arrow-down-regular"
       ]
+    },
+    {
+      "uid": "872d9516df93eb6b776cc4d94bd97dac",
+      "css": "video",
+      "code": 59427,
+      "src": "fontawesome"
     }
   ]
 }

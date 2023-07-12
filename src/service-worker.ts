@@ -96,7 +96,7 @@ self.addEventListener('fetch', function (event) {
         const response = await fetch(event.request);
 
         // Check to see if the app should cache the file.
-        if (endsWithAny(url, ['.jpg', '.png', '.gif', '.mp3', '.wav'])) {
+        if (endsWithAny(url, ['.jpg', '.png', '.gif', '.mp3', '.wav', '.mp4'])) {
           if (await db.hasMediaFile(url)) {
             const blob = (await db.getMediaFile(url)) as Blob;
             const file = new File([blob], getFileNameFromUrl(url), {

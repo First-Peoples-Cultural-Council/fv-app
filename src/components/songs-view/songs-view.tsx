@@ -7,6 +7,7 @@ import IndexedDBService from '../../services/indexedDbService';
 import { useModal } from '../common/use-modal/use-modal';
 import fetchSongsData from '../../services/songsApiService';
 import FvImage from '../common/image/image';
+import FvVideo from '../common/video/video';
 
 /* eslint-disable-next-line */
 export interface SongsViewProps {}
@@ -121,7 +122,7 @@ export function SongsView(props: SongsViewProps) {
                     )}
                     {song?.coverVisual !== null && (
                       <FvImage
-                        disabledClassName='text-6xl'
+                        disabledClassName="text-6xl"
                         src={song?.coverVisual.file}
                         alt={song?.coverVisual.title}
                       />
@@ -196,9 +197,12 @@ export function SongsView(props: SongsViewProps) {
             <div className="p-2 text-lg font-bold">MEDIA</div>
             {selectedSong?.videos?.map((video) => {
               return (
-                <video key={video.id} controls>
-                  <source src={video.file} type="video/mp4" />
-                </video>
+                <FvVideo
+                  key={video.id}
+                  className=""
+                  disabledClassName=""
+                  src={video.file}
+                />
               );
             })}
             {selectedSong?.images?.slice(1).map((image) => {

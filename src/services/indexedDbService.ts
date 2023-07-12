@@ -121,6 +121,18 @@ class IndexedDBService {
     const data = await store.get(key);
     return data;
   }
+
+  async clearMediaFilesCollection() {
+    try {
+      const db = await this.database;
+      const transaction = db.transaction('mediaFiles', 'readwrite');
+      const store = transaction.objectStore('mediaFiles');
+      store.clear();
+    } catch (error) {
+      // Handle the error
+      console.error('Error clearing mediaFiles collection:', error);
+    }
+  }
 }
 
 export default IndexedDBService;

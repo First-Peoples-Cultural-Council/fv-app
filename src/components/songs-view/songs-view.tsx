@@ -177,9 +177,9 @@ export function SongsView(props: SongsViewProps) {
 
         {selectedSong?.relatedAudio?.map((audio) => {
           return (
-            <div className="mt-6 p-2">
+            <div key={audio.original.path} className="mt-6 p-2">
               {audio?.title && <div className="font-bold">{audio?.title}</div>}
-              <audio key={audio.original.path} controls className="mt-1">
+              <audio controls className="mt-1">
                 <source
                   src={audio.original.path}
                   type={audio.original.mimetype}

@@ -146,28 +146,35 @@ export type DeleteListType = {
 };
 
 export type FVSong = {
+  acknowledgements: string[];
+  coverImage: FVMedia | null;
+  created: string;
+  excludeFromGames: boolean;
+  excludeFromKids: boolean;
+  hideOverlay: boolean
   id: string;
-  type: string;
+  introduction: string;
+  introductionTranslation: string;
+  lastModified: string;
+  lyrics: FVContent[];
+  notes: string[];
+  relatedAudio: FVMedia[];
+  relatedImages: FVMedia[];
+  relatedVideos: FVMedia[];
   title: string;
-  titleTranslation: string | null;
-  coverVisual: FvMedia | null;
-  introduction: FVContent | null;
-  lyrics: FVContent | null;
-  author: string | null;
-  images: FvMedia[];
-  audio: FvMedia[];
-  videos: FvMedia[];
+  titleTranslation: string;
 };
 
 export type FVPage = {
   order: number;
   content: FVContent;
-  audio: FvMedia[];
-  videos: FvMedia[];
-  images: FvMedia[];
+  audio: FVMedia[];
+  videos: FVMedia[];
+  images: FVMedia[];
 };
 
 export type FVContent = {
+  id: string;
   text: string;
   translation: string;
 };
@@ -177,19 +184,37 @@ export type FVStory = {
   title: string | null;
   titleTranslation: string | null;
   author_name: string | null;
-  coverVisual: FvMedia | null;
+  coverVisual: FVMedia | null;
   intro: FVContent | null;
   acknowledgements: string[];
   notes: string[];
-  audio: FvMedia[];
-  videos: FvMedia[];
-  images: FvMedia[];
+  audio: FVMedia[];
+  videos: FVMedia[];
+  images: FVMedia[];
   pages: FVPage[];
 };
 
-export type FvMedia = {
+export type FVMedia = {
+  acknowledgement: string;
+  description: string;
+  excludeFromGames: boolean;
+  excludeFromKids: boolean;
   id: string;
+  isShared: boolean;
+  original: FVFile;
+  speakers: FVPeople[];
   title: string;
-  file: string;
-  mimetype: string;
+  url: string;
 };
+
+export type FVFile = {
+  mimetype: string;
+  path: string;
+}
+
+export type FVPeople = {
+  bio: string;
+  id: string;
+  name: string;
+  url: string;
+}

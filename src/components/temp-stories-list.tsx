@@ -7,8 +7,10 @@ export const dataStories = [
     coverVisual: {
       id: '23',
       title: '',
-      file: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
-      mimetype: '',
+      original: {
+        path: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
+        mimetype: '',
+      },
     },
     intro: {
       text: 'A story about a girl who is given to the great Owl as his wife, but she is unhappy being the owls wife.',
@@ -20,22 +22,28 @@ export const dataStories = [
       {
         id: '3241',
         title: '',
-        file: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/90609112-0181-49f3-9ed9-00de1373f195/file:content/TestWav.wav',
-        mimetype: '',
+        original: {
+          path: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/90609112-0181-49f3-9ed9-00de1373f195/file:content/TestWav.wav',
+          mimetype: '',
+        },
       },
     ],
     images: [
       {
         id: '54654654',
         title: '',
-        file: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
-        mimetype: '',
+        original: {
+          path: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
+          mimetype: '',
+        },
       },
       {
         id: '523424654654',
         title: '',
-        file: 'https://v2.dev.firstvoices.com/nuxeo/nxpicsfile/default/f17d278b-150e-41c7-961d-5af7512254e7/Medium:content/',
-        mimetype: '',
+        original: {
+          path: 'https://v2.dev.firstvoices.com/nuxeo/nxpicsfile/default/f17d278b-150e-41c7-961d-5af7512254e7/Medium:content/',
+          mimetype: '',
+        },
       },
     ],
     videos: [],
@@ -53,8 +61,10 @@ export const dataStories = [
           {
             id: '2341423',
             title: '',
-            file: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
-            mimetype: '',
+            original: {
+              path: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
+              mimetype: '',
+            },
           },
         ],
       },
@@ -71,8 +81,10 @@ export const dataStories = [
           {
             id: '',
             title: '',
-            file: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
-            mimetype: '',
+            original: {
+              path: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
+              mimetype: '',
+            },
           },
         ],
       },
@@ -87,8 +99,10 @@ export const dataStories = [
           {
             id: '',
             title: '',
-            file: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
-            mimetype: '',
+            original: {
+              path: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
+              mimetype: '',
+            },
           },
         ],
         audio: [],
@@ -105,22 +119,28 @@ export const dataStories = [
           {
             id: '2312141',
             title: '',
-            file: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
-            mimetype: '',
+            original: {
+              path: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
+              mimetype: '',
+            },
           },
           {
             id: '23453123',
             title: '',
-            file: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
-            mimetype: '',
+            original: {
+              path: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
+              mimetype: '',
+            },
           },
         ],
         audio: [
           {
             id: '234131566111',
             title: '',
-            file: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/90609112-0181-49f3-9ed9-00de1373f195/file:content/TestWav.wav',
-            mimetype: '',
+            original: {
+              path: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/90609112-0181-49f3-9ed9-00de1373f195/file:content/TestWav.wav',
+              mimetype: '',
+            },
           },
         ],
         videos: [],
@@ -136,8 +156,10 @@ export const dataStories = [
           {
             id: '23151951',
             title: '',
-            file: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
-            mimetype: '',
+            original: {
+              path: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
+              mimetype: '',
+            },
           },
         ],
         audio: [],
@@ -154,14 +176,18 @@ export const dataStories = [
           {
             id: '23498892381',
             title: '',
-            file: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
-            mimetype: '',
+            original: {
+              path: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
+              mimetype: '',
+            },
           },
           {
             id: '23994252',
             title: '',
-            file: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
-            mimetype: '',
+            original: {
+              path: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
+              mimetype: '',
+            },
           },
         ],
         audio: [],
@@ -178,8 +204,10 @@ export const dataStories = [
           {
             id: '324981081',
             title: '',
-            file: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
-            mimetype: '',
+            original: {
+              path: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
+              mimetype: '',
+            },
           },
         ],
         audio: [],
@@ -196,14 +224,18 @@ export const dataStories = [
           {
             id: '8923041081234',
             title: '',
-            file: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
-            mimetype: '',
+            original: {
+              path: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
+              mimetype: '',
+            },
           },
           {
             id: '324231423412',
             title: '',
-            file: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
-            mimetype: '',
+            original: {
+              path: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
+              mimetype: '',
+            },
           },
         ],
         audio: [],
@@ -220,14 +252,18 @@ export const dataStories = [
           {
             id: '134123414312',
             title: '',
-            file: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
-            mimetype: '',
+            original: {
+              path: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
+              mimetype: '',
+            },
           },
           {
             id: '231234134134',
             title: '',
-            file: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
-            mimetype: '',
+            original: {
+              path: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
+              mimetype: '',
+            },
           },
         ],
         audio: [],
@@ -244,8 +280,10 @@ export const dataStories = [
           {
             id: '3284173041',
             title: '',
-            file: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
-            mimetype: '',
+            original: {
+              path: 'https://v2.firstvoices.com/nuxeo/nxpicsfile/default/09fcdbba-aa2e-4517-a8a9-8477bfc3345d/Medium:content/',
+              mimetype: '',
+            },
           },
         ],
         audio: [],
@@ -266,8 +304,10 @@ export const dataStories = [
       {
         id: '238019032841',
         title: '',
-        file: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/90609112-0181-49f3-9ed9-00de1373f195/file:content/TestWav.wav',
-        mimetype: '',
+        original: {
+          path: 'https://v2.dev.firstvoices.com/nuxeo/nxfile/default/90609112-0181-49f3-9ed9-00de1373f195/file:content/TestWav.wav',
+          mimetype: '',
+        },
       },
     ],
     images: [],

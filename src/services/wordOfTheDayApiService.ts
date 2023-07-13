@@ -9,7 +9,7 @@ export interface WordOfDayDataResponse {
 export const fetchWordOfDayData = async (): Promise<WordOfDayDataResponse> => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_SITE}/word-of-the-day/`
+      `${process.env.REACT_APP_WORD_OF_THE_DAY_API_URL}`
     );
     return response.data[0] as WordOfDayDataResponse;
   } catch (error) {

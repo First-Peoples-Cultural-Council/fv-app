@@ -190,10 +190,10 @@ export function SongsView(props: SongsViewProps) {
             <div className="p-2 text-lg font-bold">LYRICS</div>
             {selectedSong?.lyrics?.map((lyrics) => {
               return (
-                <>
+                <div key={lyrics.id}>
                   <div className="p-2">{lyrics.text}</div>
                   <div className="p-2">{lyrics.translation}</div>
-                </>
+                </div>
               );
             })}
           </>

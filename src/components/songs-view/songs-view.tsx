@@ -177,12 +177,19 @@ export function SongsView(props: SongsViewProps) {
 
         {selectedSong?.relatedAudio?.map((audio) => {
           return (
-            <audio key={audio.original.path} controls className="mt-4">
-              <source
-                src={audio.original.path}
-                type={audio.original.mimetype}
-              ></source>
-            </audio>
+            <div className="mt-6 p-2">
+              {audio?.title && <div className="font-bold">{audio?.title}</div>}
+              <audio key={audio.original.path} controls className="mt-1">
+                <source
+                  src={audio.original.path}
+                  type={audio.original.mimetype}
+                ></source>
+              </audio>
+              {audio?.description && <div>{audio?.description}</div>}
+              {audio?.acknowledgement && (
+                <div className="italic text-slate-400">{audio?.acknowledgement}</div>
+              )}
+            </div>
           );
         })}
         {selectedSong?.lyrics !== null && (
@@ -192,7 +199,7 @@ export function SongsView(props: SongsViewProps) {
               return (
                 <div key={lyrics.id}>
                   <div className="p-2">{lyrics.text}</div>
-                  <div className="p-2">{lyrics.translation}</div>
+                  <div className="p-2 italic text-slate-400">{lyrics.translation}</div>
                 </div>
               );
             })}

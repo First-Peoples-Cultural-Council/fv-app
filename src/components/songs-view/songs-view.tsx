@@ -165,7 +165,7 @@ export function SongsView(props: SongsViewProps) {
             alt={selectedSong?.coverImage.title}
           />
         )}
-        <div className="flex justify-between">
+        <div className="flex justify-between mt-4">
           <div>
             <div className="p-2 text-2xl font-bold">{selectedSong.title}</div>
             <div className="p-2">{selectedSong.titleTranslation}</div>
@@ -177,7 +177,7 @@ export function SongsView(props: SongsViewProps) {
 
         {selectedSong?.relatedAudio?.map((audio) => {
           return (
-            <audio key={audio.original.path} controls>
+            <audio key={audio.original.path} controls className="mt-4">
               <source
                 src={audio.original.path}
                 type={audio.original.mimetype}
@@ -187,7 +187,7 @@ export function SongsView(props: SongsViewProps) {
         })}
         {selectedSong?.lyrics !== null && (
           <>
-            <div className="p-2 text-lg font-bold">LYRICS</div>
+            <div className="p-2 text-lg font-bold mt-8">LYRICS</div>
             {selectedSong?.lyrics?.map((lyrics) => {
               return (
                 <div key={lyrics.id}>
@@ -202,13 +202,13 @@ export function SongsView(props: SongsViewProps) {
           (selectedSong?.relatedImages?.length !== undefined &&
             selectedSong?.relatedImages?.length > 1)) && (
           <>
-            <div className="p-2 text-lg font-bold">MEDIA</div>
+            <div className="p-2 text-lg font-bold mt-8">MEDIA</div>
             {selectedSong?.relatedVideos?.map((video) => {
               return (
                 <FvVideo
                   key={video.id}
-                  className=""
-                  disabledClassName=""
+                  className="mt-4"
+                  disabledClassName="mt-4"
                   src={video.original.path}
                 />
               );
@@ -217,6 +217,7 @@ export function SongsView(props: SongsViewProps) {
               return (
                 <FvImage
                   key={image.id}
+                  className="mt-4"
                   src={image.original.path}
                   alt={image.title}
                 />

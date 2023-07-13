@@ -1,11 +1,6 @@
-// import axios from 'axios';
+import axios from 'axios';
 import { FVSong } from '../components/common/data';
-import { dataSongs } from '../components/temp-songs-list';
 import IndexedDBService from './indexedDbService';
-
-// export interface SongsDataResponse {
-//   data: FvSongs[]
-// }
 
 const db = new IndexedDBService('firstVoicesIndexedDb');
 
@@ -19,16 +14,20 @@ export const fetchSongsData = async (): Promise<FVSong[]> => {
     }
 
     // If not in the database make API call to get it.
-    // TODO: Put in when the API is implemented.
-    // const response = await axios.get(
-    //   `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_SITE}`
-    // );
-    data = dataSongs; // TODO: TEMP.
+    const response = await axios.get(
+      `${process.env.REACT_APP_SONGS_API_URL}`
+    );
+    data = response.data.results;
 
-    // Store the data from the API call into the database.
-    await db.saveData('songs', data);
+    if (data) {
+      // Store the data from the API call into the database.
+      await db.saveData('songs', data);
 
-    return data;
+      return data;
+    }
+
+    // Return an empty list if there was something wrong with the data.
+    return [];
   } catch (error) {
     throw new Error('Failed to fetch data for the songs from the API');
   }

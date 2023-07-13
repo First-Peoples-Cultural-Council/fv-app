@@ -133,8 +133,8 @@ export function StoriesView(props: StoriesViewProps) {
                     {story?.coverVisual && (
                       <FvImage
                         className="h-full w-full object-contain shadow-lg"
-                        disabledClassName='text-6xl'
-                        src={story?.coverVisual.file ?? ''}
+                        disabledClassName="text-6xl"
+                        src={story?.coverVisual.original.path ?? ''}
                         alt={story?.title ?? ''}
                       />
                     )}
@@ -274,11 +274,11 @@ export function StoriesView(props: StoriesViewProps) {
             {selectedStory?.coverVisual && (
               <FvImage
                 className="h-full"
-                src={selectedStory?.coverVisual.file ?? ''}
+                src={selectedStory?.coverVisual.original.path ?? ''}
                 alt={selectedStory?.title ?? ''}
               />
             )}
-            {(selectedStory?.coverVisual?.file ?? '') === '' && (
+            {(selectedStory?.coverVisual?.original.path ?? '') === '' && (
               <div className="fv-stories text-20xl"></div>
             )}
           </div>
@@ -318,10 +318,10 @@ export function StoriesView(props: StoriesViewProps) {
               <FvImage
                 key={img.id}
                 className="h-[200px]"
-                src={img.file}
+                src={img.original.path}
                 alt={img.title}
                 onClick={() => {
-                  setPictureUrl(img.file);
+                  setPictureUrl(img.original.path);
                   setShowPictureModal(true);
                 }}
               />
@@ -339,8 +339,8 @@ export function StoriesView(props: StoriesViewProps) {
         )}
         {selectedStory?.audio?.map((audio) => {
           return (
-            <audio className="mt-10 p-2" key={audio.file} controls>
-              <source src={audio.file} type="audio/mpeg"></source>
+            <audio className="mt-10 p-2" key={audio.original.path} controls>
+              <source src={audio.original.path} type="audio/mpeg"></source>
             </audio>
           );
         })}
@@ -358,10 +358,10 @@ export function StoriesView(props: StoriesViewProps) {
               <FvImage
                 key={img.id}
                 className="h-[300px] p-2"
-                src={img.file}
+                src={img.original.path}
                 alt={img.title}
                 onClick={() => {
-                  setPictureUrl(img.file);
+                  setPictureUrl(img.original.path);
                   setShowPictureModal(true);
                 }}
               />
@@ -381,8 +381,11 @@ export function StoriesView(props: StoriesViewProps) {
         <div className="flex w-full justify-center">
           {selectedStory?.pages[currentPage]?.audio?.map((audio) => {
             return (
-              <audio className="mt-10" key={audio.file} controls>
-                <source src={audio.file} type="audio/mpeg"></source>
+              <audio className="mt-10" key={audio.original.path} controls>
+                <source
+                  src={audio.original.path}
+                  type={audio.original.mimetype}
+                ></source>
               </audio>
             );
           })}

@@ -106,21 +106,17 @@ export function AlphabetView(props: AlphabetViewProps) {
           title="Download Progress"
           onClose={() => setShowDownloadProgress(false)}
         >
-          <>
-            <div className="grid place-items-center">
+          <div className="grid place-items-center">
+            <div className={`rounded-md bg-gray-300 w-[400px] h-2 ml-10 mr-10`}>
               <div
-                className={`rounded-md bg-gray-300 w-[400px] h-2 ml-10 mr-10`}
-              >
-                <div
-                  className={`rounded-l-md bg-green-500 h-2`}
-                  style={{
-                    width: `${downloadPercentage}%`,
-                  }}
-                />
-              </div>
-              <div className="text-xl p-2">{downloadPercentage}%</div>
+                className={`rounded-l-md bg-green-500 h-2`}
+                style={{
+                  width: `${downloadPercentage}%`,
+                }}
+              />
             </div>
-          </>
+            <div className="text-xl p-2">{downloadPercentage}%</div>
+          </div>
         </Modal>
       )}
     </>
@@ -242,9 +238,6 @@ export function AlphabetView(props: AlphabetViewProps) {
                       )}
                       onClick={() => {
                         setSelected(letterData);
-                        navigate(
-                          `/alphabet/${encodeURIComponent(letterData.letter)}`
-                        );
                         setShowMobileWordList(false);
                       }}
                     >

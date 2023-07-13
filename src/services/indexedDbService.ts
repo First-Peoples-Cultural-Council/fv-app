@@ -107,11 +107,17 @@ class IndexedDBService {
     return mediaFile;
   }
 
-  async saveData(key: string, data: FvWord[]) {
+  async saveData(key: string, data: any[]) {
     const db = await this.database;
     const transaction = db.transaction('data', 'readwrite');
     const store = transaction.objectStore('data');
-    await store.add(data, key);
+    try {
+      await store.put(data, key);
+      await transaction.commit();
+    } catch (error) {
+      console.error('Error:', error);
+      transaction.abort();
+    }
   }
 
   async getData(key: string): Promise<any[] | undefined> {

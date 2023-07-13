@@ -76,7 +76,7 @@ export function SongsView(props: SongsViewProps) {
         type: 'song',
         definition: selectedSong?.titleTranslation ?? '',
         name: selectedSong.title,
-        hasAudio: selectedSong.audio?.length !== 0,
+        hasAudio: selectedSong.relatedAudio?.length !== 0,
         url: `${window.location.pathname}#${selectedSong.id}`,
         timestamp: new Date(),
       });
@@ -117,14 +117,14 @@ export function SongsView(props: SongsViewProps) {
               >
                 <div className="grid grid-cols-10 gap-4">
                   <div className="col-span-2 flex">
-                    {song?.coverVisual === null && (
+                    {song?.coverImage === null && (
                       <div className="fv-songs text-5xl self-center border border-solid" />
                     )}
-                    {song?.coverVisual !== null && (
+                    {song?.coverImage !== null && (
                       <FvImage
                         disabledClassName="text-6xl"
-                        src={song?.coverVisual.file}
-                        alt={song?.coverVisual.title}
+                        src={song?.coverImage.original.path}
+                        alt={song?.coverImage.title}
                       />
                     )}
                   </div>
@@ -159,13 +159,13 @@ export function SongsView(props: SongsViewProps) {
     }
     return (
       <>
-        {selectedSong?.coverVisual !== null && (
+        {selectedSong?.coverImage !== null && (
           <FvImage
-            src={selectedSong?.coverVisual.file}
-            alt={selectedSong?.coverVisual.title}
+            src={selectedSong?.coverImage.original.path}
+            alt={selectedSong?.coverImage.title}
           />
         )}
-        <div className="flex justify-between">
+        <div className="flex justify-between mt-4">
           <div>
             <div className="p-2 text-2xl font-bold">{selectedSong.title}</div>
             <div className="p-2">{selectedSong.titleTranslation}</div>
@@ -175,39 +175,59 @@ export function SongsView(props: SongsViewProps) {
           </div>
         </div>
 
-        {selectedSong?.audio?.map((audio) => {
+        {selectedSong?.relatedAudio?.map((audio) => {
           return (
-            <audio key={audio.file} controls>
-              <source src={audio.file} type="audio/mpeg"></source>
-            </audio>
+            <div key={audio.original.path} className="mt-6 p-2">
+              {audio?.title && <div className="font-bold">{audio?.title}</div>}
+              <audio controls className="mt-1">
+                <source
+                  src={audio.original.path}
+                  type={audio.original.mimetype}
+                ></source>
+              </audio>
+              {audio?.description && <div>{audio?.description}</div>}
+              {audio?.acknowledgement && (
+                <div className="italic text-slate-400">{audio?.acknowledgement}</div>
+              )}
+            </div>
           );
         })}
         {selectedSong?.lyrics !== null && (
           <>
-            <div className="p-2 text-lg font-bold">LYRICS</div>
-            <div className="p-2">{selectedSong?.lyrics.text}</div>
-            <div className="p-2 text-lg font-bold">TRANSLATION</div>
-            <div className="p-2">{selectedSong?.lyrics.translation}</div>
+            <div className="p-2 text-lg font-bold mt-8">LYRICS</div>
+            {selectedSong?.lyrics?.map((lyrics) => {
+              return (
+                <div key={lyrics.id}>
+                  <div className="p-2">{lyrics.text}</div>
+                  <div className="p-2 italic text-slate-400">{lyrics.translation}</div>
+                </div>
+              );
+            })}
           </>
         )}
-        {(selectedSong?.videos?.length !== 0 ||
-          (selectedSong?.images?.length !== undefined &&
-            selectedSong?.images?.length > 1)) && (
+        {(selectedSong?.relatedVideos?.length !== 0 ||
+          (selectedSong?.relatedImages?.length !== undefined &&
+            selectedSong?.relatedImages?.length > 1)) && (
           <>
-            <div className="p-2 text-lg font-bold">MEDIA</div>
-            {selectedSong?.videos?.map((video) => {
+            <div className="p-2 text-lg font-bold mt-8">MEDIA</div>
+            {selectedSong?.relatedVideos?.map((video) => {
               return (
                 <FvVideo
                   key={video.id}
-                  className=""
-                  disabledClassName=""
-                  src={video.file}
+                  className="mt-4"
+                  disabledClassName="mt-4"
+                  src={video.original.path}
                 />
               );
             })}
-            {selectedSong?.images?.slice(1).map((image) => {
+            {selectedSong?.relatedImages?.slice(1).map((image) => {
               return (
-                <FvImage key={image.id} src={image.file} alt={image.title} />
+                <FvImage
+                  key={image.id}
+                  className="mt-4"
+                  src={image.original.path}
+                  alt={image.title}
+                />
               );
             })}
           </>

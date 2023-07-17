@@ -8,6 +8,7 @@ import Modal from '../common/modal/modal';
 import { useModal } from '../common/use-modal/use-modal';
 import fetchStoriesData from '../../services/storiesApiService';
 import FvImage from '../common/image/image';
+import AudioControl from '../common/audio-control/audio-control';
 
 /* eslint-disable-next-line */
 export interface StoriesViewProps {}
@@ -339,9 +340,11 @@ export function StoriesView(props: StoriesViewProps) {
         )}
         {selectedStory?.audio?.map((audio) => {
           return (
-            <audio className="mt-10 p-2" key={audio.original.path} controls>
-              <source src={audio.original.path} type="audio/mpeg"></source>
-            </audio>
+            <AudioControl
+              className="mt-10 p-2"
+              key={audio.original.path}
+              audio={audio}
+            />
           );
         })}
         {pageControl()}

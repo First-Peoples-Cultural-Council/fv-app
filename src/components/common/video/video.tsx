@@ -42,7 +42,7 @@ export function FvVideo({
 
       <Alert
         type={'warning'}
-        message="Video not able to be downloaded, please connect to internet."
+        message="Content not downloaded.  Please access when you have access to internet in order to download content."
         showDismissButton={true}
         showAlert={showAlert}
         dismissAlert={function (): void {

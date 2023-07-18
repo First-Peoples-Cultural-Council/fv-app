@@ -60,7 +60,7 @@ export function AudioControl({
 
       <Alert
         type={'warning'}
-        message="Audio was not able to be downloaded, please connect to internet"
+        message="Content not downloaded.  Please access when you have access to internet in order to download content."
         showDismissButton={true}
         showAlert={showAlert}
         dismissAlert={function (): void {

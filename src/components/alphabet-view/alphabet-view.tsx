@@ -247,7 +247,7 @@ export function AlphabetView(props: AlphabetViewProps) {
                 })}
               </div>
               {showLetterDisplay && (
-                <div className=" md:hidden">
+                <div className="md:hidden">
                   <div className="pb-10 pt-10">{selectedLetterDisplay()}</div>
 
                   {selected?.examples.length !== 0 && exampleWordList()}
@@ -283,7 +283,7 @@ export function AlphabetView(props: AlphabetViewProps) {
         {selected?.examples.map((termId) => {
           const term = dataDict.find((word) => word.entryID === termId);
           if (term === undefined) {
-            return <></>;
+            return null;
           }
           return (
             <div

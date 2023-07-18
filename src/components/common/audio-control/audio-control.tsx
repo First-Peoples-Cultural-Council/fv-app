@@ -9,7 +9,11 @@ export interface AudioControlProps {
   audio: FVMedia;
 }
 
-export function AudioControl({ className, disabledClassName, audio }: AudioControlProps) {
+export function AudioControl({
+  className,
+  disabledClassName,
+  audio,
+}: AudioControlProps) {
   const db = new IndexedDBService('firstVoicesIndexedDb');
 
   const [showAlert, setShowAlert] = useState(false);
@@ -42,14 +46,14 @@ export function AudioControl({ className, disabledClassName, audio }: AudioContr
     <>
       {isOnline || hasFile ? (
         <audio controls className={className}>
-        <source
-          src={audio.original.path}
-          type={audio.original.mimetype}
-        ></source>
-      </audio>
+          <source
+            src={audio.original.path}
+            type={audio.original.mimetype}
+          ></source>
+        </audio>
       ) : (
         <div
-          className={`fv-songs= text-20xl text-gray-500/25 ${disabledClassName}`}
+          className={`fv-songs text-20xl text-gray-500/25 ${disabledClassName}`}
           onClick={handleClick}
         ></div>
       )}

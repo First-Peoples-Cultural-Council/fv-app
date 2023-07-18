@@ -195,7 +195,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
               </div>
               {dataCategories.map((category) => {
                 return (
-                  <>
+                  <div key={category.id}>
                     {menuItem(
                       category.name,
                       category.icon ?? 'fv-categories',
@@ -211,7 +211,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                         setShowCategoryModal(false);
                       }
                     )}
-                  </>
+                  </div>
                 );
               })}
             </div>

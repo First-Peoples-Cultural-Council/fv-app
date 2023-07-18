@@ -22,7 +22,7 @@ interface FVDB extends DBSchema {
   data: {
     key: string;
     value: FvWord[];
-  }
+  };
 }
 
 class IndexedDBService {
@@ -89,7 +89,7 @@ class IndexedDBService {
     const transaction = db.transaction(['mediaFiles'], 'readonly');
     const store = transaction.objectStore('mediaFiles');
     const mediaFile = await store.get(url);
-    return (mediaFile !== undefined);
+    return mediaFile !== undefined;
   }
 
   async saveMediaFile(url: string, file: Blob) {
@@ -107,7 +107,7 @@ class IndexedDBService {
     return mediaFile;
   }
 
-  async saveData(key: string, data: any[]) {
+  async saveData(key: string, data: any) {
     const db = await this.database;
     const transaction = db.transaction('data', 'readwrite');
     const store = transaction.objectStore('data');
@@ -120,7 +120,7 @@ class IndexedDBService {
     }
   }
 
-  async getData(key: string): Promise<any[] | undefined> {
+  async getData(key: string): Promise<any | undefined> {
     const db = await this.database;
     const transaction = db.transaction(['data'], 'readonly');
     const store = transaction.objectStore('data');

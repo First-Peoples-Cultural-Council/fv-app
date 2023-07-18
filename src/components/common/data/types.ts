@@ -201,8 +201,11 @@ export type FVMedia = {
   excludeFromKids: boolean;
   id: string;
   isShared: boolean;
+  medium?: FVFile | null;
   original: FVFile;
-  speakers: FVPeople[];
+  small?: FVFile | null;
+  thumbnail?: FVFile | null;
+  speakers?: FVPeople[] | null;
   title: string;
   url: string;
 };

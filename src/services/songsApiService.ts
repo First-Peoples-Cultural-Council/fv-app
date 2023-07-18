@@ -6,22 +6,24 @@ const db = new IndexedDBService('firstVoicesIndexedDb');
 
 export const fetchSongsData = async (): Promise<FVSong[]> => {
   try {
-
     // Check the database to see if there is already data in there.
-    let data = await db.getData('songs');
-    if (data) {
-      return data;
+    let dbData = await db.getData('songs');
+    if (dbData) {
+      return dbData.data;
     }
 
     // If not in the database make API call to get it.
-    const response = await axios.get(
-      `${process.env.REACT_APP_SONGS_API_URL}`
-    );
-    data = response.data.results;
+    const response = await axios.get(`${process.env.REACT_APP_SONGS_API_URL}`);
+    const data: FVSong[] = response.data.results;
 
     if (data) {
+      const dbEntry = {
+        timestamp: new Date().toISOString(),
+        data: data,
+      };
+
       // Store the data from the API call into the database.
-      await db.saveData('songs', data);
+      await db.saveData('songs', dbEntry);
 
       return data;
     }

@@ -174,7 +174,6 @@ export function SongsView(props: SongsViewProps) {
           <div className="whitespace-nowrap overflow-hidden flex-shrink-0">
             {actionButtons()}
           </div>
-          1
         </div>
 
         {selectedSong?.relatedAudio?.map((audio) => {

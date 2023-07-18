@@ -14,7 +14,7 @@ module.exports = {
         sans: ['BCSans', 'sans-serif'],
       },
       fontSize: {
-        '20xl': '20rem',
+        '20xl': '15rem',
       },
       colors: {
         'color-primary-0': '#264753',

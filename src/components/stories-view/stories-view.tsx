@@ -313,7 +313,7 @@ export function StoriesView(props: StoriesViewProps) {
   function into() {
     return (
       <div className="max-w-5xl mx-auto">
-        <div className="flex w-full">
+        <div className="flex flex-wrap w-full">
           {selectedStory?.images?.map((img) => {
             return (
               <FvImage
@@ -355,7 +355,7 @@ export function StoriesView(props: StoriesViewProps) {
   function page() {
     return (
       <div className="max-w-5xl mx-auto">
-        <div className="flex w-full justify-center">
+        <div className="flex flex-wrap w-full justify-center">
           {selectedStory?.pages[currentPage]?.images?.map((img) => {
             return (
               <FvImage

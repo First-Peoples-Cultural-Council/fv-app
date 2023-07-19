@@ -8,6 +8,7 @@ import { useModal } from '../common/use-modal/use-modal';
 import fetchSongsData from '../../services/songsApiService';
 import FvImage from '../common/image/image';
 import FvVideo from '../common/video/video';
+import AudioControl from '../common/audio-control/audio-control';
 
 /* eslint-disable-next-line */
 export interface SongsViewProps {}
@@ -179,15 +180,12 @@ export function SongsView(props: SongsViewProps) {
           return (
             <div key={audio.original.path} className="mt-6 p-2">
               {audio?.title && <div className="font-bold">{audio?.title}</div>}
-              <audio controls className="mt-1">
-                <source
-                  src={audio.original.path}
-                  type={audio.original.mimetype}
-                ></source>
-              </audio>
+              <AudioControl className="mt-1" audio={audio} />
               {audio?.description && <div>{audio?.description}</div>}
               {audio?.acknowledgement && (
-                <div className="italic text-slate-400">{audio?.acknowledgement}</div>
+                <div className="italic text-slate-400">
+                  {audio?.acknowledgement}
+                </div>
               )}
             </div>
           );
@@ -199,7 +197,9 @@ export function SongsView(props: SongsViewProps) {
               return (
                 <div key={lyrics.id}>
                   <div className="p-2">{lyrics.text}</div>
-                  <div className="p-2 italic text-slate-400">{lyrics.translation}</div>
+                  <div className="p-2 italic text-slate-400">
+                    {lyrics.translation}
+                  </div>
                 </div>
               );
             })}

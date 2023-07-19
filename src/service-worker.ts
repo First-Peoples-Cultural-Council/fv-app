@@ -150,7 +150,7 @@ self.addEventListener('fetch', function (event) {
 
 function endsWithAny(text: string, endings: string[]): boolean {
   for (const ending of endings) {
-    if (text.endsWith(ending)) {
+    if (text.toLocaleLowerCase().endsWith(ending)) {
       return true;
     }
   }

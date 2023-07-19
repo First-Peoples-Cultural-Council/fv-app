@@ -1,19 +1,20 @@
 import { useEffect, useState } from 'react';
 import Alert from '../alert/alert';
-import { FvAudio } from '../data';
-import { useButtonStyle } from '../hooks';
-import classNames from 'classnames';
+import { FVMedia } from '../data';
 import IndexedDBService from '../../../services/indexedDbService';
 
-export interface AudioButtonProps {
-  fvAudio: FvAudio;
+export interface AudioControlProps {
+  className?: string;
+  disabledClassName?: string;
+  audio: FVMedia;
 }
 
-export function AudioButton({ fvAudio }: AudioButtonProps) {
+export function AudioControl({
+  className,
+  disabledClassName,
+  audio,
+}: AudioControlProps) {
   const db = new IndexedDBService('firstVoicesIndexedDb');
-
-  const secondaryButtonStyle = useButtonStyle('secondary', 'button');
-  const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 
   const [showAlert, setShowAlert] = useState(false);
   const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine);
@@ -26,7 +27,7 @@ export function AudioButton({ fvAudio }: AudioButtonProps) {
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
 
-    db.hasMediaFile(fvAudio.filename).then((response) => {
+    db.hasMediaFile(audio.original.path).then((response) => {
       setHasFile(response);
     });
 
@@ -37,20 +38,25 @@ export function AudioButton({ fvAudio }: AudioButtonProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleClick = () => {
+    setShowAlert(true);
+  };
+
   return (
     <>
-      <button
-        key={fvAudio.filename}
-        className={classNames(
-          hasFile || isOnline ? secondaryButtonStyle : tertiaryButtonStyle,
-          hasFile || isOnline ? '' : 'opacity-30'
-        )}
-        onClick={() =>
-          hasFile || isOnline ? playAudio(fvAudio.filename) : setShowAlert(true)
-        }
-      >
-        <i className="fv-play">{fvAudio.speaker}</i>
-      </button>
+      {isOnline || hasFile ? (
+        <audio controls className={className}>
+          <source
+            src={audio.original.path}
+            type={audio.original.mimetype}
+          ></source>
+        </audio>
+      ) : (
+        <div
+          className={`fv-songs text-20xl text-gray-500/25 ${disabledClassName}`}
+          onClick={handleClick}
+        ></div>
+      )}
 
       <Alert
         type={'warning'}
@@ -63,13 +69,6 @@ export function AudioButton({ fvAudio }: AudioButtonProps) {
       />
     </>
   );
-
-  async function playAudio(fileName: string) {
-    const audio = new Audio(fileName);
-    audio.play().catch((err: any) => {
-      console.log(err);
-    });
-  }
 }
 
-export default AudioButton;
+export default AudioControl;

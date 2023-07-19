@@ -195,7 +195,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
               </div>
               {dataCategories.map((category) => {
                 return (
-                  <>
+                  <div key={category.id}>
                     {menuItem(
                       category.name,
                       category.icon ?? 'fv-categories',
@@ -211,7 +211,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                         setShowCategoryModal(false);
                       }
                     )}
-                  </>
+                  </div>
                 );
               })}
             </div>
@@ -279,7 +279,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                 {flashcardIndex !== 0 && (
                   <div className="grid h-[55px] w-[55px] bg-gray-50 float-left rounded-3xl mt-4">
                     <button
-                      className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center"
+                      className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
                       onClick={async () => {
                         setFlipped(false);
                         setTimeout(() => {
@@ -295,7 +295,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
 
                 <div className="grid h-[55px] w-[55px] bg-gray-50 float-right rounded-3xl mt-4">
                   <button
-                    className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center"
+                    className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
                     onClick={async () => {
                       if (flashcardIndex !== dataForFlashcardGroup.length - 1) {
                         setFlipped(false);

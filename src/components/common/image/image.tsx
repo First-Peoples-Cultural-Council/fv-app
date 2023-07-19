@@ -40,7 +40,7 @@ export function FvImage({ className, disabledClassName, src, alt, onClick }: FvI
 
       <Alert
         type={'warning'}
-        message="Image not able to be downloaded, please connect to internet."
+        message="Content not downloaded.  Please access when you have access to internet in order to download content."
         showDismissButton={true}
         showAlert={showAlert}
         dismissAlert={function (): void {

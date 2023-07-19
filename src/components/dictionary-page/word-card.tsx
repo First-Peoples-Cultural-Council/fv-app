@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import { dataCategories } from '../temp-category-list';
 import { useButtonStyle } from '../common/hooks';
 import { FvAudio, FvWord } from '../common/data';
+import { FvImage } from '../common/image/image';
+import { AudioButton } from '../common/audio-button/audio';
 
-function WordCard({ term }: FvWord) {
-  const secondaryButtonStyle = useButtonStyle('secondary', 'button');
+function WordCard(props: { term: FvWord }) {
+  const { term } = props;
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 
   const primaryCategory = dataCategories.find(
@@ -29,16 +31,10 @@ function WordCard({ term }: FvWord) {
       </p>
       <p className="pt-10 pb-10">{term.definition}</p>
       {term.audio?.map((fvAudio: FvAudio) => (
-        <button
-          key={fvAudio.filename}
-          className={secondaryButtonStyle}
-          onClick={() => playAudio(fvAudio.filename)}
-        >
-          <i className="fv-play">{fvAudio.speaker}</i>
-        </button>
+        <AudioButton key={fvAudio.filename} fvAudio={fvAudio}/>
       ))}
       {term.img && (
-        <img
+        <FvImage
           className="pt-10 max-w-sm max-h-sm"
           src={term.img}
           alt={term.word}
@@ -63,13 +59,6 @@ function WordCard({ term }: FvWord) {
       )}
     </>
   );
-}
-
-async function playAudio(fileName: string) {
-  const audio = new Audio(fileName);
-  audio.play().catch((err: any) => {
-    console.log(err);
-  });
 }
 
 export default WordCard;

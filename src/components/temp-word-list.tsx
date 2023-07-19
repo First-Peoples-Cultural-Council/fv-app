@@ -151,7 +151,7 @@ export const dataDict = [
   },
   {
     source: 'words',
-    entryID: '248',
+    entryID: 'adf4db33-1f99-4a82-8954-df04541c35be',
     word: '\u015bq\u0313w\u01edu\u0113\u01f3u',
     definition: 'brag, haughty, proud, conceited, arrogant',
     audio: [

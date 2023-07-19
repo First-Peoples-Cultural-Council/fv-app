@@ -2,11 +2,11 @@ import classNames from 'classnames';
 import { useButtonStyle } from '../common/hooks';
 import { useEffect, useRef, useState } from 'react';
 import useOnClickOutside from '../../util/clickOutside';
-import { Flashcard, FvAudio } from '../common/data';
+import { Bookmark, Flashcard, FvAudio, FvWord } from '../common/data';
 import shuffle from '../../util/shuffle';
-
-import { dataDict } from '../temp-word-list';
 import { dataCategories } from '../temp-category-list';
+import fetchWordsData from '../../services/wordsApiService';
+import IndexedDBService from '../../services/indexedDbService';
 
 /* eslint-disable-next-line */
 export interface FlashcardsViewProps {}
@@ -21,7 +21,10 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   const [selectedFlashcardDisplayType, setSelectedFlashcardDisplayType] =
     useState('');
   const [flipped, setFlipped] = useState(false);
-  const [data, setData] = useState<any>();
+  const [db, setDb] = useState<IndexedDBService>();
+  const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
+  const [dictionaryData, setDataDict] = useState<FvWord[]>([]);
+  const [data, setData] = useState<FvWord[]>([]);
   const [dataForFlashcardGroup, setDataForFlashcardGroup] = useState<any>();
   const [flashcardIndex, setFlashcardIndex] = useState<number>(0);
   const [flashcardData, setFlashcardData] = useState<Flashcard>();
@@ -40,6 +43,33 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   useOnClickOutside(CategoryModalRef, () => {
     setShowCategoryModal(false);
   });
+
+  useEffect(() => {
+    setDb(new IndexedDBService('firstVoicesIndexedDb'));
+
+    const fetchDataAsync = async () => {
+      try {
+        const result = await fetchWordsData();
+        setDataDict(result);
+      } catch (error) {
+        // Handle error scenarios
+      }
+    };
+
+    fetchDataAsync();
+  }, []);
+
+  useEffect(() => {
+    const usersBookmarks = async () => {
+      if (db) {
+        await setUsersBookmarks();
+      }
+    };
+    usersBookmarks().catch((err) => {
+      console.log(err);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [db]);
 
   useEffect(() => {
     if (dataForFlashcardGroup) {
@@ -66,6 +96,10 @@ export function FlashcardsView(props: FlashcardsViewProps) {
     }
   }, [flashcardData]);
 
+  async function setUsersBookmarks() {
+    setBookmarks((await db?.getBookmarks()) ?? []);
+  }
+
   return (
     <>
       <div className="w-full">
@@ -73,22 +107,30 @@ export function FlashcardsView(props: FlashcardsViewProps) {
           {flashCardType('Words', 'fv-wordsfc', () => {
             setSelectedFlashcardDisplayType('');
             saveDataForFlashcards(
-              dataDict.filter((entry) => entry.source === 'words')
+              dictionaryData.filter((entry) => entry.source === 'words')
             );
           })}
           {flashCardType('Phrases', 'fv-phrasesfc', () => {
             setSelectedFlashcardDisplayType('');
             saveDataForFlashcards(
-              dataDict.filter((entry) => entry.source === 'phrases')
+              dictionaryData.filter((entry) => entry.source === 'phrases')
             );
           })}
           {flashCardType('Category', 'fv-categories', () => {
             setSelectedFlashcardDisplayType('');
             setShowCategoryModal(true);
           })}
-          {flashCardType('Bookmarks', 'fv-bookmarks', () => {
+          {flashCardType('Bookmarks', 'fv-bookmark', () => {
             setSelectedFlashcardDisplayType('');
-            // TODO:
+            saveDataForFlashcards(
+              dictionaryData.filter((entry) =>
+                bookmarks.some(
+                  (bookmark) =>
+                    bookmark.id === entry.entryID &&
+                    bookmark.type === entry.source
+                )
+              )
+            );
           })}
         </div>
       </div>
@@ -153,12 +195,12 @@ export function FlashcardsView(props: FlashcardsViewProps) {
               </div>
               {dataCategories.map((category) => {
                 return (
-                  <>
+                  <div key={category.id}>
                     {menuItem(
                       category.name,
                       category.icon ?? 'fv-categories',
                       () => {
-                        const categoryData = dataDict.filter((term) => {
+                        const categoryData = dictionaryData.filter((term) => {
                           return (
                             term.theme === category.id ||
                             term.secondary_theme === category.id
@@ -169,7 +211,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                         setShowCategoryModal(false);
                       }
                     )}
-                  </>
+                  </div>
                 );
               })}
             </div>
@@ -237,7 +279,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                 {flashcardIndex !== 0 && (
                   <div className="grid h-[55px] w-[55px] bg-gray-50 float-left rounded-3xl mt-4">
                     <button
-                      className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center"
+                      className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
                       onClick={async () => {
                         setFlipped(false);
                         setTimeout(() => {
@@ -253,7 +295,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
 
                 <div className="grid h-[55px] w-[55px] bg-gray-50 float-right rounded-3xl mt-4">
                   <button
-                    className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center"
+                    className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
                     onClick={async () => {
                       if (flashcardIndex !== dataForFlashcardGroup.length - 1) {
                         setFlipped(false);
@@ -321,6 +363,11 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   );
 
   function saveDataForFlashcards(data: any[]) {
+    // Don't continue if there is no data to show.
+    if (data.length === 0) {
+      return;
+    }
+
     const shuffledData = shuffle(data);
     const flashcardSet = shuffledData.slice(0, flashcardsBatchSize);
     const remainingData = shuffledData.slice(flashcardsBatchSize + 1);

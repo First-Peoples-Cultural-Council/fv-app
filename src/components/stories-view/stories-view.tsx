@@ -1,12 +1,14 @@
 import classNames from 'classnames';
 import { Bookmark, FVStory } from '../common/data/types';
-import { dataStories } from '../temp-stories-list';
 import IndexedDBService from '../../services/indexedDbService';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import Modal from '../common/modal/modal';
 import { useModal } from '../common/use-modal/use-modal';
+import fetchStoriesData from '../../services/storiesApiService';
+import FvImage from '../common/image/image';
+import AudioControl from '../common/audio-control/audio-control';
 
 /* eslint-disable-next-line */
 export interface StoriesViewProps {}
@@ -16,6 +18,7 @@ export function StoriesView(props: StoriesViewProps) {
   const { setShowModal, showModal, closeModal } = useModal();
 
   const [db, setDb] = useState<IndexedDBService>();
+  const [storiesData, setStoriesData] = useState<FVStory[]>([]);
   const [selectedStory, setSelectedStory] = useState<FVStory | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(-2);
   const [bookmark, setBookmark] = useState<Bookmark | null>(null);
@@ -27,6 +30,19 @@ export function StoriesView(props: StoriesViewProps) {
     text: string;
     url: string;
   } | null>(null);
+
+  useEffect(() => {
+    const fetchDataAsync = async () => {
+      try {
+        const result = await fetchStoriesData();
+        setStoriesData(result);
+      } catch (error) {
+        // Handle error scenarios
+      }
+    };
+
+    fetchDataAsync();
+  }, []);
 
   useEffect(() => {
     if (
@@ -45,7 +61,7 @@ export function StoriesView(props: StoriesViewProps) {
 
   useEffect(() => {
     const storyId = location.hash.slice(1).split('?')[0];
-    const story = dataStories.find((story) => story.id === storyId);
+    const story = storiesData.find((story) => story.id === storyId);
     if (story) {
       setSelectedStory(story);
       setCurrentPage(-2);
@@ -70,6 +86,7 @@ export function StoriesView(props: StoriesViewProps) {
       });
 
       setBookmark({
+        id: selectedStory.id,
         type: 'story',
         definition: selectedStory?.titleTranslation ?? '',
         name: selectedStory.title ?? '',
@@ -94,7 +111,7 @@ export function StoriesView(props: StoriesViewProps) {
     <>
       <div className="grid grid-cols-1 w-full">
         <div className="">
-          {dataStories.map((story: FVStory) => {
+          {storiesData.map((story: FVStory) => {
             return (
               <div
                 key={story.id}
@@ -115,12 +132,12 @@ export function StoriesView(props: StoriesViewProps) {
                       </div>
                     )}
                     {story?.coverVisual && (
-                      <img
+                      <FvImage
                         className="h-full w-full object-contain shadow-lg"
-                        src={story?.coverVisual.file ?? ''}
+                        disabledClassName="text-6xl"
+                        src={story?.coverVisual.original.path ?? ''}
                         alt={story?.title ?? ''}
-                        loading="lazy"
-                      ></img>
+                      />
                     )}
                   </div>
                   <div className="col-span-5">
@@ -256,13 +273,13 @@ export function StoriesView(props: StoriesViewProps) {
         <div className="flex flex-col h-full">
           <div className="h-3/5 flex-1">
             {selectedStory?.coverVisual && (
-              <img
+              <FvImage
                 className="h-full"
-                src={selectedStory?.coverVisual.file ?? ''}
+                src={selectedStory?.coverVisual.original.path ?? ''}
                 alt={selectedStory?.title ?? ''}
               />
             )}
-            {(selectedStory?.coverVisual?.file ?? '') === '' && (
+            {(selectedStory?.coverVisual?.original.path ?? '') === '' && (
               <div className="fv-stories text-20xl"></div>
             )}
           </div>
@@ -296,16 +313,16 @@ export function StoriesView(props: StoriesViewProps) {
   function into() {
     return (
       <div className="max-w-5xl mx-auto">
-        <div className="flex w-full">
+        <div className="flex flex-wrap w-full">
           {selectedStory?.images?.map((img) => {
             return (
-              <img
+              <FvImage
                 key={img.id}
                 className="h-[200px]"
-                src={img.file}
+                src={img.original.path}
                 alt={img.title}
                 onClick={() => {
-                  setPictureUrl(img.file);
+                  setPictureUrl(img.original.path);
                   setShowPictureModal(true);
                 }}
               />
@@ -323,9 +340,11 @@ export function StoriesView(props: StoriesViewProps) {
         )}
         {selectedStory?.audio?.map((audio) => {
           return (
-            <audio className="mt-10 p-2" key={audio.file} controls>
-              <source src={audio.file} type="audio/mpeg"></source>
-            </audio>
+            <AudioControl
+              className="mt-10 p-2"
+              key={audio.original.path}
+              audio={audio}
+            />
           );
         })}
         {pageControl()}
@@ -336,16 +355,16 @@ export function StoriesView(props: StoriesViewProps) {
   function page() {
     return (
       <div className="max-w-5xl mx-auto">
-        <div className="flex w-full justify-center">
+        <div className="flex flex-wrap w-full justify-center">
           {selectedStory?.pages[currentPage]?.images?.map((img) => {
             return (
-              <img
+              <FvImage
                 key={img.id}
                 className="h-[300px] p-2"
-                src={img.file}
+                src={img.original.path}
                 alt={img.title}
                 onClick={() => {
-                  setPictureUrl(img.file);
+                  setPictureUrl(img.original.path);
                   setShowPictureModal(true);
                 }}
               />
@@ -365,8 +384,11 @@ export function StoriesView(props: StoriesViewProps) {
         <div className="flex w-full justify-center">
           {selectedStory?.pages[currentPage]?.audio?.map((audio) => {
             return (
-              <audio className="mt-10" key={audio.file} controls>
-                <source src={audio.file} type="audio/mpeg"></source>
+              <audio className="mt-10" key={audio.original.path} controls>
+                <source
+                  src={audio.original.path}
+                  type={audio.original.mimetype}
+                ></source>
               </audio>
             );
           })}
@@ -418,7 +440,7 @@ export function StoriesView(props: StoriesViewProps) {
   function pictureModal() {
     return (
       <>
-        <img className="w-full" src={pictureUrl} alt="" />
+        <FvImage className="w-full" src={pictureUrl} alt="" />
       </>
     );
   }

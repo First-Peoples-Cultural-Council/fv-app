@@ -7,25 +7,51 @@ const db = new IndexedDBService('firstVoicesIndexedDb');
 export const fetchSongsData = async (): Promise<FVSong[]> => {
   try {
     // Check the database to see if there is already data in there.
-    let dbData = await db.getData('songs');
+    const dbData = await db.getData('songs');
+    let url = `${process.env.REACT_APP_SONGS_API_URL}`;
     if (dbData) {
-      return dbData.data;
+      url += `?since=${dbData.timestamp}`;
     }
 
-    // If not in the database make API call to get it.
-    const response = await axios.get(`${process.env.REACT_APP_SONGS_API_URL}`);
-    const data: FVSong[] = response.data.results;
+    try {
+      // If not in the database make API call to get it.
+      const response = await axios.get(url);
+      const data: FVSong[] = response.data.results;
 
-    if (data) {
-      const dbEntry = {
-        timestamp: new Date().toISOString(),
-        data: data,
-      };
+      if (data && data.length !== 0) {
+        if (dbData?.data) {
+          // Go though and update the data with the new data from the response.
+          dbData.data.forEach((item: FVSong) => {
+            const updatedItemIndex = data.findIndex(
+              (modifiedItem) => modifiedItem.id === item.id
+            );
 
-      // Store the data from the API call into the database.
-      await db.saveData('songs', dbEntry);
+            // Item does not exist, add it
+            if (updatedItemIndex === -1) {
+              data.push(item);
+            }
+          });
+        }
 
-      return data;
+        // Create the updated data entry for the database.
+        const dbEntry = {
+          timestamp: new Date().toISOString(),
+          data: data,
+        };
+
+        // Store the data from the API call into the database.
+        await db.saveData('songs', dbEntry);
+
+        return data;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+    // Unable to get data from the API,
+    // return what is in the cache if there is any.
+    if (dbData.data) {
+      return dbData.data;
     }
 
     // Return an empty list if there was something wrong with the data.

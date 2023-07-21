@@ -1,10 +1,11 @@
 import { openDB, DBSchema, IDBPDatabase } from 'idb';
-import { Bookmark } from '../components/common/data';
+import { Bookmark, FvWord } from '../components/common/data';
 
 interface FVDB extends DBSchema {
   bookmarks: {
     key: string;
     value: {
+      id: string;
       type: string;
       name: string;
       definition: string;
@@ -17,6 +18,10 @@ interface FVDB extends DBSchema {
   mediaFiles: {
     key: string;
     value: Blob;
+  };
+  data: {
+    key: string;
+    value: FvWord[];
   };
 }
 
@@ -35,6 +40,9 @@ class IndexedDBService {
         }
         if (!db.objectStoreNames.contains('mediaFiles')) {
           db.createObjectStore('mediaFiles');
+        }
+        if (!db.objectStoreNames.contains('data')) {
+          db.createObjectStore('data');
         }
       },
     });
@@ -81,7 +89,7 @@ class IndexedDBService {
     const transaction = db.transaction(['mediaFiles'], 'readonly');
     const store = transaction.objectStore('mediaFiles');
     const mediaFile = await store.get(url);
-    return (mediaFile !== undefined);
+    return mediaFile !== undefined;
   }
 
   async saveMediaFile(url: string, file: Blob) {
@@ -97,6 +105,39 @@ class IndexedDBService {
     const store = transaction.objectStore('mediaFiles');
     const mediaFile = await store.get(url);
     return mediaFile;
+  }
+
+  async saveData(key: string, data: any) {
+    const db = await this.database;
+    const transaction = db.transaction('data', 'readwrite');
+    const store = transaction.objectStore('data');
+    try {
+      await store.put(data, key);
+      await transaction.commit();
+    } catch (error) {
+      console.error('Error:', error);
+      transaction.abort();
+    }
+  }
+
+  async getData(key: string): Promise<any | undefined> {
+    const db = await this.database;
+    const transaction = db.transaction(['data'], 'readonly');
+    const store = transaction.objectStore('data');
+    const data = await store.get(key);
+    return data;
+  }
+
+  async clearMediaFilesCollection() {
+    try {
+      const db = await this.database;
+      const transaction = db.transaction('mediaFiles', 'readwrite');
+      const store = transaction.objectStore('mediaFiles');
+      store.clear();
+    } catch (error) {
+      // Handle the error
+      console.error('Error clearing mediaFiles collection:', error);
+    }
   }
 }
 

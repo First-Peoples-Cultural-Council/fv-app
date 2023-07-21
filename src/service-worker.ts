@@ -96,7 +96,20 @@ self.addEventListener('fetch', function (event) {
         const response = await fetch(event.request);
 
         // Check to see if the app should cache the file.
-        if (endsWithAny(url, ['.jpg', '.png', '.gif', '.mp3'])) {
+        if (
+          endsWithAny(url, [
+            '.jpeg',
+            '.jpg',
+            '.gif',
+            '.png',
+            '.tiff',
+            '.tif',
+            '.mp3',
+            '.wav',
+            '.mov',
+            '.mp4',
+          ])
+        ) {
           if (await db.hasMediaFile(url)) {
             const blob = (await db.getMediaFile(url)) as Blob;
             const file = new File([blob], getFileNameFromUrl(url), {
@@ -137,7 +150,7 @@ self.addEventListener('fetch', function (event) {
 
 function endsWithAny(text: string, endings: string[]): boolean {
   for (const ending of endings) {
-    if (text.endsWith(ending)) {
+    if (text.toLocaleLowerCase().endsWith(ending)) {
       return true;
     }
   }

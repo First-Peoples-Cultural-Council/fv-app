@@ -4,7 +4,9 @@ import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import IndexedDBService from '../../services/indexedDbService';
 
-function WordModal({ term }: FvWord) {
+function WordModal(props: { term: FvWord }) {
+  const { term } = props;
+
   const [db, setDb] = useState<IndexedDBService>();
   const [bookmarked, setBookmarked] = useState<boolean>(false);
 
@@ -21,6 +23,7 @@ function WordModal({ term }: FvWord) {
   };
 
   const bookmark: Bookmark = {
+    id: term.entryID,
     type: term.source,
     definition: term.definition,
     name: term.word,

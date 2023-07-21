@@ -67,11 +67,10 @@ function onStateChanged(
 ) {
   if (installingWorker.state === 'installed') {
     if (navigator.serviceWorker.controller) {
-      // Unregister the old service worker to activate the new one
-      registration.unregister().then(() => {
-        // eslint-disable-next-line no-restricted-globals
-        location.reload();
-      });
+      // Execute callback
+      if (config?.onUpdate) {
+        config.onUpdate(registration);
+      }
     } else {
       // At this point, everything has been precached.
       // It's the perfect time to display a

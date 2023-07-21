@@ -1,10 +1,10 @@
-import { dataDict } from '../temp-word-list';
 import { useState, useEffect } from 'react';
 import WordCardMobile from '../dictionary-page/word-card-mobile';
 import WordCardDesktop from '../dictionary-page/word-card-desktop';
-import { DictionaryType } from '../common/data';
+import { DictionaryType, FvWord } from '../common/data';
 import MultiSwitch from '../common/multi-switch/multi-switch';
 import { useOutletContext } from 'react-router-dom';
+import fetchWordsData from '../../services/wordsApiService';
 
 /* eslint-disable-next-line */
 export interface WordsViewProps {}
@@ -12,7 +12,21 @@ export interface WordsViewProps {}
 export function DictionaryView(props: WordsViewProps) {
   const { setSearchMatchRef }: any = useOutletContext();
   const [selected, setSelected] = useState<number>(DictionaryType.Both);
-  const [data, setData] = useState(dataDict);
+  const [dataDict, setDataDict] = useState<FvWord[]>([]);
+  const [data, setData] = useState<FvWord[]>([]);
+
+  useEffect(() => {
+    const fetchDataAsync = async () => {
+      try {
+        const result = await fetchWordsData();
+        setDataDict(result);
+      } catch (error) {
+        // Handle error scenarios
+      }
+    };
+
+    fetchDataAsync();
+  }, []);
 
   useEffect(() => {
     switch (selected) {
@@ -29,7 +43,7 @@ export function DictionaryView(props: WordsViewProps) {
         break;
       }
     }
-  }, [selected]);
+  }, [selected, dataDict]);
 
   return (
     <div>

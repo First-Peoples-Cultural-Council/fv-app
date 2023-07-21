@@ -3,11 +3,11 @@ import { Link, useParams } from 'react-router-dom';
 import styles from './category-view.module.css';
 import { dataCategories } from '../temp-category-list';
 import { Fragment, useEffect, useState } from 'react';
-import { dataDict } from '../temp-word-list';
 import WordCardDesktop from '../dictionary-page/word-card-desktop';
 import WordCardMobile from '../dictionary-page/word-card-mobile';
-import { DictionaryType } from '../common/data';
+import { DictionaryType, FvWord } from '../common/data';
 import MultiSwitch from '../common/multi-switch/multi-switch';
+import fetchWordsData from '../../services/wordsApiService';
 
 /* eslint-disable-next-line */
 export interface CategoryViewProps {}
@@ -16,7 +16,8 @@ export function CategoryView(props: CategoryViewProps) {
   const { id } = useParams();
 
   const [selected, setSelected] = useState<number>(DictionaryType.Both);
-  const [data, setData] = useState(dataDict);
+  const [dataDict, setDataDict] = useState<FvWord[]>([]);
+  const [data, setData] = useState<FvWord[]>([]);
 
   const currentCategory = dataCategories.find(
     (category) => category.id === id
@@ -38,6 +39,19 @@ export function CategoryView(props: CategoryViewProps) {
   );
 
   useEffect(() => {
+    const fetchDataAsync = async () => {
+      try {
+        const result = await fetchWordsData();
+        setDataDict(result);
+      } catch (error) {
+        // Handle error scenarios
+      }
+    };
+
+    fetchDataAsync();
+  }, []);
+
+  useEffect(() => {
     switch (selected) {
       case DictionaryType.Words: {
         setData(dataDict.filter((entry) => entry.source === 'words'));
@@ -52,7 +66,7 @@ export function CategoryView(props: CategoryViewProps) {
         break;
       }
     }
-  }, [selected]);
+  }, [selected, dataDict]);
 
   return (
     <>

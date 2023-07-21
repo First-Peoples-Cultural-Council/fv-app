@@ -5,7 +5,8 @@ import Modal from '../common/modal/modal';
 import { useModal } from '../common/use-modal/use-modal';
 import { useEffect } from 'react';
 
-function WordCardDesktop({ term }: FvWord) {
+function WordCardDesktop(props: { term: FvWord }) {
+  const { term } = props;
   const location = useLocation();
   const { setShowModal, showModal, closeModal } = useModal();
   const { word, definition, audio } = term;

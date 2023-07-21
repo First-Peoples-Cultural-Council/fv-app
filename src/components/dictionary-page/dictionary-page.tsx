@@ -89,7 +89,6 @@ export function Dictionary(props: DictionaryProps) {
       )
     ) ?? navItems[0]
   );
-  const today = new Date();
 
   useEffect(() => {
     const currentNavItem = navItems.find((item) =>
@@ -116,8 +115,7 @@ export function Dictionary(props: DictionaryProps) {
         <SubNavDesktop navItems={navItems} />
         <Outlet context={{setSearchMatchRef}}/>
       </div>
-      {today.toDateString() !==
-        (localStorage.getItem('lastWOTDSeenOn') ?? '') && <WordOfTheDay />}
+      <WordOfTheDay />
     </div>
   );
 }

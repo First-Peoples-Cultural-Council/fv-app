@@ -62,11 +62,10 @@ export function Header({ className, navItems, extraNavItems, currentTab }: Heade
                 <div className="absolute top-14 -translate-x-2/4 bg-color-main-header p-4">
                   {extraNavItems?.map((item) => (
                       <button
-                        key={`${item}`}
+                        key={`${item.id}`}
                         onClick={() => setShowExtraNav(false)}
                       >
                         <Link
-                          key={item.id}
                           to={item.to}
                           className={classNames(
                             'flex items-center text-white cursor-pointer',

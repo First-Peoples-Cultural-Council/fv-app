@@ -1,4 +1,3 @@
-import { dataSongs } from '../temp-songs-list';
 import { useEffect, useState } from 'react';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import { Bookmark, FVSong } from '../common/data/types';
@@ -6,6 +5,10 @@ import classNames from 'classnames';
 import { useLocation } from 'react-router';
 import IndexedDBService from '../../services/indexedDbService';
 import { useModal } from '../common/use-modal/use-modal';
+import fetchSongsData from '../../services/songsApiService';
+import FvImage from '../common/image/image';
+import FvVideo from '../common/video/video';
+import AudioControl from '../common/audio-control/audio-control';
 
 /* eslint-disable-next-line */
 export interface SongsViewProps {}
@@ -15,6 +18,7 @@ export function SongsView(props: SongsViewProps) {
   const { setShowModal, showModal, closeModal } = useModal();
 
   const [db, setDb] = useState<IndexedDBService>();
+  const [songsData, setSongsData] = useState<FVSong[]>([]);
   const [selectedSong, setSelectedSong] = useState<FVSong | null>(null);
   const [bookmark, setBookmark] = useState<Bookmark | null>(null);
   const [bookmarked, setBookmarked] = useState<boolean>(false);
@@ -25,12 +29,25 @@ export function SongsView(props: SongsViewProps) {
   } | null>(null);
 
   useEffect(() => {
+    const fetchDataAsync = async () => {
+      try {
+        const result = await fetchSongsData();
+        setSongsData(result);
+      } catch (error) {
+        // Handle error scenarios
+      }
+    };
+
+    fetchDataAsync();
+  }, []);
+
+  useEffect(() => {
     setDb(new IndexedDBService('firstVoicesIndexedDb'));
   }, []);
 
   useEffect(() => {
     const songId = location.hash.slice(1).split('?')[0];
-    const song = dataSongs.find((song) => song.id === songId);
+    const song = songsData.find((song) => song.id === songId);
     if (song) {
       setSelectedSong(song);
       if (window.matchMedia('(max-width: 1024px').matches) {
@@ -56,10 +73,11 @@ export function SongsView(props: SongsViewProps) {
       });
 
       setBookmark({
+        id: selectedSong.id,
         type: 'song',
         definition: selectedSong?.titleTranslation ?? '',
         name: selectedSong.title,
-        hasAudio: selectedSong.audio?.length !== 0,
+        hasAudio: selectedSong.relatedAudio?.length !== 0,
         url: `${window.location.pathname}#${selectedSong.id}`,
         timestamp: new Date(),
       });
@@ -80,7 +98,7 @@ export function SongsView(props: SongsViewProps) {
     <>
       <div className="grid grid-cols-1 lg:grid-cols-2 w-full h-full">
         <div>
-          {dataSongs.map((song: FVSong) => {
+          {songsData.map((song: FVSong) => {
             return (
               <div
                 key={song.id}
@@ -100,14 +118,15 @@ export function SongsView(props: SongsViewProps) {
               >
                 <div className="grid grid-cols-10 gap-4">
                   <div className="col-span-2 flex">
-                    {song?.coverVisual === null && (
+                    {song?.coverImage === null && (
                       <div className="fv-songs text-5xl self-center border border-solid" />
                     )}
-                    {song?.coverVisual !== null && (
-                      <img
-                        src={song?.coverVisual.file}
-                        alt={song?.coverVisual.title}
-                      ></img>
+                    {song?.coverImage !== null && (
+                      <FvImage
+                        disabledClassName="text-6xl"
+                        src={song?.coverImage.original.path}
+                        alt={song?.coverImage.title}
+                      />
                     )}
                   </div>
                   <div className="col-span-6">
@@ -141,13 +160,13 @@ export function SongsView(props: SongsViewProps) {
     }
     return (
       <>
-        {selectedSong?.coverVisual !== null && (
-          <img
-            src={selectedSong?.coverVisual.file}
-            alt={selectedSong?.coverVisual.title}
-          ></img>
+        {selectedSong?.coverImage !== null && (
+          <FvImage
+            src={selectedSong?.coverImage.original.path}
+            alt={selectedSong?.coverImage.title}
+          />
         )}
-        <div className="flex justify-between">
+        <div className="flex justify-between mt-4">
           <div>
             <div className="p-2 text-2xl font-bold">{selectedSong.title}</div>
             <div className="p-2">{selectedSong.titleTranslation}</div>
@@ -157,35 +176,59 @@ export function SongsView(props: SongsViewProps) {
           </div>
         </div>
 
-        {selectedSong?.audio?.map((audio) => {
+        {selectedSong?.relatedAudio?.map((audio) => {
           return (
-            <audio key={audio.file} controls>
-              <source src={audio.file} type="audio/mpeg"></source>
-            </audio>
+            <div key={audio.original.path} className="mt-6 p-2">
+              {audio?.title && <div className="font-bold">{audio?.title}</div>}
+              <AudioControl className="mt-1" audio={audio} />
+              {audio?.description && <div>{audio?.description}</div>}
+              {audio?.acknowledgement && (
+                <div className="italic text-slate-400">
+                  {audio?.acknowledgement}
+                </div>
+              )}
+            </div>
           );
         })}
         {selectedSong?.lyrics !== null && (
           <>
-            <div className="p-2 text-lg font-bold">LYRICS</div>
-            <div className="p-2">{selectedSong?.lyrics.text}</div>
-            <div className="p-2 text-lg font-bold">TRANSLATION</div>
-            <div className="p-2">{selectedSong?.lyrics.translation}</div>
-          </>
-        )}
-        {(selectedSong?.videos?.length !== 0 ||
-          (selectedSong?.images?.length !== undefined &&
-            selectedSong?.images?.length > 1)) && (
-          <>
-            <div className="p-2 text-lg font-bold">MEDIA</div>
-            {selectedSong?.videos?.map((video) => {
+            <div className="p-2 text-lg font-bold mt-8">LYRICS</div>
+            {selectedSong?.lyrics?.map((lyrics) => {
               return (
-                <video key={video.id} controls>
-                  <source src={video.file} type="video/mp4" />
-                </video>
+                <div key={lyrics.id}>
+                  <div className="p-2">{lyrics.text}</div>
+                  <div className="p-2 italic text-slate-400">
+                    {lyrics.translation}
+                  </div>
+                </div>
               );
             })}
-            {selectedSong?.images?.slice(1).map((image) => {
-              return <img key={image.id} src={image.file} alt={image.title} />;
+          </>
+        )}
+        {(selectedSong?.relatedVideos?.length !== 0 ||
+          (selectedSong?.relatedImages?.length !== undefined &&
+            selectedSong?.relatedImages?.length > 1)) && (
+          <>
+            <div className="p-2 text-lg font-bold mt-8">MEDIA</div>
+            {selectedSong?.relatedVideos?.map((video) => {
+              return (
+                <FvVideo
+                  key={video.id}
+                  className="mt-4"
+                  disabledClassName="mt-4"
+                  src={video.original.path}
+                />
+              );
+            })}
+            {selectedSong?.relatedImages?.slice(1).map((image) => {
+              return (
+                <FvImage
+                  key={image.id}
+                  className="mt-4"
+                  src={image.original.path}
+                  alt={image.title}
+                />
+              );
             })}
           </>
         )}

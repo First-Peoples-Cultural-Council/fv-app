@@ -13,7 +13,7 @@ const navItems: NavigationItem[] = [
   {
     id: 'learn',
     label: 'Learn',
-    to: '/stories',
+    to: '/learn/stories',
     icon: <i className="fv-computer" />,
   },
   {
@@ -42,7 +42,7 @@ export function App() {
   let currentTab = 'dictionary';
   const location = useLocation();
   switch (location.pathname) {
-    case '/stories':
+    case '/learn/stories':
     case '/songs':
     case '/flashcards':
       currentTab = 'learn';

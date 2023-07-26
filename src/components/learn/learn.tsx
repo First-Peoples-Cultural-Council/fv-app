@@ -82,14 +82,19 @@ export function LearnView(props: LearnViewProps) {
         if (!navItems.includes(flashCardsNavItem)) {
           navItems.push(flashCardsNavItem);
         }
-
-        setNavItemsLoaded(true);
       } catch (error) {
         // Handle error scenarios
+        throw error;
       }
     };
 
-    fetchDataAsync();
+    fetchDataAsync()
+      .then(() => {
+        setNavItemsLoaded(true);
+      })
+      .catch((error) => {
+        console.error('error', error);
+      });
   }, []);
 
   useEffect(() => {
@@ -104,13 +109,16 @@ export function LearnView(props: LearnViewProps) {
   }, [navItemsLoaded, location]);
 
   useEffect(() => {
-    const currentNavItem = navItems.find((item) =>
-      matchRoutes([{ path: item.path }], location)
-    );
+    const currentNavItem = navItems.find((item) => {
+      console.log('item', item);
+      return matchRoutes([{ path: item.path }], location);
+    });
     if (currentNavItem) {
       setCurrentNavItem(currentNavItem);
     }
   }, [location]);
+
+  console.log('currentNavItem', currentNavItem);
 
   if (!currentNavItem) return null;
   return (

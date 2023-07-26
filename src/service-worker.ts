@@ -108,14 +108,11 @@ self.addEventListener('fetch', function (event) {
             '.wav',
             '.mov',
             '.mp4',
+            ':content/',
           ])
         ) {
-          if (await db.hasMediaFile(url)) {
-            const blob = (await db.getMediaFile(url)) as Blob;
-            const file = new File([blob], getFileNameFromUrl(url), {
-              type: blob.type,
-            });
-
+          if (await hasMediaFile(url)) {
+            const file: File = await getMediaFile(url);
             return new Response(file, { status: 200 });
           } else {
             // Save the media file in the database.
@@ -130,11 +127,8 @@ self.addEventListener('fetch', function (event) {
       } catch (error) {
         // Handle fetch error when app is offline
         // Check to see if the db has the media file.
-        if (await db.hasMediaFile(url)) {
-          const blob = (await db.getMediaFile(url)) as Blob;
-          const file = new File([blob], getFileNameFromUrl(url), {
-            type: blob.type,
-          });
+        if (await hasMediaFile(url)) {
+          const file: File = await getMediaFile(url);
           return new Response(file, { status: 200 });
         } else {
           // Return a custom offline response
@@ -147,6 +141,22 @@ self.addEventListener('fetch', function (event) {
     })()
   );
 });
+
+async function hasMediaFile(urlPath: string): Promise<boolean> {
+  const url = new URL(urlPath);
+  url.search = '';
+  return await db.hasMediaFile(url.toString());
+}
+
+async function getMediaFile(urlPath: string): Promise<File> {
+  const url = new URL(urlPath);
+  url.search = '';
+  const blob = (await db.getMediaFile(url.toString())) as Blob;
+  const file = new File([blob], getFileNameFromUrl(url.toString()), {
+    type: blob.type,
+  });
+  return file;
+}
 
 function endsWithAny(text: string, endings: string[]): boolean {
   for (const ending of endings) {

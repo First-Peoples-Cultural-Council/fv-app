@@ -30,13 +30,14 @@ export const routesConfig = createRoutesFromElements(
   <>
     <Route path="/" element={<App />}>
       <Route path="/" element={<Dictionary />}>
+        <Route path="/" element={<AlphabetView />} />
         <Route path="alphabet/:letter?" element={<AlphabetView />} />
         <Route path="dictionary" element={<DictionaryView />} />
         <Route path="categories/:id" element={<CategoryView />} />
         <Route path="categories" element={<CategoriesView />} />
         <Route path="randomized" element={<RandomizedView />} />
       </Route>
-      <Route path="/" element={<Learn />}>
+      <Route path="/" element={<Learn />} >
         <Route path="stories" element={<StoriesView />} />
         <Route path="songs" element={<SongsView />} />
         <Route path="flashcards" element={<FlashcardsView />} />
@@ -48,6 +49,7 @@ export const routesConfig = createRoutesFromElements(
     <Route path="*" element={<PageNotFound />} />
   </>
 );
+
 export const router = createBrowserRouter(routesConfig);
 
 const root = ReactDOM.createRoot(

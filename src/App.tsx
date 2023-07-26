@@ -43,8 +43,8 @@ export function App() {
   const location = useLocation();
   switch (location.pathname) {
     case '/learn/stories':
-    case '/songs':
-    case '/flashcards':
+    case '/learn/songs':
+    case '/learn/flashcards':
       currentTab = 'learn';
       break;
 

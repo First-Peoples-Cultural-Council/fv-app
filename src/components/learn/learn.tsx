@@ -110,15 +110,12 @@ export function LearnView(props: LearnViewProps) {
 
   useEffect(() => {
     const currentNavItem = navItems.find((item) => {
-      console.log('item', item);
       return matchRoutes([{ path: item.path }], location);
     });
     if (currentNavItem) {
       setCurrentNavItem(currentNavItem);
     }
   }, [location]);
-
-  console.log('currentNavItem', currentNavItem);
 
   if (!currentNavItem) return null;
   return (

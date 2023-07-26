@@ -2,7 +2,6 @@ import { ReactNode, createContext, useMemo } from 'react';
 import { dataDict } from './temp-word-list';
 
 const l1SearchAlgWord = (window as any).distanceCalculatorWord(dataDict);
-console.log('l1SearchAlgWord', l1SearchAlgWord);
 export const SearchContext = createContext({
   l1SearchAlgWord,
 });

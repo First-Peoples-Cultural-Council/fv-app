@@ -14,7 +14,7 @@ interface Props {
   onClick: (id: string) => void;
 }
 
-function DeletableList({
+export function DeletableList({
   header,
   items,
   showSearch,

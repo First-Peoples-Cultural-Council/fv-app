@@ -1,4 +1,3 @@
-import styles from './learn.module.css';
 import { matchRoutes, Outlet, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import SubNavDesktop from '../sub-nav-desktop/sub-nav-desktop';
@@ -119,7 +118,7 @@ export function LearnView(props: LearnViewProps) {
 
   if (!currentNavItem) return null;
   return (
-    <div className={styles['container']}>
+    <div>
       <SearchHeader
         searchMatchRef={null}
         title={currentNavItem.title}

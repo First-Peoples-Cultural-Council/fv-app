@@ -17,7 +17,8 @@ export function Header({ className, navItems, extraNavItems, currentTab }: Heade
   return (
     <>
       <header
-        className={classNames(
+        role="banner"
+        className={classNames('main-header',
           'w-full bg-color-main-header hidden p-4 justify-between items-center md:flex',
           className
         )}

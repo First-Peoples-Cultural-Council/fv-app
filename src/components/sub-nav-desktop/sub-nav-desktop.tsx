@@ -10,7 +10,7 @@ export function SubNavDesktop({ navItems }: SubNavDesktopProps) {
   const location = useLocation();
 
   return (
-    <nav className="w-[100px] flex flex-col hidden md:block mr-5">
+    <nav className="sidebar w-[100px] flex flex-col hidden md:block mr-5" role="complementary">
       {navItems.map((item) => {
         return (
           <Link

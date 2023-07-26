@@ -37,7 +37,7 @@ export const routesConfig = createRoutesFromElements(
         <Route path="categories" element={<CategoriesView />} />
         <Route path="randomized" element={<RandomizedView />} />
       </Route>
-      <Route path="/" element={<Learn />} >
+      <Route path="learn" element={<Learn />} >
         <Route path="stories" element={<StoriesView />} />
         <Route path="songs" element={<SongsView />} />
         <Route path="flashcards" element={<FlashcardsView />} />

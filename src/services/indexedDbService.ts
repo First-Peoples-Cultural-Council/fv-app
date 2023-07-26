@@ -21,7 +21,7 @@ interface FVDB extends DBSchema {
   };
   data: {
     key: string;
-    value: FvWord[];
+    value: any[];
   };
 }
 

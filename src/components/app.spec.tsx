@@ -1,10 +1,9 @@
-import { render } from '@testing-library/react';
-
 import App from './app';
+import { renderWithProviders } from '../testingUtils/renderWithProviders';
 
 describe('App', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<App />);
+    const { baseElement } = renderWithProviders(['/']);
 
     expect(baseElement).toBeTruthy();
   });

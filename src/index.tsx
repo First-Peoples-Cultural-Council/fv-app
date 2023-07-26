@@ -26,31 +26,31 @@ import AboutView from './components/about-view/about-view';
 import PageNotFound from './components/common/page-not-found/page-not-found';
 import SearchProvider from './components/search-provider';
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <>
-      <Route path="/" element={<App />}>
-        <Route path="/" element={<Dictionary />}>
-          <Route path="/" element={<AlphabetView />} />
-          <Route path="alphabet/:letter?" element={<AlphabetView />} />
-          <Route path="dictionary" element={<DictionaryView />} />
-          <Route path="categories/:id" element={<CategoryView />} />
-          <Route path="categories" element={<CategoriesView />} />
-          <Route path="randomized" element={<RandomizedView />} />
-        </Route>
-        <Route path="learn" element={<Learn />} >
-          <Route path="stories" element={<StoriesView />} />
-          <Route path="songs" element={<SongsView />} />
-          <Route path="flashcards" element={<FlashcardsView />} />
-        </Route>
-        <Route path="/profile" element={<ProfileView />} />
-        <Route path="/settings" element={<SettingsView />} />
-        <Route path="/about" element={<AboutView />} />
+export const routesConfig = createRoutesFromElements(
+  <>
+    <Route path="/" element={<App />}>
+      <Route path="/" element={<Dictionary />}>
+        <Route path="/" element={<AlphabetView />} />
+        <Route path="alphabet/:letter?" element={<AlphabetView />} />
+        <Route path="dictionary" element={<DictionaryView />} />
+        <Route path="categories/:id" element={<CategoryView />} />
+        <Route path="categories" element={<CategoriesView />} />
+        <Route path="randomized" element={<RandomizedView />} />
       </Route>
-      <Route path="*" element={<PageNotFound />} />
-    </>
-  )
+      <Route path="learn" element={<Learn />} >
+        <Route path="stories" element={<StoriesView />} />
+        <Route path="songs" element={<SongsView />} />
+        <Route path="flashcards" element={<FlashcardsView />} />
+      </Route>
+      <Route path="/profile" element={<ProfileView />} />
+      <Route path="/settings" element={<SettingsView />} />
+      <Route path="/about" element={<AboutView />} />
+    </Route>
+    <Route path="*" element={<PageNotFound />} />
+  </>
 );
+
+export const router = createBrowserRouter(routesConfig);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

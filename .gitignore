@@ -41,4 +41,7 @@ Thumbs.db
 
 # Environments
 .env
+/test-results/
+/playwright-report/
+/playwright/.cache/
 .fontello-session

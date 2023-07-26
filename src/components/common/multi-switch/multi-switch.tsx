@@ -19,7 +19,7 @@ export function MultiSwitch({
   const [selected, setSelected] = useState<number>(initialSelected);
 
   return (
-    <div className={'p-2'}>
+    <div className={'multi-switch p-2'}>
       <div className={'w-fit rounded-lg'}>
         {items.map((item, index) => {
           return (

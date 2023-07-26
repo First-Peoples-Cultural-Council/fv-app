@@ -1,0 +1,2 @@
+# Exclude from source scope
+sonar.exclusions=libs/shared-assets/fonts/**,playwright.config.ts

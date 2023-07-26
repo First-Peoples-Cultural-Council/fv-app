@@ -1,5 +1,5 @@
 import styles from './dictionary-page.module.css';
-import { matchRoutes, Outlet, useLocation } from 'react-router-dom';
+import {matchRoutes, Outlet, useLocation, useNavigate} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import SubNavDesktop from '../sub-nav-desktop/sub-nav-desktop';
 import SubNavMobile from '../sub-nav-mobile/sub-nav-mobile';
@@ -73,6 +73,14 @@ export interface DictionaryProps {}
 export function Dictionary(props: DictionaryProps) {
   const [searchMatchRef, setSearchMatchRef] = useState<HTMLDivElement | null>(null);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.pathname === '/') {
+      navigate('/alphabet');
+    }
+  }, [location, navigate]);
+
   const [currentNavItem, setCurrentNavItem] = useState(
     navItems.find((item) =>
       matchRoutes(

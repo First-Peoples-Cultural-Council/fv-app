@@ -282,7 +282,7 @@ export function AlphabetView(props: AlphabetViewProps) {
           <span className="text-5xl bold">{selected?.letter}</span>
         </div>
         {selected?.examples.map((termId) => {
-          const term = dataDict.find((word) => word.entryID === termId);
+          const term = dataDict?.find((word) => word.entryID === termId);
           if (term === undefined) {
             return null;
           }
@@ -330,7 +330,7 @@ export function AlphabetView(props: AlphabetViewProps) {
           <span className="text-5xl bold">{selected?.letter}</span>
         </div>
         {dataDict
-          .filter((term) => {
+          ?.filter((term) => {
             return term.word.startsWith(selected?.letter ?? '');
           })
           .sort((a, b) => {

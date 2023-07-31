@@ -50,9 +50,9 @@ function WordModal(props: { term: FvWord }) {
   };
 
   return (
-    <div className="p-10">
+    <div className="md:p-10">
       <div className="flex text-2xl">
-        <p className="grow font-bold text-3xl">{word}</p>
+        <p className="grow font-bold md:text-3xl">{word}</p>
         <div className="grid grid-cols-1">
           <div className="pl-2 pr-2">
             <i className="fv-copy pr-2" />

@@ -55,9 +55,13 @@ export const fetchData = async (
       return dbData.data;
     }
 
-    // Return an empty list if there was something wrong with the data.
-    return [];
   } catch (error) {
-    throw new Error(`Failed to fetch data for the ${collection} from the API`);
+    console.error(
+      `Failed to fetch data for the ${collection} from the API`,
+      error
+    );
   }
+
+  // Return an empty list if there was something wrong with the data.
+  return [];
 };

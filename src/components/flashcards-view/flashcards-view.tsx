@@ -224,10 +224,10 @@ export function FlashcardsView(props: FlashcardsViewProps) {
           style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
           className="fixed inset-0 w-full h-full backdrop"
         >
-          <div className="grid h-screen place-items-center outline-none focus:outline-none">
-            <div className="group h-96 w-96 md:w-[36rem] [perspective:1000px] mt-10 mb-10">
+          <div className="grid h-screen md:place-items-center outline-none focus:outline-none">
+            <div className="group h-96 w-90 md:w-[36rem] [perspective:1000px] mt-10 mb-10 p-4">
               <div className="w-full flow-root">
-                <div className="grid h-10 w-10 bg-gray-50 float-right rounded-3xl mb-4 place-items-center">
+                <div className="grid h-10 w-10 bg-gray-50 float-right rounded-3xl mb-4 md:place-items-center">
                   <button
                     className="p-2 ml-auto bg-transparent border-0 text-black float-right text-1xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowFlashcardModal(false)}

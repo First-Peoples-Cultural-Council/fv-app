@@ -12,6 +12,7 @@ import fetchWordsData from '../../services/wordsApiService';
 import axios from 'axios';
 import ConfirmDialog from '../common/confirm/confirm';
 import Modal from '../common/modal/modal';
+import { useDetectOnlineStatus } from '../common/hooks/useDetectOnlineStatus';
 
 const dataAlphabetMap = _.keyBy(dataAlphabet, 'letter');
 
@@ -37,7 +38,7 @@ export function AlphabetView(props: AlphabetViewProps) {
   const [downloadPercentage, setDownloadedPercentage] = useState(0);
   const [showDownloadProgress, setShowDownloadProgress] = useState(false);
   const [currentlyDownloading, setCurrentlyDownloading] = useState(false);
-
+  const { isOnline } = useDetectOnlineStatus();
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 
   if (!useIsMobile() && selected === null) {
@@ -189,7 +190,12 @@ export function AlphabetView(props: AlphabetViewProps) {
     return (
       <div className="flex justify-center items-center">
         <span
-          className="fv-cloud-arrow-down-regular text-4xl justify-self-end cursor-pointer"
+          className={classNames(
+            'fv-cloud-arrow-down-regular text-4xl justify-self-end cursor-pointer',
+            {
+              'opacity-75': !isOnline,
+            }
+          )}
           onClick={() => promptForDownload()}
         />
       </div>

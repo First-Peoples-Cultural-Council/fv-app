@@ -13,7 +13,7 @@ import axios from 'axios';
 import ConfirmDialog from '../common/confirm/confirm';
 import Modal from '../common/modal/modal';
 import { useDetectOnlineStatus } from '../common/hooks/useDetectOnlineStatus';
-import Tooltip from '../common/tooltip/tooltip';
+import Alert from '../common/alert/alert';
 
 const dataAlphabetMap = _.keyBy(dataAlphabet, 'letter');
 
@@ -39,6 +39,7 @@ export function AlphabetView(props: AlphabetViewProps) {
   const [downloadPercentage, setDownloadedPercentage] = useState(0);
   const [showDownloadProgress, setShowDownloadProgress] = useState(false);
   const [currentlyDownloading, setCurrentlyDownloading] = useState(false);
+  const [showAlertNotOnline, setShowAlertNotOnline] = useState(false);
   const { isOnline } = useDetectOnlineStatus();
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 
@@ -190,16 +191,21 @@ export function AlphabetView(props: AlphabetViewProps) {
   function downloadButton() {
     return (
       <div className="flex justify-center items-center">
-        {isOnline ? (
-          <span
-            className="fv-cloud-arrow-down-regular text-4xl justify-self-end cursor-pointer"
-            onClick={() => promptForDownload()}
-          />
-        ) : (
-          <Tooltip label="Offline">
-            <i className="fv-cloud-arrow-down-regular text-4xl justify-self-end opacity-50 cursor-not-allowed" />
-          </Tooltip>
-        )}
+        <span
+          className="fv-cloud-arrow-down-regular text-4xl justify-self-end cursor-pointer"
+          onClick={() =>
+            isOnline ? promptForDownload() : setShowAlertNotOnline(true)
+          }
+        />
+        <Alert
+          type={'warning'}
+          message="Content not downloaded.  Please try again when you have access to the internet."
+          showDismissButton={true}
+          showAlert={showAlertNotOnline}
+          dismissAlert={function (): void {
+            setShowAlertNotOnline(false);
+          }}
+        />
       </div>
     );
   }

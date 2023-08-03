@@ -4,6 +4,7 @@ import { FvAudio } from '../data';
 import { useButtonStyle } from '../hooks';
 import classNames from 'classnames';
 import IndexedDBService from '../../../services/indexedDbService';
+import { useDetectOnlineStatus } from '../hooks/useDetectOnlineStatus';
 
 export interface AudioButtonProps {
   fvAudio: FvAudio;
@@ -16,24 +17,14 @@ export function AudioButton({ fvAudio }: AudioButtonProps) {
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 
   const [showAlert, setShowAlert] = useState(false);
-  const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine);
   const [hasFile, setHasFile] = useState(false);
 
+  const { isOnline } = useDetectOnlineStatus();
+
   useEffect(() => {
-    const handleOnline = () => setIsOnline(true);
-    const handleOffline = () => setIsOnline(false);
-
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-
     db.hasMediaFile(fvAudio.filename).then((response) => {
       setHasFile(response);
     });
-
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

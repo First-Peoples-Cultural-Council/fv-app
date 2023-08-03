@@ -13,6 +13,7 @@ import axios from 'axios';
 import ConfirmDialog from '../common/confirm/confirm';
 import Modal from '../common/modal/modal';
 import { useDetectOnlineStatus } from '../common/hooks/useDetectOnlineStatus';
+import Tooltip from '../common/tooltip/tooltip';
 
 const dataAlphabetMap = _.keyBy(dataAlphabet, 'letter');
 
@@ -189,15 +190,16 @@ export function AlphabetView(props: AlphabetViewProps) {
   function downloadButton() {
     return (
       <div className="flex justify-center items-center">
-        <span
-          className={classNames(
-            'fv-cloud-arrow-down-regular text-4xl justify-self-end cursor-pointer',
-            {
-              'opacity-75': !isOnline,
-            }
-          )}
-          onClick={() => promptForDownload()}
-        />
+        {isOnline ? (
+          <span
+            className="fv-cloud-arrow-down-regular text-4xl justify-self-end cursor-pointer"
+            onClick={() => promptForDownload()}
+          />
+        ) : (
+          <Tooltip label="Offline">
+            <i className="fv-cloud-arrow-down-regular text-4xl justify-self-end opacity-50 cursor-not-allowed" />
+          </Tooltip>
+        )}
       </div>
     );
   }

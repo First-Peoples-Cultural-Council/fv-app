@@ -10,7 +10,7 @@
 
 import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
-import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
+import { createHandlerBoundToURL, precacheAndRoute } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
 import IndexedDBService from './services/indexedDbService';
@@ -151,11 +151,12 @@ async function hasMediaFile(urlPath: string): Promise<boolean> {
 async function getMediaFile(urlPath: string): Promise<File> {
   const url = new URL(urlPath);
   url.search = '';
-  const blob = (await db.getMediaFile(url.toString())) as Blob;
-  const file = new File([blob], getFileNameFromUrl(url.toString()), {
+  const { file: blob } = (await db.getMediaFile(url.toString())) as {
+    file: Blob;
+  };
+  return new File([blob], getFileNameFromUrl(url.toString()), {
     type: blob.type,
   });
-  return file;
 }
 
 function endsWithAny(text: string, endings: string[]): boolean {

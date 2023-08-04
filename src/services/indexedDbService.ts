@@ -17,7 +17,11 @@ interface FVDB extends DBSchema {
   };
   mediaFiles: {
     key: string;
-    value: Blob;
+    value: {
+      downloadedAt: string;
+      lastAccessedAt: string;
+      file: Blob;
+    };
   };
   data: {
     key: string;
@@ -96,14 +100,39 @@ class IndexedDBService {
     const db = await this.database;
     const transaction = db.transaction('mediaFiles', 'readwrite');
     const store = transaction.objectStore('mediaFiles');
-    await store.add(file, url);
+    await store.add(
+      {
+        downloadedAt: new Date().toISOString(),
+        lastAccessedAt: new Date().toISOString(),
+        file,
+      },
+      url
+    );
   }
 
-  async getMediaFile(url: string): Promise<Blob | undefined> {
+  async getMediaFile(url: string): Promise<
+    | {
+        downloadedAt: string;
+        lastAccessedAt: string;
+        file: Blob;
+      }
+    | undefined
+  > {
     const db = await this.database;
-    const transaction = db.transaction(['mediaFiles'], 'readonly');
+    const transaction = db.transaction(['mediaFiles'], 'readwrite');
     const store = transaction.objectStore('mediaFiles');
-    const mediaFile = await store.get(url);
+    const mediaFile = (await store.get(url)) as {
+      downloadedAt: string;
+      lastAccessedAt: string;
+      file: Blob;
+    };
+    await store.put(
+      {
+        ...mediaFile,
+        lastAccessedAt: new Date().toISOString(),
+      },
+      url
+    );
     return mediaFile;
   }
 

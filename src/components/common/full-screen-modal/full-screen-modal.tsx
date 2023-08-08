@@ -5,12 +5,14 @@ export interface FullScreenModalProps {
   onClose: () => void;
   children: React.ReactNode;
   actions: React.ReactNode;
+  title?: string;
 }
 
 export function FullScreenModal({
   onClose,
   children,
   actions,
+  title,
 }: FullScreenModalProps) {
   return createPortal(
     <div className="modal fixed w-full h-full top-0 left-0 flex items-center justify-center bg-white">
@@ -25,6 +27,7 @@ export function FullScreenModal({
             </button>
             <div className="ml-auto text-2xl">{actions}</div>
           </div>
+          {!!title && <span className="inline-block text-3xl mb-5">{title}</span>}
           {children}
         </div>
       </div>

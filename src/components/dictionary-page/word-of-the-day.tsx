@@ -4,6 +4,7 @@ import Modal from '../common/modal/modal';
 import fetchWordOfDayData from '../../services/wordOfTheDayApiService';
 import { FvWord } from '../common/data';
 import fetchWordsData from '../../services/wordsApiService';
+import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 
 function WordOfTheDay() {
   const today = new Date();
@@ -24,8 +25,9 @@ function WordOfTheDay() {
 
     fetchDataAsync();
 
-    if (today.toDateString() !==
-      (localStorage.getItem('lastWOTDSeenOn') ?? '')) {
+    if (
+      today.toDateString() !== (localStorage.getItem('lastWOTDSeenOn') ?? '')
+    ) {
       setShowModal(true);
     }
 
@@ -41,7 +43,7 @@ function WordOfTheDay() {
 
     return () => {
       document.body.classList.remove('word-of-the-day-modal-open');
-    }
+    };
   }, [showModal]);
 
   useEffect(() => {
@@ -55,20 +57,6 @@ function WordOfTheDay() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataDict]);
-
-  return (
-    <>
-      {data ? (
-        showModal && (
-          <Modal onClose={() => wordOfTheDaySeen()} title="Word of the Day">
-            <WordModal term={data} />
-          </Modal>
-        )
-      ) : (
-        <div>Loading...</div>
-      )}
-    </>
-  );
 
   async function getWordOfTheDay() {
     try {
@@ -85,6 +73,32 @@ function WordOfTheDay() {
   function wordOfTheDaySeen() {
     localStorage.setItem('lastWOTDSeenOn', today.toDateString());
     setShowModal(false);
+  }
+
+  if (data) {
+    if (showModal) {
+      if (window.matchMedia('(min-width: 768px').matches) {
+        console.log("larger than 768px");
+        return (
+          <Modal onClose={() => wordOfTheDaySeen()} title="Word of the Day">
+            <WordModal term={data} />
+          </Modal>
+        );
+      } else if (!window.matchMedia('(min-width: 768px').matches) {
+        console.log("smaller than 768px");
+        return (
+          <FullScreenModal onClose={() => wordOfTheDaySeen()} actions={null} title="Word of the Day">
+            <WordModal term={data} />
+          </FullScreenModal>
+        );
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+  } else {
+    return <div>Loading...</div>;
   }
 }
 

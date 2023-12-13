@@ -72,7 +72,7 @@ export function StoriesView(props: StoriesViewProps) {
 
   useEffect(() => {
     bookmarkIcon(db).catch((err: any) => {
-      console.log(err);
+      console.error(err);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [db, bookmark]);
@@ -175,7 +175,7 @@ export function StoriesView(props: StoriesViewProps) {
       <>
         <div>
           {currentPage === -2 && title()}
-          {currentPage === -1 && into()}
+          {currentPage === -1 && intro()}
           {currentPage !== -2 && currentPage !== -1 && page()}
         </div>
       </>
@@ -201,7 +201,7 @@ export function StoriesView(props: StoriesViewProps) {
             await navigator.clipboard
               .writeText(selectedStory?.title ?? '')
               .catch((err: any) => {
-                console.log(err);
+                console.error(err);
               });
           }}
         >
@@ -219,13 +219,13 @@ export function StoriesView(props: StoriesViewProps) {
             if (shareData) {
               if (navigator.share && navigator.canShare(shareData)) {
                 navigator.share(shareData).catch((err: any) => {
-                  console.log(err);
+                  console.error(err);
                 });
               } else {
                 navigator.clipboard
                   .writeText(shareData.url)
                   .catch((err: any) => {
-                    console.log(err);
+                    console.error(err);
                   });
               }
             }
@@ -251,7 +251,7 @@ export function StoriesView(props: StoriesViewProps) {
               }
             }
             bookmarkIcon(db).catch((err: any) => {
-              console.log(err);
+              console.error(err);
             });
           }}
         >
@@ -310,7 +310,7 @@ export function StoriesView(props: StoriesViewProps) {
     );
   }
 
-  function into() {
+  function intro() {
     return (
       <div className="max-w-5xl mx-auto">
         <div className="flex flex-wrap w-full">
@@ -421,7 +421,7 @@ export function StoriesView(props: StoriesViewProps) {
           </div>
         </div>
         <div className="flex justify-end">
-          {currentPage !== (selectedStory?.pages.length ?? -1) - 1 && (
+          {currentPage !== (selectedStory?.pages?.length ?? -1) - 1 && (
             <button
               onClick={() => setCurrentPage(currentPage + 1)}
               type="button"

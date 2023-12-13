@@ -21,7 +21,7 @@ export const fetchData = async (
 
       if (data && data.length !== 0) {
         if (dbData?.data) {
-          // Go though and update the data with the new data from the response.
+          // Go through and update the data with the new data from the response.
           dbData.data.forEach((item: any) => {
             const updatedItemIndex = data.findIndex(
               (modifiedItem) => modifiedItem.id === item.id

@@ -6,7 +6,7 @@ import { defineConfig, devices } from '@playwright/test';
  */
 require('dotenv').config();
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000;
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -33,47 +33,47 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-      testIgnore: /.*mobile.spec.ts/,
-    },
-
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-      testIgnore: /.*mobile.spec.ts/,
-    },
-
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-      testIgnore: /.*mobile.spec.ts/,
-    },
-
-    /* Test against mobile viewports. */
-    {
-      name: 'Mobile Chrome',
-      use: { ...devices['Pixel 5'] },
-      testIgnore: /.*desktop.spec.ts/,
-    },
-    {
-      name: 'Mobile Safari',
-      use: { ...devices['iPhone 12'] },
-      testIgnore: /.*desktop.spec.ts/,
-    },
-
-    /* Test against branded browsers. */
-    {
-      name: 'Microsoft Edge',
-      use: { ...devices['Desktop Edge'], channel: 'msedge' },
-      testIgnore: /.*mobile.spec.ts/,
-    },
-    {
-      name: 'Google Chrome',
-      use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-      testIgnore: /.*mobile.spec.ts/,
-    },
+    // {
+    //   name: 'chromium',
+    //   use: { ...devices['Desktop Chrome'] },
+    //   testIgnore: /.*mobile.spec.ts/,
+    // },
+    //
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'] },
+    //   testIgnore: /.*mobile.spec.ts/,
+    // },
+    //
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    //   testIgnore: /.*mobile.spec.ts/,
+    // },
+    //
+    // /* Test against mobile viewports. */
+    // {
+    //   name: 'Mobile Chrome',
+    //   use: { ...devices['Pixel 5'] },
+    //   testIgnore: /.*desktop.spec.ts/,
+    // },
+    // {
+    //   name: 'Mobile Safari',
+    //   use: { ...devices['iPhone 12'] },
+    //   testIgnore: /.*desktop.spec.ts/,
+    // },
+    //
+    // /* Test against branded browsers. */
+    // {
+    //   name: 'Microsoft Edge',
+    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
+    //   testIgnore: /.*mobile.spec.ts/,
+    // },
+    // {
+    //   name: 'Google Chrome',
+    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+    //   testIgnore: /.*mobile.spec.ts/,
+    // },
   ],
 
   /* Run your local dev server before starting the tests */

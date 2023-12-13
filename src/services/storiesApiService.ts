@@ -1,5 +1,4 @@
 import { FVStory } from '../components/common/data';
-import { dataStories } from '../components/temp-stories-list';
 import { fetchData } from './apiService';
 
 export const fetchStoriesData = async (): Promise<FVStory[]> => {

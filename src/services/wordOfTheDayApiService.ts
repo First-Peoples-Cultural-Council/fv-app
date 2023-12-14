@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getCurrentDialect } from '../util/getCurrentDialect';
 
 export interface WordOfDayDataResponse {
   dictionaryEntry: {
@@ -9,7 +10,9 @@ export interface WordOfDayDataResponse {
 export const fetchWordOfDayData = async (): Promise<WordOfDayDataResponse> => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_WORD_OF_THE_DAY_API_URL}`
+      `${
+        process.env.REACT_APP_BASE_API_URL
+      }/sites/${getCurrentDialect()}/word-of-the-day`
     );
     return response.data[0] as WordOfDayDataResponse;
   } catch (error) {

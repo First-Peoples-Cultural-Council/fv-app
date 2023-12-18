@@ -151,7 +151,7 @@ export type FVSong = {
   created: string;
   excludeFromGames: boolean;
   excludeFromKids: boolean;
-  hideOverlay: boolean
+  hideOverlay: boolean;
   id: string;
   introduction: string;
   introductionTranslation: string;
@@ -213,11 +213,11 @@ export type FVMedia = {
 export type FVFile = {
   mimetype: string;
   path: string;
-}
+};
 
 export type FVPeople = {
   bio: string;
   id: string;
   name: string;
   url: string;
-}
+};

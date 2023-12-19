@@ -1,6 +1,7 @@
 import { ButtonTypeEnum, StandardButtonButtonTypeEnum } from './enums';
 import { ReactNode } from 'react';
 
+import { DictionaryEntryExportFormat, Audio1 } from '@mothertongues/search';
 export type SelectOption = {
   id: string;
   label: string;
@@ -61,29 +62,13 @@ export type Language = {
   dialects?: Dialect[];
 };
 
-export type FvWord = {
-  source: string;
-  entryID: string;
-  word: string;
-  definition: string;
-  audio: FvAudio[];
-  img: string;
-  theme: string;
-  secondary_theme: string | null;
-  optional:
-    | {
-        [key: string]: string;
-      }[]
-    | null;
-  compare_form: string;
-  sort_form: string;
-  sorting_form: number[];
-};
+export type FvWord = DictionaryEntryExportFormat;
 
-export type FvAudio = {
-  speaker: string | null;
-  filename: string;
-};
+export type FvAudio = Audio1;
+// export type FvAudio = {
+//   description: string | null;
+//   filename: string;
+// };
 
 export type SubNavItem = {
   id: string;
@@ -132,7 +117,7 @@ export type Flashcard = {
 
 export type Bookmark = {
   id: string;
-  type: string;
+  type: FvWord['source']; // I just changed this but you might want to do more extensive type inheritance from FvWord/DictionaryEntryExportFormat
   name: string;
   definition: string;
   hasAudio: boolean;

@@ -261,7 +261,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                             });
                           }}
                         >
-                          <i className="fv-play">{fvAudio.speaker}</i>
+                          <i className="fv-play">{fvAudio.description}</i>
                         </button>
                       ))}
                   </div>

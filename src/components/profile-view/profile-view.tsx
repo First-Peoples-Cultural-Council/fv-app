@@ -37,14 +37,12 @@ export function ProfileView() {
   const navigate = useNavigate();
 
   const handleBookmarkClick = (bookmarkUrl: string) => {
-    navigate(
-      `${bookmarkUrl}?source=${window.location.pathname}`
-    );
+    navigate(`${bookmarkUrl}?source=${window.location.pathname}`);
   };
 
   const list: DeleteListType[] = bookmarks.map((bookmark) => {
     let color = 'bg-slate-700';
-    switch (bookmark.type.toLowerCase()) {
+    switch (bookmark.type && bookmark.type.toLowerCase()) {
       case 'word':
         color = 'bg-green-700';
         break;

@@ -1,6 +1,6 @@
 // import axios from 'axios';
 import { FvWord } from '../components/common/data';
-import { dataDict } from '../components/temp-word-list';
+import { mtdData } from '../components/temp-mtd-export-data';
 import IndexedDBService from './indexedDbService';
 
 const db = new IndexedDBService('firstVoicesIndexedDb');
@@ -12,14 +12,13 @@ export const fetchWordsData = async (): Promise<FvWord[]> => {
     if (dbData) {
       return dbData.data;
     }
-
     // If not in the database make API call to get it.
     // TODO: Put in when the API is implemented.
     // const now: string = new Date().toISOString();
     // const response = await axios.get(
     //   `${process.env.REACT_APP_API_URL}?since=${now}`
     // );
-    const data = dataDict; // TODO: TEMP.
+    const { data } = mtdData; // TODO: TEMP.
 
     if (data) {
       const dbEntry = {

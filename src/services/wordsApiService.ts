@@ -13,12 +13,12 @@ export const fetchWordsData = async (): Promise<FvWord[]> => {
       return dbData.data;
     }
     // If not in the database make API call to get it.
-    // TODO: Put in when the API is implemented.
+    // Put in when the API is implemented.
     // const now: string = new Date().toISOString();
     // const response = await axios.get(
     //   `${process.env.REACT_APP_API_URL}?since=${now}`
     // );
-    const { data } = mtdData; // TODO: TEMP.
+    const { data } = mtdData;
 
     if (data) {
       const dbEntry = {

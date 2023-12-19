@@ -24,7 +24,7 @@ function WordCard(props: { term: FvWord }) {
         {Object.entries(term.optional || {}).map(([key, value]) => {
           if (value) {
             // Not exactly sure how you want to render this, but the optional value is now a dict, not a list
-            return <li>{`${key}: ${value}`}</li>;
+            return <li key={key}>{`${key}: ${value}`}</li>;
           } else {
             return '';
           }

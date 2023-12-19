@@ -65,10 +65,6 @@ export type Language = {
 export type FvWord = DictionaryEntryExportFormat;
 
 export type FvAudio = Audio1;
-// export type FvAudio = {
-//   description: string | null;
-//   filename: string;
-// };
 
 export type SubNavItem = {
   id: string;

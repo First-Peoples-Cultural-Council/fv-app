@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useMemo } from 'react';
-import { dataDict } from './temp-word-list';
+import fetchWordsData from '../services/wordsApiService';
 
 declare global {
   interface Window {
@@ -7,7 +7,9 @@ declare global {
   }
 }
 
-const getSearch = () => {
+const getSearch = async () => {
+  const dataDict = await fetchWordsData();
+
   return window.distanceCalculatorWord(dataDict);
 }
 export const SearchContext = createContext({

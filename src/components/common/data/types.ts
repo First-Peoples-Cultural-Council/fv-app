@@ -80,9 +80,40 @@ export type FvWord = {
   sorting_form: number[];
 };
 
+export type FvWord2 = {
+  id: string;
+  url: string;
+  title: string;
+  translations: FvTranslation[];
+  type: string;
+  relatedAudio: FVMedia[];
+  relatedImages: FVMedia[];
+  relatedVideos: FVMedia[];
+};
+
 export type FvAudio = {
   speaker: string | null;
   filename: string;
+};
+
+export type FvAudio2 = {
+  id: string;
+  url: string;
+  title: string;
+  description: string;
+  acknowledgement: string;
+};
+
+export type FvImages2 = {
+  id: string;
+  url: string;
+  title: string;
+  description: string;
+};
+
+export type FvTranslation = {
+  id: string;
+  text: string;
 };
 
 export type SubNavItem = {
@@ -109,12 +140,25 @@ export type FvCategory = {
 };
 
 export type FvLetter = {
-  letter: string;
-  audio: FvAudio[];
-  examples: string[];
-  notes: string;
-  order: number;
+  id: string;
+  created: string;
+  createdBy: string;
+  lastModified: string;
+  lastModifiedBy: string;
+  url: string;
+  site: {};
+  title: string;
+  relatedAudio: FVMedia[];
+  relatedImages: FVMedia[];
+  relatedVideos: FVMedia[];
+  relatedDictionaryEntries: FvWord2[];
+  note: string;
+  sortOrder: number;
+  approximateForm: string;
+  variants: any[];
 };
+
+//export type FvLetter = NewType;
 
 export type NavigationItem = {
   id: string;
@@ -151,7 +195,7 @@ export type FVSong = {
   created: string;
   excludeFromGames: boolean;
   excludeFromKids: boolean;
-  hideOverlay: boolean
+  hideOverlay: boolean;
   id: string;
   introduction: string;
   introductionTranslation: string;
@@ -213,11 +257,11 @@ export type FVMedia = {
 export type FVFile = {
   mimetype: string;
   path: string;
-}
+};
 
 export type FVPeople = {
   bio: string;
   id: string;
   name: string;
   url: string;
-}
+};

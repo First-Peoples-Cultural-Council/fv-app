@@ -11,6 +11,8 @@ export const fetchData = async (
     // Check the database to see if there is already data in there.
     const dbData = await db.getData(collection);
     if (dbData) {
+      return dbData.data;
+      // TODO: Change the way this works because since is not currently implemented.
       url += `?since=${dbData.timestamp}`;
     }
 

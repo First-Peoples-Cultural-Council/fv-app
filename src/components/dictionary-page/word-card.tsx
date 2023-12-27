@@ -21,17 +21,14 @@ function WordCard(props: { term: FvWord }) {
   return (
     <>
       <p className="italic">
-        {term.optional?.map((element) => {
-          if (element['Part of Speech'] !== undefined) {
-            return `(${element['Part of Speech']}) `;
-          } else {
-            return '';
-          }
-        })}
+        {term.optional &&
+        term.optional['Part of Speech' as keyof typeof term.optional]
+          ? `(${term.optional['Part of Speech' as keyof typeof term.optional]})`
+          : ' '}
       </p>
       <p className="pt-10 pb-10">{term.definition}</p>
       {term.audio?.map((fvAudio: FvAudio) => (
-        <AudioButton key={fvAudio.filename} fvAudio={fvAudio}/>
+        <AudioButton key={fvAudio.filename} fvAudio={fvAudio} />
       ))}
       {term.img && (
         <FvImage

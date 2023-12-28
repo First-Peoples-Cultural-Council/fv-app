@@ -7,8 +7,8 @@ import { FvAudio, FvCategory, FvWord } from '../common/data';
 import { FvImage } from '../common/image/image';
 import { AudioButton } from '../common/audio-button/audio';
 
-function WordCard(props: { term: FvWord }) {
-  const { term } = props;
+function WordCard(props: { term: FvWord, categoryPressed: () => void }) {
+  const { term, categoryPressed } = props;
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 
   const findCategoryByTitle = (
@@ -68,6 +68,7 @@ function WordCard(props: { term: FvWord }) {
         <Link
           to={`/categories/${primaryCategory.id}`}
           className={classNames('mr-2', tertiaryButtonStyle)}
+          onClick={categoryPressed}
         >
           {primaryCategory?.title}
         </Link>
@@ -76,6 +77,7 @@ function WordCard(props: { term: FvWord }) {
         <Link
           to={`/categories/${secondaryCategory.id}`}
           className={classNames('mr-2', tertiaryButtonStyle)}
+          onClick={categoryPressed}
         >
           {secondaryCategory?.title}
         </Link>

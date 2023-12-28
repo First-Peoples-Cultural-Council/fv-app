@@ -49,7 +49,7 @@ function WordCardDesktop(props: { term: FvWord }) {
       </div>
       {showModal && (
         <Modal onClose={() => closeModal()}>
-          <WordModal term={term} />
+          <WordModal term={term} onClose={() => closeModal()} />
         </Modal>
       )}
     </>

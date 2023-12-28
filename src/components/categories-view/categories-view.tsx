@@ -13,7 +13,7 @@ export function CategoriesView(props: CategoriesViewProps) {
     <div className={classNames('')}>
       <div className="block md:hidden flex flex-wrap">
         {dataCategories
-          .filter((category) => category.parent == null)
+          .filter((category) => category.children)
           .map((category) => {
             return (
               <Link
@@ -26,12 +26,12 @@ export function CategoriesView(props: CategoriesViewProps) {
               >
                 <i
                   className={classNames(
-                    category.icon ?? 'fv-categories',
+                    'fv-categories',
                     'text-4xl'
                   )}
                 />
 
-                <div className="pt-2 text-sm">{category.name}</div>
+                <div className="pt-2 text-sm">{category.title}</div>
               </Link>
             );
           })}
@@ -39,7 +39,6 @@ export function CategoriesView(props: CategoriesViewProps) {
       <div className="hidden md:block">
         <div className="grid grid-cols-2 gap-2 lg:gap-3 lg:grid-cols-3 mt-5">
           {dataCategories
-            .filter((category) => category.parent == null)
             .map((category) => {
               return (
                 <div
@@ -54,17 +53,15 @@ export function CategoriesView(props: CategoriesViewProps) {
                   >
                     <i
                       className={classNames(
-                        category.icon ?? 'fv-categories',
+                        'fv-categories',
                         'text-3xl hover:opacity-75'
                       )}
                     />
                     <div className="pt-2 inline-flex ml-3 text-lg font-medium">
-                      {category.name}
+                      {category.title}
                     </div>
                   </Link>
-                  {dataCategories
-                    .filter((subCategory) => category.id === subCategory.parent)
-                    .map((subCategory) => {
+                    {category.children?.map((subCategory) => {
                       return (
                         <Link
                           key={subCategory.id}
@@ -74,7 +71,7 @@ export function CategoriesView(props: CategoriesViewProps) {
                           )}
                         >
                           <div className="pt-2 text-md pl-8 text-slate-600">
-                            {subCategory.name}
+                            {subCategory.title}
                           </div>
                         </Link>
                       );

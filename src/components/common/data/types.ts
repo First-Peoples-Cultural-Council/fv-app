@@ -68,7 +68,7 @@ export type FvWord = {
   definition: string;
   audio: FvAudio[];
   img: string;
-  theme: string;
+  theme: string | null;
   secondary_theme: string | null;
   optional:
     | {
@@ -96,21 +96,6 @@ export type FvAudio = {
   filename: string;
 };
 
-export type FvAudio2 = {
-  id: string;
-  url: string;
-  title: string;
-  description: string;
-  acknowledgement: string;
-};
-
-export type FvImages2 = {
-  id: string;
-  url: string;
-  title: string;
-  description: string;
-};
-
 export type FvTranslation = {
   id: string;
   text: string;
@@ -134,9 +119,10 @@ export type SubNavItem = {
 
 export type FvCategory = {
   id: string;
-  name: string;
-  icon: string | null;
-  parent: string | null;
+  title: string;
+  url: string;
+  description: string;
+  children?: FvCategory[];
 };
 
 export type FvLetter = {

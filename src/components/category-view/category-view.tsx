@@ -5,7 +5,7 @@ import { dataCategories } from '../temp-category-list';
 import { Fragment, useEffect, useState } from 'react';
 import WordCardDesktop from '../dictionary-page/word-card-desktop';
 import WordCardMobile from '../dictionary-page/word-card-mobile';
-import { DictionaryType, FvWord } from '../common/data';
+import { DictionaryType, FvCategory, FvWord } from '../common/data';
 import MultiSwitch from '../common/multi-switch/multi-switch';
 import fetchWordsData from '../../services/wordsApiService';
 
@@ -19,24 +19,58 @@ export function CategoryView(props: CategoryViewProps) {
   const [dataDict, setDataDict] = useState<FvWord[]>([]);
   const [data, setData] = useState<FvWord[]>([]);
 
-  const currentCategory = dataCategories.find(
-    (category) => category.id === id
+  const findCategoryById = (
+    list: FvCategory[] | null,
+    id: string
+  ): FvCategory | undefined => {
+    if (!list) return undefined;
+
+    for (const category of list) {
+      if (category.id === id) {
+        return category;
+      }
+
+      const nestedCategory = findCategoryById(category.children ?? [], id);
+      if (nestedCategory) {
+        return nestedCategory;
+      }
+    }
+
+    return undefined;
+  };
+
+  const findPrimaryCategoryById = (
+    list: FvCategory[] | null,
+    id: string
+  ): FvCategory | undefined => {
+    if (!list) return undefined;
+
+    for (const category of list) {
+      if (category.id === id) {
+        return category;
+      }
+
+      const nestedCategory = findCategoryById(category.children ?? [], id);
+      if (nestedCategory) {
+        return category;
+      }
+    }
+
+    return undefined;
+  };
+
+  const currentCategory: FvCategory = findCategoryById(
+    dataCategories,
+    id ?? ''
   ) ?? {
     id: '',
-    name: '',
-    icon: '',
-    parent: null,
+    description: '',
+    url: '',
+    title: '',
   };
 
   const primaryCategory =
-    dataCategories.find(
-      (category) =>
-        category.id === currentCategory.parent && currentCategory.parent != null
-    ) ?? currentCategory;
-
-  const subCategories = dataCategories.filter(
-    (category) => category.parent === primaryCategory.id
-  );
+    findPrimaryCategoryById(dataCategories, id ?? '') ?? currentCategory;
 
   useEffect(() => {
     const fetchDataAsync = async () => {
@@ -79,12 +113,12 @@ export function CategoryView(props: CategoryViewProps) {
           {wordsPhrasesBoth()}
           {data
             .filter((term) => {
-              if (currentCategory === primaryCategory) {
-                return term.theme === primaryCategory.id;
+              if (currentCategory.id === primaryCategory.id) {
+                return term.theme === primaryCategory.title;
               } else {
                 return (
-                  term.theme === primaryCategory.id &&
-                  term.secondary_theme === currentCategory.id
+                  term.theme === primaryCategory.title &&
+                  term.secondary_theme === currentCategory.title
                 );
               }
             })
@@ -109,9 +143,7 @@ export function CategoryView(props: CategoryViewProps) {
               <div className="border-gray-700 border-solid border w-full mt-5 mb-5" />
               <div>
                 {dataCategories
-                  .filter(
-                    (category) => category.parent == null && category.id !== id
-                  )
+                  .filter((category) => category.id !== primaryCategory.id)
                   .map((category) => {
                     return (
                       <Link
@@ -123,11 +155,11 @@ export function CategoryView(props: CategoryViewProps) {
                       >
                         <i
                           className={classNames(
-                            category.icon ?? 'fv-categories',
+                            'fv-categories',
                             'text-3xl hover:opacity-75'
                           )}
                         />
-                        <div className="pt-2 text-lg">{category.name}</div>
+                        <div className="pt-2 text-lg">{category.title}</div>
                       </Link>
                     );
                   })}
@@ -145,11 +177,11 @@ export function CategoryView(props: CategoryViewProps) {
                 {data
                   .filter((term) => {
                     if (currentCategory === primaryCategory) {
-                      return term.theme === primaryCategory.id;
+                      return term.theme === primaryCategory.title;
                     } else {
                       return (
-                        term.theme === primaryCategory.id &&
-                        term.secondary_theme === currentCategory.id
+                        term.theme === primaryCategory.title &&
+                        term.secondary_theme === currentCategory.title
                       );
                     }
                   })
@@ -178,13 +210,10 @@ export function CategoryView(props: CategoryViewProps) {
         )}
       >
         <i
-          className={classNames(
-            primaryCategory.icon ?? 'fv-categories',
-            'text-3xl hover:opacity-75'
-          )}
+          className={classNames('fv-categories', 'text-3xl hover:opacity-75')}
         />
         <div className="inline-flex text-lg font-medium">
-          {primaryCategory.name}
+          {primaryCategory.title}
         </div>
       </Link>
     );
@@ -193,7 +222,7 @@ export function CategoryView(props: CategoryViewProps) {
   function subcategories() {
     return (
       <>
-        {subCategories.map((subCategory) => {
+        {primaryCategory?.children?.map((subCategory) => {
           return (
             <Link
               key={subCategory.id}
@@ -207,7 +236,7 @@ export function CategoryView(props: CategoryViewProps) {
               )}
             >
               <div className="inline-flex text-lg font-medium pl-2 hover:opacity-75">
-                {subCategory.name}
+                {subCategory.title}
               </div>
             </Link>
           );

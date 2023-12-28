@@ -1,8 +1,9 @@
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
+// TODO: REPLACE
 import { dataCategories } from '../temp-category-list';
 import { useButtonStyle } from '../common/hooks';
-import { FvAudio, FvWord } from '../common/data';
+import { FvAudio, FvCategory, FvWord } from '../common/data';
 import { FvImage } from '../common/image/image';
 import { AudioButton } from '../common/audio-button/audio';
 
@@ -10,12 +11,37 @@ function WordCard(props: { term: FvWord }) {
   const { term } = props;
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 
-  const primaryCategory = dataCategories.find(
-    (category) => category.id === term.theme
+  const findCategoryByTitle = (
+    list: FvCategory[] | null,
+    title: string
+  ): FvCategory | undefined => {
+    if (!list) return undefined;
+
+    for (const category of list) {
+      if (category.title === title) {
+        return category;
+      }
+
+      const nestedCategory = findCategoryByTitle(
+        category.children ?? [],
+        title
+      );
+      if (nestedCategory) {
+        return nestedCategory;
+      }
+    }
+
+    return undefined;
+  };
+
+  const primaryCategory = findCategoryByTitle(
+    dataCategories,
+    term?.theme ?? ''
   );
 
-  const secondaryCategory = dataCategories.find(
-    (category) => category.id === term.secondary_theme
+  const secondaryCategory = findCategoryByTitle(
+    dataCategories,
+    term?.secondary_theme ?? ''
   );
 
   return (
@@ -43,7 +69,7 @@ function WordCard(props: { term: FvWord }) {
           to={`/categories/${primaryCategory.id}`}
           className={classNames('mr-2', tertiaryButtonStyle)}
         >
-          {primaryCategory?.name}
+          {primaryCategory?.title}
         </Link>
       )}
       {secondaryCategory !== undefined && (
@@ -51,7 +77,7 @@ function WordCard(props: { term: FvWord }) {
           to={`/categories/${secondaryCategory.id}`}
           className={classNames('mr-2', tertiaryButtonStyle)}
         >
-          {secondaryCategory?.name}
+          {secondaryCategory?.title}
         </Link>
       )}
     </>

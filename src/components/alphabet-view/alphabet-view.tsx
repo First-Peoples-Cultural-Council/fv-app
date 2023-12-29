@@ -82,7 +82,7 @@ export function AlphabetView(props: AlphabetViewProps) {
         {keyboard()}
       </div>
       <div className="hidden md:block w-full">
-        <div className="grid grid-flow-col">
+        <div className="grid grid-cols-3">
           <div className='col-span-1'>
             {selectedLetterDisplay()}
             {keyboard()}

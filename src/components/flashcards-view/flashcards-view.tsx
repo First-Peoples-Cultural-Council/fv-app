@@ -202,8 +202,8 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                       () => {
                         const categoryData = dictionaryData.filter((term) => {
                           return (
-                            term.theme === category.id ||
-                            term.secondary_theme === category.id
+                            term.theme === category.title ||
+                            term.secondary_theme === category.title
                           );
                         });
                         setSelectedFlashcardType(category.title);

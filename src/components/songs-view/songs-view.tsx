@@ -118,14 +118,14 @@ export function SongsView(props: SongsViewProps) {
               >
                 <div className="grid grid-cols-10 gap-4">
                   <div className="col-span-2 flex">
-                    {song?.coverImage === null && (
+                    {song?.relatedImages.length === 0 && (
                       <div className="fv-songs text-5xl self-center border border-solid" />
                     )}
-                    {song?.coverImage !== null && (
+                    {song?.relatedImages.length !== 0 && (
                       <FvImage
                         disabledClassName="text-6xl"
-                        src={song?.coverImage.original.path}
-                        alt={song?.coverImage.title}
+                        src={song?.relatedImages[0].original.path}
+                        alt={song?.relatedImages[0].title}
                       />
                     )}
                   </div>
@@ -160,10 +160,10 @@ export function SongsView(props: SongsViewProps) {
     }
     return (
       <>
-        {selectedSong?.coverImage !== null && (
+        {selectedSong?.relatedImages.length !== 0 && (
           <FvImage
-            src={selectedSong?.coverImage.original.path}
-            alt={selectedSong?.coverImage.title}
+            src={selectedSong?.relatedImages[0].original.path}
+            alt={selectedSong?.relatedImages[0].title}
           />
         )}
         <div className="flex justify-between mt-4">

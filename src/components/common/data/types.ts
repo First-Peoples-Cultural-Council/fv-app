@@ -177,7 +177,6 @@ export type DeleteListType = {
 
 export type FVSong = {
   acknowledgements: string[];
-  coverImage: FVMedia | null;
   created: string;
   excludeFromGames: boolean;
   excludeFromKids: boolean;

@@ -97,7 +97,7 @@ export function SongsView(props: SongsViewProps) {
   return (
     <>
       <div className="grid grid-cols-1 lg:grid-cols-2 w-full h-full">
-        <div>
+        <div className='lg:overflow-y-auto' style={{ height: 'calc(100vh - 150px)' }}>
           {songsData.map((song: FVSong) => {
             return (
               <div

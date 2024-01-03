@@ -127,7 +127,7 @@ export function SongsView(props: SongsViewProps) {
                     {song?.relatedImages.length !== 0 && (
                       <FvImage
                         disabledClassName="text-6xl"
-                        src={song?.relatedImages[0].original.path}
+                        src={song?.relatedImages[0]?.thumbnail?.path ?? ''}
                         alt={song?.relatedImages[0].title}
                       />
                     )}

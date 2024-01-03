@@ -45,14 +45,14 @@ function WordCard(props: { term: FvWord, categoryPressed: () => void }) {
   );
 
   return (
-    <>
+    <div className="p-5">
       <p className="italic">
         {term.optional &&
         term.optional['Part of Speech' as keyof typeof term.optional]
           ? `(${term.optional['Part of Speech' as keyof typeof term.optional]})`
           : ' '}
       </p>
-      <p className="pt-10 pb-10">{term.definition}</p>
+      <p className="pt-20 pb-10">{term.definition}</p>
       {term.audio?.map((fvAudio: FvAudio) => (
         <AudioButton key={fvAudio.filename} fvAudio={fvAudio} />
       ))}
@@ -82,7 +82,7 @@ function WordCard(props: { term: FvWord, categoryPressed: () => void }) {
           {secondaryCategory?.title}
         </Link>
       )}
-    </>
+    </div>
   );
 }
 

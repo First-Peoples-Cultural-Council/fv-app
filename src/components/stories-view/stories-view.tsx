@@ -2,11 +2,7 @@ import classNames from 'classnames';
 import { Bookmark, FVStory } from '../common/data/types';
 import IndexedDBService from '../../services/indexedDbService';
 import {
-  JSXElementConstructor,
   Key,
-  ReactElement,
-  ReactNode,
-  ReactPortal,
   useEffect,
   useState,
 } from 'react';
@@ -143,7 +139,7 @@ export function StoriesView(props: StoriesViewProps) {
                       <FvImage
                         className="h-full w-full object-contain shadow-lg"
                         disabledClassName="text-6xl"
-                        src={story?.relatedImages[0].original.path ?? ''}
+                        src={story?.relatedImages[0]?.thumbnail?.path ?? ''}
                         alt={story?.title ?? ''}
                       />
                     )}

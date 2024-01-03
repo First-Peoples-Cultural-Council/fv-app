@@ -195,11 +195,13 @@ export type FVSong = {
 };
 
 export type FVPage = {
-  order: number;
-  content: FVContent;
-  audio: FVMedia[];
-  videos: FVMedia[];
-  images: FVMedia[];
+  ordering: number;
+  notes: string[];
+  text: string;
+  translation: string;
+  relatedAudio: FVMedia[];
+  relatedVideos: FVMedia[];
+  relatedImages: FVMedia[];
 };
 
 export type FVContent = {
@@ -210,16 +212,16 @@ export type FVContent = {
 
 export type FVStory = {
   id: string;
-  title: string | null;
-  titleTranslation: string | null;
-  author_name: string | null;
-  coverVisual: FVMedia | null;
-  intro: FVContent | null;
+  title: string;
+  titleTranslation: string;
+  author: string;
+  introduction: string;
+  introductionTranslation: string;
   acknowledgements: string[];
   notes: string[];
-  audio: FVMedia[];
-  videos: FVMedia[];
-  images: FVMedia[];
+  relatedAudio: FVMedia[];
+  relatedVideos: FVMedia[];
+  relatedImages: FVMedia[];
   pages: FVPage[];
 };
 

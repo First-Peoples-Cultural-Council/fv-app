@@ -1,7 +1,15 @@
 import classNames from 'classnames';
 import { Bookmark, FVStory } from '../common/data/types';
 import IndexedDBService from '../../services/indexedDbService';
-import { useEffect, useState } from 'react';
+import {
+  JSXElementConstructor,
+  Key,
+  ReactElement,
+  ReactNode,
+  ReactPortal,
+  useEffect,
+  useState,
+} from 'react';
 import { useLocation } from 'react-router-dom';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import Modal from '../common/modal/modal';
@@ -90,7 +98,7 @@ export function StoriesView(props: StoriesViewProps) {
         type: 'story',
         definition: selectedStory?.titleTranslation ?? '',
         name: selectedStory.title ?? '',
-        hasAudio: selectedStory.audio?.length !== 0,
+        hasAudio: selectedStory.relatedAudio?.length !== 0,
         url: `${window.location.pathname}#${selectedStory.id}`,
         timestamp: new Date(),
       });
@@ -126,16 +134,16 @@ export function StoriesView(props: StoriesViewProps) {
               >
                 <div className="grid grid-cols-10 gap-4">
                   <div className="col-span-3 h-[75px] w-[75px] sm:h-[100px] sm:w-[100px]">
-                    {story?.coverVisual === null && (
+                    {story?.relatedImages === null && (
                       <div className="h-full w-full object-contain shadow-lg flex justify-center items-center">
                         <div className="fv-stories text-6xl"></div>
                       </div>
                     )}
-                    {story?.coverVisual && (
+                    {story?.relatedImages[0] && (
                       <FvImage
                         className="h-full w-full object-contain shadow-lg"
                         disabledClassName="text-6xl"
-                        src={story?.coverVisual.original.path ?? ''}
+                        src={story?.relatedImages[0].original.path ?? ''}
                         alt={story?.title ?? ''}
                       />
                     )}
@@ -272,14 +280,14 @@ export function StoriesView(props: StoriesViewProps) {
       <div className="max-w-5xl mx-auto">
         <div className="flex flex-col h-full">
           <div className="h-3/5 flex-1">
-            {selectedStory?.coverVisual && (
+            {selectedStory?.relatedImages[0] && (
               <FvImage
                 className="h-full"
-                src={selectedStory?.coverVisual.original.path ?? ''}
+                src={selectedStory?.relatedImages[0].original.path ?? ''}
                 alt={selectedStory?.title ?? ''}
               />
             )}
-            {(selectedStory?.coverVisual?.original.path ?? '') === '' && (
+            {(selectedStory?.relatedImages[0]?.original.path ?? '') === '' && (
               <div className="fv-stories text-20xl"></div>
             )}
           </div>
@@ -314,7 +322,7 @@ export function StoriesView(props: StoriesViewProps) {
     return (
       <div className="max-w-5xl mx-auto">
         <div className="flex flex-wrap w-full">
-          {selectedStory?.images?.map((img) => {
+          {selectedStory?.relatedImages?.map((img) => {
             return (
               <FvImage
                 key={img.id}
@@ -331,14 +339,20 @@ export function StoriesView(props: StoriesViewProps) {
         </div>
         <div className="p-2 text-2xl font-bold">{selectedStory?.title}</div>
         <div className="p-2">{selectedStory?.titleTranslation}</div>
-        {selectedStory?.intro !== undefined && (
+        {selectedStory?.introduction !== undefined && (
           <>
             <div className="p-2 font-bold">Introduction</div>
-            <div className="p-2">{selectedStory?.intro?.text}</div>
-            <div className="p-2">{selectedStory?.intro?.translation}</div>
+            <div className="p-2">
+              {convertJsonToComponent(selectedStory?.introduction ?? '{}')}
+            </div>
+            <div className="p-2">
+              {convertJsonToComponent(
+                selectedStory?.introductionTranslation ?? '{}'
+              )}
+            </div>
           </>
         )}
-        {selectedStory?.audio?.map((audio) => {
+        {selectedStory?.relatedAudio?.map((audio) => {
           return (
             <AudioControl
               className="mt-10 p-2"
@@ -356,7 +370,7 @@ export function StoriesView(props: StoriesViewProps) {
     return (
       <div className="max-w-5xl mx-auto">
         <div className="flex flex-wrap w-full justify-center">
-          {selectedStory?.pages[currentPage]?.images?.map((img) => {
+          {selectedStory?.pages[currentPage]?.relatedImages?.map((img) => {
             return (
               <FvImage
                 key={img.id}
@@ -374,15 +388,20 @@ export function StoriesView(props: StoriesViewProps) {
 
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/2 p-2">
-            {selectedStory?.pages[currentPage]?.content.text}
+            {convertJsonToComponent(
+              selectedStory?.pages[currentPage]?.text ?? '{}'
+            )}
           </div>
           <div className="md:w-1/2 p-2">
-            {selectedStory?.pages[currentPage]?.content.translation}
+            {convertJsonToComponent(
+              selectedStory?.pages[currentPage]?.translation ?? '{}'
+            )}
+            {selectedStory?.pages[currentPage]?.translation}
           </div>
         </div>
 
         <div className="flex w-full justify-center">
-          {selectedStory?.pages[currentPage]?.audio?.map((audio) => {
+          {selectedStory?.pages[currentPage]?.relatedAudio?.map((audio) => {
             return (
               <audio className="mt-10" key={audio.original.path} controls>
                 <source
@@ -443,6 +462,42 @@ export function StoriesView(props: StoriesViewProps) {
         <FvImage className="w-full" src={pictureUrl} alt="" />
       </>
     );
+  }
+
+  function convertJsonToComponent(jsonString: string) {
+    try {
+      const json = JSON.parse(jsonString);
+
+      return (
+        <>
+          {json.blocks.map(
+            (
+              block: {
+                inlineStyleRanges: any[];
+                text: string;
+              },
+              index: Key | null | undefined
+            ) => (
+              <p
+                key={index}
+                style={{
+                  fontWeight: block.inlineStyleRanges.some(
+                    (range) => range.style === 'BOLD'
+                  )
+                    ? 'bold'
+                    : 'normal',
+                }}
+              >
+                {block.text}
+              </p>
+            )
+          )}
+        </>
+      );
+    } catch (error) {
+      console.log(error);
+      return <></>;
+    }
   }
 }
 

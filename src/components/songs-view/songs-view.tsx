@@ -55,7 +55,7 @@ export function SongsView(props: SongsViewProps) {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [db, location]);
+  }, [songsData, location]);
 
   useEffect(() => {
     bookmarkIcon(db).catch((err: any) => {

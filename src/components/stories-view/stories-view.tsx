@@ -72,7 +72,7 @@ export function StoriesView(props: StoriesViewProps) {
       setShowModal(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [db, location]);
+  }, [storiesData, location]);
 
   useEffect(() => {
     bookmarkIcon(db).catch((err: any) => {

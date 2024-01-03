@@ -135,7 +135,10 @@ export function CategoryView(props: CategoryViewProps) {
       <div className="flex flex-row hidden md:block pr-5">
         <div className={styles['container']}>
           <div className="flex flex-row">
-            <div className="min-w-400 mr-8">
+            <div className={classNames(
+                  'overflow-y-auto mr-8',
+                  styles['catsSubCatsContainer']
+                )}>
               <div>
                 {selectedCategory()}
                 {subcategories()}

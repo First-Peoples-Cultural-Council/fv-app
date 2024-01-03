@@ -2,6 +2,7 @@ import { FVStory } from '../components/common/data';
 import { getCurrentDialect } from '../util/getCurrentDialect';
 import axios from 'axios';
 import IndexedDBService from './indexedDbService';
+import isDateOlderThen from '../util/isDateOlderThen';
 
 const db = new IndexedDBService('firstVoicesIndexedDb');
 
@@ -15,38 +16,21 @@ export const fetchStoriesData = async (): Promise<FVStory[]> => {
     const collection = 'stories';
 
     if (dbData) {
+      // Check to see if we need to update the data.
+      if (isDateOlderThen(dbData.timestamp, 1)) {
+        Promise.resolve().then(async () => {
+          // Refresh the data without waiting
+          await getData(url, collection);
+        });
+      }
+
+      // Return the cached data.
       return dbData.data;
-      // TODO: Change the way this works because since is not currently implemented.
-      url += `?since=${dbData.timestamp}`;
     }
 
-    const response = await axios.get(url);
-    const data: any[] = response.data.results;
-    let stories: any[] = [];
+    const data = await getData(url, collection);
+    return data;
 
-    if (data && data.length !== 0) {
-      // Make a call to get each of the stories.
-      const apiRequests = data.map((storyData) =>
-        fetchData(`${url}/${storyData.id}`)
-      );
-      const responses = await Promise.all(apiRequests);
-
-      // Handle responses
-      responses.forEach((storyData) => {
-        stories.push(storyData);
-      });
-
-      // Create the updated data entry for the database.
-      const dbEntry = {
-        timestamp: new Date().toISOString(),
-        data: stories,
-      };
-
-      // Store the data from the API call into the database.
-      await db.saveData(collection, dbEntry);
-
-      return stories;
-    }
   } catch (error) {
     console.error(error);
   }
@@ -63,5 +47,39 @@ const fetchData = async (url: string): Promise<any> => {
     console.error(`Error fetching data from ${url}:`, error);
   }
 };
+
+async function getData(url: string, collection: string): Promise<any[]> {
+  return new Promise<any[]>(async (_res, _rej) => {
+  const response = await axios.get(url);
+    const data: any[] = response.data.results;
+    let stories: any[] = [];
+
+    if (data && data.length !== 0) {
+      // Make a call to get each of the stories.
+      const apiRequests = data.map((storyData) =>
+        fetchData(`${url}/${storyData.id}`)
+      );
+      const responses = await Promise.all(apiRequests);
+
+      // Handle responses
+      responses.forEach((storyData) => {
+        if (storyData !== undefined) {
+          stories.push(storyData);
+        }
+      });
+
+      // Create the updated data entry for the database.
+      const dbEntry = {
+        timestamp: new Date().toISOString(),
+        data: stories,
+      };
+
+      // Store the data from the API call into the database.
+      await db.saveData(collection, dbEntry);
+
+      return stories;
+    }
+  });
+}
 
 export default fetchStoriesData;

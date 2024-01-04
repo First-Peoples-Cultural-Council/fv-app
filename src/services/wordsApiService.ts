@@ -17,7 +17,7 @@ export const fetchWordsData = async (): Promise<FvWord[]> => {
     if (dbData) {
       return dbData.data;
       // TODO: Change the way this works because since is not currently implemented.
-      url += `?since=${dbData.timestamp}`;
+      // url += `?since=${dbData.timestamp}`;
     }
 
     try {

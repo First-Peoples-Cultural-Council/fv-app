@@ -1,11 +1,7 @@
 import classNames from 'classnames';
 import { Bookmark, FVStory } from '../common/data/types';
 import IndexedDBService from '../../services/indexedDbService';
-import {
-  Key,
-  useEffect,
-  useState,
-} from 'react';
+import { Key, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import Modal from '../common/modal/modal';
@@ -467,15 +463,8 @@ export function StoriesView(props: StoriesViewProps) {
       return (
         <>
           {json.blocks.map(
-            (
-              block: {
-                inlineStyleRanges: any[];
-                text: string;
-              },
-              index: Key | null | undefined
-            ) => (
+            (block: { inlineStyleRanges: any[]; text: string }) => (
               <p
-                key={index}
                 style={{
                   fontWeight: block.inlineStyleRanges.some(
                     (range) => range.style === 'BOLD'

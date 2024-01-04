@@ -144,8 +144,6 @@ export type FvLetter = {
   variants: any[];
 };
 
-//export type FvLetter = NewType;
-
 export type NavigationItem = {
   id: string;
   to: string;

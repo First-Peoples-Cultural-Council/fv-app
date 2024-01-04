@@ -49,7 +49,7 @@ const fetchData = async (url: string): Promise<any> => {
 };
 
 async function getData(url: string, collection: string): Promise<any[]> {
-  return new Promise<any[]>(async (_res, _rej) => {
+  return new Promise<any[]>(async (resolve, reject) => {
   const response = await axios.get(url);
     const data: any[] = response.data.results;
     let stories: any[] = [];
@@ -77,7 +77,9 @@ async function getData(url: string, collection: string): Promise<any[]> {
       // Store the data from the API call into the database.
       await db.saveData(collection, dbEntry);
 
-      return stories;
+      resolve(stories);
+    } else {
+      reject(stories)
     }
   });
 }

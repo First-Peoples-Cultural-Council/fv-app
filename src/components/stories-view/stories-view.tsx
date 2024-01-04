@@ -467,11 +467,11 @@ export function StoriesView(props: StoriesViewProps) {
               block: {
                 inlineStyleRanges: any[];
                 text: string;
+                key: string;
               },
-              key: Key | null | undefined
             ) => (
               <p
-                key={key}
+                key={block.key}
                 style={{
                   fontWeight: block.inlineStyleRanges.some(
                     (range) => range.style === 'BOLD'

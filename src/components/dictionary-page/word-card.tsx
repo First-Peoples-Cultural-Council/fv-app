@@ -7,7 +7,9 @@ import { FvAudio, FvCategory, FvWord } from '../common/data';
 import { FvImage } from '../common/image/image';
 import { AudioButton } from '../common/audio-button/audio';
 
-function WordCard(props: { term: FvWord, categoryPressed: () => void }) {
+function WordCard(
+  props: Readonly<{ term: FvWord; categoryPressed: () => void }>
+) {
   const { term, categoryPressed } = props;
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 

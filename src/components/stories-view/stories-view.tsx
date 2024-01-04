@@ -463,8 +463,15 @@ export function StoriesView(props: StoriesViewProps) {
       return (
         <>
           {json.blocks.map(
-            (block: { inlineStyleRanges: any[]; text: string }) => (
+            (
+              block: {
+                inlineStyleRanges: any[];
+                text: string;
+              },
+              key: Key | null | undefined
+            ) => (
               <p
+                key={key}
                 style={{
                   fontWeight: block.inlineStyleRanges.some(
                     (range) => range.style === 'BOLD'

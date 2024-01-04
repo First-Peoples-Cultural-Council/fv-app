@@ -30,7 +30,6 @@ export const fetchStoriesData = async (): Promise<FVStory[]> => {
 
     const data = await getData(url, collection);
     return data;
-
   } catch (error) {
     console.error(error);
   }
@@ -49,39 +48,35 @@ const fetchData = async (url: string): Promise<any> => {
 };
 
 async function getData(url: string, collection: string): Promise<any[]> {
-  return new Promise<any[]>(async (resolve, reject) => {
   const response = await axios.get(url);
-    const data: any[] = response.data.results;
-    let stories: any[] = [];
+  const data: any[] = response.data.results;
+  let stories: any[] = [];
 
-    if (data && data.length !== 0) {
-      // Make a call to get each of the stories.
-      const apiRequests = data.map((storyData) =>
-        fetchData(`${url}/${storyData.id}`)
-      );
-      const responses = await Promise.all(apiRequests);
+  if (data && data.length !== 0) {
+    // Make a call to get each of the stories.
+    const apiRequests = data.map((storyData) =>
+      fetchData(`${url}/${storyData.id}`)
+    );
+    const responses = await Promise.all(apiRequests);
 
-      // Handle responses
-      responses.forEach((storyData) => {
-        if (storyData !== undefined) {
-          stories.push(storyData);
-        }
-      });
+    // Handle responses
+    responses.forEach((storyData) => {
+      if (storyData !== undefined) {
+        stories.push(storyData);
+      }
+    });
 
-      // Create the updated data entry for the database.
-      const dbEntry = {
-        timestamp: new Date().toISOString(),
-        data: stories,
-      };
+    // Create the updated data entry for the database.
+    const dbEntry = {
+      timestamp: new Date().toISOString(),
+      data: stories,
+    };
 
-      // Store the data from the API call into the database.
-      await db.saveData(collection, dbEntry);
+    // Store the data from the API call into the database.
+    await db.saveData(collection, dbEntry);
+  }
 
-      resolve(stories);
-    } else {
-      reject(stories)
-    }
-  });
+  return stories;
 }
 
 export default fetchStoriesData;

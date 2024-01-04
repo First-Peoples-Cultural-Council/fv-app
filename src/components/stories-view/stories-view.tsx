@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { Bookmark, FVStory } from '../common/data/types';
 import IndexedDBService from '../../services/indexedDbService';
-import { Key, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import Modal from '../common/modal/modal';

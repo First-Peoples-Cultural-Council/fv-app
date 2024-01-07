@@ -1,33 +1,34 @@
 import classNames from 'classnames';
 import { Fragment, useEffect, useState } from 'react';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
-import { dataAlphabet } from '../temp-alphabet-list';
 import WordAlphabetRowCard from './word-row-card';
 import _ from 'lodash';
 import { useIsMobile } from '../../util/useMediaQuery';
-import { FvAudio, FvLetter, FvWord } from '../common/data';
+import { FVMedia, FvLetter, FvWord } from '../common/data';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import { useButtonStyle } from '../common/hooks';
 import fetchWordsData from '../../services/wordsApiService';
+import fetchCharactersData from '../../services/charactersApiService';
 import axios from 'axios';
 import ConfirmDialog from '../common/confirm/confirm';
 import Modal from '../common/modal/modal';
 import { useDetectOnlineStatus } from '../common/hooks/useDetectOnlineStatus';
 import Alert from '../common/alert/alert';
 
-const dataAlphabetMap = _.keyBy(dataAlphabet, 'letter');
-
 /* eslint-disable-next-line */
 export interface AlphabetViewProps {}
+
+let dataAlphabetMap: Record<string, FvLetter>;
 
 export function AlphabetView(props: AlphabetViewProps) {
   const { letter } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const [dataDict, setDataDict] = useState<FvWord[]>([]);
+  const [dataAlphabet, setDataAlphabet] = useState<FvLetter[]>([]);
   const [selected, setSelected] = useState<FvLetter | null>(
     (dataAlphabet.find(
-      (letterData) => letterData.letter === decodeURIComponent(letter ?? '')
+      (letterData) => letterData.title === decodeURIComponent(letter ?? '')
     ) as FvLetter) ?? null
   );
   const [showMobileWordList, setShowMobileWordList] = useState(
@@ -43,12 +44,19 @@ export function AlphabetView(props: AlphabetViewProps) {
   const { isOnline } = useDetectOnlineStatus();
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 
-  if (!useIsMobile() && selected === null) {
+  if (!useIsMobile() && selected === null && dataAlphabet.length !== 0) {
     setSelected(dataAlphabet[0]);
   }
 
   useEffect(() => {
     const fetchDataAsync = async () => {
+      try {
+        const result = await fetchCharactersData();
+        _.keyBy(result, 'title');
+        setDataAlphabet(result);
+      } catch (error) {
+        // Handle error scenarios
+      }
       try {
         const result = await fetchWordsData();
         setDataDict(result);
@@ -74,14 +82,14 @@ export function AlphabetView(props: AlphabetViewProps) {
         {keyboard()}
       </div>
       <div className="hidden md:block w-full">
-        <div className="flex flex-row">
-          <div>
+        <div className="grid grid-cols-3">
+          <div className='col-span-1'>
             {selectedLetterDisplay()}
             {keyboard()}
           </div>
-          <div>
-            {selected?.examples.length !== 0 && exampleWordList()}
-            {selected?.notes !== undefined && notes()}
+          <div className='col-span-2'>
+            {selected?.relatedDictionaryEntries.length !== 0 && exampleWordList()}
+            {selected?.note !== undefined && note()}
             {wordList()}
           </div>
         </div>
@@ -126,7 +134,7 @@ export function AlphabetView(props: AlphabetViewProps) {
   );
 
   function selectedLetterDisplay() {
-    const audioCount = selected?.audio.length ?? 0;
+    const audioCount = selected?.relatedAudio.length ?? 0;
 
     return (
       <>
@@ -139,7 +147,7 @@ export function AlphabetView(props: AlphabetViewProps) {
           }}
         />
         <div className="flex text-8xl justify-center pb-6">
-          {selected?.letter}
+          {selected?.title}
         </div>
         {audioCount === 0 && (
           <div className="flex w-full justify-center">
@@ -151,7 +159,7 @@ export function AlphabetView(props: AlphabetViewProps) {
           <div className="grid grid-cols-3">
             {copyButton()}
             {downloadButton()}
-            {selected?.audio.map((fvAudio) => {
+            {selected?.relatedAudio.map((fvAudio) => {
               return audioButton(fvAudio);
             })}
           </div>
@@ -161,7 +169,7 @@ export function AlphabetView(props: AlphabetViewProps) {
             <div className="flex w-full justify-center">{copyButton()}</div>
             <div className="flex w-full justify-center">{downloadButton()}</div>
             <div className="flex justify-evenly mt-5">
-              {selected?.audio.map((fvAudio) => {
+              {selected?.relatedAudio.map((fvAudio) => {
                 return audioButton(fvAudio);
               })}
             </div>
@@ -178,7 +186,7 @@ export function AlphabetView(props: AlphabetViewProps) {
           className="fv-copy text-4xl cursor-pointer"
           onClick={() => {
             navigator.clipboard
-              .writeText(selected?.letter ?? '')
+              .writeText(selected?.title ?? '')
               .catch((err: any) => {
                 console.log(err);
               });
@@ -210,12 +218,12 @@ export function AlphabetView(props: AlphabetViewProps) {
     );
   }
 
-  function audioButton(fvAudio: FvAudio) {
+  function audioButton(fvAudio: FVMedia) {
     return (
-      <div key={fvAudio.filename} className="flex justify-center items-center">
+      <div key={fvAudio.url} className="flex justify-center items-center">
         <span
           className="fv-volume-up text-4xl justify-self-end cursor-pointer"
-          onClick={() => playAudio(fvAudio.filename)}
+          onClick={() => playAudio(fvAudio.url)}
         />
       </div>
     );
@@ -231,7 +239,7 @@ export function AlphabetView(props: AlphabetViewProps) {
           return (
             <Fragment
               key={`row-${row.map((letterData) => {
-                return letterData.letter;
+                return letterData.title;
               })}`}
             >
               <div className="grid gap-4 md:gap-2 grid-cols-4 pb-4">
@@ -241,8 +249,8 @@ export function AlphabetView(props: AlphabetViewProps) {
                   }
                   return (
                     <button
-                      key={letterData.letter}
-                      id={`letter-${letterData.letter}`}
+                      key={letterData.title}
+                      id={`letter-${letterData.title}`}
                       className={classNames(
                         'border col-span-1 font-medium inline-flex justify-center p-5 md:p-3 rounded shadow text-2xl',
                         {
@@ -256,7 +264,7 @@ export function AlphabetView(props: AlphabetViewProps) {
                         setShowMobileWordList(false);
                       }}
                     >
-                      {letterData.letter}
+                      {letterData.title}
                     </button>
                   );
                 })}
@@ -265,8 +273,8 @@ export function AlphabetView(props: AlphabetViewProps) {
                 <div className="md:hidden">
                   <div className="pb-10 pt-10">{selectedLetterDisplay()}</div>
 
-                  {selected?.examples.length !== 0 && exampleWordList()}
-                  {selected?.notes !== undefined && notes()}
+                  {selected?.relatedDictionaryEntries.length !== 0 && exampleWordList()}
+                  {selected?.note !== undefined && note()}
 
                   <div className="w-full flex justify-center pb-8">
                     <button
@@ -275,7 +283,7 @@ export function AlphabetView(props: AlphabetViewProps) {
                     >
                       <span className="pr-2">See all words starting with</span>
                       <span className="text-2xl font-bold">
-                        {selected?.letter}
+                        {selected?.title}
                       </span>
                     </button>
                   </div>
@@ -293,17 +301,17 @@ export function AlphabetView(props: AlphabetViewProps) {
       <div className="w-full">
         <div className="p-5">
           <span className="text-xl pr-2">EXAMPLE WORDS WITH</span>
-          <span className="text-5xl bold">{selected?.letter}</span>
+          <span className="text-5xl bold">{selected?.title}</span>
         </div>
-        {selected?.examples.map((termId) => {
-          const term = dataDict?.find((word) => word.entryID === termId);
+        {selected?.relatedDictionaryEntries.map((example) => {
+          const term = dataDict?.find((word) => word.entryID === example.id);
           if (term === undefined) {
             return null;
-          }
+}
           return (
             <div
-              key={`${term.source}-${term.entryID}-example`}
-              id={`${term.source}-${term.entryID}`}
+              key={`${example.type}-${example.id}-example`}
+              id={`${example.type}-${example.id}`}
             >
               <WordAlphabetRowCard term={term} />
             </div>
@@ -313,18 +321,18 @@ export function AlphabetView(props: AlphabetViewProps) {
     );
   }
 
-  function notes() {
+  function note() {
     return (
       <div className="p-5">
         <div className="text-xl pb-2">NOTES</div>
-        <div>{selected?.notes}</div>
+        <div>{selected?.note}</div>
       </div>
     );
   }
 
   function getAlphabetSort(a: string, b: string, letterIndex: number): number {
-    const aOrder = dataAlphabetMap[a[letterIndex]]?.order;
-    const bOrder = dataAlphabetMap[b[letterIndex]]?.order;
+    const aOrder = dataAlphabetMap?.[a[letterIndex]]?.sortOrder;
+    const bOrder = dataAlphabetMap?.[b[letterIndex]]?.sortOrder;
     if (aOrder === undefined) {
       return 1;
     } else if (bOrder === undefined) {
@@ -341,11 +349,11 @@ export function AlphabetView(props: AlphabetViewProps) {
       <div className="w-full">
         <div className="p-5">
           <span className="text-xl pr-2">WORDS STARTING WITH</span>
-          <span className="text-5xl bold">{selected?.letter}</span>
+          <span className="text-5xl bold">{selected?.title}</span>
         </div>
         {dataDict
           ?.filter((term) => {
-            return term.word.startsWith(selected?.letter ?? '');
+            return term.word.startsWith(selected?.title ?? '');
           })
           .sort((a, b) => {
             return getAlphabetSort(a.word, b.word, 1);
@@ -386,7 +394,7 @@ export function AlphabetView(props: AlphabetViewProps) {
     // that start with the selected letter.
     dataDict
       .filter((term) => {
-        return term.word.startsWith(selected?.letter ?? '');
+        return term.word.startsWith(selected?.title ?? '');
       })
       .forEach((term) => {
         // Get the image associated with the word/phrase.

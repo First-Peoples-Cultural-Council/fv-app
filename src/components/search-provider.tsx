@@ -1,5 +1,5 @@
-import { ReactNode, createContext, useMemo } from 'react';
-import { dataDict } from './temp-word-list';
+import {  ReactNode, createContext, useEffect, useState } from 'react';
+import fetchWordsData from '../services/wordsApiService';
 
 declare global {
   interface Window {
@@ -7,22 +7,30 @@ declare global {
   }
 }
 
-const getSearch = () => {
-  return window.distanceCalculatorWord(dataDict);
-}
-export const SearchContext = createContext({
-  l1SearchAlgWord: getSearch(),
-});
-
-export interface SearchProviderProps {
+interface SearchProviderProps {
   children: ReactNode;
 }
 
-export const SearchProvider = ({ children }: SearchProviderProps) => {
-  const searchValue = useMemo(() => {
-    return {
-      l1SearchAlgWord: getSearch(),
+export const SearchContext = createContext<any>({});
+
+const SearchProvider = ({ children }: SearchProviderProps) => {
+  const [searchValue, setSearchValue] = useState<any>({
+    l1SearchAlgWord: null,
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const dataDict = await fetchWordsData();
+        const result = window.distanceCalculatorWord(dataDict);
+        setSearchValue({ l1SearchAlgWord: result });
+      } catch (error) {
+        // Handle errors if fetch or calculation fails
+        console.error('Error fetching data:', error);
+      }
     };
+
+    fetchData();
   }, []);
 
   return (

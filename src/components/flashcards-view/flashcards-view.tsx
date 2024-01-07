@@ -197,16 +197,16 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                 return (
                   <div key={category.id}>
                     {menuItem(
-                      category.name,
-                      category.icon ?? 'fv-categories',
+                      category.title,
+                      'fv-categories',
                       () => {
                         const categoryData = dictionaryData.filter((term) => {
                           return (
-                            term.theme === category.id ||
-                            term.secondary_theme === category.id
+                            term.theme === category.title ||
+                            term.secondary_theme === category.title
                           );
                         });
-                        setSelectedFlashcardType(category.name);
+                        setSelectedFlashcardType(category.title);
                         saveDataForFlashcards(categoryData);
                         setShowCategoryModal(false);
                       }

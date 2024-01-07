@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { dataCategories } from '../temp-category-list';
 import { useButtonStyle } from '../common/hooks';
+import styles from './categories-view.module.css';
 
 /* eslint-disable-next-line */
 export interface CategoriesViewProps {}
@@ -13,7 +14,7 @@ export function CategoriesView(props: CategoriesViewProps) {
     <div className={classNames('')}>
       <div className="block md:hidden flex flex-wrap">
         {dataCategories
-          .filter((category) => category.parent == null)
+          .filter((category) => category.children)
           .map((category) => {
             return (
               <Link
@@ -24,64 +25,60 @@ export function CategoriesView(props: CategoriesViewProps) {
                   tertiaryButtonStyle
                 )}
               >
-                <i
-                  className={classNames(
-                    category.icon ?? 'fv-categories',
-                    'text-4xl'
-                  )}
-                />
+                <i className={classNames('fv-categories', 'text-4xl')} />
 
-                <div className="pt-2 text-sm">{category.name}</div>
+                <div className="pt-2 text-sm">{category.title}</div>
               </Link>
             );
           })}
       </div>
       <div className="hidden md:block">
-        <div className="grid grid-cols-2 gap-2 lg:gap-3 lg:grid-cols-3 mt-5">
-          {dataCategories
-            .filter((category) => category.parent == null)
-            .map((category) => {
-              return (
-                <div
-                  key={category.id}
-                  className="relative border-b-2 border-gray-200 pb-2 pl-4 block w-full overflow-hidden border-solid"
+        <div
+          className={classNames(
+            'overflow-y-auto grid grid-cols-2 gap-2 lg:gap-3 lg:grid-cols-3 mt-5',
+            styles['categoryList']
+          )}
+        >
+          {dataCategories.map((category) => {
+            return (
+              <div
+                key={category.id}
+                className="relative border-b-2 border-gray-200 pb-2 pl-4 block w-full overflow-hidden border-solid"
+              >
+                <Link
+                  to={`/categories/${category.id}`}
+                  className={classNames(
+                    'w-full rounded-lg inline-flex items-center hover:opacity-75'
+                  )}
                 >
-                  <Link
-                    to={`/categories/${category.id}`}
+                  <i
                     className={classNames(
-                      'w-full rounded-lg inline-flex items-center hover:opacity-75'
+                      'fv-categories',
+                      'text-3xl hover:opacity-75'
                     )}
-                  >
-                    <i
+                  />
+                  <div className="pt-2 inline-flex ml-3 text-lg font-medium">
+                    {category.title}
+                  </div>
+                </Link>
+                {category.children?.map((subCategory) => {
+                  return (
+                    <Link
+                      key={subCategory.id}
+                      to={`/categories/${subCategory.id}`}
                       className={classNames(
-                        category.icon ?? 'fv-categories',
-                        'text-3xl hover:opacity-75'
+                        'flex items-center cursor-pointer mb-6'
                       )}
-                    />
-                    <div className="pt-2 inline-flex ml-3 text-lg font-medium">
-                      {category.name}
-                    </div>
-                  </Link>
-                  {dataCategories
-                    .filter((subCategory) => category.id === subCategory.parent)
-                    .map((subCategory) => {
-                      return (
-                        <Link
-                          key={subCategory.id}
-                          to={`/categories/${subCategory.id}`}
-                          className={classNames(
-                            'flex items-center cursor-pointer mb-6'
-                          )}
-                        >
-                          <div className="pt-2 text-md pl-8 text-slate-600">
-                            {subCategory.name}
-                          </div>
-                        </Link>
-                      );
-                    })}
-                </div>
-              );
-            })}
+                    >
+                      <div className="pt-2 text-md pl-8 text-slate-600">
+                        {subCategory.title}
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

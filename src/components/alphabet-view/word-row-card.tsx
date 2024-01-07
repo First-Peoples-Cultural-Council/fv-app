@@ -42,12 +42,12 @@ function WordAlphabetRowCard(props: { term: FvWord }) {
       </div>
       {window.matchMedia('(min-width: 768px').matches && showModal && (
         <Modal onClose={() => closeModal()}>
-          <WordModal term={term} />
+          <WordModal term={term} onClose={() => closeModal()} />
         </Modal>
       )}
       {!window.matchMedia('(min-width: 768px').matches && showModal && (
         <FullScreenModal onClose={() => closeModal()} actions={null}>
-          <WordModal term={term} />
+          <WordModal term={term} onClose={() => closeModal()} />
         </FullScreenModal>
       )}
     </>

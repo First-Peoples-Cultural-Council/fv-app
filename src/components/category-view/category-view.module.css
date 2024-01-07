@@ -1,3 +1,8 @@
 .wordsPhrasesContainer {
   max-height: calc(100vh - 184px);
 }
+
+.catsSubCatsContainer {
+  max-height: calc(100vh - 125px);
+  min-width: 225px;
+}

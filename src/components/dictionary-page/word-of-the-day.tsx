@@ -81,14 +81,14 @@ function WordOfTheDay() {
         console.log("larger than 768px");
         return (
           <Modal onClose={() => wordOfTheDaySeen()} title="Word of the Day">
-            <WordModal term={data} />
+            <WordModal term={data} onClose={() => wordOfTheDaySeen()} />
           </Modal>
         );
       } else if (!window.matchMedia('(min-width: 768px').matches) {
         console.log("smaller than 768px");
         return (
           <FullScreenModal onClose={() => wordOfTheDaySeen()} actions={null} title="Word of the Day">
-            <WordModal term={data} />
+            <WordModal term={data} onClose={() => wordOfTheDaySeen()} />
           </FullScreenModal>
         );
       } else {

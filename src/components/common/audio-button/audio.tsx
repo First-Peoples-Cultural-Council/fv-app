@@ -40,7 +40,7 @@ export function AudioButton({ fvAudio }: AudioButtonProps) {
           hasFile || isOnline ? playAudio(fvAudio.filename) : setShowAlert(true)
         }
       >
-        <i className="fv-play">{fvAudio.speaker}</i>
+        <i className="fv-play">{fvAudio.description}</i>
       </button>
 
       <Alert

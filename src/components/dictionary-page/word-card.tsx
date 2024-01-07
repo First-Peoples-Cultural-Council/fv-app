@@ -20,18 +20,19 @@ function WordCard(props: { term: FvWord }) {
 
   return (
     <>
-      <p className="italic">
-        {term.optional?.map((element) => {
-          if (element['Part of Speech'] !== undefined) {
-            return `(${element['Part of Speech']}) `;
+      <ul className="italic">
+        {Object.entries(term.optional || {}).map(([key, value]) => {
+          if (value) {
+            // Not exactly sure how you want to render this, but the optional value is now a dict, not a list
+            return <li key={key}>{`${key}: ${value}`}</li>;
           } else {
             return '';
           }
         })}
-      </p>
+      </ul>
       <p className="pt-10 pb-10">{term.definition}</p>
       {term.audio?.map((fvAudio: FvAudio) => (
-        <AudioButton key={fvAudio.filename} fvAudio={fvAudio}/>
+        <AudioButton key={fvAudio.filename} fvAudio={fvAudio} />
       ))}
       {term.img && (
         <FvImage

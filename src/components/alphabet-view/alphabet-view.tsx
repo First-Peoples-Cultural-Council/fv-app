@@ -390,9 +390,11 @@ export function AlphabetView(props: AlphabetViewProps) {
       })
       .forEach((term) => {
         // Get the image associated with the word/phrase.
-        mediaList.add(term.img);
+        if (term.img) {
+          mediaList.add(term.img);
+        }
         // Get all of the audio files associated with the word/phrase.
-        term.audio.forEach((audio) => {
+        term.audio?.forEach((audio) => {
           mediaList.add(audio.filename);
         });
       });

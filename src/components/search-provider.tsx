@@ -1,17 +1,27 @@
 import { ReactNode, createContext, useMemo } from 'react';
-import { dataDict } from './temp-word-list';
-
-declare global {
-  interface Window {
-    distanceCalculatorWord: (dataDict: any[]) => any;
-  }
-}
+import { mtdData } from './temp-mtd-export-data';
+import {
+  constructSearchers,
+  DictionaryEntryExportFormat,
+} from '@mothertongues/search';
 
 const getSearch = () => {
-  return window.distanceCalculatorWord(dataDict);
-}
+  return constructSearchers(mtdData);
+};
+const getSearchHash = () => {
+  // The endpoint just returns a list
+  // But to quickly fetch items in the local data, we create a hash
+  // with the entry IDs. Not sure if you'll want to create the hash here
+  // or somewhere else, but I'll just leave it here for now.
+  const entriesHash: { [key: string]: DictionaryEntryExportFormat } = {};
+  mtdData.data.forEach((entry) => {
+    entriesHash[entry.entryID] = entry;
+  });
+  return entriesHash;
+};
 export const SearchContext = createContext({
-  l1SearchAlgWord: getSearch(),
+  searchers: getSearch(),
+  entriesHash: getSearchHash(),
 });
 
 export interface SearchProviderProps {
@@ -21,7 +31,8 @@ export interface SearchProviderProps {
 export const SearchProvider = ({ children }: SearchProviderProps) => {
   const searchValue = useMemo(() => {
     return {
-      l1SearchAlgWord: getSearch(),
+      searchers: getSearch(),
+      entriesHash: getSearchHash(),
     };
   }, []);
 

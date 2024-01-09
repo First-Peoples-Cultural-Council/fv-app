@@ -9,6 +9,7 @@ import fetchSongsData from '../../services/songsApiService';
 import FvImage from '../common/image/image';
 import FvVideo from '../common/video/video';
 import AudioControl from '../common/audio-control/audio-control';
+import styles from './songs-view.module.css';
 
 /* eslint-disable-next-line */
 export interface SongsViewProps {}
@@ -55,7 +56,7 @@ export function SongsView(props: SongsViewProps) {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [db, location]);
+  }, [songsData, location]);
 
   useEffect(() => {
     bookmarkIcon(db).catch((err: any) => {
@@ -97,7 +98,9 @@ export function SongsView(props: SongsViewProps) {
   return (
     <>
       <div className="grid grid-cols-1 lg:grid-cols-2 w-full h-full">
-        <div>
+        <div
+          className={classNames('lg:overflow-y-auto', styles['storiesList'])}
+        >
           {songsData.map((song: FVSong) => {
             return (
               <div
@@ -118,14 +121,14 @@ export function SongsView(props: SongsViewProps) {
               >
                 <div className="grid grid-cols-10 gap-4">
                   <div className="col-span-2 flex">
-                    {song?.coverImage === null && (
+                    {song?.relatedImages.length === 0 && (
                       <div className="fv-songs text-5xl self-center border border-solid" />
                     )}
-                    {song?.coverImage !== null && (
+                    {song?.relatedImages.length !== 0 && (
                       <FvImage
                         disabledClassName="text-6xl"
-                        src={song?.coverImage.original.path}
-                        alt={song?.coverImage.title}
+                        src={song?.relatedImages[0]?.thumbnail?.path ?? ''}
+                        alt={song?.relatedImages[0].title}
                       />
                     )}
                   </div>
@@ -144,7 +147,12 @@ export function SongsView(props: SongsViewProps) {
             );
           })}
         </div>
-        <div className="hidden lg:block">{songDetails()}</div>
+        <div
+          className="hidden lg:block lg:overflow-y-auto"
+          style={{ height: 'calc(100vh - 150px)' }}
+        >
+          {songDetails()}
+        </div>
       </div>
       {showModal && (
         <FullScreenModal onClose={() => closeModal()} actions={<></>}>
@@ -160,10 +168,10 @@ export function SongsView(props: SongsViewProps) {
     }
     return (
       <>
-        {selectedSong?.coverImage !== null && (
+        {selectedSong?.relatedImages.length !== 0 && (
           <FvImage
-            src={selectedSong?.coverImage.original.path}
-            alt={selectedSong?.coverImage.title}
+            src={selectedSong?.relatedImages[0].original.path}
+            alt={selectedSong?.relatedImages[0].title}
           />
         )}
         <div className="flex justify-between mt-4">

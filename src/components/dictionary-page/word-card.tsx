@@ -1,36 +1,60 @@
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
+// TODO: REPLACE
 import { dataCategories } from '../temp-category-list';
 import { useButtonStyle } from '../common/hooks';
-import { FvAudio, FvWord } from '../common/data';
+import { FvAudio, FvCategory, FvWord } from '../common/data';
 import { FvImage } from '../common/image/image';
 import { AudioButton } from '../common/audio-button/audio';
 
-function WordCard(props: { term: FvWord }) {
-  const { term } = props;
+function WordCard(
+  props: Readonly<{ term: FvWord; categoryPressed: () => void }>
+) {
+  const { term, categoryPressed } = props;
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 
-  const primaryCategory = dataCategories.find(
-    (category) => category.id === term.theme
+  const findCategoryByTitle = (
+    list: FvCategory[] | null,
+    title: string
+  ): FvCategory | undefined => {
+    if (!list) return undefined;
+
+    for (const category of list) {
+      if (category.title === title) {
+        return category;
+      }
+
+      const nestedCategory = findCategoryByTitle(
+        category.children ?? [],
+        title
+      );
+      if (nestedCategory) {
+        return nestedCategory;
+      }
+    }
+
+    return undefined;
+  };
+
+  const primaryCategory = findCategoryByTitle(
+    dataCategories,
+    term?.theme ?? ''
   );
 
-  const secondaryCategory = dataCategories.find(
-    (category) => category.id === term.secondary_theme
+  const secondaryCategory = findCategoryByTitle(
+    dataCategories,
+    term?.secondary_theme ?? ''
   );
 
   return (
-    <>
-      <ul className="italic">
-        {Object.entries(term.optional || {}).map(([key, value]) => {
-          if (value) {
-            // Not exactly sure how you want to render this, but the optional value is now a dict, not a list
-            return <li key={key}>{`${key}: ${value}`}</li>;
-          } else {
-            return '';
-          }
-        })}
-      </ul>
-      <p className="pt-10 pb-10">{term.definition}</p>
+    <div className="p-5">
+      <p className="italic">
+        {term.optional &&
+        term.optional['Part of Speech' as keyof typeof term.optional]
+          ? `(${term.optional['Part of Speech' as keyof typeof term.optional]})`
+          : ' '}
+      </p>
+      <p className="pt-20 pb-10">{term.definition}</p>
       {term.audio?.map((fvAudio: FvAudio) => (
         <AudioButton key={fvAudio.filename} fvAudio={fvAudio} />
       ))}
@@ -46,19 +70,21 @@ function WordCard(props: { term: FvWord }) {
         <Link
           to={`/categories/${primaryCategory.id}`}
           className={classNames('mr-2', tertiaryButtonStyle)}
+          onClick={categoryPressed}
         >
-          {primaryCategory?.name}
+          {primaryCategory?.title}
         </Link>
       )}
       {secondaryCategory !== undefined && (
         <Link
           to={`/categories/${secondaryCategory.id}`}
           className={classNames('mr-2', tertiaryButtonStyle)}
+          onClick={categoryPressed}
         >
-          {secondaryCategory?.name}
+          {secondaryCategory?.title}
         </Link>
       )}
-    </>
+    </div>
   );
 }
 

@@ -47,7 +47,7 @@ function WordCardMobile(props: {term: FvWord}) {
       </div>
       {showModal && (
         <FullScreenModal onClose={() => closeModal()} actions={null}>
-          <WordModal term={term} />
+          <WordModal term={term} onClose={() => closeModal()} />
         </FullScreenModal>
       )}
     </>

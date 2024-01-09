@@ -14,6 +14,7 @@ export function DictionaryView(props: WordsViewProps) {
   const [selected, setSelected] = useState<number>(DictionaryType.Both);
   const [dataDict, setDataDict] = useState<FvWord[]>([]);
   const [data, setData] = useState<FvWord[]>([]);
+  const [visibleItems, setVisibleItems] = useState(250);
 
   useEffect(() => {
     const fetchDataAsync = async () => {
@@ -28,7 +29,25 @@ export function DictionaryView(props: WordsViewProps) {
     fetchDataAsync();
   }, []);
 
+  const handleScroll = () => {
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+    if (windowHeight + scrollTop >= documentHeight - 20) {
+      setVisibleItems((prevVisibleItems) => prevVisibleItems + 20);
+    }
+  };
+
   useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    setVisibleItems(250)
     switch (selected) {
       case DictionaryType.Words: {
         setData(dataDict.filter((entry) => entry.source === 'words'));
@@ -59,17 +78,15 @@ export function DictionaryView(props: WordsViewProps) {
           setSelected(index);
         }}
       />
-      {data.map((term) => {
-        return (
-          <div
-            key={`${term.source}-${term.entryID}`}
-            id={`${term.source}-${term.entryID}`}
-          >
-            <WordCardMobile term={term} />
-            <WordCardDesktop term={term} />
-          </div>
-        );
-      })}{' '}
+      {data.slice(0, visibleItems).map((term, _) => (
+        <div
+          key={`${term.source}-${term.entryID}`}
+          id={`${term.source}-${term.entryID}`}
+        >
+          <WordCardMobile term={term} />
+          <WordCardDesktop term={term} />
+        </div>
+      ))}{' '}
     </div>
   );
 }

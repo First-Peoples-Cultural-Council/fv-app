@@ -63,8 +63,46 @@ export type Language = {
 };
 
 export type FvWord = DictionaryEntryExportFormat;
+export type FvWord = {
+  source: string;
+  entryID: string;
+  word: string;
+  definition: string;
+  audio: FvAudio[];
+  img: string;
+  theme: string | null;
+  secondary_theme: string | null;
+  optional:
+    | {
+        [key: string]: string;
+      }[]
+    | null;
+  compare_form: string;
+  sort_form: string;
+  sorting_form: number[];
+};
 
 export type FvAudio = Audio1;
+export type FvWord2 = {
+  id: string;
+  url: string;
+  title: string;
+  translations: FvTranslation[];
+  type: string;
+  relatedAudio: FVMedia[];
+  relatedImages: FVMedia[];
+  relatedVideos: FVMedia[];
+};
+
+export type FvAudio = {
+  speaker: string | null;
+  filename: string;
+};
+
+export type FvTranslation = {
+  id: string;
+  text: string;
+};
 
 export type SubNavItem = {
   id: string;
@@ -84,17 +122,29 @@ export type SubNavItem = {
 
 export type FvCategory = {
   id: string;
-  name: string;
-  icon: string | null;
-  parent: string | null;
+  title: string;
+  url: string;
+  description: string;
+  children?: FvCategory[];
 };
 
 export type FvLetter = {
-  letter: string;
-  audio: FvAudio[];
-  examples: string[];
-  notes: string;
-  order: number;
+  id: string;
+  created: string;
+  createdBy: string;
+  lastModified: string;
+  lastModifiedBy: string;
+  url: string;
+  site: {};
+  title: string;
+  relatedAudio: FVMedia[];
+  relatedImages: FVMedia[];
+  relatedVideos: FVMedia[];
+  relatedDictionaryEntries: FvWord2[];
+  note: string;
+  sortOrder: number;
+  approximateForm: string;
+  variants: any[];
 };
 
 export type NavigationItem = {
@@ -128,7 +178,6 @@ export type DeleteListType = {
 
 export type FVSong = {
   acknowledgements: string[];
-  coverImage: FVMedia | null;
   created: string;
   excludeFromGames: boolean;
   excludeFromKids: boolean;
@@ -147,11 +196,13 @@ export type FVSong = {
 };
 
 export type FVPage = {
-  order: number;
-  content: FVContent;
-  audio: FVMedia[];
-  videos: FVMedia[];
-  images: FVMedia[];
+  ordering: number;
+  notes: string[];
+  text: string;
+  translation: string;
+  relatedAudio: FVMedia[];
+  relatedVideos: FVMedia[];
+  relatedImages: FVMedia[];
 };
 
 export type FVContent = {
@@ -162,16 +213,16 @@ export type FVContent = {
 
 export type FVStory = {
   id: string;
-  title: string | null;
-  titleTranslation: string | null;
-  author_name: string | null;
-  coverVisual: FVMedia | null;
-  intro: FVContent | null;
+  title: string;
+  titleTranslation: string;
+  author: string;
+  introduction: string;
+  introductionTranslation: string;
   acknowledgements: string[];
   notes: string[];
-  audio: FVMedia[];
-  videos: FVMedia[];
-  images: FVMedia[];
+  relatedAudio: FVMedia[];
+  relatedVideos: FVMedia[];
+  relatedImages: FVMedia[];
   pages: FVPage[];
 };
 

@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import IndexedDBService from '../../services/indexedDbService';
 
-function WordModal(props: { term: FvWord }) {
-  const { term } = props;
+function WordModal(props: { term: FvWord, onClose: () => void }) {
+  const { term, onClose } = props;
 
   const [db, setDb] = useState<IndexedDBService>();
   const [bookmarked, setBookmarked] = useState<boolean>(false);
@@ -52,7 +52,7 @@ function WordModal(props: { term: FvWord }) {
   return (
     <div className="md:p-10">
       <div className="flex text-2xl">
-        <p className="grow font-bold md:text-3xl">{word}</p>
+        <p className="grow font-bold md:text-3xl pl-5">{word}</p>
         <div className="grid grid-cols-1">
           <div className="pl-2 pr-2">
             <i className="fv-copy pr-2" />
@@ -111,7 +111,7 @@ function WordModal(props: { term: FvWord }) {
         </div>
       </div>
       <div className="-mt-14 pb-10">
-        <WordCard term={term} />
+        <WordCard term={term} categoryPressed={onClose} />
       </div>
     </div>
   );

@@ -63,24 +63,6 @@ export type Language = {
 };
 
 export type FvWord = DictionaryEntryExportFormat;
-export type FvWord = {
-  source: string;
-  entryID: string;
-  word: string;
-  definition: string;
-  audio: FvAudio[];
-  img: string;
-  theme: string | null;
-  secondary_theme: string | null;
-  optional:
-    | {
-        [key: string]: string;
-      }[]
-    | null;
-  compare_form: string;
-  sort_form: string;
-  sorting_form: number[];
-};
 
 export type FvAudio = Audio1;
 export type FvWord2 = {
@@ -92,11 +74,6 @@ export type FvWord2 = {
   relatedAudio: FVMedia[];
   relatedImages: FVMedia[];
   relatedVideos: FVMedia[];
-};
-
-export type FvAudio = {
-  speaker: string | null;
-  filename: string;
 };
 
 export type FvTranslation = {

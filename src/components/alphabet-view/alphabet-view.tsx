@@ -14,6 +14,7 @@ import ConfirmDialog from '../common/confirm/confirm';
 import Modal from '../common/modal/modal';
 import { useDetectOnlineStatus } from '../common/hooks/useDetectOnlineStatus';
 import Alert from '../common/alert/alert';
+import { Audio1 } from '@mothertongues/search';
 
 /* eslint-disable-next-line */
 export interface AlphabetViewProps {}
@@ -59,7 +60,7 @@ export function AlphabetView(props: AlphabetViewProps) {
       }
       try {
         const result = await fetchWordsData();
-        setDataDict(result);
+        setDataDict(result.data);
       } catch (error) {
         // Handle error scenarios
       }
@@ -402,7 +403,7 @@ export function AlphabetView(props: AlphabetViewProps) {
           mediaList.add(term.img);
         }
         // Get all of the audio files associated with the word/phrase.
-        term.audio?.forEach((audio) => {
+        term.audio?.forEach((audio: Audio1) => {
           mediaList.add(audio.filename);
         });
       });

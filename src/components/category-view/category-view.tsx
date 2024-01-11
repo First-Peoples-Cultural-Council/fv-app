@@ -76,7 +76,7 @@ export function CategoryView(props: CategoryViewProps) {
     const fetchDataAsync = async () => {
       try {
         const result = await fetchWordsData();
-        setDataDict(result);
+        setDataDict(result.data);
       } catch (error) {
         // Handle error scenarios
       }

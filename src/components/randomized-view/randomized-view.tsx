@@ -16,6 +16,13 @@ export function RandomizedView(props: WordsViewProps) {
   const [data, setData] = useState<FvWord[]>([]);
   const [subset, setSubset] = useState<FvWord[]>([]);
 
+  const resetScroll = () => {
+    const container = document.getElementById('wordList');
+    if (container) {
+      container.scrollTop = 0;
+    }
+  };
+
   useEffect(() => {
     const fetchDataAsync = async () => {
       try {
@@ -51,7 +58,7 @@ export function RandomizedView(props: WordsViewProps) {
   }, [data]);
 
   return (
-    <div>
+    <div className="w-full">
       <div className="flex flex-row flex-wrap">
         <MultiSwitch
           selected={selected}
@@ -61,6 +68,7 @@ export function RandomizedView(props: WordsViewProps) {
             { name: 'BOTH', icon: null },
           ]}
           onToggle={(index: number) => {
+            resetScroll();
             setSelected(index);
           }}
         />
@@ -73,17 +81,22 @@ export function RandomizedView(props: WordsViewProps) {
           <i className="fv-arrows-cw text-lg" />
         </button>
       </div>
-      {subset.map((term) => {
-        return (
-          <div
-            key={`${term.source}-${term.entryID}`}
-            id={`${term.source}-${term.entryID}`}
-          >
-            <WordCardMobile term={term} />
-            <WordCardDesktop term={term} />
-          </div>
-        );
-      })}{' '}
+      <div
+        id="wordList"
+        className="overflow-y-auto max-h-calc-245 md:max-h-calc-195"
+      >
+        {subset.map((term) => {
+          return (
+            <div
+              key={`${term.source}-${term.entryID}`}
+              id={`${term.source}-${term.entryID}`}
+            >
+              <WordCardMobile term={term} />
+              <WordCardDesktop term={term} />
+            </div>
+          );
+        })}{' '}
+      </div>
     </div>
   );
 }

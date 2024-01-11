@@ -388,7 +388,6 @@ export function StoriesView(props: StoriesViewProps) {
             {convertJsonToComponent(
               selectedStory?.pages[currentPage]?.translation ?? '{}'
             )}
-            {selectedStory?.pages[currentPage]?.translation}
           </div>
         </div>
 
@@ -457,6 +456,10 @@ export function StoriesView(props: StoriesViewProps) {
   }
 
   function convertJsonToComponent(jsonString: string) {
+    if (jsonString === "") {
+      return <></>;
+    }
+
     try {
       const json = JSON.parse(jsonString);
 

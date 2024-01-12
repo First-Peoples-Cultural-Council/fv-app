@@ -4,6 +4,7 @@ import { FvWord } from '../common/data';
 import Modal from '../common/modal/modal';
 import { useModal } from '../common/use-modal/use-modal';
 import { useEffect } from 'react';
+import { Audio1 } from '@mothertongues/search';
 
 function WordCardDesktop(props: { term: FvWord }) {
   const { term } = props;
@@ -34,7 +35,7 @@ function WordCardDesktop(props: { term: FvWord }) {
               <h1 className="font-bold">{word}</h1>
             </div>
             <div>
-              {audio?.map((fvAudio) => (
+              {audio?.map((fvAudio: Audio1) => (
                 <i key={fvAudio.filename} className="fv-volume-up" />
               ))}
             </div>

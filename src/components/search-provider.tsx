@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useMemo } from 'react';
+import { ReactNode, createContext, useMemo, useState, useEffect } from 'react';
 import { mtdData } from './temp-mtd-export-data';
 import {
   constructSearchers,
@@ -8,6 +8,7 @@ import {
 const getSearch = () => {
   return constructSearchers(mtdData);
 };
+
 const getSearchHash = () => {
   // The endpoint just returns a list
   // But to quickly fetch items in the local data, we create a hash
@@ -19,9 +20,12 @@ const getSearchHash = () => {
   });
   return entriesHash;
 };
+
 export const SearchContext = createContext({
   searchers: getSearch(),
   entriesHash: getSearchHash(),
+  allResults: [] as DictionaryEntryExportFormat[],
+  updateAllResults: (results: DictionaryEntryExportFormat[]) => {},
 });
 
 export interface SearchProviderProps {
@@ -29,12 +33,26 @@ export interface SearchProviderProps {
 }
 
 export const SearchProvider = ({ children }: SearchProviderProps) => {
+  const [allResults, setAllResults] = useState<DictionaryEntryExportFormat[]>([]);
+  const [entriesHash, setEntriesHash] = useState<{ [key: string]: DictionaryEntryExportFormat }>({});
+
+  useEffect(() => {
+    const newEntriesHash = getSearchHash();
+    setEntriesHash(newEntriesHash);
+  }, []);
+
+  const updateAllResults = (newResults: DictionaryEntryExportFormat[]) => {
+    setAllResults(newResults);
+  };
+
   const searchValue = useMemo(() => {
     return {
       searchers: getSearch(),
-      entriesHash: getSearchHash(),
+      entriesHash: entriesHash,
+      allResults: allResults,
+      updateAllResults: updateAllResults,
     };
-  }, []);
+  }, [entriesHash, allResults]);
 
   return (
     <SearchContext.Provider value={searchValue}>

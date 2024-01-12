@@ -9,7 +9,6 @@ import fetchSongsData from '../../services/songsApiService';
 import FvImage from '../common/image/image';
 import FvVideo from '../common/video/video';
 import AudioControl from '../common/audio-control/audio-control';
-import styles from './songs-view.module.css';
 
 /* eslint-disable-next-line */
 export interface SongsViewProps {}

@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import WordCardMobile from '../dictionary-page/word-card-mobile';
 import WordCardDesktop from '../dictionary-page/word-card-desktop';
 import { DictionaryType, FvWord } from '../common/data';
 import MultiSwitch from '../common/multi-switch/multi-switch';
 import { useOutletContext } from 'react-router-dom';
 import fetchWordsData from '../../services/wordsApiService';
+import { SearchContext } from '../search-provider';
 
 /* eslint-disable-next-line */
 export interface WordsViewProps {}
@@ -15,6 +16,8 @@ export function DictionaryView(props: WordsViewProps) {
   const [dataDict, setDataDict] = useState<FvWord[]>([]);
   const [data, setData] = useState<FvWord[]>([]);
   const [visibleItems, setVisibleItems] = useState(250);
+
+  const searchContext = useContext(SearchContext);
 
   useEffect(() => {
     const fetchDataAsync = async () => {
@@ -79,6 +82,10 @@ export function DictionaryView(props: WordsViewProps) {
       }
     }
   }, [selected, dataDict]);
+
+  useEffect(() => {
+    setDataDict(searchContext.allResults);
+  }, [searchContext.allResults])
 
   return (
     <div>

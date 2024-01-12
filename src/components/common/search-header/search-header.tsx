@@ -16,7 +16,7 @@ export function SearchHeader({
 }: SearchHeaderProps) {
   const [searchValue, setSearchValue] = useState<string>('');
   const [l1_search, l2_search] = useContext(SearchContext)['searchers'];
-  const entriesHash = useContext(SearchContext)['entriesHash'];
+  const { entriesHash, updateAllResults } = useContext(SearchContext);
 
   const getResults = (rawSearchQuery: string) => {
     if (rawSearchQuery.length > 1) {
@@ -37,8 +37,13 @@ export function SearchHeader({
       //    For example if the query was the word "test" and there was an entry {"word": "test blah blah", "definition": "this is a test", ...}, then the following match locations would be returned: [['word', 0], ['definition', [3]]]
       //    This will be helpful for highlighting which word/field is matched.
       //  - The Okapi BM25 Score (float)
+
+      const entries = allResults.map((result: Result) => entriesHash[result[1]])
+
       console.log('Here are the entries mapped from the results:');
-      console.log(allResults.map((result: Result) => entriesHash[result[1]]));
+      console.log(entries);
+
+      updateAllResults(entries);
     }
   };
 

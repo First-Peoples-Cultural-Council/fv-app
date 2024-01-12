@@ -11,7 +11,7 @@ export function CategoriesView(props: CategoriesViewProps) {
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 
   return (
-    <div className={classNames('')}>
+    <div className="w-full">
       <div className="block md:hidden flex flex-wrap">
         {dataCategories
           .filter((category) => category.children)

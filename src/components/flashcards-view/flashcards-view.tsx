@@ -50,7 +50,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
     const fetchDataAsync = async () => {
       try {
         const result = await fetchWordsData();
-        setDataDict(result);
+        setDataDict(result.data);
       } catch (error) {
         // Handle error scenarios
       }
@@ -261,7 +261,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                             });
                           }}
                         >
-                          <i className="fv-play">{fvAudio.speaker}</i>
+                          <i className="fv-play">{fvAudio.description}</i>
                         </button>
                       ))}
                   </div>

@@ -110,7 +110,7 @@ export function StoriesView(props: StoriesViewProps) {
   return (
     <>
       <div className="grid grid-cols-1 w-full">
-        <div className="">
+        <div className='overflow-y-auto max-h-calc-185 md:max-h-calc-125'>
           {storiesData.map((story: FVStory) => {
             return (
               <div
@@ -388,7 +388,6 @@ export function StoriesView(props: StoriesViewProps) {
             {convertJsonToComponent(
               selectedStory?.pages[currentPage]?.translation ?? '{}'
             )}
-            {selectedStory?.pages[currentPage]?.translation}
           </div>
         </div>
 
@@ -457,6 +456,10 @@ export function StoriesView(props: StoriesViewProps) {
   }
 
   function convertJsonToComponent(jsonString: string) {
+    if (jsonString === "") {
+      return <></>;
+    }
+
     try {
       const json = JSON.parse(jsonString);
 

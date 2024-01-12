@@ -14,6 +14,8 @@ import ConfirmDialog from '../common/confirm/confirm';
 import Modal from '../common/modal/modal';
 import { useDetectOnlineStatus } from '../common/hooks/useDetectOnlineStatus';
 import Alert from '../common/alert/alert';
+import { Audio1 } from '@mothertongues/search';
+import styles from './alphabet-view.module.css';
 
 /* eslint-disable-next-line */
 export interface AlphabetViewProps {}
@@ -59,7 +61,7 @@ export function AlphabetView(props: AlphabetViewProps) {
       }
       try {
         const result = await fetchWordsData();
-        setDataDict(result);
+        setDataDict(result.data);
       } catch (error) {
         // Handle error scenarios
       }
@@ -79,16 +81,34 @@ export function AlphabetView(props: AlphabetViewProps) {
   return (
     <>
       <div className="block md:hidden flex justify-center w-full">
-        {keyboard()}
+        <div
+          className={classNames(
+            'overflow-y-auto col-span-1 w-full',
+            styles['smallContainer']
+          )}
+        >
+          {keyboard()}
+        </div>
       </div>
       <div className="hidden md:block w-full">
         <div className="grid grid-cols-3">
-          <div className='col-span-1'>
+          <div
+            className={classNames(
+              'overflow-y-auto col-span-1',
+              styles['largeContainer']
+            )}
+          >
             {selectedLetterDisplay()}
             {keyboard()}
           </div>
-          <div className='col-span-2'>
-            {selected?.relatedDictionaryEntries.length !== 0 && exampleWordList()}
+          <div
+            className={classNames(
+              'overflow-y-auto col-span-2',
+              styles['largeContainer']
+            )}
+          >
+            {selected?.relatedDictionaryEntries.length !== 0 &&
+              exampleWordList()}
             {selected?.note !== undefined && note()}
             {wordList()}
           </div>
@@ -273,7 +293,8 @@ export function AlphabetView(props: AlphabetViewProps) {
                 <div className="md:hidden">
                   <div className="pb-10 pt-10">{selectedLetterDisplay()}</div>
 
-                  {selected?.relatedDictionaryEntries.length !== 0 && exampleWordList()}
+                  {selected?.relatedDictionaryEntries.length !== 0 &&
+                    exampleWordList()}
                   {selected?.note !== undefined && note()}
 
                   <div className="w-full flex justify-center pb-8">
@@ -307,7 +328,7 @@ export function AlphabetView(props: AlphabetViewProps) {
           const term = dataDict?.find((word) => word.entryID === example.id);
           if (term === undefined) {
             return null;
-}
+          }
           return (
             <div
               key={`${example.type}-${example.id}-example`}
@@ -398,9 +419,11 @@ export function AlphabetView(props: AlphabetViewProps) {
       })
       .forEach((term) => {
         // Get the image associated with the word/phrase.
-        mediaList.add(term.img);
+        if (term.img) {
+          mediaList.add(term.img);
+        }
         // Get all of the audio files associated with the word/phrase.
-        term.audio.forEach((audio) => {
+        term.audio?.forEach((audio: Audio1) => {
           mediaList.add(audio.filename);
         });
       });

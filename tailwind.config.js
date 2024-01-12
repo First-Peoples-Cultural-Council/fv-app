@@ -46,6 +46,12 @@ module.exports = {
         'color-profile-dark': '#898886',
         'color-main-header': '#737274',
       },
+      maxHeight: {
+        'calc-245': 'calc(100vh - 245px)',
+        'calc-195': 'calc(100vh - 195px)',
+        'calc-185': 'calc(100vh - 185px)',
+        'calc-125': 'calc(100vh - 125px)',
+      },
     },
   },
   plugins: [],

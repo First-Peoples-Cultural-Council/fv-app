@@ -4,15 +4,7 @@ import { Bookmark } from '../components/common/data';
 interface FVDB extends DBSchema {
   bookmarks: {
     key: string;
-    value: {
-      id: string;
-      type: string;
-      name: string;
-      definition: string;
-      hasAudio: boolean;
-      url: string;
-      timestamp: Date;
-    };
+    value: Bookmark;
     indexes: { 'by-url': string };
   };
   mediaFiles: {

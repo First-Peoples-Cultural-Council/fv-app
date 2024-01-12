@@ -9,7 +9,6 @@ import fetchSongsData from '../../services/songsApiService';
 import FvImage from '../common/image/image';
 import FvVideo from '../common/video/video';
 import AudioControl from '../common/audio-control/audio-control';
-import styles from './songs-view.module.css';
 
 /* eslint-disable-next-line */
 export interface SongsViewProps {}
@@ -98,9 +97,7 @@ export function SongsView(props: SongsViewProps) {
   return (
     <>
       <div className="grid grid-cols-1 lg:grid-cols-2 w-full h-full">
-        <div
-          className={classNames('lg:overflow-y-auto', styles['storiesList'])}
-        >
+        <div className="overflow-y-auto max-h-calc-185 md:max-h-calc-125">
           {songsData.map((song: FVSong) => {
             return (
               <div

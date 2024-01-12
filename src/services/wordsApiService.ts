@@ -1,12 +1,12 @@
-import { FvWord } from '../components/common/data';
 import { getCurrentDialect } from '../util/getCurrentDialect';
 import axios from 'axios';
 
 import IndexedDBService from './indexedDbService';
+import { MTDExportFormat } from '@mothertongues/search/src/lib/mtd';
 
 const db = new IndexedDBService('firstVoicesIndexedDb');
 
-export const fetchWordsData = async (): Promise<FvWord[]> => {
+export const fetchWordsData = async (): Promise<MTDExportFormat> => {
   try {
     let url: string = `${
       process.env.REACT_APP_BASE_API_URL
@@ -23,33 +23,19 @@ export const fetchWordsData = async (): Promise<FvWord[]> => {
     try {
       // If not in the database make API call to get it.
       const response = await axios.get(url);
-      const data: any[] = response.data.data;
+      const mtdData: MTDExportFormat = response.data;
 
-      if (data && data.length !== 0) {
-        if (dbData?.data) {
-          // Go through and update the data with the new data from the response.
-          dbData.data.forEach((item: any) => {
-            const updatedItemIndex = data.findIndex(
-              (modifiedItem) => modifiedItem.id === item.id
-            );
-
-            // Item does not exist, add it
-            if (updatedItemIndex === -1) {
-              data.push(item);
-            }
-          });
-        }
-
+      if (mtdData) {
         // Create the updated data entry for the database.
         const dbEntry = {
           timestamp: new Date().toISOString(),
-          data: data,
+          data: mtdData,
         };
 
         // Store the data from the API call into the database.
         await db.saveData('words', dbEntry);
 
-        return data;
+        return mtdData;
       }
     } catch (error) {
       console.error(error);
@@ -64,8 +50,8 @@ export const fetchWordsData = async (): Promise<FvWord[]> => {
     console.error(`Failed to fetch data for the words from the API`, error);
   }
 
-  // Return an empty list if there was something wrong with the data.
-  return [];
+  // Throw an error if there was something wrong with the data.
+  throw new Error('Failed to fetch mtd data from the API');
 };
 
 export default fetchWordsData;

@@ -26,6 +26,7 @@ export const SearchContext = createContext({
   entriesHash: getSearchHash(),
   allResults: [] as DictionaryEntryExportFormat[],
   updateAllResults: (results: DictionaryEntryExportFormat[]) => {},
+  setDataType: (type: string) => {},
 });
 
 export interface SearchProviderProps {
@@ -33,8 +34,13 @@ export interface SearchProviderProps {
 }
 
 export const SearchProvider = ({ children }: SearchProviderProps) => {
-  const [allResults, setAllResults] = useState<DictionaryEntryExportFormat[]>([]);
-  const [entriesHash, setEntriesHash] = useState<{ [key: string]: DictionaryEntryExportFormat }>({});
+  const [allResults, setAllResults] = useState<DictionaryEntryExportFormat[]>(
+    []
+  );
+  const [entriesHash, setEntriesHash] = useState<{
+    [key: string]: DictionaryEntryExportFormat;
+  }>({});
+  const [dataType, setDataType] = useState<string>('words');
 
   useEffect(() => {
     const newEntriesHash = getSearchHash();
@@ -51,6 +57,7 @@ export const SearchProvider = ({ children }: SearchProviderProps) => {
       entriesHash: entriesHash,
       allResults: allResults,
       updateAllResults: updateAllResults,
+      setDataType: setDataType,
     };
   }, [entriesHash, allResults]);
 

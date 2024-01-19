@@ -85,7 +85,7 @@ export function DictionaryView(props: WordsViewProps) {
 
   useEffect(() => {
     setDataDict(searchContext.allResults);
-  }, [searchContext.allResults])
+  }, [searchContext.allResults]);
 
   return (
     <div>
@@ -104,9 +104,9 @@ export function DictionaryView(props: WordsViewProps) {
       />
       <div
         id="wordList"
-        className='overflow-y-auto max-h-calc-245 md:max-h-calc-195'
+        className="overflow-y-auto max-h-calc-245 md:max-h-calc-195"
       >
-        {data.slice(0, visibleItems).map((term, _) => (
+        {data?.slice(0, visibleItems).map((term, _) => (
           <div
             key={`${term.source}-${term.entryID}`}
             id={`${term.source}-${term.entryID}`}

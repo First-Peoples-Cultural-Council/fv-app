@@ -76,12 +76,22 @@ function onStateChanged(
       // It's the perfect time to display a
       // "Content is cached for offline use." message.
       console.log('Content is cached for offline use.');
+
       // Execute callback
       if (config?.onSuccess) {
         config.onSuccess(registration);
       }
+
+      // Ensure the new service worker takes control immediately
+      if (registration.waiting) {
+        triggerControllerChange(registration);
+      }
     }
   }
+}
+
+function triggerControllerChange(registration: ServiceWorkerRegistration) {
+  registration.waiting?.postMessage({ type: 'SKIP_WAITING' });
 }
 
 function checkValidServiceWorker(swUrl: string, config?: Config) {

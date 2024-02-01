@@ -29,3 +29,14 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
+  tf_fmt:
+    name: Deploy FV-Apps
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - name: Terraform init
+        env:
+          AWS_ACCESS_KEY_ID: ""
+          AWS_SECRET_ACCESS_KEY: ""
+        run: ls ;cd modules; ls; terraform init -lock=false

@@ -84,8 +84,10 @@ export function DictionaryView(props: WordsViewProps) {
   }, [selected, dataDict]);
 
   useEffect(() => {
-    setDataDict(searchContext.allResults);
-  }, [searchContext.allResults]);
+    if (searchContext?.allResults) {
+      setDataDict(searchContext.allResults);
+    }
+  }, [searchContext?.allResults]);
 
   return (
     <div>

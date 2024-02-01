@@ -1,7 +1,7 @@
 import SearchInput from '../search-input/search-input';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { SearchContext } from '../../search-provider';
-import { sortResults, Result } from '@mothertongues/search';
+import { sortResults, Result, MTDSearch } from '@mothertongues/search';
 
 export interface SearchHeaderProps {
   searchMatchRef: HTMLDivElement | null;
@@ -15,16 +15,25 @@ export function SearchHeader({
   backgroundColors,
 }: SearchHeaderProps) {
   const [searchValue, setSearchValue] = useState<string>('');
-  const [l1_search, l2_search] = useContext(SearchContext)['searchers'];
-  const { entriesHash, updateAllResults } = useContext(SearchContext);
+  const [l1Search, setL1Search] = useState<MTDSearch>();
+  const [l2Search, setL2Search] = useState<MTDSearch>();
+  const [searchers, setSearchers] = useState<any[]>([]);
+  const search = useContext(SearchContext);
+
+  useEffect(() => {
+    if (search) {
+      setL1Search(search.searchers[0]);
+      setL2Search(search.searchers[1]);
+    }
+  }, [search]);
 
   const getResults = (rawSearchQuery: string) => {
-    if (rawSearchQuery.length > 1) {
+    if (rawSearchQuery.length > 1 && l1Search && l2Search && search) {
       // @ts-ignore
       // Search Results in target language
-      const l1Results = l1_search.search(rawSearchQuery);
+      const l1Results = l1Search.search(rawSearchQuery);
       // Search Results in English
-      const l2Results = l2_search.search(rawSearchQuery, 0);
+      const l2Results = l2Search.search(rawSearchQuery, 0);
       // Combine the Results and sort them first by edit distance,
       // then by their Okapi BM25 score
       const allResults = sortResults(l1Results.concat(l2Results));
@@ -38,12 +47,14 @@ export function SearchHeader({
       //    This will be helpful for highlighting which word/field is matched.
       //  - The Okapi BM25 Score (float)
 
-      const entries = allResults.map((result: Result) => entriesHash[result[1]])
+      const entries = allResults.map(
+        (result: Result) => search.entriesHash[result[1]]
+      );
 
       console.log('Here are the entries mapped from the results:');
       console.log(entries);
 
-      updateAllResults(entries);
+      search.updateAllResults(entries);
     }
   };
 

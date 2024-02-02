@@ -75,7 +75,7 @@ function onStateChanged(
       // At this point, everything has been precached.
       // It's the perfect time to display a
       // "Content is cached for offline use." message.
-      console.log('Content is cached for offline use.');
+      console.info('Content is cached for offline use.');
 
       // Execute callback
       if (config?.onSuccess) {
@@ -115,11 +115,11 @@ function checkValidServiceWorker(swUrl: string, config?: Config) {
                 window.location.reload();
               })
               .catch((err: any) => {
-                console.log(err);
+                console.info(err);
               });
           })
           .catch((err: any) => {
-            console.log(err);
+            console.info(err);
           });
       } else {
         // Service worker found. Proceed as normal.
@@ -127,7 +127,7 @@ function checkValidServiceWorker(swUrl: string, config?: Config) {
       }
     })
     .catch(() => {
-      console.log(
+      console.info(
         'No internet connection found. App is running in offline mode.'
       );
     });
@@ -138,7 +138,7 @@ export function unregister() {
     navigator.serviceWorker.ready
       .then((registration) => {
         registration.unregister().catch((err: any) => {
-          console.log(err);
+          console.info(err);
         });
       })
       .catch((error) => {

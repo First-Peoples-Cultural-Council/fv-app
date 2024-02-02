@@ -33,7 +33,7 @@ precacheAndRoute([
   'logo512.png',
   'manifest.json',
   `mtd-ui.min.js`,
-  'service-worker.js'
+  'service-worker.js',
 ]);
 
 // Set up App Shell-style routing, so that all navigation requests
@@ -88,7 +88,7 @@ registerRoute(
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting().catch((err: any) => {
-      console.log(err);
+      console.error(err);
     });
   }
 });

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useContext, useEffect, useState } from 'react';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import WordAlphabetRowCard from './word-row-card';
 import _ from 'lodash';
@@ -14,8 +14,9 @@ import ConfirmDialog from '../common/confirm/confirm';
 import Modal from '../common/modal/modal';
 import { useDetectOnlineStatus } from '../common/hooks/useDetectOnlineStatus';
 import Alert from '../common/alert/alert';
-import { Audio1 } from '@mothertongues/search';
+import { Audio1, DictionaryEntryExportFormat } from '@mothertongues/search';
 import styles from './alphabet-view.module.css';
+import { SearchResultsContext } from '../search-results-provider';
 
 /* eslint-disable-next-line */
 export interface AlphabetViewProps {}
@@ -45,6 +46,7 @@ export function AlphabetView(props: AlphabetViewProps) {
   const [showAlertNotOnline, setShowAlertNotOnline] = useState(false);
   const { isOnline } = useDetectOnlineStatus();
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
+  const searchResults = useContext(SearchResultsContext);
 
   if (!useIsMobile() && selected === null && dataAlphabet.length !== 0) {
     setSelected(dataAlphabet[0]);
@@ -64,11 +66,19 @@ export function AlphabetView(props: AlphabetViewProps) {
         setDataDict(result.data);
       } catch (error) {
         // Handle error scenarios
+        console.error('Error occurred:', error);
       }
     };
 
-    fetchDataAsync();
-  }, []);
+    if (
+      !searchResults?.rawSearchQuery ||
+      searchResults?.rawSearchQuery.length <= 1
+    ) {
+      fetchDataAsync();
+    } else {
+      setDataDict(searchResults?.entries as DictionaryEntryExportFormat[]);
+    }
+  }, [searchResults?.rawSearchQuery]);
 
   useEffect(() => {
     if (showMobileWordList) {
@@ -208,7 +218,7 @@ export function AlphabetView(props: AlphabetViewProps) {
             navigator.clipboard
               .writeText(selected?.title ?? '')
               .catch((err: any) => {
-                console.log(err);
+                console.error(err);
               });
           }}
         />
@@ -393,7 +403,7 @@ export function AlphabetView(props: AlphabetViewProps) {
   async function playAudio(fileName: string) {
     const audio = new Audio(fileName);
     audio.play().catch((err: any) => {
-      console.log(err);
+      console.error(err);
     });
   }
 

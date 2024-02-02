@@ -7,12 +7,17 @@ export interface SearchHeaderProps {
   searchMatchRef: HTMLDivElement | null;
   title: string;
   backgroundColors: { to: string; from: string };
+  setSearchEntries: (entries: {
+    rawSearchQuery: string;
+    entries: any[];
+  }) => void;
 }
 
 export function SearchHeader({
   searchMatchRef,
   title,
   backgroundColors,
+  setSearchEntries,
 }: SearchHeaderProps) {
   const [searchValue, setSearchValue] = useState<string>('');
   const [l1Search, setL1Search] = useState<MTDSearch>();
@@ -37,8 +42,7 @@ export function SearchHeader({
       // Combine the Results and sort them first by edit distance,
       // then by their Okapi BM25 score
       const allResults = sortResults(l1Results.concat(l2Results));
-      console.log(`Here are all the results for '${rawSearchQuery}': `);
-      console.log(allResults); // Returns a list of results (Result[]) where each Result contains:
+      // Returns a list of results (Result[]) where each Result contains:
       //  - The edit distance (int)
       //  - The entry ID (UUID)
       //  - An array of locations the match occurs in. ([string, int][])
@@ -47,12 +51,11 @@ export function SearchHeader({
       //    This will be helpful for highlighting which word/field is matched.
       //  - The Okapi BM25 Score (float)
 
-      const entries = allResults.map(
-        (result: Result) => search.entriesHash[result[1]]
-      );
+      const entries = allResults.map((result: Result) => {
+        return search.entriesHash[result[1]];
+      });
 
-      console.log('Here are the entries mapped from the results:');
-      console.log(entries);
+      setSearchEntries({ rawSearchQuery, entries });
 
       search.updateAllResults(entries);
     }
@@ -67,10 +70,13 @@ export function SearchHeader({
       <SearchInput
         value={searchValue}
         onChange={(e) => {
+          debugger;
           setSearchValue(e?.target?.value);
           getResults(e?.target?.value);
         }}
-        clickSearch={() => console.log(`search for ${searchValue}`)}
+        clickSearch={() => {
+          getResults(searchValue);
+        }}
       />
     </header>
   );

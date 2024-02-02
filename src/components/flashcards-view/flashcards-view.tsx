@@ -66,7 +66,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
       }
     };
     usersBookmarks().catch((err) => {
-      console.log(err);
+      console.error(err);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [db]);
@@ -196,21 +196,17 @@ export function FlashcardsView(props: FlashcardsViewProps) {
               {dataCategories.map((category) => {
                 return (
                   <div key={category.id}>
-                    {menuItem(
-                      category.title,
-                      'fv-categories',
-                      () => {
-                        const categoryData = dictionaryData.filter((term) => {
-                          return (
-                            term.theme === category.title ||
-                            term.secondary_theme === category.title
-                          );
-                        });
-                        setSelectedFlashcardType(category.title);
-                        saveDataForFlashcards(categoryData);
-                        setShowCategoryModal(false);
-                      }
-                    )}
+                    {menuItem(category.title, 'fv-categories', () => {
+                      const categoryData = dictionaryData.filter((term) => {
+                        return (
+                          term.theme === category.title ||
+                          term.secondary_theme === category.title
+                        );
+                      });
+                      setSelectedFlashcardType(category.title);
+                      saveDataForFlashcards(categoryData);
+                      setShowCategoryModal(false);
+                    })}
                   </div>
                 );
               })}
@@ -257,7 +253,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                           onClick={(e) => {
                             e.stopPropagation();
                             playAudio(fvAudio.filename).catch((err: any) => {
-                              console.log(err);
+                              console.error(err);
                             });
                           }}
                         >
@@ -461,7 +457,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   async function playAudio(fileName: string) {
     const audio = new Audio(fileName);
     audio.play().catch((err: any) => {
-      console.log(err);
+      console.error(err);
     });
   }
 }

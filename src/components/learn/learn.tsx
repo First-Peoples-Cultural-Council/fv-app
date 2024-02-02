@@ -6,6 +6,10 @@ import { SubNavItem } from '../common/data';
 import SearchHeader from '../common/search-header/search-header';
 import fetchStoriesData from '../../services/storiesApiService';
 import fetchSongsData from '../../services/songsApiService';
+import {
+  SearchResultsProvider,
+  SearchResultsType,
+} from '../search-results-provider';
 
 const navItems: SubNavItem[] = [];
 
@@ -62,6 +66,10 @@ export function LearnView(props: LearnViewProps) {
 
   const [currentNavItem, setCurrentNavItem] = useState(navItems[0]);
   const [navItemsLoaded, setNavItemsLoaded] = useState(false);
+  const [searchResults, setSearchResults] = useState<{
+    rawSearchQuery: string;
+    entries: SearchResultsType;
+  } | null>(null);
 
   useEffect(() => {
     const fetchDataAsync = async () => {
@@ -126,12 +134,15 @@ export function LearnView(props: LearnViewProps) {
           to: currentNavItem.colors.to,
           from: currentNavItem.colors.from,
         }}
+        setSearchEntries={setSearchResults}
       />
-      <SubNavMobile navItems={navItems} />
-      <div className="flex w-full">
-        <SubNavDesktop navItems={navItems} />
-        <Outlet />
-      </div>
+      <SearchResultsProvider results={searchResults!}>
+        <SubNavMobile navItems={navItems} />
+        <div className="flex w-full">
+          <SubNavDesktop navItems={navItems} />
+          <Outlet />
+        </div>
+      </SearchResultsProvider>
     </div>
   );
 }

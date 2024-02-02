@@ -52,7 +52,7 @@ function WordOfTheDay() {
     };
 
     fetchData().catch((err: any) => {
-      console.log(err);
+      console.error(err);
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -78,14 +78,14 @@ function WordOfTheDay() {
   if (data) {
     if (showModal) {
       if (window.matchMedia('(min-width: 768px').matches) {
-        console.log('larger than 768px');
+        console.info('larger than 768px');
         return (
           <Modal onClose={() => wordOfTheDaySeen()} title="Word of the Day">
             <WordModal term={data} onClose={() => wordOfTheDaySeen()} />
           </Modal>
         );
       } else if (!window.matchMedia('(min-width: 768px').matches) {
-        console.log('smaller than 768px');
+        console.info('smaller than 768px');
         return (
           <FullScreenModal
             onClose={() => wordOfTheDaySeen()}

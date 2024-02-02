@@ -1,6 +1,11 @@
 import classNames from 'classnames';
 import { Fragment, useContext, useEffect, useState } from 'react';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import {
+  useNavigate,
+  useLocation,
+  useParams,
+  useOutletContext,
+} from 'react-router-dom';
 import WordAlphabetRowCard from './word-row-card';
 import _ from 'lodash';
 import { useIsMobile } from '../../util/useMediaQuery';
@@ -24,6 +29,7 @@ export interface AlphabetViewProps {}
 let dataAlphabetMap: Record<string, FvLetter>;
 
 export function AlphabetView(props: AlphabetViewProps) {
+  const { setSearchMatchRef }: any = useOutletContext();
   const { letter } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -330,6 +336,7 @@ export function AlphabetView(props: AlphabetViewProps) {
   function exampleWordList() {
     return (
       <div className="w-full">
+        <div ref={setSearchMatchRef}></div>
         <div className="p-5">
           <span className="text-xl pr-2">EXAMPLE WORDS WITH</span>
           <span className="text-5xl bold">{selected?.title}</span>

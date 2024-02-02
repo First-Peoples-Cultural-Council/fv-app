@@ -58,8 +58,12 @@ export function SearchHeader({
       setSearchEntries({ rawSearchQuery, entries });
 
       search.updateAllResults(entries);
+    } else {
+      setSearchEntries({ rawSearchQuery: '', entries: [] });
     }
   };
+
+  const shouldShowSearch = searchMatchRef !== null;
 
   return (
     <header
@@ -67,17 +71,22 @@ export function SearchHeader({
       className={`sub-header flex py-5 px-4 bg-gradient-to-t ${backgroundColors.from} ${backgroundColors.to} justify-between items-center`}
     >
       <div className="text-white uppercase">{title}</div>
-      <SearchInput
-        value={searchValue}
-        onChange={(e) => {
-          debugger;
-          setSearchValue(e?.target?.value);
-          getResults(e?.target?.value);
-        }}
-        clickSearch={() => {
-          getResults(searchValue);
-        }}
-      />
+      {shouldShowSearch && (
+        <SearchInput
+          value={searchValue}
+          onChange={(e) => {
+            setSearchValue(e?.target?.value);
+            getResults(e?.target?.value);
+          }}
+          clickSearch={() => {
+            getResults(searchValue);
+          }}
+          onClear={() => {
+            setSearchValue('');
+            getResults('');
+          }}
+        />
+      )}
     </header>
   );
 }

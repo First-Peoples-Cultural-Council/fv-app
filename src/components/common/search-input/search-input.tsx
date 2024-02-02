@@ -6,6 +6,7 @@ export interface SearchInputProps {
   value: string;
   onChange: (value: ChangeEvent<any>) => void;
   clickSearch: () => void;
+  onClear?: () => void;
 }
 
 export function SearchInput({
@@ -13,9 +14,10 @@ export function SearchInput({
   value,
   onChange,
   clickSearch,
+  onClear,
 }: SearchInputProps) {
   return (
-    <div className="flex items-center w-full max-w-md ml-2">
+    <div className="flex items-center w-full max-w-md ml-2 group relative">
       <input
         value={value}
         onChange={onChange}
@@ -30,6 +32,10 @@ export function SearchInput({
       >
         <i className="fv-search text-text-gray" />
       </button>
+      <i
+        className="fv-close text-gray-500 opacity-0 group-hover:opacity-100 absolute right-12 top-1/2 transform -translate-y-1/2 text-xs cursor-pointer transition-opacity duration-200 ease-in-out"
+        onClick={onClear}
+      />
     </div>
   );
 }

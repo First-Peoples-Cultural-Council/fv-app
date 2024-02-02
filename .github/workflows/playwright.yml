@@ -6,6 +6,7 @@ on:
     branches: [ main, develop ]
 jobs:
   test:
+    name: Unit Tests
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -29,8 +30,8 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
-  tf_fmt:
-    name: Deploy FV-Apps
+  tf_init_fmt:
+    name: Initialize TF
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -39,4 +40,13 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: ls ;cd modules; ls; terraform init -lock=false
+        run: ls ;cd modules; ls; terraform init -lock=false; terraform fmt
+  tf_plan:
+    name: Plan TF
+    runs-on: ubuntu-latest
+    steps:
+      - name: Terraform plan
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: ls

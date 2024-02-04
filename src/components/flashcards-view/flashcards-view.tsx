@@ -2,9 +2,15 @@ import classNames from 'classnames';
 import { useButtonStyle } from '../common/hooks';
 import { useEffect, useRef, useState } from 'react';
 import useOnClickOutside from '../../util/clickOutside';
-import { Bookmark, Flashcard, FvAudio, FvWord } from '../common/data';
+import {
+  Bookmark,
+  Flashcard,
+  FvAudio,
+  FvCategory,
+  FvWord,
+} from '../common/data';
 import shuffle from '../../util/shuffle';
-import { dataCategories } from '../temp-category-list';
+import fetchCategoryData from '../../services/categoriesApiService';
 import fetchWordsData from '../../services/wordsApiService';
 import IndexedDBService from '../../services/indexedDbService';
 
@@ -28,6 +34,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   const [dataForFlashcardGroup, setDataForFlashcardGroup] = useState<any>();
   const [flashcardIndex, setFlashcardIndex] = useState<number>(0);
   const [flashcardData, setFlashcardData] = useState<Flashcard>();
+  const [dataCategories, setDataCategories] = useState<any>([]);
 
   const secondaryButtonStyle = useButtonStyle('secondary', 'button');
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
@@ -36,6 +43,12 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   const CategoryModalRef = useRef<HTMLDivElement>(null);
 
   const flashcardsBatchSize = 25;
+
+  useEffect(() => {
+    fetchCategoryData().then((result) => {
+      setDataCategories(result);
+    });
+  }, []);
 
   useOnClickOutside(SelectModalRef, () => {
     setShowSelectModal(false);
@@ -193,7 +206,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                   <i className="fv-close"></i>
                 </button>
               </div>
-              {dataCategories.map((category) => {
+              {dataCategories.map((category: FvCategory) => {
                 return (
                   <div key={category.id}>
                     {menuItem(category.title, 'fv-categories', () => {

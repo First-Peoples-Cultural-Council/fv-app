@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { Link, useParams } from 'react-router-dom';
 import styles from './category-view.module.css';
-import { dataCategories } from '../temp-category-list';
+import fetchCategoryData from '../../services/categoriesApiService';
 import { Fragment, useEffect, useState } from 'react';
 import WordCardDesktop from '../dictionary-page/word-card-desktop';
 import WordCardMobile from '../dictionary-page/word-card-mobile';
@@ -18,6 +18,13 @@ export function CategoryView(props: CategoryViewProps) {
   const [selected, setSelected] = useState<number>(DictionaryType.Both);
   const [dataDict, setDataDict] = useState<FvWord[]>([]);
   const [data, setData] = useState<FvWord[]>([]);
+  const [dataCategories, setDataCategories] = useState<FvCategory[]>([]);
+
+  useEffect(() => {
+    fetchCategoryData().then((result) => {
+      setDataCategories(result);
+    });
+  }, []);
 
   const findCategoryById = (
     list: FvCategory[] | null,

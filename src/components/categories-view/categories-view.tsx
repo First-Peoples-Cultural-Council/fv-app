@@ -1,14 +1,23 @@
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import { dataCategories } from '../temp-category-list';
+import fetchCategoryData from '../../services/categoriesApiService';
 import { useButtonStyle } from '../common/hooks';
 import styles from './categories-view.module.css';
+import { useEffect, useState } from 'react';
+import { FvCategory } from '../common/data';
 
 /* eslint-disable-next-line */
 export interface CategoriesViewProps {}
 
 export function CategoriesView(props: CategoriesViewProps) {
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
+  const [dataCategories, setDataCategories] = useState<FvCategory[]>([]);
+
+  useEffect(() => {
+    fetchCategoryData().then((result) => {
+      setDataCategories(result);
+    });
+  }, []);
 
   return (
     <div className="w-full">

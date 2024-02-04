@@ -87,8 +87,14 @@ registerRoute(
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting().catch((err: any) => {
-      console.error(err);
+    self.skipWaiting().then(() => {
+      self.clients.matchAll({ type: 'window' }).then((clients) => {
+        clients.forEach((client) => {
+          if (client.url && 'navigate' in client) {
+            client.navigate(client.url).then((navClient) => navClient?.focus());
+          }
+        });
+      });
     });
   }
 });
@@ -147,6 +153,17 @@ self.addEventListener('fetch', function (event) {
           });
         }
       }
+    })()
+  );
+});
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    (async function () {
+      // Activate the new service worker immediately without waiting
+      self.skipWaiting();
+
+      self.clients.claim();
     })()
   );
 });

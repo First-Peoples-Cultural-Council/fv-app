@@ -23,7 +23,7 @@ jobs:
 #    - name: Run Playwright tests
 #      run: npx playwright test
     - name: Run Unit tests
-      run: npm run test; echo "----------------------"; ls; npm run build; echo "----------------------"; ls
+      run: npm run test;
     - uses: actions/upload-artifact@v3
       if: always()
       with:
@@ -53,4 +53,4 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: ls; 
+        run:  echo "----------------------"; ls; npm run build; echo "----------------------"; ls

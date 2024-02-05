@@ -47,12 +47,12 @@
     "workbox-streams": "^6.5.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "CI=false react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "CI=false react-app-rewired build",
+    "test": "react-app-rewired test",
     "test:e2e": "npx playwright test",
     "eject": "react-scripts eject",
-    "buildnserve": "react-scripts build && serve -s build",
+    "buildnserve": "react-app-rewired build && serve -s build",
     "serve": "serve -s build",
     "icons:generate": "fontello-cli install --config fontello.config.json --css ./src/assets/fonts/css --font ./src/assets/fonts/font",
     "icons:open": "fontello-cli open --config fontello.config.json",
@@ -91,9 +91,13 @@
     "babel-plugin-named-exports-order": "^0.0.2",
     "eslint-plugin-storybook": "^0.6.12",
     "prop-types": "^15.8.1",
+    "react-app-rewired": "^2.2.1",
+    "react-refresh": "0.11.0",
+    "serve": "^14.2.1",
     "storybook": "^7.0.20",
     "tailwindcss": "^3.3.1",
     "webpack": "^5.86.0",
-    "react-refresh": "0.11.0"
+    "webpack-bundle-analyzer": "^4.10.1",
+    "webpack-cli": "^5.1.4"
   }
 }

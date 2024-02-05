@@ -23,13 +23,12 @@ jobs:
     # - name: Run Playwright tests
     #   run: npx playwright test
     - name: Run Unit tests
-      run: npm run test; echo "----------------------"; ls; npm run build; echo "----------------------"; ls; mkdir uploads; mv playwright-report uploads/playwright-report; mv build uploads/build
+      run: npm run test; echo "----------------------"; ls; npm run build; echo "----------------------"; ls; mkdir uploads; mv build uploads/build
     - uses: actions/upload-artifact@v3
       if: always()
       with:
         name: uploads
         path: uploads/
-        retention-days: 30
   tf_init_fmt:
     name: Initialize TF
     runs-on: ubuntu-latest

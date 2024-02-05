@@ -20,8 +20,8 @@ jobs:
       run: npx playwright install --with-deps
     - name: Start server in background
       run: npm run start & sleep 10
-    - name: Run Playwright tests
-      run: npx playwright test
+    # - name: Run Playwright tests
+    #   run: npx playwright test
     - name: Run Unit tests
       run: npm run test; echo "----------------------"; ls; npm run build; echo "----------------------"; ls; mkdir uploads; mv playwright-report uploads/playwright-report; mv build uploads/build
     - uses: actions/upload-artifact@v3

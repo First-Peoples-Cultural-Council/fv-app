@@ -45,6 +45,7 @@ jobs:
   tf_plan:
     name: Plan TF
     runs-on: ubuntu-latest
+    needs: [test, tf_init_fmt]
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3

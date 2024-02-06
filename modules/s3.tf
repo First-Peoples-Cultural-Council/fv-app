@@ -28,7 +28,7 @@ resource "aws_s3_bucket_acl" "acl_logs" {
   acl    = "log-delivery-write"
 }
 
-resource "aws_s3_bucket_ownership_controls" "s3_bucket_acl_ownership" {
+resource "aws_s3_bucket_ownership_controls" "s3_logs_bucket_acl_ownership" {
   bucket = aws_s3_bucket.logs.id
   rule {
     object_ownership = "BucketOwnerPreferred"
@@ -63,7 +63,7 @@ resource "aws_s3_bucket_acl" "acl_website" {
   acl    = "private"
 }
 
-resource "aws_s3_bucket_ownership_controls" "s3_bucket_acl_ownership" {
+resource "aws_s3_bucket_ownership_controls" "s3_website_bucket_acl_ownership" {
   bucket = aws_s3_bucket.website.id
   rule {
     object_ownership = "BucketOwnerPreferred"

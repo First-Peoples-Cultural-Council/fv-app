@@ -7,11 +7,6 @@ resource "aws_s3_bucket" "fv-apps" {
   }
 }
 
-resource "aws_s3_bucket_acl" "fv-apps_acl" {
-  bucket = aws_s3_bucket.fv-apps.id
-  acl    = "private"
-}
-
 resource "aws_s3_bucket_versioning" "fv-apps_versioning" {
   bucket = aws_s3_bucket.fv-apps.id
   versioning_configuration {

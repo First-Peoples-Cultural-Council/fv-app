@@ -73,13 +73,13 @@ resource "aws_s3_bucket_policy" "fv-apps_bucket-policy" {
   policy = data.aws_iam_policy_document.allow_access.json
 }
 
-# resource "aws_route53_record" "exampleDomain-a" {
-#   zone_id = aws_route53_zone.exampleDomain.zone_id
-#   name    = "firstvoicesapp.com"
+# resource "aws_route53_record" "zone_record" {
+#   zone_id = var.ZONE_ID
+#   name    = "smalgyax.firstvoicesapp.com"
 #   type    = "A"
 #   alias {
 #     name                   = aws_s3_bucket.fv-apps.website_endpoint
-#     zone_id                = aws_s3_bucket.example.hosted_zone_id
+#     zone_id                = var.ZONE_ID
 #     evaluate_target_health = true
 #   }
 # }

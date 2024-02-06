@@ -29,22 +29,12 @@ jobs:
       with:
         name: uploads
         path: uploads/
-  tf_init_fmt:
-    name: Initialize TF
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3
-      - name: Terraform init
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: ls ;cd modules; ls; terraform init -lock=false; terraform fmt
-  tf_plan:
+
+        run: ls ;cd modules; ls; 
+  tf_init_plan:
     name: Plan TF
     runs-on: ubuntu-latest
-    needs: [test, tf_init_fmt]
+    needs: test
     steps:
       - uses: actions/download-artifact@v3
         with:
@@ -57,4 +47,4 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: cd modules; terraform plan; 
+        run: cd modules; terraform init -lock=false; terraform fmt; terraform plan; 

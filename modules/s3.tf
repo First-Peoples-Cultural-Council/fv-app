@@ -73,22 +73,13 @@ resource "aws_s3_bucket_policy" "fv-apps_bucket-policy" {
   policy = data.aws_iam_policy_document.allow_access.json
 }
 
-
-data "aws_iam_policy_document" "allow_access" {
-  statement {
-    principals {
-      type        = "AWS"
-      identifiers = ["${data.aws_caller_identity.current.account_id}"]
-    }
-
-    actions = [
-      "s3:GetObject",
-      "s3:ListBucket",
-    ]
-
-    resources = [
-      aws_s3_bucket.fv-apps.arn,
-      "${aws_s3_bucket.fv-apps.arn}/*", 
-    ]
-  }
-}
+# resource "aws_route53_record" "exampleDomain-a" {
+#   zone_id = aws_route53_zone.exampleDomain.zone_id
+#   name    = "firstvoicesapp.com"
+#   type    = "A"
+#   alias {
+#     name                   = aws_s3_bucket.fv-apps.website_endpoint
+#     zone_id                = aws_s3_bucket.example.hosted_zone_id
+#     evaluate_target_health = true
+#   }
+# }

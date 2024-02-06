@@ -26,6 +26,8 @@ resource "aws_s3_bucket" "logs" {
 resource "aws_s3_bucket_acl" "acl_logs" {
   bucket = aws_s3_bucket.logs.id
   acl    = "log-delivery-write"
+
+  depends_on = [ aws_s3_bucket_ownership_controls.s3_logs_bucket_acl_ownership ]
 }
 
 resource "aws_s3_bucket_ownership_controls" "s3_logs_bucket_acl_ownership" {
@@ -61,6 +63,8 @@ resource "aws_s3_bucket_versioning" "versioning" {
 resource "aws_s3_bucket_acl" "acl_website" {
   bucket = aws_s3_bucket.website.id
   acl    = "private"
+
+   depends_on = [ aws_s3_bucket_ownership_controls.s3_website_bucket_acl_ownership ]
 }
 
 resource "aws_s3_bucket_ownership_controls" "s3_website_bucket_acl_ownership" {

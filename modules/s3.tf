@@ -1,4 +1,4 @@
-resource "aws_s3_bucket_policy" "react_app_bucket_policy" {
+resource "aws_s3_bucket_policy" "main_bucket_policy" {
   bucket = aws_s3_bucket.website.id
   policy = data.aws_iam_policy_document.s3_allow_access_from_cf.json
 }
@@ -28,6 +28,13 @@ resource "aws_s3_bucket_acl" "acl_logs" {
   acl    = "log-delivery-write"
 }
 
+resource "aws_s3_bucket_ownership_controls" "s3_bucket_acl_ownership" {
+  bucket = aws_s3_bucket.logs.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
 resource "aws_s3_bucket" "website" {
   bucket        = var.application_name
   force_destroy = !local.has_domain
@@ -54,6 +61,13 @@ resource "aws_s3_bucket_versioning" "versioning" {
 resource "aws_s3_bucket_acl" "acl_website" {
   bucket = aws_s3_bucket.website.id
   acl    = "private"
+}
+
+resource "aws_s3_bucket_ownership_controls" "s3_bucket_acl_ownership" {
+  bucket = aws_s3_bucket.website.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
 }
 
 resource "aws_s3_bucket_website_configuration" "bucket_website_configuration" {

@@ -23,7 +23,7 @@ jobs:
     # - name: Run Playwright tests
     #   run: npx playwright test
     - name: Run Unit tests
-      run: npm run test; echo "----------------------"; ls; npm run build; echo "----------------------"; ls; mkdir uploads; mv build uploads/build
+      run: npm run test;  npm run build;mkdir uploads; mv build uploads/build
     - uses: actions/upload-artifact@v3
       if: always()
       with:
@@ -46,15 +46,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test, tf_init_fmt]
     steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: uploads
+          path: downloads/
+      - run: ls
       - name: Checkout Repo
         uses: actions/checkout@v3
       - name: Terraform plan
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: ls; 
-      - uses: actions/download-artifact@v3
-        with:
-          name: uploads
-          path: downloads/
-      - run: ls
+        run: cd modules; terraform plan; 

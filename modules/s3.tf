@@ -68,13 +68,13 @@ resource "aws_s3_bucket_policy" "fv-apps_bucket-policy" {
   policy = data.aws_iam_policy_document.allow_access.json
 }
 
-# resource "aws_route53_record" "zone_record" {
-#   zone_id = var.ZONE_ID
-#   name    = "smalgyax.firstvoicesapp.com"
-#   type    = "A"
-#   alias {
-#     name                   = aws_s3_bucket.fv-apps.website_endpoint
-#     zone_id                = var.ZONE_ID
-#     evaluate_target_health = true
-#   }
-# }
+resource "aws_route53_record" "zone_record" {
+  zone_id = var.ZONE_ID
+  name    = "smalgyax.firstvoicesapp.com"
+  type    = "A"
+  alias {
+    name                   = aws_s3_bucket.fv-apps.website_endpoint
+    zone_id                = var.ZONE_ID
+    evaluate_target_health = true
+  }
+}

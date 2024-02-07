@@ -58,7 +58,7 @@ export function AudioButton({ fvAudio }: AudioButtonProps) {
   async function playAudio(fileName: string) {
     const audio = new Audio(fileName);
     audio.play().catch((err: any) => {
-      console.log(err);
+      console.error(err);
     });
   }
 }

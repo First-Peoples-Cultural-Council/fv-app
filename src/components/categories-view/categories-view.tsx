@@ -1,18 +1,36 @@
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import { dataCategories } from '../temp-category-list';
+import fetchCategoryData from '../../services/categoriesApiService';
 import { useButtonStyle } from '../common/hooks';
 import styles from './categories-view.module.css';
+import { useEffect, useState } from 'react';
+import { FvCategory } from '../common/data';
+import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 
 /* eslint-disable-next-line */
 export interface CategoriesViewProps {}
 
 export function CategoriesView(props: CategoriesViewProps) {
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
+  const [dataCategories, setDataCategories] = useState<FvCategory[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchCategoryData().then((result) => {
+      setDataCategories(result);
+      setLoading(false);
+    });
+  }, []);
 
   return (
     <div className="w-full">
-      <div className="block md:hidden flex flex-wrap">
+      {loading && <LoadingSpinner />}
+      <div
+        className={classNames(
+          'block md:hidden flex flex-wrap overflow-y-auto',
+          styles['scrollable-div']
+        )}
+      >
         {dataCategories
           .filter((category) => category.children)
           .map((category) => {

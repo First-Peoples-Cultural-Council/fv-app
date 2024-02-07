@@ -6,6 +6,7 @@ import MultiSwitch from '../common/multi-switch/multi-switch';
 import { FvWord } from '../common/data';
 import fetchWordsData from '../../services/wordsApiService';
 import generateUniqueRandomItems from '../../util/randomSet';
+import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 
 /* eslint-disable-next-line */
 export interface WordsViewProps {}
@@ -15,6 +16,7 @@ export function RandomizedView(props: WordsViewProps) {
   const [dataDict, setDataDict] = useState<FvWord[]>([]);
   const [data, setData] = useState<FvWord[]>([]);
   const [subset, setSubset] = useState<FvWord[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const resetScroll = () => {
     const container = document.getElementById('wordList');
@@ -28,6 +30,7 @@ export function RandomizedView(props: WordsViewProps) {
       try {
         const result = await fetchWordsData();
         setDataDict(result.data);
+        setLoading(false);
       } catch (error) {
         // Handle error scenarios
       }
@@ -59,6 +62,7 @@ export function RandomizedView(props: WordsViewProps) {
 
   return (
     <div className="w-full">
+      {loading && <LoadingSpinner />}
       <div className="flex flex-row flex-wrap">
         <MultiSwitch
           selected={selected}

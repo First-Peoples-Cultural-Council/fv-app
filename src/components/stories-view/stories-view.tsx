@@ -110,7 +110,7 @@ export function StoriesView(props: StoriesViewProps) {
   return (
     <>
       <div className="grid grid-cols-1 w-full">
-        <div className='overflow-y-auto max-h-calc-185 md:max-h-calc-125'>
+        <div className="overflow-y-auto max-h-calc-185 md:max-h-calc-125">
           {storiesData.map((story: FVStory) => {
             return (
               <div
@@ -456,7 +456,7 @@ export function StoriesView(props: StoriesViewProps) {
   }
 
   function convertJsonToComponent(jsonString: string) {
-    if (jsonString === "") {
+    if (jsonString === '') {
       return <></>;
     }
 
@@ -466,13 +466,11 @@ export function StoriesView(props: StoriesViewProps) {
       return (
         <>
           {json.blocks.map(
-            (
-              block: {
-                inlineStyleRanges: any[];
-                text: string;
-                key: string;
-              },
-            ) => (
+            (block: {
+              inlineStyleRanges: any[];
+              text: string;
+              key: string;
+            }) => (
               <p
                 key={block.key}
                 style={{
@@ -490,7 +488,7 @@ export function StoriesView(props: StoriesViewProps) {
         </>
       );
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return <></>;
     }
   }

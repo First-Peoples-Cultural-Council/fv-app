@@ -25,7 +25,16 @@ clientsClaim();
 // Their URLs are injected into the manifest variable below.
 // This variable must be present somewhere in your service worker file,
 // even if you decide not to use precaching. See https://cra.link/PWA
-precacheAndRoute(self.__WB_MANIFEST);
+precacheAndRoute([
+  ...self.__WB_MANIFEST,
+  'asset-manifest.json',
+  'favicon.ico',
+  'logo192.png',
+  'logo512.png',
+  'manifest.json',
+  `mtd-ui.min.js`,
+  'service-worker.js'
+]);
 
 // Set up App Shell-style routing, so that all navigation requests
 // are fulfilled with your index.html shell. Learn more at
@@ -78,8 +87,14 @@ registerRoute(
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting().catch((err: any) => {
-      console.log(err);
+    self.skipWaiting().then(() => {
+      self.clients.matchAll({ type: 'window' }).then((clients) => {
+        clients.forEach((client) => {
+          if (client.url && 'navigate' in client) {
+            client.navigate(client.url).then((navClient) => navClient?.focus());
+          }
+        });
+      });
     });
   }
 });
@@ -138,6 +153,17 @@ self.addEventListener('fetch', function (event) {
           });
         }
       }
+    })()
+  );
+});
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    (async function () {
+      // Activate the new service worker immediately without waiting
+      self.skipWaiting();
+
+      self.clients.claim();
     })()
   );
 });

@@ -42,7 +42,7 @@ jobs:
         with:
           name: uploads
           path: downloads/
-      - run: ls; mv downloads/build modules/build; cd modules; ls cd build; ls; cd ../..
+      - run: ls; mv downloads/build modules/build; cd modules; ls; cd build; ls; cd ../..
       - name: Terraform plan
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

@@ -22,6 +22,9 @@ import Alert from '../common/alert/alert';
 import { Audio1, DictionaryEntryExportFormat } from '@mothertongues/search';
 import styles from './alphabet-view.module.css';
 import { SearchResultsContext } from '../search-results-provider';
+import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
+import { Simulate } from 'react-dom/test-utils';
+import load = Simulate.load;
 
 /* eslint-disable-next-line */
 export interface AlphabetViewProps {}
@@ -50,6 +53,7 @@ export function AlphabetView(props: AlphabetViewProps) {
   const [showDownloadProgress, setShowDownloadProgress] = useState(false);
   const [currentlyDownloading, setCurrentlyDownloading] = useState(false);
   const [showAlertNotOnline, setShowAlertNotOnline] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { isOnline } = useDetectOnlineStatus();
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
   const searchResults = useContext(SearchResultsContext);
@@ -74,6 +78,7 @@ export function AlphabetView(props: AlphabetViewProps) {
         // Handle error scenarios
         console.error('Error occurred:', error);
       }
+      setLoading(false);
     };
 
     if (
@@ -83,6 +88,7 @@ export function AlphabetView(props: AlphabetViewProps) {
       fetchDataAsync();
     } else {
       setDataDict(searchResults?.entries as DictionaryEntryExportFormat[]);
+      setLoading(false);
     }
   }, [searchResults?.rawSearchQuery]);
 
@@ -96,6 +102,7 @@ export function AlphabetView(props: AlphabetViewProps) {
 
   return (
     <>
+      {loading && <LoadingSpinner />}
       <div className="block md:hidden flex justify-center w-full">
         <div
           className={classNames(

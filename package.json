@@ -54,8 +54,8 @@
     "eject": "react-scripts eject",
     "buildnserve": "react-scripts build && serve -s build",
     "serve": "serve -s build",
-    "icons:generate": "fontello-cli install --config fontello.config.json --css ./src/assets/fonts/css --font ./src/assets/fonts/font",
-    "icons:open": "fontello-cli open --config fontello.config.json",
+    "icons:generate": "npx fontello-cli install --config fontello.config.json --css ./src/assets/fonts/css --font ./src/assets/fonts/font",
+    "icons:open": "npx fontello-cli open --config fontello.config.json",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

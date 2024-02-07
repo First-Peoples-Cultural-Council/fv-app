@@ -5,7 +5,7 @@ import { FvWord } from '../common/data/types';
 import { useModal } from '../common/use-modal/use-modal';
 import { useEffect } from 'react';
 
-function WordCardMobile(props: {term: FvWord}) {
+function WordCardMobile(props: { term: FvWord }) {
   const { term } = props;
   const location = useLocation();
   const { setShowModal, showModal, closeModal } = useModal();

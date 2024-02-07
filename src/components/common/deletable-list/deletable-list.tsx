@@ -97,7 +97,7 @@ export function DeletableList({
           <SearchInput
             value={searchValue}
             onChange={(event) => setSearchValue(event?.target?.value)}
-            clickSearch={() => console.log(`search for ${searchValue}`)}
+            clickSearch={() => console.info(`search for ${searchValue}`)}
           />
         </div>
       )}

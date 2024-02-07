@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import IndexedDBService from '../../services/indexedDbService';
 
-function WordModal(props: { term: FvWord, onClose: () => void }) {
+function WordModal(props: { term: FvWord; onClose: () => void }) {
   const { term, onClose } = props;
 
   const [db, setDb] = useState<IndexedDBService>();
@@ -38,7 +38,7 @@ function WordModal(props: { term: FvWord, onClose: () => void }) {
 
   useEffect(() => {
     bookmarkIcon(db).catch((err: any) => {
-      console.log(err);
+      console.error(err);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [db]);
@@ -59,7 +59,7 @@ function WordModal(props: { term: FvWord, onClose: () => void }) {
             <button
               onClick={() => {
                 navigator.clipboard.writeText(word).catch((err: any) => {
-                  console.log(err);
+                  console.error(err);
                 });
               }}
             >
@@ -71,13 +71,13 @@ function WordModal(props: { term: FvWord, onClose: () => void }) {
               onClick={() => {
                 if (navigator.share && navigator.canShare(shareData)) {
                   navigator.share(shareData).catch((err: any) => {
-                    console.log(err);
+                    console.error(err);
                   });
                 } else {
                   navigator.clipboard
                     .writeText(shareData.url)
                     .catch((err: any) => {
-                      console.log(err);
+                      console.error(err);
                     });
                 }
               }}
@@ -95,7 +95,7 @@ function WordModal(props: { term: FvWord, onClose: () => void }) {
                   await db?.addBookmark(bookmark);
                 }
                 bookmarkIcon(db).catch((err: any) => {
-                  console.log(err);
+                  console.error(err);
                 });
               }}
             >

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { Link, useParams } from 'react-router-dom';
 import styles from './category-view.module.css';
-import { dataCategories } from '../temp-category-list';
+import fetchCategoryData from '../../services/categoriesApiService';
 import { Fragment, useEffect, useState } from 'react';
 import WordCardDesktop from '../dictionary-page/word-card-desktop';
 import WordCardMobile from '../dictionary-page/word-card-mobile';
@@ -18,6 +18,13 @@ export function CategoryView(props: CategoryViewProps) {
   const [selected, setSelected] = useState<number>(DictionaryType.Both);
   const [dataDict, setDataDict] = useState<FvWord[]>([]);
   const [data, setData] = useState<FvWord[]>([]);
+  const [dataCategories, setDataCategories] = useState<FvCategory[]>([]);
+
+  useEffect(() => {
+    fetchCategoryData().then((result) => {
+      setDataCategories(result);
+    });
+  }, []);
 
   const findCategoryById = (
     list: FvCategory[] | null,
@@ -105,30 +112,37 @@ export function CategoryView(props: CategoryViewProps) {
   return (
     <>
       <div className="block md:hidden w-full">
-        <div className="flex flex-auto">
+        <div className="flex flex-auto w-[100vw] overflow-x-auto">
           {selectedCategory()}
           {subcategories()}
         </div>
         <div className={'w-full'}>
           {wordsPhrasesBoth()}
-          {data
-            .filter((term) => {
-              if (currentCategory.id === primaryCategory.id) {
-                return term.theme === primaryCategory.title;
-              } else {
+          <div
+            className={classNames(
+              'overflow-x-hidden overflow-y-auto pb-64',
+              styles['scrollable-div']
+            )}
+          >
+            {data
+              .filter((term) => {
+                if (currentCategory.id === primaryCategory.id) {
+                  return term.theme === primaryCategory.title;
+                } else {
+                  return (
+                    term.theme === primaryCategory.title &&
+                    term.secondary_theme === currentCategory.title
+                  );
+                }
+              })
+              .map((term) => {
                 return (
-                  term.theme === primaryCategory.title &&
-                  term.secondary_theme === currentCategory.title
+                  <Fragment key={`${term.source}-${term.entryID}`}>
+                    <WordCardMobile term={term} />
+                  </Fragment>
                 );
-              }
-            })
-            .map((term) => {
-              return (
-                <Fragment key={`${term.source}-${term.entryID}`}>
-                  <WordCardMobile term={term} />
-                </Fragment>
-              );
-            })}{' '}
+              })}{' '}
+          </div>
         </div>
       </div>
 

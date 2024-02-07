@@ -1,17 +1,26 @@
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-// TODO: REPLACE
-import { dataCategories } from '../temp-category-list';
 import { useButtonStyle } from '../common/hooks';
 import { FvAudio, FvCategory, FvWord } from '../common/data';
 import { FvImage } from '../common/image/image';
 import { AudioButton } from '../common/audio-button/audio';
+import { useEffect, useState } from 'react';
+import fetchCategoryData from '../../services/categoriesApiService';
 
 function WordCard(
   props: Readonly<{ term: FvWord; categoryPressed: () => void }>
 ) {
   const { term, categoryPressed } = props;
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
+  const [dataCategories, setDataCategories] = useState<FvCategory[] | null>(
+    null
+  );
+
+  useEffect(() => {
+    fetchCategoryData().then((result) => {
+      setDataCategories(result);
+    });
+  }, []);
 
   const findCategoryByTitle = (
     list: FvCategory[] | null,

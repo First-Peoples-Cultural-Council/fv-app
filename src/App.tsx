@@ -2,6 +2,8 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { NavigationItem } from './components/common/data';
 import Header from './components/common/header/header';
 import MobileNav from './components/common/mobile-nav/mobile-nav';
+import { Suspense } from 'react';
+import { LoadingSpinner } from './components/common/loading-spinner/loading-spinner';
 
 const navItems: NavigationItem[] = [
   {
@@ -62,11 +64,19 @@ export function App() {
   }
 
   return (
-    <div>
-      <Header navItems={navItems} extraNavItems={extraNavItems} currentTab={currentTab} />
+    <Suspense fallback={<LoadingSpinner />}>
+      <Header
+        navItems={navItems}
+        extraNavItems={extraNavItems}
+        currentTab={currentTab}
+      />
       <Outlet />
-      <MobileNav navItems={navItems} extraNavItems={extraNavItems} currentTab={currentTab} />
-    </div>
+      <MobileNav
+        navItems={navItems}
+        extraNavItems={extraNavItems}
+        currentTab={currentTab}
+      />
+    </Suspense>
   );
 }
 

@@ -3,51 +3,28 @@ import './index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
-import { lazy, StrictMode } from 'react';
+import { StrictMode } from 'react';
 import {
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
   Route,
 } from 'react-router-dom';
-
-const Dictionary = lazy(
-  () => import('./components/dictionary-page/dictionary-page')
-);
-const AlphabetView = lazy(
-  () => import('./components/alphabet-view/alphabet-view')
-);
-const DictionaryView = lazy(
-  () => import('./components/dictionary-view/dictionary-view')
-);
-const CategoryView = lazy(
-  () => import('./components/category-view/category-view')
-);
-const CategoriesView = lazy(
-  () => import('./components/categories-view/categories-view')
-);
-const Learn = lazy(() => import('./components/learn/learn'));
-const StoriesView = lazy(
-  () => import('./components/stories-view/stories-view')
-);
-const SongsView = lazy(() => import('./components/songs-view/songs-view'));
-const FlashcardsView = lazy(
-  () => import('./components/flashcards-view/flashcards-view')
-);
-const ProfileView = lazy(
-  () => import('./components/profile-view/profile-view')
-);
-const RandomizedView = lazy(
-  () => import('./components/randomized-view/randomized-view')
-);
-const SettingsView = lazy(
-  () => import('./components/settings-view/settings-view')
-);
-const AboutView = lazy(() => import('./components/about-view/about-view'));
-const PageNotFound = lazy(
-  () => import('./components/common/page-not-found/page-not-found')
-);
-const SearchProvider = lazy(() => import('./components/search-provider'));
+import Dictionary from './components/dictionary-page/dictionary-page';
+import AlphabetView from './components/alphabet-view/alphabet-view';
+import DictionaryView from './components/dictionary-view/dictionary-view';
+import CategoryView from './components/category-view/category-view';
+import CategoriesView from './components/categories-view/categories-view';
+import Learn from './components/learn/learn';
+import StoriesView from './components/stories-view/stories-view';
+import SongsView from './components/songs-view/songs-view';
+import FlashcardsView from './components/flashcards-view/flashcards-view';
+import ProfileView from './components/profile-view/profile-view';
+import RandomizedView from './components/randomized-view/randomized-view';
+import SettingsView from './components/settings-view/settings-view';
+import AboutView from './components/about-view/about-view';
+import PageNotFound from './components/common/page-not-found/page-not-found';
+import SearchProvider from './components/search-provider';
 
 export const routesConfig = createRoutesFromElements(
   <>
@@ -60,7 +37,7 @@ export const routesConfig = createRoutesFromElements(
         <Route path="categories" element={<CategoriesView />} />
         <Route path="randomized" element={<RandomizedView />} />
       </Route>
-      <Route path="learn" element={<Learn />}>
+      <Route path="learn" element={<Learn />} >
         <Route path="stories" element={<StoriesView />} />
         <Route path="songs" element={<SongsView />} />
         <Route path="flashcards" element={<FlashcardsView />} />

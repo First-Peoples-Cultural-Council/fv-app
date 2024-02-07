@@ -2,9 +2,15 @@ import classNames from 'classnames';
 import { useButtonStyle } from '../common/hooks';
 import { useEffect, useRef, useState } from 'react';
 import useOnClickOutside from '../../util/clickOutside';
-import { Bookmark, Flashcard, FvAudio, FvWord } from '../common/data';
+import {
+  Bookmark,
+  Flashcard,
+  FvAudio,
+  FvCategory,
+  FvWord,
+} from '../common/data';
 import shuffle from '../../util/shuffle';
-import { dataCategories } from '../temp-category-list';
+import fetchCategoryData from '../../services/categoriesApiService';
 import fetchWordsData from '../../services/wordsApiService';
 import IndexedDBService from '../../services/indexedDbService';
 
@@ -28,6 +34,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   const [dataForFlashcardGroup, setDataForFlashcardGroup] = useState<any>();
   const [flashcardIndex, setFlashcardIndex] = useState<number>(0);
   const [flashcardData, setFlashcardData] = useState<Flashcard>();
+  const [dataCategories, setDataCategories] = useState<any>([]);
 
   const secondaryButtonStyle = useButtonStyle('secondary', 'button');
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
@@ -36,6 +43,12 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   const CategoryModalRef = useRef<HTMLDivElement>(null);
 
   const flashcardsBatchSize = 25;
+
+  useEffect(() => {
+    fetchCategoryData().then((result) => {
+      setDataCategories(result);
+    });
+  }, []);
 
   useOnClickOutside(SelectModalRef, () => {
     setShowSelectModal(false);
@@ -66,7 +79,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
       }
     };
     usersBookmarks().catch((err) => {
-      console.log(err);
+      console.error(err);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [db]);
@@ -193,24 +206,20 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                   <i className="fv-close"></i>
                 </button>
               </div>
-              {dataCategories.map((category) => {
+              {dataCategories.map((category: FvCategory) => {
                 return (
                   <div key={category.id}>
-                    {menuItem(
-                      category.title,
-                      'fv-categories',
-                      () => {
-                        const categoryData = dictionaryData.filter((term) => {
-                          return (
-                            term.theme === category.title ||
-                            term.secondary_theme === category.title
-                          );
-                        });
-                        setSelectedFlashcardType(category.title);
-                        saveDataForFlashcards(categoryData);
-                        setShowCategoryModal(false);
-                      }
-                    )}
+                    {menuItem(category.title, 'fv-categories', () => {
+                      const categoryData = dictionaryData.filter((term) => {
+                        return (
+                          term.theme === category.title ||
+                          term.secondary_theme === category.title
+                        );
+                      });
+                      setSelectedFlashcardType(category.title);
+                      saveDataForFlashcards(categoryData);
+                      setShowCategoryModal(false);
+                    })}
                   </div>
                 );
               })}
@@ -257,7 +266,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                           onClick={(e) => {
                             e.stopPropagation();
                             playAudio(fvAudio.filename).catch((err: any) => {
-                              console.log(err);
+                              console.error(err);
                             });
                           }}
                         >
@@ -461,7 +470,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   async function playAudio(fileName: string) {
     const audio = new Audio(fileName);
     audio.play().catch((err: any) => {
-      console.log(err);
+      console.error(err);
     });
   }
 }

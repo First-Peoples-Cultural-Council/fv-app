@@ -5,6 +5,7 @@ import fetchWordOfDayData from '../../services/wordOfTheDayApiService';
 import { FvWord } from '../common/data';
 import fetchWordsData from '../../services/wordsApiService';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
+import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 
 function WordOfTheDay() {
   const today = new Date();
@@ -102,7 +103,7 @@ function WordOfTheDay() {
       return null;
     }
   } else {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 }
 

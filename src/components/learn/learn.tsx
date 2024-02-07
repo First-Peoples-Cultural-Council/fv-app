@@ -10,6 +10,7 @@ import {
   SearchResultsProvider,
   SearchResultsType,
 } from '../search-results-provider';
+import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 
 const navItems: SubNavItem[] = [];
 
@@ -70,6 +71,7 @@ export function LearnView(props: LearnViewProps) {
     rawSearchQuery: string;
     entries: SearchResultsType;
   } | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchDataAsync = async () => {
@@ -89,6 +91,7 @@ export function LearnView(props: LearnViewProps) {
         if (!navItems.includes(flashCardsNavItem)) {
           navItems.push(flashCardsNavItem);
         }
+        setLoading(false);
       } catch (error) {
         // Handle error scenarios
         throw error;
@@ -124,23 +127,25 @@ export function LearnView(props: LearnViewProps) {
     }
   }, [location]);
 
-  if (!currentNavItem) return null;
   return (
     <div>
-      <SearchHeader
-        searchMatchRef={null}
-        title={currentNavItem.title}
-        backgroundColors={{
-          to: currentNavItem.colors.to,
-          from: currentNavItem.colors.from,
-        }}
-        setSearchEntries={setSearchResults}
-      />
+      {loading && <LoadingSpinner />}
+      {currentNavItem && (
+        <SearchHeader
+          searchMatchRef={null}
+          title={currentNavItem.title}
+          backgroundColors={{
+            to: currentNavItem.colors.to,
+            from: currentNavItem.colors.from,
+          }}
+          setSearchEntries={setSearchResults}
+        />
+      )}
       <SearchResultsProvider results={searchResults!}>
         <SubNavMobile navItems={navItems} />
         <div className="flex w-full">
           <SubNavDesktop navItems={navItems} />
-          <Outlet />
+          {currentNavItem && <Outlet />}
         </div>
       </SearchResultsProvider>
     </div>

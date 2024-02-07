@@ -6,7 +6,6 @@ export const LoadingSpinner = () => {
         load.
       </span>
       <div>
-        <span className="sr-only">Loading...</span>
         <i className="animate-spin">
           <svg
             xmlns="http://www.w3.org/2000/svg"

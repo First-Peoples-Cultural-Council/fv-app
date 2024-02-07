@@ -6,6 +6,7 @@ import MultiSwitch from '../common/multi-switch/multi-switch';
 import { useOutletContext } from 'react-router-dom';
 import fetchWordsData from '../../services/wordsApiService';
 import { SearchContext } from '../search-provider';
+import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 
 /* eslint-disable-next-line */
 export interface WordsViewProps {}
@@ -16,6 +17,7 @@ export function DictionaryView(props: WordsViewProps) {
   const [dataDict, setDataDict] = useState<FvWord[]>([]);
   const [data, setData] = useState<FvWord[]>([]);
   const [visibleItems, setVisibleItems] = useState(250);
+  const [loading, setLoading] = useState(true);
 
   const searchContext = useContext(SearchContext);
 
@@ -24,6 +26,7 @@ export function DictionaryView(props: WordsViewProps) {
       try {
         const result = await fetchWordsData();
         setDataDict(result.data);
+        setLoading(false);
       } catch (error) {
         // Handle error scenarios
       }
@@ -91,6 +94,7 @@ export function DictionaryView(props: WordsViewProps) {
 
   return (
     <div>
+      {loading && <LoadingSpinner />}
       <div ref={setSearchMatchRef}></div>
       <MultiSwitch
         selected={selected}

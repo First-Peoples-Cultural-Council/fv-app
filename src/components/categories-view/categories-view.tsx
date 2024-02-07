@@ -25,7 +25,12 @@ export function CategoriesView(props: CategoriesViewProps) {
   return (
     <div className="w-full">
       {loading && <LoadingSpinner />}
-      <div className="block md:hidden flex flex-wrap">
+      <div
+        className={classNames(
+          'block md:hidden flex flex-wrap overflow-y-auto',
+          styles['scrollable-div']
+        )}
+      >
         {dataCategories
           .filter((category) => category.children)
           .map((category) => {

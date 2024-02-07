@@ -33,7 +33,7 @@ precacheAndRoute([
   'logo512.png',
   'manifest.json',
   `mtd-ui.min.js`,
-  'service-worker.js',
+  'service-worker.js'
 ]);
 
 // Set up App Shell-style routing, so that all navigation requests

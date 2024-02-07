@@ -112,30 +112,37 @@ export function CategoryView(props: CategoryViewProps) {
   return (
     <>
       <div className="block md:hidden w-full">
-        <div className="flex flex-auto">
+        <div className="flex flex-auto w-[100vw] overflow-x-auto">
           {selectedCategory()}
           {subcategories()}
         </div>
         <div className={'w-full'}>
           {wordsPhrasesBoth()}
-          {data
-            .filter((term) => {
-              if (currentCategory.id === primaryCategory.id) {
-                return term.theme === primaryCategory.title;
-              } else {
+          <div
+            className={classNames(
+              'overflow-x-hidden overflow-y-auto pb-64',
+              styles['scrollable-div']
+            )}
+          >
+            {data
+              .filter((term) => {
+                if (currentCategory.id === primaryCategory.id) {
+                  return term.theme === primaryCategory.title;
+                } else {
+                  return (
+                    term.theme === primaryCategory.title &&
+                    term.secondary_theme === currentCategory.title
+                  );
+                }
+              })
+              .map((term) => {
                 return (
-                  term.theme === primaryCategory.title &&
-                  term.secondary_theme === currentCategory.title
+                  <Fragment key={`${term.source}-${term.entryID}`}>
+                    <WordCardMobile term={term} />
+                  </Fragment>
                 );
-              }
-            })
-            .map((term) => {
-              return (
-                <Fragment key={`${term.source}-${term.entryID}`}>
-                  <WordCardMobile term={term} />
-                </Fragment>
-              );
-            })}{' '}
+              })}{' '}
+          </div>
         </div>
       </div>
 

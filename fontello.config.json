@@ -447,6 +447,12 @@
       "css": "video",
       "code": 59427,
       "src": "fontawesome"
+    },
+    {
+      "uid": "cda0cdcfd38f5f1d9255e722dad42012",
+      "css": "spinner",
+      "code": 61712,
+      "src": "fontawesome"
     }
   ]
 }

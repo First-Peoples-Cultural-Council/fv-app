@@ -6,6 +6,11 @@ import { SubNavItem } from '../common/data';
 import SearchHeader from '../common/search-header/search-header';
 import fetchStoriesData from '../../services/storiesApiService';
 import fetchSongsData from '../../services/songsApiService';
+import {
+  SearchResultsProvider,
+  SearchResultsType,
+} from '../search-results-provider';
+import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 
 const navItems: SubNavItem[] = [];
 
@@ -62,6 +67,11 @@ export function LearnView(props: LearnViewProps) {
 
   const [currentNavItem, setCurrentNavItem] = useState(navItems[0]);
   const [navItemsLoaded, setNavItemsLoaded] = useState(false);
+  const [searchResults, setSearchResults] = useState<{
+    rawSearchQuery: string;
+    entries: SearchResultsType;
+  } | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchDataAsync = async () => {
@@ -81,6 +91,7 @@ export function LearnView(props: LearnViewProps) {
         if (!navItems.includes(flashCardsNavItem)) {
           navItems.push(flashCardsNavItem);
         }
+        setLoading(false);
       } catch (error) {
         // Handle error scenarios
         throw error;
@@ -116,22 +127,34 @@ export function LearnView(props: LearnViewProps) {
     }
   }, [location]);
 
-  if (!currentNavItem) return null;
   return (
     <div>
-      <SearchHeader
-        searchMatchRef={null}
-        title={currentNavItem.title}
-        backgroundColors={{
-          to: currentNavItem.colors.to,
-          from: currentNavItem.colors.from,
-        }}
-      />
-      <SubNavMobile navItems={navItems} />
-      <div className="flex w-full">
-        <SubNavDesktop navItems={navItems} />
-        <Outlet />
-      </div>
+      {loading && <LoadingSpinner />}
+      {currentNavItem && (
+        <SearchHeader
+          searchMatchRef={null}
+          title={currentNavItem.title}
+          backgroundColors={{
+            to: currentNavItem.colors.to,
+            from: currentNavItem.colors.from,
+          }}
+          setSearchEntries={setSearchResults}
+        />
+      )}
+      <SearchResultsProvider
+        results={
+          searchResults as {
+            rawSearchQuery: string;
+            entries: SearchResultsType;
+          }
+        }
+      >
+        <SubNavMobile navItems={navItems} />
+        <div className="flex w-full">
+          <SubNavDesktop navItems={navItems} />
+          {currentNavItem && <Outlet />}
+        </div>
+      </SearchResultsProvider>
     </div>
   );
 }

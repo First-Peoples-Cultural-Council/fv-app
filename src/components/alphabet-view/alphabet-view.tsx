@@ -1,6 +1,11 @@
 import classNames from 'classnames';
-import { Fragment, useEffect, useState } from 'react';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { Fragment, useContext, useEffect, useState } from 'react';
+import {
+  useNavigate,
+  useLocation,
+  useParams,
+  useOutletContext,
+} from 'react-router-dom';
 import WordAlphabetRowCard from './word-row-card';
 import _ from 'lodash';
 import { useIsMobile } from '../../util/useMediaQuery';
@@ -14,8 +19,10 @@ import ConfirmDialog from '../common/confirm/confirm';
 import Modal from '../common/modal/modal';
 import { useDetectOnlineStatus } from '../common/hooks/useDetectOnlineStatus';
 import Alert from '../common/alert/alert';
-import { Audio1 } from '@mothertongues/search';
+import { Audio1, DictionaryEntryExportFormat } from '@mothertongues/search';
 import styles from './alphabet-view.module.css';
+import { SearchResultsContext } from '../search-results-provider';
+import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 
 /* eslint-disable-next-line */
 export interface AlphabetViewProps {}
@@ -23,6 +30,7 @@ export interface AlphabetViewProps {}
 let dataAlphabetMap: Record<string, FvLetter>;
 
 export function AlphabetView(props: AlphabetViewProps) {
+  const { setSearchMatchRef }: any = useOutletContext();
   const { letter } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -43,8 +51,10 @@ export function AlphabetView(props: AlphabetViewProps) {
   const [showDownloadProgress, setShowDownloadProgress] = useState(false);
   const [currentlyDownloading, setCurrentlyDownloading] = useState(false);
   const [showAlertNotOnline, setShowAlertNotOnline] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { isOnline } = useDetectOnlineStatus();
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
+  const searchResults = useContext(SearchResultsContext);
 
   if (!useIsMobile() && selected === null && dataAlphabet.length !== 0) {
     setSelected(dataAlphabet[0]);
@@ -64,11 +74,21 @@ export function AlphabetView(props: AlphabetViewProps) {
         setDataDict(result.data);
       } catch (error) {
         // Handle error scenarios
+        console.error('Error occurred:', error);
       }
+      setLoading(false);
     };
 
-    fetchDataAsync();
-  }, []);
+    if (
+      !searchResults?.rawSearchQuery ||
+      searchResults?.rawSearchQuery.length <= 1
+    ) {
+      fetchDataAsync();
+    } else {
+      setDataDict(searchResults?.entries as DictionaryEntryExportFormat[]);
+      setLoading(false);
+    }
+  }, [searchResults?.rawSearchQuery, searchResults?.entries]);
 
   useEffect(() => {
     if (showMobileWordList) {
@@ -80,6 +100,7 @@ export function AlphabetView(props: AlphabetViewProps) {
 
   return (
     <>
+      {loading && <LoadingSpinner />}
       <div className="block md:hidden flex justify-center w-full">
         <div
           className={classNames(
@@ -208,7 +229,7 @@ export function AlphabetView(props: AlphabetViewProps) {
             navigator.clipboard
               .writeText(selected?.title ?? '')
               .catch((err: any) => {
-                console.log(err);
+                console.error(err);
               });
           }}
         />
@@ -320,6 +341,7 @@ export function AlphabetView(props: AlphabetViewProps) {
   function exampleWordList() {
     return (
       <div className="w-full">
+        <div ref={setSearchMatchRef}></div>
         <div className="p-5">
           <span className="text-xl pr-2">EXAMPLE WORDS WITH</span>
           <span className="text-5xl bold">{selected?.title}</span>
@@ -393,7 +415,7 @@ export function AlphabetView(props: AlphabetViewProps) {
   async function playAudio(fileName: string) {
     const audio = new Audio(fileName);
     audio.play().catch((err: any) => {
-      console.log(err);
+      console.error(err);
     });
   }
 

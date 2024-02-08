@@ -1,11 +1,20 @@
 import styles from './dictionary-page.module.css';
-import {matchRoutes, Outlet, useLocation, useNavigate} from 'react-router-dom';
+import {
+  matchRoutes,
+  Outlet,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import SubNavDesktop from '../sub-nav-desktop/sub-nav-desktop';
 import SubNavMobile from '../sub-nav-mobile/sub-nav-mobile';
 import SearchHeader from '../common/search-header/search-header';
 import { SubNavItem } from '../common/data';
 import WordOfTheDay from './word-of-the-day';
+import {
+  SearchResultsProvider,
+  SearchResultsType,
+} from '../search-results-provider';
 
 const navItems: SubNavItem[] = [
   {
@@ -64,14 +73,20 @@ const navItems: SubNavItem[] = [
       activeText: 'text-color-shuffle-dark',
       border: 'border-color-shuffle-dark',
     },
-  }
+  },
 ];
 
 /* eslint-disable-next-line */
 export interface DictionaryProps {}
 
 export function Dictionary(props: DictionaryProps) {
-  const [searchMatchRef, setSearchMatchRef] = useState<HTMLDivElement | null>(null);
+  const [searchMatchRef, setSearchMatchRef] = useState<HTMLDivElement | null>(
+    null
+  );
+  const [searchResults, setSearchResults] = useState<{
+    rawSearchQuery: string;
+    entries: SearchResultsType;
+  } | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -109,12 +124,23 @@ export function Dictionary(props: DictionaryProps) {
           to: currentNavItem.colors.to,
           from: currentNavItem.colors.from,
         }}
+        setSearchEntries={setSearchResults}
+        shouldShowSearch
       />
-      <SubNavMobile navItems={navItems} />
-      <div className="flex w-full">
-        <SubNavDesktop navItems={navItems} />
-        <Outlet context={{setSearchMatchRef}}/>
-      </div>
+      <SearchResultsProvider
+        results={
+          searchResults as {
+            rawSearchQuery: string;
+            entries: SearchResultsType;
+          }
+        }
+      >
+        <SubNavMobile navItems={navItems} />
+        <div className="flex w-full">
+          <SubNavDesktop navItems={navItems} />
+          <Outlet context={{ setSearchMatchRef }} />
+        </div>
+      </SearchResultsProvider>
       <WordOfTheDay />
     </div>
   );

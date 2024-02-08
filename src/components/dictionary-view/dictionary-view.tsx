@@ -6,6 +6,7 @@ import MultiSwitch from '../common/multi-switch/multi-switch';
 import { useOutletContext } from 'react-router-dom';
 import fetchWordsData from '../../services/wordsApiService';
 import { SearchContext } from '../search-provider';
+import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 
 /* eslint-disable-next-line */
 export interface WordsViewProps {}
@@ -16,6 +17,7 @@ export function DictionaryView(props: WordsViewProps) {
   const [dataDict, setDataDict] = useState<FvWord[]>([]);
   const [data, setData] = useState<FvWord[]>([]);
   const [visibleItems, setVisibleItems] = useState(250);
+  const [loading, setLoading] = useState(true);
 
   const searchContext = useContext(SearchContext);
 
@@ -24,6 +26,7 @@ export function DictionaryView(props: WordsViewProps) {
       try {
         const result = await fetchWordsData();
         setDataDict(result.data);
+        setLoading(false);
       } catch (error) {
         // Handle error scenarios
       }
@@ -84,11 +87,14 @@ export function DictionaryView(props: WordsViewProps) {
   }, [selected, dataDict]);
 
   useEffect(() => {
-    setDataDict(searchContext.allResults);
-  }, [searchContext.allResults])
+    if (searchContext?.allResults) {
+      setDataDict(searchContext.allResults);
+    }
+  }, [searchContext?.allResults]);
 
   return (
     <div>
+      {loading && <LoadingSpinner />}
       <div ref={setSearchMatchRef}></div>
       <MultiSwitch
         selected={selected}
@@ -104,9 +110,9 @@ export function DictionaryView(props: WordsViewProps) {
       />
       <div
         id="wordList"
-        className='overflow-y-auto max-h-calc-245 md:max-h-calc-195'
+        className="overflow-y-auto max-h-calc-245 md:max-h-calc-195"
       >
-        {data.slice(0, visibleItems).map((term, _) => (
+        {data?.slice(0, visibleItems).map((term, _) => (
           <div
             key={`${term.source}-${term.entryID}`}
             id={`${term.source}-${term.entryID}`}

@@ -6,3 +6,7 @@
   max-height: calc(100vh - 125px);
   min-width: 225px;
 }
+
+.scrollable-div {
+  max-height: calc(100vh - 302px);
+}

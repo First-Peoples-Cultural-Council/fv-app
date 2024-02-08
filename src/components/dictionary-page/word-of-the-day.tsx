@@ -5,6 +5,7 @@ import fetchWordOfDayData from '../../services/wordOfTheDayApiService';
 import { FvWord } from '../common/data';
 import fetchWordsData from '../../services/wordsApiService';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
+import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 
 function WordOfTheDay() {
   const today = new Date();
@@ -52,7 +53,7 @@ function WordOfTheDay() {
     };
 
     fetchData().catch((err: any) => {
-      console.log(err);
+      console.error(err);
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,10 +64,10 @@ function WordOfTheDay() {
       const data = await fetchWordOfDayData();
       return (
         dataDict.find((term) => term.entryID === data.dictionaryEntry.id) ??
-        dataDict[Math.floor(Math.random() * dataDict.length)]
+        dataDict[Math.floor(Math.random() * (dataDict?.length || 0))]
       );
     } catch (error: any) {
-      return dataDict[Math.floor(Math.random() * dataDict.length)];
+      return dataDict?.[Math.floor(Math.random() * (dataDict?.length || 0))];
     }
   }
 
@@ -78,16 +79,20 @@ function WordOfTheDay() {
   if (data) {
     if (showModal) {
       if (window.matchMedia('(min-width: 768px').matches) {
-        console.log("larger than 768px");
+        console.info('larger than 768px');
         return (
           <Modal onClose={() => wordOfTheDaySeen()} title="Word of the Day">
             <WordModal term={data} onClose={() => wordOfTheDaySeen()} />
           </Modal>
         );
       } else if (!window.matchMedia('(min-width: 768px').matches) {
-        console.log("smaller than 768px");
+        console.info('smaller than 768px');
         return (
-          <FullScreenModal onClose={() => wordOfTheDaySeen()} actions={null} title="Word of the Day">
+          <FullScreenModal
+            onClose={() => wordOfTheDaySeen()}
+            actions={null}
+            title="Word of the Day"
+          >
             <WordModal term={data} onClose={() => wordOfTheDaySeen()} />
           </FullScreenModal>
         );
@@ -98,7 +103,7 @@ function WordOfTheDay() {
       return null;
     }
   } else {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 }
 

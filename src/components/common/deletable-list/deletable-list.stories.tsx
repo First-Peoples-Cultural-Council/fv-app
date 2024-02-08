@@ -28,10 +28,10 @@ export const Primary: Story = {
       removeButtonText="Remove"
       removeSelectedButtonText="Remove Selected"
       onDelete={(ids) => {
-        console.log(ids);
+        console.info(ids);
       }}
       onClick={(id) => {
-        console.log(id);
+        console.info(id);
       }}
     />
   ),

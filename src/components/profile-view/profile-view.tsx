@@ -6,6 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import IndexedDBService from '../../services/indexedDbService';
 import SearchHeader from '../common/search-header/search-header';
+import {
+  SearchResultsProvider,
+  SearchResultsType,
+} from '../search-results-provider';
 
 /* eslint-disable-next-line */
 export interface ProfileViewProps {}
@@ -13,6 +17,10 @@ export interface ProfileViewProps {}
 export function ProfileView() {
   const [db, setDb] = useState<IndexedDBService>();
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
+  const [searchResults, setSearchResults] = useState<{
+    rawSearchQuery: string;
+    entries: SearchResultsType;
+  } | null>(null);
 
   useEffect(() => {
     setDb(new IndexedDBService('firstVoicesIndexedDb'));
@@ -25,7 +33,7 @@ export function ProfileView() {
       }
     };
     usersBookmarks().catch((err) => {
-      console.log(err);
+      console.error(err);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [db]);
@@ -123,31 +131,41 @@ export function ProfileView() {
           to: 'to-color-profile-light',
           from: 'from-color-profile-dark',
         }}
+        setSearchEntries={setSearchResults}
       />
-      <DeletableList
-        header="Bookmarks"
-        confirmMessage="Unbookmark selected bookmarks?"
-        removeButtonText="Unbookmark"
-        removeSelectedButtonText="Unbookmark Selected"
-        items={list}
-        showSearch={false}
-        onDelete={function (ids: string[]) {
-          for (let id of ids) {
-            db?.removeBookmark(id);
+      <SearchResultsProvider
+        results={
+          searchResults as {
+            rawSearchQuery: string;
+            entries: SearchResultsType;
           }
-          setBookmarks(
-            bookmarks.filter((bookmark) => !ids.includes(bookmark.url))
-          );
-        }}
-        onClick={function (id: string): void {
-          const foundBookmark = bookmarks.find(
-            (bookmark) => bookmark.url === id
-          );
-          if (foundBookmark) {
-            handleBookmarkClick(foundBookmark.url);
-          }
-        }}
-      />
+        }
+      >
+        <DeletableList
+          header="Bookmarks"
+          confirmMessage="Unbookmark selected bookmarks?"
+          removeButtonText="Unbookmark"
+          removeSelectedButtonText="Unbookmark Selected"
+          items={list}
+          showSearch={false}
+          onDelete={function (ids: string[]) {
+            for (let id of ids) {
+              db?.removeBookmark(id);
+            }
+            setBookmarks(
+              bookmarks.filter((bookmark) => !ids.includes(bookmark.url))
+            );
+          }}
+          onClick={function (id: string): void {
+            const foundBookmark = bookmarks.find(
+              (bookmark) => bookmark.url === id
+            );
+            if (foundBookmark) {
+              handleBookmarkClick(foundBookmark.url);
+            }
+          }}
+        />
+      </SearchResultsProvider>
     </div>
   );
 }

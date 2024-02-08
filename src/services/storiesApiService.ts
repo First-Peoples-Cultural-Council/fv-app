@@ -12,7 +12,7 @@ export const fetchStoriesData = async (): Promise<FVStory[]> => {
     const dbData = await db.getData('stories');
     let url: string = `${
       process.env.REACT_APP_BASE_API_URL
-    }/sites/${getCurrentDialect()}/stories`;
+    }/sites/${getCurrentDialect()}/stories/?detail=true`;
     const collection = 'stories';
 
     if (dbData) {
@@ -20,7 +20,7 @@ export const fetchStoriesData = async (): Promise<FVStory[]> => {
       if (isDateOlderThen(dbData.timestamp, 1)) {
         Promise.resolve().then(async () => {
           // Refresh the data without waiting
-          await getData(url, collection);
+          getData(url, collection);
         });
       }
 
@@ -38,38 +38,16 @@ export const fetchStoriesData = async (): Promise<FVStory[]> => {
   return [];
 };
 
-const fetchData = async (url: string): Promise<any> => {
-  try {
-    const response = await axios.get(url);
-    return response.data;
-  } catch (error) {
-    console.error(`Error fetching data from ${url}:`, error);
-  }
-};
-
 async function getData(url: string, collection: string): Promise<any[]> {
   const response = await axios.get(url);
   const data: any[] = response.data.results;
   let stories: any[] = [];
 
   if (data && data.length !== 0) {
-    // Make a call to get each of the stories.
-    const apiRequests = data.map((storyData) =>
-      fetchData(`${url}/${storyData.id}`)
-    );
-    const responses = await Promise.all(apiRequests);
-
-    // Handle responses
-    responses.forEach((storyData) => {
-      if (storyData !== undefined) {
-        stories.push(storyData);
-      }
-    });
-
     // Create the updated data entry for the database.
     const dbEntry = {
       timestamp: new Date().toISOString(),
-      data: stories,
+      data: data,
     };
 
     // Store the data from the API call into the database.

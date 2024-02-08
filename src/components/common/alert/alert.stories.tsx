@@ -18,7 +18,7 @@ export const Success: Story = {
       message={<div>A React node can be used as the message.</div>}
       showDismissButton
       dismissAlert={() => {
-        console.log('Dismissed');
+        console.info('Dismissed');
       }}
       makeBlocking={false}
     />
@@ -34,12 +34,12 @@ export const Error: Story = {
       message="This is the message."
       showDismissButton
       dismissAlert={() => {
-        console.log('Dismissed');
+        console.info('Dismissed');
       }}
       makeBlocking={false}
     />
   ),
-}
+};
 
 export const Warning: Story = {
   render: () => (
@@ -50,12 +50,12 @@ export const Warning: Story = {
       message="This is the message."
       showDismissButton
       dismissAlert={() => {
-        console.log('Dismissed');
+        console.info('Dismissed');
       }}
       makeBlocking={false}
     />
   ),
-}
+};
 
 export const Info: Story = {
   render: () => (
@@ -66,9 +66,9 @@ export const Info: Story = {
       message="This is the message."
       showDismissButton
       dismissAlert={() => {
-        console.log('Dismissed');
+        console.info('Dismissed');
       }}
       makeBlocking={false}
     />
   ),
-}
+};

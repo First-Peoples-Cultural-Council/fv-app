@@ -59,7 +59,7 @@ export function SongsView(props: SongsViewProps) {
 
   useEffect(() => {
     bookmarkIcon(db).catch((err: any) => {
-      console.log(err);
+      console.error(err);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [db, bookmark]);
@@ -261,7 +261,7 @@ export function SongsView(props: SongsViewProps) {
             await navigator.clipboard
               .writeText(selectedSong?.title ?? '')
               .catch((err: any) => {
-                console.log(err);
+                console.error(err);
               });
           }}
         >
@@ -279,13 +279,13 @@ export function SongsView(props: SongsViewProps) {
             if (shareData) {
               if (navigator.share && navigator.canShare(shareData)) {
                 navigator.share(shareData).catch((err: any) => {
-                  console.log(err);
+                  console.error(err);
                 });
               } else {
                 navigator.clipboard
                   .writeText(shareData.url)
                   .catch((err: any) => {
-                    console.log(err);
+                    console.error(err);
                   });
               }
             }
@@ -311,7 +311,7 @@ export function SongsView(props: SongsViewProps) {
               }
             }
             bookmarkIcon(db).catch((err: any) => {
-              console.log(err);
+              console.error(err);
             });
           }}
         >

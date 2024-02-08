@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState, useEffect, Dispatch } from 'react';
+import { ReactNode, createContext, useState, useEffect } from 'react';
 import {
   constructSearchers,
   DictionaryEntryExportFormat,

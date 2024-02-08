@@ -133,7 +133,14 @@ export function ProfileView() {
         }}
         setSearchEntries={setSearchResults}
       />
-      <SearchResultsProvider results={searchResults!}>
+      <SearchResultsProvider
+        results={
+          searchResults as {
+            rawSearchQuery: string;
+            entries: SearchResultsType;
+          }
+        }
+      >
         <DeletableList
           header="Bookmarks"
           confirmMessage="Unbookmark selected bookmarks?"

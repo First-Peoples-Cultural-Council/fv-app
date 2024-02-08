@@ -11,7 +11,6 @@ type SearchContextType = {
   entriesHash: { [p: string]: DictionaryEntryExportFormat };
   allResults: DictionaryEntryExportFormat[];
   updateAllResults: (newResults: DictionaryEntryExportFormat[]) => void;
-  setDataType: Dispatch<any>;
 } | null;
 
 const getSearch = async () => {
@@ -45,7 +44,6 @@ export const SearchProvider = ({ children }: SearchProviderProps) => {
   const [entriesHash, setEntriesHash] = useState<{
     [key: string]: DictionaryEntryExportFormat;
   }>({});
-  const [, setDataType] = useState<string>('words');
   const [searchValue, setSearchValue] = useState<SearchContextType>(null);
 
   useEffect(() => {
@@ -66,7 +64,6 @@ export const SearchProvider = ({ children }: SearchProviderProps) => {
         entriesHash: entriesHash,
         allResults: allResults,
         updateAllResults: updateAllResults,
-        setDataType: setDataType,
       };
     };
 

@@ -11,6 +11,7 @@ export interface SearchHeaderProps {
     rawSearchQuery: string;
     entries: any[];
   }) => void;
+  shouldShowSearch?: boolean;
 }
 
 export function SearchHeader({
@@ -18,6 +19,7 @@ export function SearchHeader({
   title,
   backgroundColors,
   setSearchEntries,
+  shouldShowSearch = false,
 }: SearchHeaderProps) {
   const [searchValue, setSearchValue] = useState<string>('');
   const [l1Search, setL1Search] = useState<MTDSearch>();
@@ -61,8 +63,6 @@ export function SearchHeader({
       setSearchEntries({ rawSearchQuery: '', entries: [] });
     }
   };
-
-  const shouldShowSearch = searchMatchRef !== null;
 
   return (
     <header

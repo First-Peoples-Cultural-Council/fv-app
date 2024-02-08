@@ -125,6 +125,7 @@ export function Dictionary(props: DictionaryProps) {
           from: currentNavItem.colors.from,
         }}
         setSearchEntries={setSearchResults}
+        shouldShowSearch
       />
       <SearchResultsProvider results={searchResults!}>
         <SubNavMobile navItems={navItems} />

@@ -32,10 +32,12 @@ export function SearchInput({
       >
         <i className="fv-search text-text-gray" />
       </button>
-      <i
-        className="fv-close text-gray-500 opacity-0 group-hover:opacity-100 absolute right-12 top-1/2 transform -translate-y-1/2 text-xs cursor-pointer transition-opacity duration-200 ease-in-out"
+      <button
         onClick={onClear}
-      />
+        className="opacity-0 group-hover:opacity-100 absolute right-12 top-1/2 transform -translate-y-1/2 text-xs cursor-pointer transition-opacity duration-200 ease-in-out"
+      >
+        <i className="fv-close text-gray-500" />
+      </button>
     </div>
   );
 }

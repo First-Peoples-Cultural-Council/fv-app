@@ -58,8 +58,7 @@ function WordCard(
   return (
     <div className="p-5">
       <p className="italic">
-        {term.optional &&
-        term.optional['Part of Speech' as keyof typeof term.optional]
+        {term?.optional?.['Part of Speech' as keyof typeof term.optional]
           ? `(${term.optional['Part of Speech' as keyof typeof term.optional]})`
           : ' '}
       </p>

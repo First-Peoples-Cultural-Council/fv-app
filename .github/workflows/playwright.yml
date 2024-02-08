@@ -41,6 +41,8 @@ jobs:
         with:
           name: uploads
           path: downloads/
+      - name: Prep env
+        run: printf "%b\n" "REACT_APP_ABOUT_APP_NAME=${{env.REACT_APP_ABOUT_APP_NAME}}" "REACT_APP_ABOUT_APP_NAME=${{env.REACT_APP_ABOUT_APP_NAME}}" "REACT_APP_ABOUT_ORG_NAME=${{env.REACT_APP_ABOUT_ORG_NAME}}" "REACT_APP_BASE_HOST=${{env.REACT_APP_BASE_HOST}}" "REACT_APP_BASE_API_URL=${{env.REACT_APP_BASE_API_URL}}" >> .env; cat .env
       - name: Check directory files
         run: ls; mv downloads/build modules/build; cd modules; ls; cd build; ls; cd ../..
       - name: Terraform plan
@@ -65,4 +67,5 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: cd modules; terraform init -lock=false; terraform fmt; terraform plan; terraform apply -auto-approve -lock=false
+        run: cd modules; terraform init -lock=false; terraform fmt; terraform plan; 
+        #terraform apply -auto-approve -lock=false

@@ -23,7 +23,17 @@ jobs:
     # - name: Run Playwright tests
     #   run: npx playwright test
     - name: Run Unit tests
-      run: npm run test;  npm run build;mkdir uploads; mv build uploads/build
+      run: npm run test;  
+    - name: Prep env
+      env:
+        REACT_APP_VERSION_NUMBER: ${{env.REACT_APP_VERSION_NUMBER}}
+        REACT_APP_ABOUT_APP_NAME: ${{env.REACT_APP_ABOUT_APP_NAME}}
+        REACT_APP_ABOUT_ORG_NAME: ${{env.REACT_APP_ABOUT_ORG_NAME}}
+        REACT_APP_BASE_HOST: ${{env.REACT_APP_BASE_HOST}}
+        REACT_APP_BASE_API_URL: ${{env.REACT_APP_BASE_API_URL}}
+      run: printf "%b\n" "REACT_APP_VERSION_NUMBER=$REACT_APP_VERSION_NUMBER" "REACT_APP_ABOUT_APP_NAME=$REACT_APP_ABOUT_APP_NAME" "REACT_APP_ABOUT_ORG_NAME=$REACT_APP_ABOUT_ORG_NAME" "REACT_APP_BASE_HOST=$REACT_APP_BASE_HOST" "REACT_APP_BASE_API_URL=$REACT_APP_BASE_API_URL" >> .env; cat .env
+    - name: Build Application
+      run: ls; npm run build;mkdir uploads; mv build uploads/build
     - uses: actions/upload-artifact@v3
       if: always()
       with:
@@ -41,8 +51,6 @@ jobs:
         with:
           name: uploads
           path: downloads/
-      - name: Prep env
-        run: printf "%b\n" "REACT_APP_ABOUT_APP_NAME=${{env.REACT_APP_ABOUT_APP_NAME}}" "REACT_APP_ABOUT_APP_NAME=${{env.REACT_APP_ABOUT_APP_NAME}}" "REACT_APP_ABOUT_ORG_NAME=${{env.REACT_APP_ABOUT_ORG_NAME}}" "REACT_APP_BASE_HOST=${{env.REACT_APP_BASE_HOST}}" "REACT_APP_BASE_API_URL=${{env.REACT_APP_BASE_API_URL}}" >> .env; cat .env
       - name: Check directory files
         run: ls; mv downloads/build modules/build; cd modules; ls; cd build; ls; cd ../..
       - name: Terraform plan

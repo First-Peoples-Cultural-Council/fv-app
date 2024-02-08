@@ -22,7 +22,6 @@ export function SearchHeader({
   const [searchValue, setSearchValue] = useState<string>('');
   const [l1Search, setL1Search] = useState<MTDSearch>();
   const [l2Search, setL2Search] = useState<MTDSearch>();
-  const [searchers, setSearchers] = useState<any[]>([]);
   const search = useContext(SearchContext);
 
   useEffect(() => {

@@ -1,11 +1,4 @@
-import {
-  ReactNode,
-  createContext,
-  useMemo,
-  useState,
-  useEffect,
-  Dispatch,
-} from 'react';
+import { ReactNode, createContext, useState, useEffect, Dispatch } from 'react';
 import {
   constructSearchers,
   DictionaryEntryExportFormat,
@@ -52,7 +45,7 @@ export const SearchProvider = ({ children }: SearchProviderProps) => {
   const [entriesHash, setEntriesHash] = useState<{
     [key: string]: DictionaryEntryExportFormat;
   }>({});
-  const [dataType, setDataType] = useState<string>('words');
+  const [, setDataType] = useState<string>('words');
   const [searchValue, setSearchValue] = useState<SearchContextType>(null);
 
   useEffect(() => {
@@ -65,24 +58,22 @@ export const SearchProvider = ({ children }: SearchProviderProps) => {
     setAllResults(newResults);
   };
 
-  const getSearchValue = async () => {
-    const searchers = await getSearch();
-    return {
-      searchers,
-      entriesHash: entriesHash,
-      allResults: allResults,
-      updateAllResults: updateAllResults,
-      setDataType: setDataType,
-    };
-  };
-
   useEffect(() => {
-    if (getSearchValue) {
-      getSearchValue().then((value) => {
-        setSearchValue(value);
-      });
-    }
-  }, [getSearchValue]);
+    const getSearchValue = async () => {
+      const searchers = await getSearch();
+      return {
+        searchers,
+        entriesHash: entriesHash,
+        allResults: allResults,
+        updateAllResults: updateAllResults,
+        setDataType: setDataType,
+      };
+    };
+
+    getSearchValue().then((value) => {
+      setSearchValue(value);
+    });
+  }, [allResults, entriesHash]);
 
   return (
     <SearchContext.Provider value={searchValue}>

@@ -23,8 +23,6 @@ import { Audio1, DictionaryEntryExportFormat } from '@mothertongues/search';
 import styles from './alphabet-view.module.css';
 import { SearchResultsContext } from '../search-results-provider';
 import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
-import { Simulate } from 'react-dom/test-utils';
-import load = Simulate.load;
 
 /* eslint-disable-next-line */
 export interface AlphabetViewProps {}
@@ -90,7 +88,7 @@ export function AlphabetView(props: AlphabetViewProps) {
       setDataDict(searchResults?.entries as DictionaryEntryExportFormat[]);
       setLoading(false);
     }
-  }, [searchResults?.rawSearchQuery]);
+  }, [searchResults?.rawSearchQuery, searchResults?.entries]);
 
   useEffect(() => {
     if (showMobileWordList) {

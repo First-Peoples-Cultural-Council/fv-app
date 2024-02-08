@@ -141,7 +141,14 @@ export function LearnView(props: LearnViewProps) {
           setSearchEntries={setSearchResults}
         />
       )}
-      <SearchResultsProvider results={searchResults!}>
+      <SearchResultsProvider
+        results={
+          searchResults as {
+            rawSearchQuery: string;
+            entries: SearchResultsType;
+          }
+        }
+      >
         <SubNavMobile navItems={navItems} />
         <div className="flex w-full">
           <SubNavDesktop navItems={navItems} />

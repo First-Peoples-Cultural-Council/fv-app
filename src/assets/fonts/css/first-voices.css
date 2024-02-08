@@ -21,7 +21,7 @@
 }
 */
 [class^="fv-"]:before, [class*=" fv-"]:before {
-  font-family: "first-voices";
+  font-family: "first-voices", sans-serif;
   font-style: normal;
   font-weight: normal;
   speak: never;

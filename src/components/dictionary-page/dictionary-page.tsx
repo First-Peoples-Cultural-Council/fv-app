@@ -125,8 +125,16 @@ export function Dictionary(props: DictionaryProps) {
           from: currentNavItem.colors.from,
         }}
         setSearchEntries={setSearchResults}
+        shouldShowSearch
       />
-      <SearchResultsProvider results={searchResults!}>
+      <SearchResultsProvider
+        results={
+          searchResults as {
+            rawSearchQuery: string;
+            entries: SearchResultsType;
+          }
+        }
+      >
         <SubNavMobile navItems={navItems} />
         <div className="flex w-full">
           <SubNavDesktop navItems={navItems} />

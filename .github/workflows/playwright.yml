@@ -31,7 +31,7 @@ jobs:
         REACT_APP_ABOUT_ORG_NAME: ${{env.REACT_APP_ABOUT_ORG_NAME}}
         REACT_APP_BASE_HOST: ${{env.REACT_APP_BASE_HOST}}
         REACT_APP_BASE_API_URL: ${{env.REACT_APP_BASE_API_URL}}
-      run: printf "%b\n" "REACT_APP_VERSION_NUMBER=$REACT_APP_VERSION_NUMBER" "REACT_APP_ABOUT_APP_NAME=$REACT_APP_ABOUT_APP_NAME" "REACT_APP_ABOUT_ORG_NAME=$REACT_APP_ABOUT_ORG_NAME" "REACT_APP_BASE_HOST=$REACT_APP_BASE_HOST" "REACT_APP_BASE_API_URL=$REACT_APP_BASE_API_URL" >> .env; cat .env
+      run: touch .env; echo "--------------"; echo $REACT_APP_VERSION_NUMBER echo "--------------"; printf $REACT_APP_VERSION_NUMBER echo "--------------"; printf "%b\n" "REACT_APP_VERSION_NUMBER=$REACT_APP_VERSION_NUMBER" "REACT_APP_ABOUT_APP_NAME=$REACT_APP_ABOUT_APP_NAME" "REACT_APP_ABOUT_ORG_NAME=$REACT_APP_ABOUT_ORG_NAME" "REACT_APP_BASE_HOST=$REACT_APP_BASE_HOST" "REACT_APP_BASE_API_URL=$REACT_APP_BASE_API_URL" >> .env; cat .env
     - name: Build Application
       run: ls; npm run build;mkdir uploads; mv build uploads/build
     - uses: actions/upload-artifact@v3
@@ -59,7 +59,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: cd modules; terraform init -lock=false; terraform fmt; terraform plan
   update_infra_changes:
-    name: Update Infra and App Changes
+    name: Apply Infra and Application Changes
     runs-on: ubuntu-latest
     needs: inspect_changes
     steps:

@@ -29,7 +29,6 @@ jobs:
       with:
         name: uploads
         path: uploads/
-
         run: ls ;cd modules; ls; 
   provisioning:
     name: Provision Infra

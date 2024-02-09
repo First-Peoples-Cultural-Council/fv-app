@@ -1,7 +1,7 @@
 name: Fv-Apps
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, develop , infra_tfe]
   pull_request:
     branches: [ main, develop ]
 jobs:
@@ -33,6 +33,13 @@ jobs:
         printf "%s\n" "REACT_APP_BASE_HOST=\"${{vars.REACT_APP_BASE_HOST}}\"" >> .env
         printf "%s\n" "REACT_APP_BASE_API_URL=\"${{vars.REACT_APP_BASE_API_URL}}\"" >> .env
         cat .env
+        touch modules/prod.auto.tfvars
+        printf "%s\n" "aws_profile=default" >> modules/prod.auto.tfvars 
+        printf "%s\n" "domain=\"${{vars.DOMAIN}}\"" >> modules/prod.auto.tfvars 
+        printf "%s\n" "application_name=\"${{vars.APPLICATION_NAME}}\"" >> modules/prod.auto.tfvars 
+        printf "%s\n" "website_path=\"${{vars.WEBSITE_PATH}}\"" >> modules/prod.auto.tfvars 
+        printf "%s\n" "subdomains=\"${{vars.SUBDOMAINS}}\"" >> modules/prod.auto.tfvars 
+        printf "%s\n" "default_root_index_file=index.html" >> modules/prod.auto.tfvars         
     - name: Build Application
       run: |
         ls

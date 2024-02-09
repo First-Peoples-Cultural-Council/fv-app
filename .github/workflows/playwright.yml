@@ -6,6 +6,7 @@ on:
     branches: [ main, develop ]
 jobs:
   test:
+    environment: preprod
     name: Unit Tests
     timeout-minutes: 60
     runs-on: ubuntu-latest
@@ -22,8 +23,8 @@ jobs:
       run: npm run start & sleep 10
     # - name: Run Playwright tests
     #   run: npx playwright test
-    - name: Run Unit tests
-      run: npm run test;  npm run build;mkdir uploads; mv build uploads/build
+    - name: Run Unit tests 
+      run: echo "${{vars.REACT_APP_BASE_API_URL}}";echo "${{vars.REACT_APP_ABOUT_ORG_NAME}}"; npm run test;  npm run build;mkdir uploads; mv build uploads/build
     - uses: actions/upload-artifact@v3
       if: always()
       with:
@@ -65,4 +66,5 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: cd modules; terraform init -lock=false; terraform fmt; terraform plan; terraform apply -auto-approve -lock=false
+        run: cd modules; terraform init -lock=false; terraform fmt; terraform plan; 
+        #terraform apply -auto-approve -lock=false

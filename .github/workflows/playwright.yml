@@ -24,7 +24,22 @@ jobs:
     # - name: Run Playwright tests
     #   run: npx playwright test
     - name: Run Unit tests 
-      run: echo "${{vars.REACT_APP_BASE_API_URL}}";echo "${{vars.REACT_APP_ABOUT_ORG_NAME}}"; npm run test;  npm run build;mkdir uploads; mv build uploads/build
+      run: |
+        touch .env;
+        ls -a; 
+        printf "%s\n" "REACT_APP_VERSION_NUMBER=${{vars.REACT_APP_VERSION_NUMBER}}" >> .env 
+        printf "%s\n" "REACT_APP_ABOUT_APP_NAME=${{vars.REACT_APP_ABOUT_APP_NAME}}" >> .env
+        printf "%s\n" "REACT_APP_ABOUT_ORG_NAME=${{vars.REACT_APP_ABOUT_ORG_NAME}}" >> .env
+        printf "%s\n" "REACT_APP_BASE_HOST=${{vars.REACT_APP_BASE_HOST}}" >> .env
+        printf "%s\n" "REACT_APP_BASE_API_URL=${{vars.REACT_APP_BASE_API_URL}}" >> .env; 
+        cat .env
+    - name: Build Application
+      run: |
+       ls;
+       npm run build
+       mkdir uploads 
+       mv build uploads/build
+       mv ./.env uploads/.env
     - uses: actions/upload-artifact@v3
       if: always()
       with:
@@ -43,12 +58,23 @@ jobs:
           name: uploads
           path: downloads/
       - name: Check directory files
-        run: ls; mv downloads/build modules/build; cd modules; ls; cd build; ls; cd ../..
+        run: |
+         ls;
+         mv downloads/build modules/build;
+         cd modules;
+         ls;
+         cd build;
+         ls;
+         cd ../..
       - name: Terraform plan
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: cd modules; terraform init -lock=false; terraform fmt; terraform plan
+        run: |
+         cd modules;
+         terraform init -lock=false;
+         terraform fmt;
+         terraform plan
   update_infra_changes:
     name: Update Infra and App Changes
     runs-on: ubuntu-latest

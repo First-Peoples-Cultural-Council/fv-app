@@ -11,14 +11,20 @@ export interface HeaderProps {
   currentTab: string;
 }
 
-export function Header({ className, navItems, extraNavItems, currentTab }: HeaderProps) {
+export function Header({
+  className,
+  navItems,
+  extraNavItems,
+  currentTab,
+}: HeaderProps) {
   const [showExtraNav, setShowExtraNav] = React.useState(false);
 
   return (
     <>
       <header
         role="banner"
-        className={classNames('main-header',
+        className={classNames(
+          'main-header',
           'w-full bg-color-main-header hidden p-4 justify-between items-center md:flex',
           className
         )}
@@ -30,9 +36,7 @@ export function Header({ className, navItems, extraNavItems, currentTab }: Heade
           <ul className="flex">
             {navItems?.map((item) => (
               <li key={item.id} className="mr-5">
-                <button
-                  onClick={() => setShowExtraNav(false)}
-                >
+                <button onClick={() => setShowExtraNav(false)}>
                   <Link
                     to={item.to}
                     className={classNames(
@@ -41,7 +45,9 @@ export function Header({ className, navItems, extraNavItems, currentTab }: Heade
                     )}
                     style={{
                       textShadow:
-                        item.id === currentTab ? '0 0 10px #9F6' : '0 0 0px #000',
+                        item.id === currentTab
+                          ? '0 0 10px #9F6'
+                          : '0 0 0px #000',
                     }}
                   >
                     <div className="mr-2">{item.icon}</div>
@@ -52,34 +58,34 @@ export function Header({ className, navItems, extraNavItems, currentTab }: Heade
             ))}
             <li key="extra-nav" className="mr-5">
               <div className="mr-2">
-                <button
-                  onClick={() => setShowExtraNav(!showExtraNav)}
-                >
+                <button onClick={() => setShowExtraNav(!showExtraNav)}>
                   <i className="fv-menu text-white cursor-pointer" />
                 </button>
               </div>
               {showExtraNav && (
-                <div className="absolute top-14 -translate-x-2/4 bg-color-main-header p-4">
+                <div className="absolute top-14 -translate-x-2/4 bg-color-main-header p-4 z-50">
                   {extraNavItems?.map((item) => (
-                      <button
-                        key={`${item.id}`}
-                        onClick={() => setShowExtraNav(false)}
+                    <button
+                      key={`${item.id}`}
+                      onClick={() => setShowExtraNav(false)}
+                    >
+                      <Link
+                        to={item.to}
+                        className={classNames(
+                          'flex items-center text-white cursor-pointer',
+                          { 'ml-2': !!item.icon }
+                        )}
+                        style={{
+                          textShadow:
+                            item.id === currentTab
+                              ? '0 0 10px #9F6'
+                              : '0 0 0px #000',
+                        }}
                       >
-                        <Link
-                          to={item.to}
-                          className={classNames(
-                            'flex items-center text-white cursor-pointer',
-                            { 'ml-2': !!item.icon }
-                          )}
-                          style={{
-                            textShadow:
-                              item.id === currentTab ? '0 0 10px #9F6' : '0 0 0px #000',
-                          }}
-                        >
-                          <div className="mr-2">{item.icon}</div>
-                          {item.label}
-                        </Link>
-                      </button>
+                        <div className="mr-2">{item.icon}</div>
+                        {item.label}
+                      </Link>
+                    </button>
                   ))}
                 </div>
               )}
@@ -88,7 +94,7 @@ export function Header({ className, navItems, extraNavItems, currentTab }: Heade
         </nav>
       </header>
     </>
-);
+  );
 }
 
 export default Header;

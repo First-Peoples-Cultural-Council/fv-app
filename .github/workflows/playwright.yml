@@ -107,5 +107,4 @@ jobs:
           terraform init -lock=false
           terraform fmt
           terraform plan
-          terraform apply -auto-approve -lock=false -replace=aws_acm_certificate.this[0]
-        # terraform apply -auto-approve -lock=false
+          terraform apply -auto-approve -lock=false

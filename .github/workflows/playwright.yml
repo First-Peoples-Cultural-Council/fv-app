@@ -26,19 +26,19 @@ jobs:
       run: npm run test;  
     - name: Prep env
       env:
-        REACT_APP_VERSION_NUMBER: ${{env.REACT_APP_VERSION_NUMBER}}
-        REACT_APP_ABOUT_APP_NAME: ${{env.REACT_APP_ABOUT_APP_NAME}}
-        REACT_APP_ABOUT_ORG_NAME: ${{env.REACT_APP_ABOUT_ORG_NAME}}
-        REACT_APP_BASE_HOST: ${{env.REACT_APP_BASE_HOST}}
-        REACT_APP_BASE_API_URL: ${{env.REACT_APP_BASE_API_URL}}
+        REACT_APP_VERSION_NUMBER: $REACT_APP_VERSION_NUMBER
+        REACT_APP_ABOUT_APP_NAME: $REACT_APP_ABOUT_APP_NAME
+        REACT_APP_ABOUT_ORG_NAME: $REACT_APP_ABOUT_ORG_NAME
+        REACT_APP_BASE_HOST: $REACT_APP_BASE_HOST
+        REACT_APP_BASE_API_URL: $REACT_APP_BASE_API_URL
       run: |
         touch .env;
-        ls; 
+        ls -a; 
         echo "--------------"; 
         echo "$REACT_APP_VERSION_NUMBER"
-        echo "${{env.REACT_APP_VERSION_NUMBER}}"
         echo "--------------"; 
-        printf $REACT_APP_VERSION_NUMBER echo "--------------"; 
+        printf $REACT_APP_VERSION_NUMBER
+        echo "--------------"; 
         echo "REACT_APP_VERSION_NUMBER=$REACT_APP_VERSION_NUMBER" >> .env 
         echo "REACT_APP_ABOUT_APP_NAME=$REACT_APP_ABOUT_APP_NAME" >> .env
         echo "REACT_APP_ABOUT_ORG_NAME=$REACT_APP_ABOUT_ORG_NAME" >> .env

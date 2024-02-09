@@ -1,0 +1,49 @@
+name: Fv-Apps-Tests
+on:
+  push:
+    branches: [ main, develop, infra_tfe ]
+  pull_request:
+    branches: [ main, develop ]
+jobs:
+  test:
+    environment: preprod
+    name: Unit Tests
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - name: Install dependencies
+      run: npm ci
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+    - name: Start server in background
+      run: npm run start & sleep 10
+    # - name: Run Playwright tests
+    #   run: npx playwright test
+    - name: Set variables
+      run: |
+        touch .env
+        ls -a
+        printf "%s\n" "REACT_APP_VERSION_NUMBER=\"${{vars.REACT_APP_VERSION_NUMBER}}\"" >> .env 
+        printf "%s\n" "REACT_APP_ABOUT_APP_NAME=\"${{vars.REACT_APP_ABOUT_APP_NAME}}\"" >> .env
+        printf "%s\n" "REACT_APP_ABOUT_ORG_NAME=\"${{vars.REACT_APP_ABOUT_ORG_NAME}}\"" >> .env
+        printf "%s\n" "REACT_APP_BASE_HOST=\"${{vars.REACT_APP_BASE_HOST}}\"" >> .env
+        printf "%s\n" "REACT_APP_BASE_API_URL=\"${{vars.REACT_APP_BASE_API_URL}}\"" >> .env
+        cat .env
+    - name: Build Application
+      run: |
+        ls
+        npm run build
+        mkdir uploads 
+        mv build uploads/build
+    - name: Run Tests
+      run: npm test
+    - uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: uploads
+        path: uploads/
+    - run: ls ;cd modules; ls;

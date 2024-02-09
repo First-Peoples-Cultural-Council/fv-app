@@ -107,4 +107,4 @@ jobs:
           terraform init -lock=false
           terraform fmt
           terraform plan
-        #terraform apply -auto-approve -lock=false
+          terraform apply -auto-approve -lock=false

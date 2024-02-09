@@ -1,7 +1,7 @@
 name: Fv-Apps-Deploy
 on:
   workflow_run:
-    workflows: ["Fv-Apps-Tests"]
+    workflows: [Fv-Apps-Tests]
     types: 
         - completed
 jobs:

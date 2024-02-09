@@ -27,11 +27,11 @@ jobs:
       run: |
         touch .env
         ls -a
-        printf "%s\n" "REACT_APP_VERSION_NUMBER=${{vars.REACT_APP_VERSION_NUMBER}}" >> .env 
-        printf "%s\n" "REACT_APP_ABOUT_APP_NAME=${{vars.REACT_APP_ABOUT_APP_NAME}}" >> .env
-        printf "%s\n" "REACT_APP_ABOUT_ORG_NAME=${{vars.REACT_APP_ABOUT_ORG_NAME}}" >> .env
-        printf "%s\n" "REACT_APP_BASE_HOST=${{vars.REACT_APP_BASE_HOST}}" >> .env
-        printf "%s\n" "REACT_APP_BASE_API_URL=${{vars.REACT_APP_BASE_API_URL}}" >> .env
+        printf "%s\n" "REACT_APP_VERSION_NUMBER=\"${{vars.REACT_APP_VERSION_NUMBER}}\"" >> .env 
+        printf "%s\n" "REACT_APP_ABOUT_APP_NAME=\"${{vars.REACT_APP_ABOUT_APP_NAME}}\"" >> .env
+        printf "%s\n" "REACT_APP_ABOUT_ORG_NAME=\"${{vars.REACT_APP_ABOUT_ORG_NAME}}\"" >> .env
+        printf "%s\n" "REACT_APP_BASE_HOST=\"${{vars.REACT_APP_BASE_HOST}}\"" >> .env
+        printf "%s\n" "REACT_APP_BASE_API_URL=\"${{vars.REACT_APP_BASE_API_URL}}\"" >> .env
         cat .env
     - name: Build Application
       run: |

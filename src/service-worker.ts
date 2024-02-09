@@ -27,13 +27,34 @@ clientsClaim();
 // even if you decide not to use precaching. See https://cra.link/PWA
 precacheAndRoute([
   ...self.__WB_MANIFEST,
-  'asset-manifest.json',
-  'favicon.ico',
-  'logo192.png',
-  'logo512.png',
-  'manifest.json',
-  `mtd-ui.min.js`,
-  'service-worker.js'
+  {
+    url: 'asset-manifest.json',
+    revision: '1'
+  },
+  {
+    url: 'favicon.ico',
+    revision: '1'
+  },
+  {
+    url: 'logo192.png',
+    revision: '1'
+  },
+  {
+    url: 'logo512.png',
+    revision: '1'
+  },
+  {
+    url: 'manifest.json',
+    revision: '1'
+  },
+  {
+    url:`mtd-ui.min.js`,
+    revision: '1'
+  },
+  {
+    url: 'service-worker.js',
+    revision: '1'
+  },
 ]);
 
 // Set up App Shell-style routing, so that all navigation requests

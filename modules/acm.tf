@@ -6,6 +6,10 @@ resource "aws_acm_certificate" "this" {
   domain_name               = var.domain
   validation_method         = "DNS"
   subject_alternative_names = local.subdomains
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_acm_certificate_validation" "this" {

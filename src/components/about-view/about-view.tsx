@@ -23,7 +23,6 @@ export function AboutView(props: AboutViewProps) {
       </h1>
       <br />
       <h1 className="text-xl">{process.env.REACT_APP_ABOUT_ADDITIONAL_INFO}</h1>
-      <p>2024-02-09T20:33:33Z</p>
     </div>
   );
 }

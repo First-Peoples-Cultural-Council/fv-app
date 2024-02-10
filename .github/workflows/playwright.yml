@@ -37,7 +37,7 @@ jobs:
         printf "%s\n" "aws_profile = \"default\"" >> modules/prod.auto.tfvars 
         printf "%s\n" "domain = \"${{vars.DOMAIN}}\"" >> modules/prod.auto.tfvars 
         printf "%s\n" "application_name = \"${{vars.APPLICATION_NAME}}\"" >> modules/prod.auto.tfvars 
-        printf "%s\n" "website_path  =\"${{vars.WEBSITE_PATH}}\"" >> modules/prod.auto.tfvars 
+        printf "%s\n" "website_path  = \"${{vars.WEBSITE_PATH}}\"" >> modules/prod.auto.tfvars 
         printf "%s\n" "subdomains = ${{vars.SUBDOMAINS}}" >> modules/prod.auto.tfvars 
         printf "%s\n" "default_root_index_file = \"index.html\"" >> modules/prod.auto.tfvars  
         cat modules/prod.auto.tfvars     
@@ -46,6 +46,7 @@ jobs:
         ls
         npm run build
         mkdir uploads 
+        mv modules/prod.auto.tfvars uploads/prod.auto.tfvars
         mv build uploads/build
     - name: Run Tests
       run: npm test
@@ -70,7 +71,7 @@ jobs:
       - name: Check directory files
         run: |
          ls
-         mv downloads/build modules/build
+         mv downloads/* modules/
          cd modules
          ls
          cat prod.auto.tfvars
@@ -103,7 +104,7 @@ jobs:
       - name: Check directory files
         run: |
          ls
-         mv downloads/build modules/build
+         mv downloads/* modules/
          cd modules
          ls
          cat prod.auto.tfvars

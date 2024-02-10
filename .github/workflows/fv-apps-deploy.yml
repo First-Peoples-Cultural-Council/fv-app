@@ -32,15 +32,13 @@ jobs:
         printf "%s\n" "REACT_APP_ABOUT_ORG_NAME=\"${{vars.REACT_APP_ABOUT_ORG_NAME}}\"" >> .env
         printf "%s\n" "REACT_APP_BASE_HOST=\"${{vars.REACT_APP_BASE_HOST}}\"" >> .env
         printf "%s\n" "REACT_APP_BASE_API_URL=\"${{vars.REACT_APP_BASE_API_URL}}\"" >> .env
-        cat .env
         touch modules/prod.auto.tfvars
         printf "%s\n" "aws_profile = \"default\"" >> modules/prod.auto.tfvars 
         printf "%s\n" "domain = \"${{vars.DOMAIN}}\"" >> modules/prod.auto.tfvars 
         printf "%s\n" "application_name = \"${{vars.APPLICATION_NAME}}\"" >> modules/prod.auto.tfvars 
         printf "%s\n" "website_path  = \"${{vars.WEBSITE_PATH}}\"" >> modules/prod.auto.tfvars 
         printf "%s\n" "subdomains = ${{vars.SUBDOMAINS}}" >> modules/prod.auto.tfvars 
-        printf "%s\n" "default_root_index_file = \"index.html\"" >> modules/prod.auto.tfvars  
-        cat modules/prod.auto.tfvars     
+        printf "%s\n" "default_root_index_file = \"index.html\"" >> modules/prod.auto.tfvars     
     - name: Build Application
       run: |
         ls
@@ -73,8 +71,6 @@ jobs:
          ls
          mv downloads/* modules/
          cd modules
-         ls
-         cat prod.auto.tfvars
          cd build
          ls
          cd ../..
@@ -83,9 +79,9 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
+         ls
          cd modules
          ls
-         cat prod.auto.tfvars
          terraform init -lock=false
          terraform fmt
          terraform plan
@@ -107,7 +103,6 @@ jobs:
          mv downloads/* modules/
          cd modules
          ls
-         cat prod.auto.tfvars
          cd build
          ls
          cd ../..
@@ -117,8 +112,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           cd modules
-          ls
-          cat prod.auto.tfvars
           terraform init -lock=false
           terraform fmt
           terraform plan

@@ -1,7 +1,7 @@
 name: Fv-Apps
 on:
   push:
-    branches: [ main, develop , infra_tfe]
+    branches: [ main, develop ]
   pull_request:
     branches: [ main, develop ]
 jobs:

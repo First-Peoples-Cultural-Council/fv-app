@@ -76,15 +76,15 @@ export function LearnView(props: LearnViewProps) {
   useEffect(() => {
     const fetchDataAsync = async () => {
       try {
-        const storiesData = await fetchStoriesData();
+       // const storiesData = await fetchStoriesData();
 
-        if (storiesData.length > 0 && !navItems.includes(storiesNavItem)) {
+        if (!navItems.includes(storiesNavItem)) {
           navItems.push(storiesNavItem);
         }
 
-        const songsData = await fetchSongsData();
+      //  const songsData = await fetchSongsData();
 
-        if (songsData.length > 0 && !navItems.includes(songsNavItem)) {
+        if (!navItems.includes(songsNavItem)) {
           navItems.push(songsNavItem);
         }
 

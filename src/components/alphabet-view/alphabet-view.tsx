@@ -100,7 +100,6 @@ export function AlphabetView(props: AlphabetViewProps) {
 
   return (
     <>
-      {loading && <LoadingSpinner />}
       <div className="block md:hidden flex justify-center w-full">
         <div
           className={classNames(
@@ -346,20 +345,22 @@ export function AlphabetView(props: AlphabetViewProps) {
           <span className="text-xl pr-2">EXAMPLE WORDS WITH</span>
           <span className="text-5xl bold">{selected?.title}</span>
         </div>
-        {selected?.relatedDictionaryEntries.map((example) => {
-          const term = dataDict?.find((word) => word.entryID === example.id);
-          if (term === undefined) {
-            return null;
-          }
-          return (
-            <div
-              key={`${example.type}-${example.id}-example`}
-              id={`${example.type}-${example.id}`}
-            >
-              <WordAlphabetRowCard term={term} />
-            </div>
-          );
-        })}
+        {loading && <LoadingSpinner />}
+        {!loading &&
+          selected?.relatedDictionaryEntries.map((example) => {
+            const term = dataDict?.find((word) => word.entryID === example.id);
+            if (term === undefined) {
+              return null;
+            }
+            return (
+              <div
+                key={`${example.type}-${example.id}-example`}
+                id={`${example.type}-${example.id}`}
+              >
+                <WordAlphabetRowCard term={term} />
+              </div>
+            );
+          })}
       </div>
     );
   }
@@ -394,20 +395,22 @@ export function AlphabetView(props: AlphabetViewProps) {
           <span className="text-xl pr-2">WORDS STARTING WITH</span>
           <span className="text-5xl bold">{selected?.title}</span>
         </div>
-        {dataDict
-          ?.filter((term) => {
-            return term.word.startsWith(selected?.title ?? '');
-          })
-          .sort((a, b) => {
-            return getAlphabetSort(a.word, b.word, 1);
-          })
-          .map((term) => {
-            return (
-              <Fragment key={`${term.source}-${term.entryID}`}>
-                <WordAlphabetRowCard term={term} />
-              </Fragment>
-            );
-          })}{' '}
+        {loading && <LoadingSpinner />}
+        {!loading &&
+          dataDict
+            ?.filter((term) => {
+              return term.word.startsWith(selected?.title ?? '');
+            })
+            .sort((a, b) => {
+              return getAlphabetSort(a.word, b.word, 1);
+            })
+            .map((term) => {
+              return (
+                <Fragment key={`${term.source}-${term.entryID}`}>
+                  <WordAlphabetRowCard term={term} />
+                </Fragment>
+              );
+            })}{' '}
       </div>
     );
   }

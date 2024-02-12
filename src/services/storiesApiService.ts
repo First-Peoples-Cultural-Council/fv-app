@@ -41,7 +41,6 @@ export const fetchStoriesData = async (): Promise<FVStory[]> => {
 async function getData(url: string, collection: string): Promise<any[]> {
   const response = await axios.get(url);
   const data: any[] = response.data.results;
-  let stories: any[] = [];
 
   if (data && data.length !== 0) {
     // Create the updated data entry for the database.
@@ -54,7 +53,7 @@ async function getData(url: string, collection: string): Promise<any[]> {
     await db.saveData(collection, dbEntry);
   }
 
-  return stories;
+  return data;
 }
 
 export default fetchStoriesData;

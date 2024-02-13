@@ -14,7 +14,7 @@ function WordCardMobile(props: { term: FvWord }) {
   useEffect(() => {
     if (
       (location.hash === `#${term.source}-${term.entryID}` ||
-        location.hash === `#${term.source}-${term.entryID}?source=/profile`) &&
+        location.hash === `#${term.source}-${term.entryID}?source=/bookmarks`) &&
       !window.matchMedia('(min-width: 768px').matches
     ) {
       setShowModal(true);

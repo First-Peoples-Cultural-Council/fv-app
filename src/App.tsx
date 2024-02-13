@@ -19,9 +19,9 @@ const navItems: NavigationItem[] = [
     icon: <i className="fv-computer" />,
   },
   {
-    id: 'profile',
-    label: 'Profile',
-    to: '/profile',
+    id: 'bookmarks',
+    label: 'Bookmarks',
+    to: '/bookmarks',
     icon: <i className="fv-user" />,
   },
 ];
@@ -50,8 +50,8 @@ export function App() {
       currentTab = 'learn';
       break;
 
-    case '/profile':
-      currentTab = 'profile';
+    case '/bookmarks':
+      currentTab = 'bookmarks';
       break;
 
     case '/settings':

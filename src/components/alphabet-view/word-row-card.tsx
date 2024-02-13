@@ -15,7 +15,7 @@ function WordAlphabetRowCard(props: { term: FvWord }) {
   useEffect(() => {
     if (
       location.hash === `#${term.source}-${term.entryID}` ||
-      location.hash === `#${term.source}-${term.entryID}?source=/profile`
+      location.hash === `#${term.source}-${term.entryID}?source=/bookmarks`
     ) {
       setShowModal(true);
     }

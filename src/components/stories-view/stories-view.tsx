@@ -52,7 +52,7 @@ export function StoriesView(props: StoriesViewProps) {
   useEffect(() => {
     if (
       (location.hash === `#${selectedStory?.id}` ||
-        location.hash === `#${selectedStory?.id}?source=/profile`) &&
+        location.hash === `#${selectedStory?.id}?source=/bookmarks`) &&
       window.matchMedia('(min-width: 1024px').matches
     ) {
       setShowModal(true);

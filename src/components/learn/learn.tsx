@@ -4,8 +4,6 @@ import SubNavDesktop from '../sub-nav-desktop/sub-nav-desktop';
 import SubNavMobile from '../sub-nav-mobile/sub-nav-mobile';
 import { SubNavItem } from '../common/data';
 import SearchHeader from '../common/search-header/search-header';
-import fetchStoriesData from '../../services/storiesApiService';
-import fetchSongsData from '../../services/songsApiService';
 import {
   SearchResultsProvider,
   SearchResultsType,

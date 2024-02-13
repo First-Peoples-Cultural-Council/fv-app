@@ -36,9 +36,7 @@ export function StoriesView(props: StoriesViewProps) {
   useEffect(() => {
     const fetchDataAsync = async () => {
       try {
-        console.log('getting stories data');
         const result = await fetchStoriesData();
-        console.log('finished getting stories data');
         setStoriesData(result);
         setLoading(false);
       } catch (error) {
@@ -65,7 +63,6 @@ export function StoriesView(props: StoriesViewProps) {
   }, []);
 
   useEffect(() => {
-    console.log('storiesData updated');
     const storyId = location.hash.slice(1).split('?')[0];
     const story = storiesData.find((story) => story.id === storyId);
     if (story) {

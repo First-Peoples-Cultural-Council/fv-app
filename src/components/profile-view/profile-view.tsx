@@ -126,7 +126,7 @@ export function ProfileView() {
     <div className={styles['container']}>
       <SearchHeader
         searchMatchRef={null}
-        title="Profile"
+        title="Bookmarks"
         backgroundColors={{
           to: 'to-color-profile-light',
           from: 'from-color-profile-dark',

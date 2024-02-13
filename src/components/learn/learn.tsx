@@ -4,8 +4,6 @@ import SubNavDesktop from '../sub-nav-desktop/sub-nav-desktop';
 import SubNavMobile from '../sub-nav-mobile/sub-nav-mobile';
 import { SubNavItem } from '../common/data';
 import SearchHeader from '../common/search-header/search-header';
-import fetchStoriesData from '../../services/storiesApiService';
-import fetchSongsData from '../../services/songsApiService';
 import {
   SearchResultsProvider,
   SearchResultsType,
@@ -76,15 +74,11 @@ export function LearnView(props: LearnViewProps) {
   useEffect(() => {
     const fetchDataAsync = async () => {
       try {
-        const storiesData = await fetchStoriesData();
-
-        if (storiesData.length > 0 && !navItems.includes(storiesNavItem)) {
+        if (!navItems.includes(storiesNavItem)) {
           navItems.push(storiesNavItem);
         }
 
-        const songsData = await fetchSongsData();
-
-        if (songsData.length > 0 && !navItems.includes(songsNavItem)) {
+        if (!navItems.includes(songsNavItem)) {
           navItems.push(songsNavItem);
         }
 

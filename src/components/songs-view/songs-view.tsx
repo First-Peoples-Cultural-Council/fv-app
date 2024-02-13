@@ -9,6 +9,7 @@ import fetchSongsData from '../../services/songsApiService';
 import FvImage from '../common/image/image';
 import FvVideo from '../common/video/video';
 import AudioControl from '../common/audio-control/audio-control';
+import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 
 /* eslint-disable-next-line */
 export interface SongsViewProps {}
@@ -27,12 +28,14 @@ export function SongsView(props: SongsViewProps) {
     text: string;
     url: string;
   } | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchDataAsync = async () => {
       try {
         const result = await fetchSongsData();
         setSongsData(result);
+        setLoading(false);
       } catch (error) {
         // Handle error scenarios
       }
@@ -98,7 +101,8 @@ export function SongsView(props: SongsViewProps) {
     <>
       <div className="grid grid-cols-1 lg:grid-cols-2 w-full h-full">
         <div className="overflow-y-auto max-h-calc-185 md:max-h-calc-125">
-          {songsData.map((song: FVSong) => {
+          {loading && <LoadingSpinner />}
+          {!loading && songsData.map((song: FVSong) => {
             return (
               <div
                 key={song.id}
@@ -195,7 +199,7 @@ export function SongsView(props: SongsViewProps) {
             </div>
           );
         })}
-        {selectedSong?.lyrics !== null && (
+        {selectedSong?.lyrics !== null && selectedSong.lyrics.length !== 0 && (
           <>
             <div className="p-2 text-lg font-bold mt-8">LYRICS</div>
             {selectedSong?.lyrics?.map((lyrics) => {

@@ -38,7 +38,47 @@ export const fetchWordsData = async (): Promise<MTDExportFormat> => {
     );
   }
 
-  return {} as MTDExportFormat;
+  return {
+    data: [],
+    config: {
+      L1: 'English',
+      L2: 'English',
+      build: '0',
+      credits: null,
+      alphabet: [],
+      l1_stemmer: 'none',
+      l2_stemmer: 'snowball_english',
+      l1_search_config: {
+        deletionCost: 1.0,
+        insertionCost: 1.0,
+        deletionAtEndCost: 1.0,
+        substitutionCosts: {},
+        substitutionCostsPath: null,
+        defaultSubstitutionCost: 1.0,
+        insertionAtBeginningCost: 1.0,
+      },
+      l2_search_config: null,
+      l1_search_strategy: 'weighted_levenstein',
+      l2_search_strategy: 'liblevenstein_automata',
+      optional_field_name: 'Optional Field',
+      l1_normalization_transducer: {
+        lower: true,
+        replace_rules: null,
+        remove_punctuation: "[.,/#!$%^&?*';:{}=\\-_`~()]",
+        unicode_normalization: 'NFC',
+        remove_combining_characters: true,
+      },
+      l2_normalization_transducer: {
+        lower: true,
+        replace_rules: null,
+        remove_punctuation: "[.,/#!$%^&?*';:{}=\\-_`~()]",
+        unicode_normalization: 'NFC',
+        remove_combining_characters: true,
+      },
+    },
+    l1_index: {},
+    l2_index: {},
+  };
 };
 
 async function getData(

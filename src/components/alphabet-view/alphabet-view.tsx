@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Fragment, useContext, useEffect, useState } from 'react';
+import React, { useRef, Fragment, useContext, useEffect, useState } from 'react';
 import {
   useNavigate,
   useLocation,
@@ -29,7 +29,9 @@ export interface AlphabetViewProps {}
 
 let dataAlphabetMap: Record<string, FvLetter>;
 
-export function AlphabetView(props: AlphabetViewProps) {
+export function AlphabetView(this: any, props: AlphabetViewProps) {
+  const wordListRef = useRef<HTMLDivElement | null>(null);
+
   const { setSearchMatchRef }: any = useOutletContext();
   const { letter } = useParams();
   const navigate = useNavigate();
@@ -55,6 +57,12 @@ export function AlphabetView(props: AlphabetViewProps) {
   const { isOnline } = useDetectOnlineStatus();
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
   const searchResults = useContext(SearchResultsContext);
+
+  const scrollToTop = () => {
+    if (wordListRef.current) {
+      wordListRef.current.scrollTop = 0;
+    }
+  }
 
   if (!useIsMobile() && selected === null && dataAlphabet.length !== 0) {
     setSelected(dataAlphabet[0]);
@@ -121,7 +129,7 @@ export function AlphabetView(props: AlphabetViewProps) {
             {selectedLetterDisplay()}
             {keyboard()}
           </div>
-          <div
+          <div ref={wordListRef}
             className={classNames(
               'overflow-y-auto col-span-2',
               styles['largeContainer']
@@ -300,6 +308,7 @@ export function AlphabetView(props: AlphabetViewProps) {
                         }
                       )}
                       onClick={() => {
+                        scrollToTop()
                         setSelected(letterData);
                         setShowMobileWordList(false);
                       }}

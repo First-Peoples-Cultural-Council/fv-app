@@ -9,6 +9,7 @@ import { useModal } from '../common/use-modal/use-modal';
 import fetchStoriesData from '../../services/storiesApiService';
 import FvImage from '../common/image/image';
 import AudioControl from '../common/audio-control/audio-control';
+import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 
 /* eslint-disable-next-line */
 export interface StoriesViewProps {}
@@ -30,12 +31,14 @@ export function StoriesView(props: StoriesViewProps) {
     text: string;
     url: string;
   } | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchDataAsync = async () => {
       try {
         const result = await fetchStoriesData();
         setStoriesData(result);
+        setLoading(false);
       } catch (error) {
         // Handle error scenarios
       }
@@ -47,7 +50,7 @@ export function StoriesView(props: StoriesViewProps) {
   useEffect(() => {
     if (
       (location.hash === `#${selectedStory?.id}` ||
-        location.hash === `#${selectedStory?.id}?source=/profile`) &&
+        location.hash === `#${selectedStory?.id}?source=/bookmarks`) &&
       window.matchMedia('(min-width: 1024px').matches
     ) {
       setShowModal(true);
@@ -111,49 +114,51 @@ export function StoriesView(props: StoriesViewProps) {
     <>
       <div className="grid grid-cols-1 w-full">
         <div className="overflow-y-auto max-h-calc-185 md:max-h-calc-125">
-          {storiesData.map((story: FVStory) => {
-            return (
-              <div
-                key={story.id}
-                className={classNames(
-                  'block rounded-lg bg-white p-6 m-2 shadow-lg hover:bg-slate-100 cursor-pointer'
-                )}
-                onClick={() => {
-                  setSelectedStory(story);
-                  setCurrentPage(-2);
-                  setShowModal(true);
-                }}
-              >
-                <div className="grid grid-cols-10 gap-4">
-                  <div className="col-span-3 h-[75px] w-[75px] sm:h-[100px] sm:w-[100px]">
-                    {story?.relatedImages === null && (
-                      <div className="h-full w-full object-contain shadow-lg flex justify-center items-center">
-                        <div className="fv-stories text-6xl"></div>
-                      </div>
-                    )}
-                    {story?.relatedImages[0] && (
-                      <FvImage
-                        className="h-full w-full object-contain shadow-lg"
-                        disabledClassName="text-6xl"
-                        src={story?.relatedImages[0]?.thumbnail?.path ?? ''}
-                        alt={story?.title ?? ''}
-                      />
-                    )}
-                  </div>
-                  <div className="col-span-5">
-                    <div>
-                      <h1 className="font-bold">{story.title}</h1>
+          {loading && <LoadingSpinner />}
+          {!loading &&
+            storiesData.map((story: FVStory) => {
+              return (
+                <div
+                  key={story.id}
+                  className={classNames(
+                    'block rounded-lg bg-white p-6 m-2 shadow-lg hover:bg-slate-100 cursor-pointer'
+                  )}
+                  onClick={() => {
+                    setSelectedStory(story);
+                    setCurrentPage(-2);
+                    setShowModal(true);
+                  }}
+                >
+                  <div className="grid grid-cols-10 gap-4">
+                    <div className="col-span-3 h-[75px] w-[75px] sm:h-[100px] sm:w-[100px]">
+                      {story?.relatedImages === null && (
+                        <div className="h-full w-full object-contain shadow-lg flex justify-center items-center">
+                          <div className="fv-stories text-6xl"></div>
+                        </div>
+                      )}
+                      {story?.relatedImages[0] && (
+                        <FvImage
+                          className="h-full w-full object-contain shadow-lg"
+                          disabledClassName="text-6xl"
+                          src={story?.relatedImages[0]?.thumbnail?.path ?? ''}
+                          alt={story?.title ?? ''}
+                        />
+                      )}
                     </div>
-                    <h1 className="truncate">{story.titleTranslation}</h1>
-                  </div>
-                  <div className="self-center col-span-1"></div>
-                  <div className="place-self-end self-center">
-                    <i className="fv-right-open" />
+                    <div className="col-span-5">
+                      <div>
+                        <h1 className="font-bold">{story.title}</h1>
+                      </div>
+                      <h1 className="truncate">{story.titleTranslation}</h1>
+                    </div>
+                    <div className="self-center col-span-1"></div>
+                    <div className="place-self-end self-center">
+                      <i className="fv-right-open" />
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </div>
 

@@ -94,7 +94,6 @@ export function DictionaryView(props: WordsViewProps) {
 
   return (
     <div>
-      {loading && <LoadingSpinner />}
       <div ref={setSearchMatchRef}></div>
       <MultiSwitch
         selected={selected}
@@ -112,15 +111,17 @@ export function DictionaryView(props: WordsViewProps) {
         id="wordList"
         className="overflow-y-auto max-h-calc-245 md:max-h-calc-195"
       >
-        {data?.slice(0, visibleItems).map((term, _) => (
-          <div
-            key={`${term.source}-${term.entryID}`}
-            id={`${term.source}-${term.entryID}`}
-          >
-            <WordCardMobile term={term} />
-            <WordCardDesktop term={term} />
-          </div>
-        ))}{' '}
+        {loading && <LoadingSpinner />}
+        {!loading &&
+          data?.slice(0, visibleItems).map((term, _) => (
+            <div
+              key={`${term.source}-${term.entryID}`}
+              id={`${term.source}-${term.entryID}`}
+            >
+              <WordCardMobile term={term} />
+              <WordCardDesktop term={term} />
+            </div>
+          ))}{' '}
       </div>
     </div>
   );

@@ -42,7 +42,7 @@ export const routesConfig = createRoutesFromElements(
         <Route path="songs" element={<SongsView />} />
         <Route path="flashcards" element={<FlashcardsView />} />
       </Route>
-      <Route path="/profile" element={<ProfileView />} />
+      <Route path="/bookmarks" element={<ProfileView />} />
       <Route path="/settings" element={<SettingsView />} />
       <Route path="/about" element={<AboutView />} />
     </Route>

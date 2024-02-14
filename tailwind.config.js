@@ -45,12 +45,35 @@ module.exports = {
         'color-profile-light': '#D6D3D1',
         'color-profile-dark': '#898886',
         'color-main-header': '#737274',
+        'phrase': '#C37829',
+        'song': '#830042',
+        'story': '#E9C46A',
+        'word': '#2A9D8F',
       },
       maxHeight: {
         'calc-245': 'calc(100vh - 245px)',
         'calc-195': 'calc(100vh - 195px)',
         'calc-185': 'calc(100vh - 185px)',
         'calc-125': 'calc(100vh - 125px)',
+      },
+      animation: {
+        'pulse-blur': 'pulse-blur 2.5s linear infinite',
+      },
+      keyframes: {
+        'pulse-blur': {
+          '0%, 50%, 100%': {
+            transform: 'scale(1)',
+            filter: 'blur(0px)',
+          },
+          '25%': {
+            transform: 'scale(0.6)',
+            filter: 'blur(2px)',
+          },
+          '75%': {
+            transform: 'scale(1.4)',
+            filter: 'blur(2px)',
+          },
+        },
       },
     },
   },

@@ -62,7 +62,6 @@ export function RandomizedView(props: WordsViewProps) {
 
   return (
     <div className="w-full">
-      {loading && <LoadingSpinner />}
       <div className="flex flex-row flex-wrap">
         <MultiSwitch
           selected={selected}
@@ -89,17 +88,19 @@ export function RandomizedView(props: WordsViewProps) {
         id="wordList"
         className="overflow-y-auto max-h-calc-245 md:max-h-calc-195"
       >
-        {subset.map((term) => {
-          return (
-            <div
-              key={`${term.source}-${term.entryID}`}
-              id={`${term.source}-${term.entryID}`}
-            >
-              <WordCardMobile term={term} />
-              <WordCardDesktop term={term} />
-            </div>
-          );
-        })}{' '}
+        {loading && <LoadingSpinner />}
+        {!loading &&
+          subset.map((term) => {
+            return (
+              <div
+                key={`${term.source}-${term.entryID}`}
+                id={`${term.source}-${term.entryID}`}
+              >
+                <WordCardMobile term={term} />
+                <WordCardDesktop term={term} />
+              </div>
+            );
+          })}{' '}
       </div>
     </div>
   );

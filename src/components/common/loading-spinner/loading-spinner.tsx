@@ -1,22 +1,26 @@
 export const LoadingSpinner = () => {
   return (
     <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
+    className={`flex items-center justify-center mx-auto w-full h-40`}
     >
-      <i className="animate-spin">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-          height={32}
-          width={32}
-        >
-          <path d="M304 48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zm0 416a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM48 304a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm464-48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM142.9 437A48 48 0 1 0 75 369.1 48 48 0 1 0 142.9 437zm0-294.2A48 48 0 1 0 75 75a48 48 0 1 0 67.9 67.9zM369.1 437A48 48 0 1 0 437 369.1 48 48 0 1 0 369.1 437z" />
-        </svg>
-      </i>
+      <div>
+        <div className="flex justify-center items-center">
+          <div className="bg-song w-6 h-6 lg:w-10 lg:h-10 rounded-full m-5 lg:m-8 animate-pulse-blur" />
+          <div
+            className="bg-phrase w-6 h-6 lg:w-10 lg:h-10 rounded-full m-5 lg:m-8 animate-pulse-blur"
+            style={{ animationDelay: '0.2s' }}
+          />
+          <div
+            className="bg-story w-6 h-6 lg:w-10 lg:h-10 rounded-full m-5 lg:m-8 animate-pulse-blur"
+            style={{ animationDelay: '0.4s' }}
+          />
+          <div
+            className="bg-word w-6 h-6 lg:w-10 lg:h-10 rounded-full m-5 lg:m-8 animate-pulse-blur"
+            style={{ animationDelay: '0.6s' }}
+          />
+        </div>
+        <div className="text-center text-xl font-medium">Loading...</div>
+      </div>
     </div>
   );
 };

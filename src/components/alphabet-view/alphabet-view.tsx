@@ -312,26 +312,24 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
       setShowDownloadProgress(true);
       let downloadComplete = 0;
 
-      mediaList.forEach((media) => {
-        const promise = new Promise<void>((resolve) => {
-          axios
-            .get(media)
-            .then(() => {
-              downloadComplete++;
-              setDownloadPercentage(
-                Math.round((downloadComplete / mediaList.size) * 100)
-              );
-              resolve();
-            })
-            .catch((error) => {
-              // Handle error
-              console.error('Error occurred:', error);
-              resolve();
-            });
+      for (const media of mediaList) {
+        const promise = new Promise<void>(async (resolve) => {
+          try {
+            await axios.get(media);
+            downloadComplete++;
+            setDownloadPercentage(
+              Math.round((downloadComplete / mediaList.size) * 100)
+            );
+            resolve();
+          } catch (error) {
+            // Handle error
+            console.error('Error occurred:', error);
+            resolve();
+          }
         });
 
         promises.push(promise);
-      });
+      }
 
       await Promise.all(promises);
       setCurrentlyDownloading(false);

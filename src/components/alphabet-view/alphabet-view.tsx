@@ -1,5 +1,11 @@
 import classNames from 'classnames';
-import React, { useRef, Fragment, useContext, useEffect, useState } from 'react';
+import React, {
+  useRef,
+  Fragment,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import {
   useNavigate,
   useLocation,
@@ -49,7 +55,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
       !window.matchMedia('(min-width: 768px').matches
   );
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-  const [downloadPercentage, setDownloadedPercentage] = useState(0);
+  const [downloadPercentage, setDownloadPercentage] = useState(0);
   const [showDownloadProgress, setShowDownloadProgress] = useState(false);
   const [currentlyDownloading, setCurrentlyDownloading] = useState(false);
   const [showAlertNotOnline, setShowAlertNotOnline] = useState(false);
@@ -62,7 +68,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
     if (wordListRef.current) {
       wordListRef.current.scrollTop = 0;
     }
-  }
+  };
 
   if (!useIsMobile() && selected === null && dataAlphabet.length !== 0) {
     setSelected(dataAlphabet[0]);
@@ -129,7 +135,8 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
             {selectedLetterDisplay()}
             {keyboard()}
           </div>
-          <div ref={wordListRef}
+          <div
+            ref={wordListRef}
             className={classNames(
               'overflow-y-auto col-span-2',
               styles['largeContainer']
@@ -230,8 +237,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
   function copyButton() {
     return (
       <div className="flex justify-center items-center">
-        <span
-          className="fv-copy text-4xl cursor-pointer"
+        <button
           onClick={() => {
             navigator.clipboard
               .writeText(selected?.title ?? '')
@@ -239,7 +245,9 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
                 console.error(err);
               });
           }}
-        />
+        >
+          <span className="fv-copy text-4xl cursor-pointer" />
+        </button>
       </div>
     );
   }
@@ -247,12 +255,13 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
   function downloadButton() {
     return (
       <div className="flex justify-center items-center">
-        <span
-          className="fv-cloud-arrow-down-regular text-4xl justify-self-end cursor-pointer"
+        <button
           onClick={() =>
             isOnline ? promptForDownload() : setShowAlertNotOnline(true)
           }
-        />
+        >
+          <span className="fv-cloud-arrow-down-regular text-4xl justify-self-end cursor-pointer" />
+        </button>
         <Alert
           type={'warning'}
           message="Content not downloaded.  Please try again when you have access to the internet."
@@ -269,10 +278,9 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
   function audioButton(fvAudio: FVMedia) {
     return (
       <div key={fvAudio.url} className="flex justify-center items-center">
-        <span
-          className="fv-volume-up text-4xl justify-self-end cursor-pointer"
-          onClick={() => playAudio(fvAudio.url)}
-        />
+        <button onClick={() => playAudio(fvAudio.url)}>
+          <span className="fv-volume-up text-4xl justify-self-end cursor-pointer" />
+        </button>
       </div>
     );
   }
@@ -284,6 +292,12 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
       <div className="mt-5 mb-5 p-10 md:p-2 w-full">
         {alphabetRows.map((row) => {
           let showLetterDisplay = false;
+          const onClickLetterDataButton = (letterData: FvLetter) => {
+            scrollToTop();
+            setSelected(letterData);
+            setShowMobileWordList(false);
+          };
+
           return (
             <Fragment
               key={`row-${row.map((letterData) => {
@@ -307,11 +321,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
                           'hover:bg-gray-200': letterData !== selected,
                         }
                       )}
-                      onClick={() => {
-                        scrollToTop()
-                        setSelected(letterData);
-                        setShowMobileWordList(false);
-                      }}
+                      onClick={() => onClickLetterDataButton(letterData)}
                     >
                       {letterData.title}
                     </button>
@@ -440,7 +450,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
   }
 
   async function downloadAssets() {
-    setDownloadedPercentage(0);
+    setDownloadPercentage(0);
     setCurrentlyDownloading(true);
 
     const mediaList: Set<string> = new Set();
@@ -475,7 +485,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
             .get(media)
             .then(() => {
               downloadComplete++;
-              setDownloadedPercentage(
+              setDownloadPercentage(
                 Math.round((downloadComplete / mediaList.size) * 100)
               );
               resolve();

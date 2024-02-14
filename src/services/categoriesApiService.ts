@@ -16,7 +16,6 @@ const PAGE_SIZE = 1000;
 
 export const fetchCategoryData = async (): Promise<FvCategory[]> => {
   return fetchAllData(PAGE_SIZE).then((result) => {
-    console.log('fetchCategoryData', result);
     return result;
   });
 };

@@ -312,7 +312,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
       setShowDownloadProgress(true);
       let downloadComplete = 0;
 
-      for (const media of mediaList) {
+      mediaList.forEach((media) => {
         const promise = new Promise<void>((resolve) => {
           axios
             .get(media)
@@ -331,7 +331,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
         });
 
         promises.push(promise);
-      }
+      });
 
       await Promise.all(promises);
       setCurrentlyDownloading(false);

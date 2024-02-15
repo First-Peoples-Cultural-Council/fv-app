@@ -6,9 +6,10 @@ import { useModal } from '../common/use-modal/use-modal';
 import { useEffect } from 'react';
 import { Audio1 } from '@mothertongues/search';
 import { useAudio } from '../contexts/audioContext';
+import classNames from 'classnames';
 
-function WordCardDesktop(props: { term: FvWord }) {
-  const { term } = props;
+function WordCardDesktop(props: { term: FvWord; wordWidthClass?: string }) {
+  const { term, wordWidthClass } = props;
   const location = useLocation();
   const { setShowModal, showModal, closeModal } = useModal();
   const { word, definition, audio } = term;
@@ -29,15 +30,15 @@ function WordCardDesktop(props: { term: FvWord }) {
   return (
     <>
       <button
-        className="hidden md:block rounded-lg bg-white p-6 m-1 shadow-lg hover:bg-slate-100 cursor-pointer"
+        className="hidden md:block rounded-lg bg-white p-6 m-1 shadow-lg hover:bg-slate-100 cursor-pointer w-full mx-2"
         onClick={() => setShowModal(true)}
       >
         <div className="grid grid-flow-col auto-cols-[minmax(0,_2fr)]">
           <div className="flex grid-flow-col space-x-5 items-center col-span-2">
-            <div className="w-40 min-w-40 flex flex-wrap">
+            <div className={classNames('flex flex-wrap', wordWidthClass)}>
               <h1 className="font-bold">{word}</h1>
             </div>
-            <div className="w-20 min-w-20">
+            <div className="w-20">
               {audio?.map((fvAudio: Audio1) => (
                 <i key={fvAudio.filename} className="fv-volume-up" />
               ))}

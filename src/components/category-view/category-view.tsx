@@ -189,7 +189,7 @@ export function CategoryView(props: CategoryViewProps) {
               {wordsPhrasesBoth()}
               <div
                 className={classNames(
-                  'overflow-y-auto',
+                  'overflow-y-auto overflow-x-hidden w-fit',
                   styles['wordsPhrasesContainer']
                 )}
               >
@@ -207,7 +207,7 @@ export function CategoryView(props: CategoryViewProps) {
                   .map((term) => {
                     return (
                       <Fragment key={`${term.source}-${term.entryID}`}>
-                        <WordCardDesktop term={term} />
+                        <WordCardDesktop term={term} wordWidthClass="w-40" />
                       </Fragment>
                     );
                   })}

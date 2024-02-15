@@ -8,6 +8,7 @@ import WordCardMobile from '../dictionary-page/word-card-mobile';
 import { DictionaryType, FvCategory, FvWord } from '../common/data';
 import MultiSwitch from '../common/multi-switch/multi-switch';
 import fetchWordsData from '../../services/wordsApiService';
+import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 
 /* eslint-disable-next-line */
 export interface CategoryViewProps {}
@@ -102,10 +103,9 @@ export function CategoryView(props: CategoryViewProps) {
         setData(dataDict.filter((entry) => entry.source === 'phrases'));
         break;
       }
-      default: {
+      default:
         setData(dataDict);
         break;
-      }
     }
   }, [selected, dataDict]);
 
@@ -124,6 +124,7 @@ export function CategoryView(props: CategoryViewProps) {
               styles['scrollable-div']
             )}
           >
+            {data.length === 0 && <LoadingSpinner />}
             {data
               .filter((term) => {
                 if (currentCategory.id === primaryCategory.id) {
@@ -193,6 +194,7 @@ export function CategoryView(props: CategoryViewProps) {
                   styles['wordsPhrasesContainer']
                 )}
               >
+                {data.length === 0 && <LoadingSpinner />}
                 {data
                   .filter((term) => {
                     if (currentCategory === primaryCategory) {

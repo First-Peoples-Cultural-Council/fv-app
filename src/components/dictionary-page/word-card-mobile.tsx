@@ -1,20 +1,23 @@
 import { useLocation } from 'react-router-dom';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import WordModal from './word-modal';
-import { FvWord } from '../common/data/types';
+import { FvWord } from '../common/data';
 import { useModal } from '../common/use-modal/use-modal';
 import { useEffect } from 'react';
+import { useAudio } from '../contexts/audioContext';
 
 function WordCardMobile(props: { term: FvWord }) {
   const { term } = props;
   const location = useLocation();
   const { setShowModal, showModal, closeModal } = useModal();
   const { word, definition, audio } = term;
+  const { stopAll } = useAudio();
 
   useEffect(() => {
     if (
       (location.hash === `#${term.source}-${term.entryID}` ||
-        location.hash === `#${term.source}-${term.entryID}?source=/bookmarks`) &&
+        location.hash ===
+          `#${term.source}-${term.entryID}?source=/bookmarks`) &&
       !window.matchMedia('(min-width: 768px').matches
     ) {
       setShowModal(true);
@@ -47,7 +50,13 @@ function WordCardMobile(props: { term: FvWord }) {
       </div>
       {showModal && (
         <FullScreenModal onClose={() => closeModal()} actions={null}>
-          <WordModal term={term} onClose={() => closeModal()} />
+          <WordModal
+            term={term}
+            onClose={() => {
+              closeModal();
+              stopAll();
+            }}
+          />
         </FullScreenModal>
       )}
     </>

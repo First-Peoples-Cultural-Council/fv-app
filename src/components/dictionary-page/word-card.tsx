@@ -8,7 +8,10 @@ import { useEffect, useState } from 'react';
 import fetchCategoryData from '../../services/categoriesApiService';
 
 function WordCard(
-  props: Readonly<{ term: FvWord; categoryPressed: () => void }>
+  props: Readonly<{
+    term: FvWord;
+    categoryPressed: () => void;
+  }>
 ) {
   const { term, categoryPressed } = props;
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');

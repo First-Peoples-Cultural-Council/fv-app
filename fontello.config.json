@@ -453,6 +453,12 @@
       "css": "spinner",
       "code": 61712,
       "src": "fontawesome"
+    },
+    {
+      "uid": "0b28050bac9d3facf2f0226db643ece0",
+      "css": "pause",
+      "code": 59428,
+      "src": "fontawesome"
     }
   ]
 }

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import IndexedDBService from './indexedDbService';
 import isDateOlderThen from '../util/isDateOlderThen';
-import { getCurrentDialect } from '../util/getCurrentDialect';
 
 const db = new IndexedDBService('firstVoicesIndexedDb');
 

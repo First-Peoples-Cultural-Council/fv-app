@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import WordModal from './word-modal';
 import Modal from '../common/modal/modal';
 import fetchWordOfDayData from '../../services/wordOfTheDayApiService';

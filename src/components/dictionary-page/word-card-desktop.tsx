@@ -8,7 +8,9 @@ import { Audio1 } from '@mothertongues/search';
 import { useAudio } from '../contexts/audioContext';
 import classNames from 'classnames';
 
-function WordCardDesktop(props: { term: FvWord; wordWidthClass?: string }) {
+function WordCardDesktop(
+  props: Readonly<{ term: FvWord; wordWidthClass?: string }>
+) {
   const { term, wordWidthClass } = props;
   const location = useLocation();
   const { setShowModal, showModal, closeModal } = useModal();

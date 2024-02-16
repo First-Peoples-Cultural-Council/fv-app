@@ -37,6 +37,7 @@ export function AudioButton({ fvAudio }: AudioButtonProps) {
         removeAudio(audio);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

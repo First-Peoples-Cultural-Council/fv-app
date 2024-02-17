@@ -6,9 +6,11 @@ import { FvWord } from '../common/data';
 import fetchWordsData from '../../services/wordsApiService';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
+import { useAudio } from '../contexts/audioContext';
 
 function WordOfTheDay() {
   const today = new Date();
+  const { stopAll } = useAudio();
 
   const [showModal, setShowModal] = React.useState(false);
   const [data, setData] = useState<any>(null);
@@ -82,7 +84,13 @@ function WordOfTheDay() {
         console.info('larger than 768px');
         return (
           <Modal onClose={() => wordOfTheDaySeen()} title="Word of the Day">
-            <WordModal term={data} onClose={() => wordOfTheDaySeen()} />
+            <WordModal
+              term={data}
+              onClose={() => {
+                wordOfTheDaySeen();
+                stopAll();
+              }}
+            />
           </Modal>
         );
       } else if (!window.matchMedia('(min-width: 768px').matches) {
@@ -93,7 +101,13 @@ function WordOfTheDay() {
             actions={null}
             title="Word of the Day"
           >
-            <WordModal term={data} onClose={() => wordOfTheDaySeen()} />
+            <WordModal
+              term={data}
+              onClose={() => {
+                wordOfTheDaySeen();
+                stopAll();
+              }}
+            />
           </FullScreenModal>
         );
       } else {

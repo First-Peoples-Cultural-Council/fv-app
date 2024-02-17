@@ -25,6 +25,7 @@ import SettingsView from './components/settings-view/settings-view';
 import AboutView from './components/about-view/about-view';
 import PageNotFound from './components/common/page-not-found/page-not-found';
 import SearchProvider from './components/search-provider';
+import { AudioProvider } from './components/contexts/audioContext';
 
 export const routesConfig = createRoutesFromElements(
   <>
@@ -37,7 +38,7 @@ export const routesConfig = createRoutesFromElements(
         <Route path="categories" element={<CategoriesView />} />
         <Route path="randomized" element={<RandomizedView />} />
       </Route>
-      <Route path="learn" element={<Learn />} >
+      <Route path="learn" element={<Learn />}>
         <Route path="stories" element={<StoriesView />} />
         <Route path="songs" element={<SongsView />} />
         <Route path="flashcards" element={<FlashcardsView />} />
@@ -58,7 +59,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <StrictMode>
     <SearchProvider>
-      <RouterProvider router={router} />
+      <AudioProvider>
+        <RouterProvider router={router} />
+      </AudioProvider>
     </SearchProvider>
   </StrictMode>
 );

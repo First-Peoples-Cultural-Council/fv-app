@@ -53,7 +53,7 @@ function WordModal(props: { term: FvWord; onClose: () => void }) {
     <div className="md:p-10">
       <div className="flex text-2xl">
         <p className="grow font-bold md:text-3xl pl-5">{word}</p>
-        <div className="grid grid-cols-1">
+        <div className="grid grid-cols-1 min-w-fit">
           <div className="pl-2 pr-2">
             <i className="fv-copy pr-2" />
             <button

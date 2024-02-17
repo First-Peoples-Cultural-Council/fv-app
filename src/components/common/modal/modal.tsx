@@ -1,5 +1,6 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
+import { useAudio } from '../../contexts/audioContext';
 
 export interface ModalProps {
   onClose: () => void;
@@ -14,6 +15,7 @@ export function Modal({
   title,
   showCloseButton = true,
 }: ModalProps) {
+  const { stopAll } = useAudio();
   return createPortal(
     <div
       style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
@@ -27,7 +29,10 @@ export function Modal({
               {showCloseButton && (
                 <button
                   className="p-1 ml-auto bg-transparent border-0 text-black float-right text-1xl leading-none font-semibold outline-none focus:outline-none"
-                  onClick={() => onClose()}
+                  onClick={() => {
+                    onClose();
+                    stopAll();
+                  }}
                 >
                   <i className="fv-close"></i>
                 </button>

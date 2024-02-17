@@ -5,12 +5,14 @@ import Modal from '../common/modal/modal';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import { useModal } from '../common/use-modal/use-modal';
 import { useEffect } from 'react';
+import { useAudio } from '../contexts/audioContext';
 
 function WordAlphabetRowCard(props: { term: FvWord }) {
   const { term } = props;
   const location = useLocation();
   const { setShowModal, showModal, closeModal } = useModal();
   const { word, definition } = term;
+  const { stopAll } = useAudio();
 
   useEffect(() => {
     if (
@@ -42,12 +44,24 @@ function WordAlphabetRowCard(props: { term: FvWord }) {
       </div>
       {window.matchMedia('(min-width: 768px').matches && showModal && (
         <Modal onClose={() => closeModal()}>
-          <WordModal term={term} onClose={() => closeModal()} />
+          <WordModal
+            term={term}
+            onClose={() => {
+              closeModal();
+              stopAll();
+            }}
+          />
         </Modal>
       )}
       {!window.matchMedia('(min-width: 768px').matches && showModal && (
         <FullScreenModal onClose={() => closeModal()} actions={null}>
-          <WordModal term={term} onClose={() => closeModal()} />
+          <WordModal
+            term={term}
+            onClose={() => {
+              closeModal();
+              stopAll();
+            }}
+          />
         </FullScreenModal>
       )}
     </>

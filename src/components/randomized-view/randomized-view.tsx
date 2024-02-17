@@ -97,7 +97,7 @@ export function RandomizedView(props: WordsViewProps) {
                 id={`${term.source}-${term.entryID}`}
               >
                 <WordCardMobile term={term} />
-                <WordCardDesktop term={term} />
+                <WordCardDesktop term={term} wordWidthClass="w-80" />
               </div>
             );
           })}{' '}

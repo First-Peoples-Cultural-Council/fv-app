@@ -144,6 +144,10 @@ export function StoriesView(props: StoriesViewProps) {
                           alt={story?.title ?? ''}
                         />
                       )}
+                      {(selectedStory?.relatedImages[0]?.original.path ??
+                        '') === '' && (
+                        <div className="fv-stories text-6xl"></div>
+                      )}
                     </div>
                     <div className="col-span-5">
                       <div>
@@ -304,7 +308,7 @@ export function StoriesView(props: StoriesViewProps) {
               onClick={() => setCurrentPage(-1)}
               type="button"
               className={classNames(
-                'ml-3 rounded-md px-2 py-1.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 bg-blue-200 hover:bg-blue-300'
+                'ml-3 text-white rounded-md px-2 py-1.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 bg-color-primary-0 hover:bg-color-primary-1 w-48'
               )}
             >
               Start Reading
@@ -317,7 +321,7 @@ export function StoriesView(props: StoriesViewProps) {
 
   function intro() {
     return (
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto p-2 rounded-lg bg-white p-6 m-2 shadow-lg m-4">
         <div className="flex flex-wrap w-full">
           {selectedStory?.relatedImages?.map((img) => {
             return (
@@ -365,7 +369,7 @@ export function StoriesView(props: StoriesViewProps) {
 
   function page() {
     return (
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto p-2 rounded-lg bg-white p-6 m-2 shadow-lg m-4">
         <div className="flex flex-wrap w-full justify-center">
           {selectedStory?.pages[currentPage]?.relatedImages?.map((img) => {
             return (
@@ -384,12 +388,12 @@ export function StoriesView(props: StoriesViewProps) {
         </div>
 
         <div className="flex flex-col md:flex-row">
-          <div className="md:w-1/2 p-2">
+          <div className="md:w-1/2 p-2 rounded-lg bg-white p-6 m-2 shadow-lg m-4">
             {convertJsonToComponent(
               selectedStory?.pages[currentPage]?.text ?? '{}'
             )}
           </div>
-          <div className="md:w-1/2 p-2">
+          <div className="md:w-1/2 p-2 rounded-lg bg-white p-6 m-2 shadow-lg m-4">
             {convertJsonToComponent(
               selectedStory?.pages[currentPage]?.translation ?? '{}'
             )}
@@ -421,7 +425,7 @@ export function StoriesView(props: StoriesViewProps) {
             onClick={() => setCurrentPage(currentPage - 1)}
             type="button"
             className={classNames(
-              'ml-3 rounded-md px-2 py-1.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 bg-blue-200 hover:bg-blue-300'
+              'ml-3 text-white rounded-md px-2 py-1.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 bg-color-primary-0 hover:bg-color-primary-1 w-32 sm:w-48'
             )}
           >
             {currentPage === -1 && 'Title'}
@@ -436,17 +440,25 @@ export function StoriesView(props: StoriesViewProps) {
           </div>
         </div>
         <div className="flex justify-end">
-          {currentPage !== (selectedStory?.pages?.length ?? -1) - 1 && (
-            <button
-              onClick={() => setCurrentPage(currentPage + 1)}
-              type="button"
-              className={classNames(
-                'ml-3 rounded-md px-2 py-1.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 bg-blue-200 hover:bg-blue-300'
-              )}
-            >
-              Next Page
-            </button>
-          )}
+          <button
+            onClick={() =>
+              currentPage !== (selectedStory?.pages?.length ?? -1) - 1
+                ? setCurrentPage(currentPage + 1)
+                : closeModal()
+            }
+            type="button"
+            className={classNames(
+              'ml-3 text-white rounded-md px-2 py-1.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 bg-color-primary-0 hover:bg-color-primary-1 w-32 sm:w-48',
+              {
+                'bg-color-secondary-0 hover:bg-color-secondary-1':
+                  currentPage === (selectedStory?.pages?.length ?? -1) - 1,
+              }
+            )}
+          >
+            {currentPage !== (selectedStory?.pages?.length ?? -1) - 1 &&
+              'Next Page'}
+            {currentPage === (selectedStory?.pages?.length ?? -1) - 1 && 'Done'}
+          </button>
         </div>
       </div>
     );

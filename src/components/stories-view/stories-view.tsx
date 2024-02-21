@@ -113,15 +113,15 @@ export function StoriesView(props: StoriesViewProps) {
   return (
     <>
       <div className="grid grid-cols-1 w-full">
-        <div className="overflow-y-auto max-h-calc-185 md:max-h-calc-125">
+        <div className="flex flex-col overflow-y-auto max-h-calc-185 md:max-h-calc-125">
           {loading && <LoadingSpinner />}
           {!loading &&
             storiesData.map((story: FVStory) => {
               return (
-                <div
+                <button
                   key={story.id}
                   className={classNames(
-                    'block rounded-lg bg-white p-6 m-2 shadow-lg hover:bg-slate-100 cursor-pointer'
+                    'rounded-lg bg-white p-6 m-2 shadow-lg hover:bg-slate-100 cursor-pointer'
                   )}
                   onClick={() => {
                     setSelectedStory(story);
@@ -156,7 +156,7 @@ export function StoriesView(props: StoriesViewProps) {
                       <i className="fv-right-open" />
                     </div>
                   </div>
-                </div>
+                </button>
               );
             })}
         </div>
@@ -274,7 +274,7 @@ export function StoriesView(props: StoriesViewProps) {
 
   function title() {
     return (
-      <div className="max-w-5xl mx-auto">
+      <div className="m-5 border border-gray-300 shadow-lg p-10 rounded max-w-[600px]">
         <div className="flex flex-col h-full">
           <div className="h-3/5 flex-1">
             {selectedStory?.relatedImages[0] && (
@@ -304,7 +304,7 @@ export function StoriesView(props: StoriesViewProps) {
               onClick={() => setCurrentPage(-1)}
               type="button"
               className={classNames(
-                'ml-3 rounded-md px-2 py-1.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 bg-blue-200 hover:bg-blue-300'
+                'w-full text-white rounded-md px-2 py-1.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 bg-color-alphabet-light hover:bg-color-alphabet-dark'
               )}
             >
               Start Reading
@@ -317,7 +317,7 @@ export function StoriesView(props: StoriesViewProps) {
 
   function intro() {
     return (
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto p-2 rounded-lg bg-white p-6 m-2 shadow-lg m-4">
         <div className="flex flex-wrap w-full">
           {selectedStory?.relatedImages?.map((img) => {
             return (
@@ -365,7 +365,7 @@ export function StoriesView(props: StoriesViewProps) {
 
   function page() {
     return (
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto p-2 rounded-lg bg-white p-6 m-2 shadow-lg m-4">
         <div className="flex flex-wrap w-full justify-center">
           {selectedStory?.pages[currentPage]?.relatedImages?.map((img) => {
             return (
@@ -384,12 +384,12 @@ export function StoriesView(props: StoriesViewProps) {
         </div>
 
         <div className="flex flex-col md:flex-row">
-          <div className="md:w-1/2 p-2">
+          <div className="md:w-1/2 p-2 rounded-lg bg-white p-6 m-2 shadow-lg m-4">
             {convertJsonToComponent(
               selectedStory?.pages[currentPage]?.text ?? '{}'
             )}
           </div>
-          <div className="md:w-1/2 p-2">
+          <div className="md:w-1/2 p-2 rounded-lg bg-white p-6 m-2 shadow-lg m-4">
             {convertJsonToComponent(
               selectedStory?.pages[currentPage]?.translation ?? '{}'
             )}
@@ -421,7 +421,7 @@ export function StoriesView(props: StoriesViewProps) {
             onClick={() => setCurrentPage(currentPage - 1)}
             type="button"
             className={classNames(
-              'ml-3 rounded-md px-2 py-1.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 bg-blue-200 hover:bg-blue-300'
+              'ml-3 text-white rounded-md px-2 py-1.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 bg-color-alphabet-light hover:bg-color-alphabet-dark w-32 sm:w-48'
             )}
           >
             {currentPage === -1 && 'Title'}
@@ -436,17 +436,25 @@ export function StoriesView(props: StoriesViewProps) {
           </div>
         </div>
         <div className="flex justify-end">
-          {currentPage !== (selectedStory?.pages?.length ?? -1) - 1 && (
-            <button
-              onClick={() => setCurrentPage(currentPage + 1)}
-              type="button"
-              className={classNames(
-                'ml-3 rounded-md px-2 py-1.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 bg-blue-200 hover:bg-blue-300'
-              )}
-            >
-              Next Page
-            </button>
-          )}
+          <button
+            onClick={() =>
+              currentPage !== (selectedStory?.pages?.length ?? -1) - 1
+                ? setCurrentPage(currentPage + 1)
+                : closeModal()
+            }
+            type="button"
+            className={classNames(
+              'ml-3 text-white rounded-md px-2 py-1.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 bg-color-alphabet-light hover:bg-color-alphabet-dark w-32 sm:w-48',
+              {
+                'bg-color-secondary-0 hover:bg-color-secondary-1':
+                  currentPage === (selectedStory?.pages?.length ?? -1) - 1,
+              }
+            )}
+          >
+            {currentPage !== (selectedStory?.pages?.length ?? -1) - 1 &&
+              'Next Page'}
+            {currentPage === (selectedStory?.pages?.length ?? -1) - 1 && 'Done'}
+          </button>
         </div>
       </div>
     );

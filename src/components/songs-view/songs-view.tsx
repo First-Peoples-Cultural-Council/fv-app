@@ -102,51 +102,52 @@ export function SongsView(props: SongsViewProps) {
       <div className="grid grid-cols-1 lg:grid-cols-2 w-full h-full">
         <div className="overflow-y-auto max-h-calc-185 md:max-h-calc-125">
           {loading && <LoadingSpinner />}
-          {!loading && songsData.map((song: FVSong) => {
-            return (
-              <div
-                key={song.id}
-                className={classNames(
-                  'block rounded-lg bg-white p-6 m-2 shadow-lg hover:bg-slate-100 cursor-pointer',
-                  {
-                    'lg:bg-green-100 lg:hover:bg-green-200':
-                      song.id === selectedSong?.id,
-                  }
-                )}
-                onClick={() => {
-                  setSelectedSong(song);
-                  if (window.matchMedia('(max-width: 1024px').matches) {
-                    setShowModal(true);
-                  }
-                }}
-              >
-                <div className="grid grid-cols-10 gap-4">
-                  <div className="col-span-2 flex">
-                    {song?.relatedImages.length === 0 && (
-                      <div className="fv-songs text-5xl self-center border border-solid" />
-                    )}
-                    {song?.relatedImages.length !== 0 && (
-                      <FvImage
-                        disabledClassName="text-6xl"
-                        src={song?.relatedImages[0]?.thumbnail?.path ?? ''}
-                        alt={song?.relatedImages[0].title}
-                      />
-                    )}
-                  </div>
-                  <div className="col-span-6">
-                    <div>
-                      <h1 className="font-bold">{song.title}</h1>
+          {!loading &&
+            songsData.map((song: FVSong) => {
+              return (
+                <button
+                  key={song.id}
+                  className={classNames(
+                    'block rounded-lg bg-white p-6 m-2 shadow-lg hover:bg-slate-100 cursor-pointer',
+                    {
+                      'lg:bg-green-100 lg:hover:bg-green-200':
+                        song.id === selectedSong?.id,
+                    }
+                  )}
+                  onClick={() => {
+                    setSelectedSong(song);
+                    if (window.matchMedia('(max-width: 1024px').matches) {
+                      setShowModal(true);
+                    }
+                  }}
+                >
+                  <div className="grid grid-cols-10 gap-4">
+                    <div className="col-span-2 flex">
+                      {song?.relatedImages.length === 0 && (
+                        <div className="fv-songs text-5xl self-center border border-solid" />
+                      )}
+                      {song?.relatedImages.length !== 0 && (
+                        <FvImage
+                          disabledClassName="text-6xl"
+                          src={song?.relatedImages[0]?.thumbnail?.path ?? ''}
+                          alt={song?.relatedImages[0].title}
+                        />
+                      )}
                     </div>
-                    <h1 className="truncate">{song.titleTranslation}</h1>
+                    <div className="col-span-6">
+                      <div>
+                        <h1 className="font-bold">{song.title}</h1>
+                      </div>
+                      <h1 className="truncate">{song.titleTranslation}</h1>
+                    </div>
+                    <div className="self-center col-span-1"></div>
+                    <div className="place-self-end self-center">
+                      <i className="fv-right-open" />
+                    </div>
                   </div>
-                  <div className="self-center col-span-1"></div>
-                  <div className="place-self-end self-center">
-                    <i className="fv-right-open" />
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+                </button>
+              );
+            })}
         </div>
         <div
           className="hidden lg:block lg:overflow-y-auto"
@@ -168,7 +169,7 @@ export function SongsView(props: SongsViewProps) {
       return <></>;
     }
     return (
-      <>
+      <div className="m-5 border shadow-lg p-10 rounded max-w-[600px]">
         {selectedSong?.relatedImages.length !== 0 && (
           <FvImage
             src={selectedSong?.relatedImages[0].original.path}
@@ -242,7 +243,7 @@ export function SongsView(props: SongsViewProps) {
           </>
         )}
         <div className="pb-6" />
-      </>
+      </div>
     );
   }
 

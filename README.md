@@ -49,3 +49,9 @@ Run the following command to download the new icons and update the fontello font
 ```bash
 $ npm run icons:generate
 ```
+
+## Service Worker Caching
+Workbox didn't automatically cache all of the files that are needed for the app to run offline.
+So in the service-worker.ts under precacheAndRoute there are files that have been added.
+If these get updated the revision needs to be changed in service-worker.ts. The two files to keep in mtd-ui.min.js and service-worker.js
+

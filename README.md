@@ -50,8 +50,14 @@ Run the following command to download the new icons and update the fontello font
 $ npm run icons:generate
 ```
 
+## Adding new dialects/languages
+In order to add a new language to the app, you will need to add a new language as a subdomain to the app. Then a DNS record needs to be created to point that subdomain to the same place as every other language subdomain.
+Once that is done, the manifest file will need to be created for the new language in the `public` folder using the pattern `manifest.language-sub-domain.json`. Any new manifest files can be kept in a directory that is named the language sub-domain in the `public` folder.
+For example, for the smalgyax language, the manifest file would be `public/manifest.smalgyax.json` and any new manifest files would be kept in the `public/smalgyax` directory. That is where all the asset files in the manifest file will be kept for that language.  
+Make sure to update the `src` properties in the manifest file to match where the assets are kept.
+
 ## Service Worker Caching
 Workbox didn't automatically cache all of the files that are needed for the app to run offline.
-So in the service-worker.ts under precacheAndRoute there are files that have been added.
-If these get updated the revision needs to be changed in service-worker.ts. The two files to keep in mtd-ui.min.js and service-worker.js
+So in the service-worker.ts under precacheAndRoute there are files that have been added via the manifestFileList.json file that is generated during the build process. 
+The two files to keep in mtd-ui.min.js and service-worker.js
 

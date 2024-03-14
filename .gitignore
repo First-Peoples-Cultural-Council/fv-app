@@ -45,3 +45,5 @@ Thumbs.db
 /playwright-report/
 /playwright/.cache/
 .fontello-session
+
+manifestFileList.json

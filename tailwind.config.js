@@ -1,8 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
       transitionProperty: {
@@ -42,13 +40,19 @@ module.exports = {
         'color-alphabet-dark': '#420022',
         'color-categories-light': '#E9C46A',
         'color-categories-dark': '#A37D21',
+        'color-songs-light': '#830042',
+        'color-songs-dark': '#420022',
+        'color-stories-light': '#E9C46A',
+        'color-stories-dark': '#A37D21',
+        'color-flashcards-light': '#513B56',
+        'color-flashcards-dark': '#4A2954',
         'color-profile-light': '#D6D3D1',
         'color-profile-dark': '#898886',
         'color-main-header': '#737274',
-        'phrase': '#C37829',
-        'song': '#830042',
-        'story': '#E9C46A',
-        'word': '#2A9D8F',
+        phrase: '#C37829',
+        song: '#830042',
+        story: '#E9C46A',
+        word: '#2A9D8F',
       },
       maxHeight: {
         'calc-245': 'calc(100vh - 245px)',

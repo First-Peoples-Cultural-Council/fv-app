@@ -48,11 +48,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "prebuild": "node ./generateManifestFileArray.js",
     "build": "CI= react-scripts build",
     "test": "react-scripts test",
     "test:e2e": "npx playwright test",
     "eject": "react-scripts eject",
-    "buildnserve": "react-scripts build && serve -s build",
+    "buildnserve": "npm run build && serve -s build",
     "serve": "serve -s build",
     "icons:generate": "npx fontello-cli install --config fontello.config.json --css ./src/assets/fonts/css --font ./src/assets/fonts/font",
     "icons:open": "npx fontello-cli open --config fontello.config.json",
@@ -88,13 +89,16 @@
     "@storybook/react": "^7.0.20",
     "@storybook/react-webpack5": "^7.0.20",
     "@storybook/testing-library": "^0.0.14-next.2",
+    "@types/uuid": "^9.0.8",
     "babel-plugin-named-exports-order": "^0.0.2",
     "eslint-plugin-storybook": "^0.6.12",
+    "glob": "^10.3.10",
     "prop-types": "^15.8.1",
     "react-refresh": "0.11.0",
     "serve": "^14.2.1",
     "storybook": "^7.0.20",
     "tailwindcss": "^3.3.1",
+    "uuid": "^9.0.1",
     "webpack": "^5.86.0"
   }
 }

@@ -68,5 +68,6 @@ resource "aws_cloudfront_distribution" "this" {
   depends_on = [
     aws_s3_bucket.website,
     aws_s3_bucket.logs,
+    aws_acm_certificate.this,
   ]
 }

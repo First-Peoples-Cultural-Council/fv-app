@@ -40,7 +40,7 @@ testem.log
 Thumbs.db
 
 # Environments
-# .env
+.env
 /test-results/
 /playwright-report/
 /playwright/.cache/

@@ -58,7 +58,7 @@ export function SearchHeader({
 
       setSearchEntries({ rawSearchQuery, entries });
 
-      search.updateAllResults(entries.map((entry) => entry.entry));
+      search.updateAllResults(entries.map((entry) => entry));
     } else {
       setSearchEntries({ rawSearchQuery: '', entries: [] });
     }

@@ -100,7 +100,6 @@ export function DictionaryView(props: WordsViewProps) {
 
   useEffect(() => {
     if (searchContext?.allResults && searchContext.allResults.length > 0) {
-      console.log('setting search results: ', searchContext);
       setDataDict(searchContext.allResults);
     }
   }, [searchContext?.allResults]);

@@ -96,8 +96,8 @@ export function RandomizedView(props: WordsViewProps) {
                 key={`${term.source}-${term.entryID}`}
                 id={`${term.source}-${term.entryID}`}
               >
-                <WordCardMobile term={term} />
-                <WordCardDesktop term={term} wordWidthClass="w-80" />
+                <WordCardMobile item={term} />
+                <WordCardDesktop item={term} wordWidthClass="w-80" />
               </div>
             );
           })}{' '}

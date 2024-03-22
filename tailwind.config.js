@@ -53,6 +53,7 @@ module.exports = {
         song: '#830042',
         story: '#E9C46A',
         word: '#2A9D8F',
+        highlight: '#0585ff',
       },
       maxHeight: {
         'calc-245': 'calc(100vh - 245px)',

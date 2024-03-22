@@ -258,14 +258,34 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
         {!loading &&
           dataDict
             ?.filter((term) => {
+              if (term.entry && term.location) {
+                return (term.entry as any).word.startsWith(
+                  selected?.title ?? ''
+                );
+              }
               return term.word.startsWith(selected?.title ?? '');
             })
             .sort((a, b) => {
+              if (a.entry && b.entry) {
+                return getAlphabetSort(
+                  (a.entry as any).word,
+                  (b.entry as any).word,
+                  1
+                );
+              }
               return getAlphabetSort(a.word, b.word, 1);
             })
             .map((term) => {
               return (
-                <Fragment key={`${term.source}-${term.entryID}`}>
+                <Fragment
+                  key={
+                    term.entry
+                      ? `${(term.entry as any).source}-${
+                          (term.entry as any).entryID
+                        }`
+                      : `${term.source}-${term.entryID}`
+                  }
+                >
                   <WordAlphabetRowCard term={term} />
                 </Fragment>
               );

@@ -72,11 +72,23 @@ export function DictionaryView(props: WordsViewProps) {
     setVisibleItems(250);
     switch (selected) {
       case DictionaryType.Words: {
-        setData(dataDict.filter((entry) => entry.source === 'words'));
+        setData(
+          dataDict.filter(
+            (entry) =>
+              (entry.entry ? (entry.entry as any).source : entry.source) ===
+              'words'
+          )
+        );
         break;
       }
       case DictionaryType.Phrases: {
-        setData(dataDict.filter((entry) => entry.source === 'phrases'));
+        setData(
+          dataDict.filter(
+            (entry) =>
+              (entry.entry ? (entry.entry as any).source : entry.source) ===
+              'phrases'
+          )
+        );
         break;
       }
       default: {
@@ -87,7 +99,8 @@ export function DictionaryView(props: WordsViewProps) {
   }, [selected, dataDict]);
 
   useEffect(() => {
-    if (searchContext?.allResults) {
+    if (searchContext?.allResults && searchContext.allResults.length > 0) {
+      console.log('setting search results: ', searchContext);
       setDataDict(searchContext.allResults);
     }
   }, [searchContext?.allResults]);
@@ -113,15 +126,18 @@ export function DictionaryView(props: WordsViewProps) {
       >
         {loading && <LoadingSpinner />}
         {!loading &&
-          data?.slice(0, visibleItems).map((term, _) => (
-            <div
-              key={`${term.source}-${term.entryID}`}
-              id={`${term.source}-${term.entryID}`}
-            >
-              <WordCardMobile term={term} />
-              <WordCardDesktop term={term} wordWidthClass="w-80" />
-            </div>
-          ))}{' '}
+          data?.slice(0, visibleItems).map((item, _) => {
+            const term = item.entry ? (item.entry as FvWord) : item;
+            return (
+              <div
+                key={`${term.source}-${term.entryID}`}
+                id={`${term.source}-${term.entryID}`}
+              >
+                <WordCardMobile item={item} />
+                <WordCardDesktop item={item} wordWidthClass="w-80" />
+              </div>
+            );
+          })}{' '}
       </div>
     </div>
   );

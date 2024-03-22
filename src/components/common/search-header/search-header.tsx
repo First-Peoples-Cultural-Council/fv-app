@@ -9,7 +9,7 @@ export interface SearchHeaderProps {
   backgroundColors: { to: string; from: string };
   setSearchEntries: (entries: {
     rawSearchQuery: string;
-    entries: any[];
+    entries: { entry: any; location: any[] }[];
   }) => void;
   shouldShowSearch?: boolean;
 }
@@ -53,12 +53,12 @@ export function SearchHeader({
       //  - The Okapi BM25 Score (float)
 
       const entries = allResults.map((result: Result) => {
-        return search.entriesHash[result[1]];
+        return { entry: search.entriesHash[result[1]], location: result[2] };
       });
 
       setSearchEntries({ rawSearchQuery, entries });
 
-      search.updateAllResults(entries);
+      search.updateAllResults(entries.map((entry) => entry.entry));
     } else {
       setSearchEntries({ rawSearchQuery: '', entries: [] });
     }

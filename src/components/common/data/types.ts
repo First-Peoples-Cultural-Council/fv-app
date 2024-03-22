@@ -64,6 +64,8 @@ export type Language = {
 
 export type FvWord = DictionaryEntryExportFormat;
 
+export type FvWordLocation = [type: string, index: number];
+
 export type FvAudio = Audio1;
 export type FvWord2 = {
   id: string;

@@ -1,23 +1,35 @@
 import { useLocation } from 'react-router-dom';
 import WordModal from '../dictionary-page/word-modal';
-import { FvWord } from '../common/data';
+import { FvWord, FvWordLocation } from '../common/data';
 import Modal from '../common/modal/modal';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import { useModal } from '../common/use-modal/use-modal';
 import { useEffect } from 'react';
 import { useAudio } from '../contexts/audioContext';
+import { applyHighlighting } from '../../util/applyHighlighting';
 
-function WordAlphabetRowCard(props: { term: FvWord }) {
+function WordAlphabetRowCard(props: {
+  term:
+    | FvWord
+    | {
+        entry: FvWord;
+        location: FvWordLocation[];
+      };
+}) {
   const { term } = props;
   const location = useLocation();
   const { setShowModal, showModal, closeModal } = useModal();
-  const { word, definition } = term;
+  const entry = (term.entry ? term.entry : term) as FvWord;
+  const wordLocation = term.location
+    ? (term.location as FvWordLocation[])
+    : null;
+  const { word, definition } = entry as FvWord;
   const { stopAll } = useAudio();
 
   useEffect(() => {
     if (
-      location.hash === `#${term.source}-${term.entryID}` ||
-      location.hash === `#${term.source}-${term.entryID}?source=/bookmarks`
+      location.hash === `#${entry.source}-${entry.entryID}` ||
+      location.hash === `#${entry.source}-${entry.entryID}?source=/bookmarks`
     ) {
       setShowModal(true);
     }
@@ -33,9 +45,11 @@ function WordAlphabetRowCard(props: { term: FvWord }) {
         <div className="grid grid-cols-10 gap-4">
           <div className="col-span-9">
             <div>
-              <h1 className="font-bold">{word}</h1>
+              <h1 className="font-bold">
+                {applyHighlighting(word, wordLocation, 'word')}
+              </h1>
             </div>
-            <h1>{definition}</h1>
+            <h1>{applyHighlighting(definition, wordLocation, 'definition')}</h1>
           </div>
           <div className="place-self-end self-center">
             <i className="fv-right-open" />
@@ -45,7 +59,7 @@ function WordAlphabetRowCard(props: { term: FvWord }) {
       {window.matchMedia('(min-width: 768px').matches && showModal && (
         <Modal onClose={() => closeModal()}>
           <WordModal
-            term={term}
+            term={entry}
             onClose={() => {
               closeModal();
               stopAll();
@@ -56,7 +70,7 @@ function WordAlphabetRowCard(props: { term: FvWord }) {
       {!window.matchMedia('(min-width: 768px').matches && showModal && (
         <FullScreenModal onClose={() => closeModal()} actions={null}>
           <WordModal
-            term={term}
+            term={entry}
             onClose={() => {
               closeModal();
               stopAll();

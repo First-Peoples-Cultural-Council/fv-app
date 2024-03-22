@@ -139,7 +139,7 @@ export function CategoryView(props: CategoryViewProps) {
               .map((term) => {
                 return (
                   <Fragment key={`${term.source}-${term.entryID}`}>
-                    <WordCardMobile term={term} />
+                    <WordCardMobile item={term} />
                   </Fragment>
                 );
               })}{' '}
@@ -209,7 +209,7 @@ export function CategoryView(props: CategoryViewProps) {
                   .map((term) => {
                     return (
                       <Fragment key={`${term.source}-${term.entryID}`}>
-                        <WordCardDesktop term={term} wordWidthClass="w-40" />
+                        <WordCardDesktop item={term} wordWidthClass="w-40" />
                       </Fragment>
                     );
                   })}

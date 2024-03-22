@@ -1,13 +1,15 @@
 import { useLocation } from 'react-router-dom';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import WordModal from './word-modal';
-import { FvWord } from '../common/data';
+import { FvWord, FvWordLocation } from '../common/data';
 import { useModal } from '../common/use-modal/use-modal';
 import { useEffect } from 'react';
 import { useAudio } from '../contexts/audioContext';
+import { applyHighlighting } from '../../util/applyHighlighting';
 
-function WordCardMobile(props: { term: FvWord }) {
-  const { term } = props;
+function WordCardMobile(props: { item: FvWord }) {
+  const { item } = props;
+  const term = (item.entry ? item.entry : item) as FvWord;
   const location = useLocation();
   const { setShowModal, showModal, closeModal } = useModal();
   const { word, definition, audio } = term;
@@ -34,9 +36,21 @@ function WordCardMobile(props: { term: FvWord }) {
         <div className="grid grid-cols-10 gap-4">
           <div className="col-span-8">
             <div>
-              <h1 className="font-bold">{word}</h1>
+              <h1 className="font-bold">
+                {applyHighlighting(
+                  word,
+                  item.location as FvWordLocation[] | null,
+                  'word'
+                )}
+              </h1>
             </div>
-            <h1 className="truncate">{definition}</h1>
+            <h1 className="truncate">
+              {applyHighlighting(
+                definition,
+                item.location as FvWordLocation[] | null,
+                'definition'
+              )}
+            </h1>
           </div>
           <div className="self-center col-span-1">
             {audio?.map((fvAudio) => (

@@ -222,6 +222,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
               if (isFvWordLocationCombo(item)) {
                 return item.entry.entryID === example.id;
               }
+              return false;
             });
             if (term === undefined) {
               return null;
@@ -328,6 +329,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
         if (isFvWordLocationCombo(term)) {
           return term.entry.word.startsWith(selected?.title ?? '');
         }
+        return false;
       })
       .forEach((term) => {
         if (isFvWord(term)) {

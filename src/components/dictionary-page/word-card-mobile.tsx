@@ -3,7 +3,6 @@ import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import WordModal from './word-modal';
 import {
   FvWord,
-  FvWordLocation,
   FvWordLocationCombo,
   isFvWord,
   isFvWordLocationCombo,
@@ -13,7 +12,9 @@ import { Key, useEffect } from 'react';
 import { useAudio } from '../contexts/audioContext';
 import { applyHighlighting } from '../../util/applyHighlighting';
 
-function WordCardMobile(props: { item: FvWord | FvWordLocationCombo }) {
+function WordCardMobile(
+  props: Readonly<{ item: FvWord | FvWordLocationCombo }>
+) {
   const { item } = props;
   let term: any = {};
   if (isFvWord(item)) {

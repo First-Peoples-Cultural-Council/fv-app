@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import WordCardMobile from '../dictionary-page/word-card-mobile';
 import WordCardDesktop from '../dictionary-page/word-card-desktop';
-import { DictionaryType, FvWord } from '../common/data';
+import { DictionaryType, FvWord, isFvWordLocationCombo } from '../common/data';
 import MultiSwitch from '../common/multi-switch/multi-switch';
 import { useOutletContext } from 'react-router-dom';
 import fetchWordsData from '../../services/wordsApiService';
@@ -75,8 +75,9 @@ export function DictionaryView(props: WordsViewProps) {
         setData(
           dataDict.filter(
             (entry) =>
-              (entry.entry ? (entry.entry as any).source : entry.source) ===
-              'words'
+              (isFvWordLocationCombo(entry)
+                ? entry.entry.source
+                : entry.source) === 'words'
           )
         );
         break;
@@ -85,8 +86,9 @@ export function DictionaryView(props: WordsViewProps) {
         setData(
           dataDict.filter(
             (entry) =>
-              (entry.entry ? (entry.entry as any).source : entry.source) ===
-              'phrases'
+              (isFvWordLocationCombo(entry)
+                ? entry.entry.source
+                : entry.source) === 'phrases'
           )
         );
         break;

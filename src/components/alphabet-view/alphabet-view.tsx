@@ -12,7 +12,6 @@ import _ from 'lodash';
 import { useIsMobile } from '../../util/useMediaQuery';
 import {
   FvLetter,
-  FvWord,
   FvWordLocationCombo,
   isFvWord,
   isFvWordLocationCombo,

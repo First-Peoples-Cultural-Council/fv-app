@@ -2,7 +2,6 @@ import { useLocation } from 'react-router-dom';
 import WordModal from './word-modal';
 import {
   FvWord,
-  FvWordLocation,
   FvWordLocationCombo,
   isFvWord,
   isFvWordLocationCombo,

@@ -2,7 +2,6 @@ import { useLocation } from 'react-router-dom';
 import WordModal from '../dictionary-page/word-modal';
 import {
   FvWord,
-  FvWordLocation,
   FvWordLocationCombo,
   isFvWordLocationCombo,
 } from '../common/data';
@@ -13,7 +12,9 @@ import { useEffect } from 'react';
 import { useAudio } from '../contexts/audioContext';
 import { applyHighlighting } from '../../util/applyHighlighting';
 
-function WordAlphabetRowCard(props: { term: FvWord | FvWordLocationCombo }) {
+function WordAlphabetRowCard(
+  props: Readonly<{ term: FvWord | FvWordLocationCombo }>
+) {
   const { term } = props;
   const location = useLocation();
   const { setShowModal, showModal, closeModal } = useModal();
@@ -22,7 +23,7 @@ function WordAlphabetRowCard(props: { term: FvWord | FvWordLocationCombo }) {
   if (isFvWordLocationCombo(term)) {
     wordLocations = term.locations;
   }
-  const { word, definition } = entry as FvWord;
+  const { word, definition } = entry;
   const { stopAll } = useAudio();
 
   useEffect(() => {

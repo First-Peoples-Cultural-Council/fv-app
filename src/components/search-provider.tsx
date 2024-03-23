@@ -5,7 +5,7 @@ import {
   MTDSearch,
 } from '@mothertongues/search';
 import { fetchWordsData } from '../services/wordsApiService';
-import { FvWordLocation, FvWordLocationCombo } from './common/data';
+import { FvWordLocationCombo } from './common/data';
 
 type SearchContextType = {
   searchers: MTDSearch[];

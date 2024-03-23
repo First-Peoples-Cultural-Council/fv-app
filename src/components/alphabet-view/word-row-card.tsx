@@ -1,6 +1,11 @@
 import { useLocation } from 'react-router-dom';
 import WordModal from '../dictionary-page/word-modal';
-import { FvWord, FvWordLocation } from '../common/data';
+import {
+  FvWord,
+  FvWordLocation,
+  FvWordLocationCombo,
+  isFvWordLocationCombo,
+} from '../common/data';
 import Modal from '../common/modal/modal';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import { useModal } from '../common/use-modal/use-modal';
@@ -8,21 +13,15 @@ import { useEffect } from 'react';
 import { useAudio } from '../contexts/audioContext';
 import { applyHighlighting } from '../../util/applyHighlighting';
 
-function WordAlphabetRowCard(props: {
-  term:
-    | FvWord
-    | {
-        entry: FvWord;
-        location: FvWordLocation[];
-      };
-}) {
+function WordAlphabetRowCard(props: { term: FvWord | FvWordLocationCombo }) {
   const { term } = props;
   const location = useLocation();
   const { setShowModal, showModal, closeModal } = useModal();
   const entry = (term.entry ? term.entry : term) as FvWord;
-  const wordLocation = term.location
-    ? (term.location as FvWordLocation[])
-    : null;
+  let wordLocations = null;
+  if (isFvWordLocationCombo(term)) {
+    wordLocations = term.locations;
+  }
   const { word, definition } = entry as FvWord;
   const { stopAll } = useAudio();
 
@@ -46,10 +45,16 @@ function WordAlphabetRowCard(props: {
           <div className="col-span-9">
             <div>
               <h1 className="font-bold">
-                {applyHighlighting(word, wordLocation, 'word')}
+                {wordLocations
+                  ? applyHighlighting(word, wordLocations, 'word')
+                  : word}
               </h1>
             </div>
-            <h1>{applyHighlighting(definition, wordLocation, 'definition')}</h1>
+            <h1>
+              {wordLocations
+                ? applyHighlighting(definition, wordLocations, 'definition')
+                : definition}
+            </h1>
           </div>
           <div className="place-self-end self-center">
             <i className="fv-right-open" />

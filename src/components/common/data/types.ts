@@ -62,6 +62,11 @@ export type Language = {
   dialects?: Dialect[];
 };
 
+export type FvWordLocationCombo = {
+  entry: FvWord;
+  locations: FvWordLocation[];
+};
+
 export type FvWord = DictionaryEntryExportFormat;
 
 export type FvWordLocation = [type: string, index: number];

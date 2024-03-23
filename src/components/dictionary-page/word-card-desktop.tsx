@@ -1,6 +1,12 @@
 import { useLocation } from 'react-router-dom';
 import WordModal from './word-modal';
-import { FvWord, FvWordLocation } from '../common/data';
+import {
+  FvWord,
+  FvWordLocation,
+  FvWordLocationCombo,
+  isFvWord,
+  isFvWordLocationCombo,
+} from '../common/data';
 import Modal from '../common/modal/modal';
 import { useModal } from '../common/use-modal/use-modal';
 import { useEffect } from 'react';
@@ -11,22 +17,30 @@ import { applyHighlighting } from '../../util/applyHighlighting';
 
 function WordCardDesktop(
   props: Readonly<{
-    item: FvWord | { entry: FvWord; location: FvWordLocation[] };
+    item: FvWord | FvWordLocationCombo;
     wordWidthClass?: string;
   }>
 ) {
   const { item, wordWidthClass } = props;
-  const term = (item.entry ? item.entry : item) as FvWord;
+  let term: any = {};
+  if (isFvWord(item)) {
+    term = item;
+  }
+  let wordLocations = null;
+  if (isFvWordLocationCombo(item)) {
+    term = item.entry;
+    wordLocations = item.locations;
+  }
+  const { word, definition, audio } = term;
   const location = useLocation();
   const { setShowModal, showModal, closeModal } = useModal();
-  const { word, definition, audio } = term as FvWord;
   const { stopAll } = useAudio();
 
   useEffect(() => {
+    const locationHash = `#${term.source}-${term.entryID}`;
     if (
-      (location.hash === `#${term.source}-${term.entryID}` ||
-        location.hash ===
-          `#${term.source}-${term.entryID}?source=/bookmarks`) &&
+      (location.hash === locationHash ||
+        location.hash === `${locationHash}?source=/bookmarks`) &&
       window.matchMedia('(min-width: 768px').matches
     ) {
       setShowModal(true);
@@ -44,11 +58,9 @@ function WordCardDesktop(
           <div className="flex grid-flow-col space-x-5 items-center col-span-2">
             <div className={classNames('flex flex-wrap', wordWidthClass)}>
               <h1 className="font-bold">
-                {applyHighlighting(
-                  word,
-                  item.location as FvWordLocation[] | null,
-                  'word'
-                )}
+                {wordLocations
+                  ? applyHighlighting(word, wordLocations, 'word')
+                  : word}
               </h1>
             </div>
             <div className="w-20">
@@ -59,11 +71,9 @@ function WordCardDesktop(
           </div>
           <div className="col-span-4">
             <h1 className="truncate">
-              {applyHighlighting(
-                definition,
-                item.location as FvWordLocation[] | null,
-                'definition'
-              )}
+              {wordLocations
+                ? applyHighlighting(definition, wordLocations, 'definition')
+                : definition}
             </h1>
           </div>
           <div className="place-self-end">

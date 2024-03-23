@@ -2,14 +2,13 @@ import { FvWordLocation } from '../components/common/data';
 
 export const applyHighlighting = (
   str: string,
-  wordLocations: FvWordLocation[] | null,
+  wordLocations: FvWordLocation[],
   type: string
 ) => {
   if (!wordLocations) {
     return str;
   }
 
-  console.log('str: ', str);
   if (wordLocations.length === 0) {
     return str;
   }
@@ -19,7 +18,6 @@ export const applyHighlighting = (
   });
 
   const firstLocation = highlightingLocations[0];
-  console.log('firstLocation: ', firstLocation);
 
   if (!firstLocation) {
     return str;

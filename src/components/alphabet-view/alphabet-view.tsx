@@ -10,7 +10,13 @@ import { useLocation, useParams, useOutletContext } from 'react-router-dom';
 import WordAlphabetRowCard from './word-row-card';
 import _ from 'lodash';
 import { useIsMobile } from '../../util/useMediaQuery';
-import { FvLetter, FvWord } from '../common/data';
+import {
+  FvLetter,
+  FvWord,
+  FvWordLocationCombo,
+  isFvWord,
+  isFvWordLocationCombo,
+} from '../common/data';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import fetchWordsData from '../../services/wordsApiService';
 import fetchCharactersData from '../../services/charactersApiService';
@@ -35,7 +41,9 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
   const { setSearchMatchRef }: any = useOutletContext();
   const { letter } = useParams();
   const location = useLocation();
-  const [dataDict, setDataDict] = useState<FvWord[]>([]);
+  const [dataDict, setDataDict] = useState<
+    (DictionaryEntryExportFormat | FvWordLocationCombo)[]
+  >([]);
   const [dataAlphabet, setDataAlphabet] = useState<FvLetter[]>([]);
   const [selected, setSelected] = useState<FvLetter | null>(
     (dataAlphabet.find(
@@ -207,7 +215,15 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
         {loading && <LoadingSpinner />}
         {!loading &&
           selected?.relatedDictionaryEntries.map((example) => {
-            const term = dataDict?.find((word) => word.entryID === example.id);
+            let term;
+            term = dataDict.find((item) => {
+              if (isFvWord(item)) {
+                return item.entryID === example.id;
+              }
+              if (isFvWordLocationCombo(item)) {
+                return item.entry.entryID === example.id;
+              }
+            });
             if (term === undefined) {
               return null;
             }
@@ -258,31 +274,26 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
         {!loading &&
           dataDict
             ?.filter((term) => {
-              if (term.entry && term.location) {
-                return (term.entry as any).word.startsWith(
-                  selected?.title ?? ''
-                );
+              if (isFvWordLocationCombo(term)) {
+                return term.entry.word.startsWith(selected?.title ?? '');
               }
               return term.word.startsWith(selected?.title ?? '');
             })
             .sort((a, b) => {
-              if (a.entry && b.entry) {
-                return getAlphabetSort(
-                  (a.entry as any).word,
-                  (b.entry as any).word,
-                  1
-                );
+              if (isFvWordLocationCombo(a) && isFvWordLocationCombo(b)) {
+                return getAlphabetSort(a.entry.word, b.entry.word, 1);
               }
-              return getAlphabetSort(a.word, b.word, 1);
+              if (isFvWord(a) && isFvWord(b)) {
+                return getAlphabetSort(a.word, b.word, 1);
+              }
+              return 0;
             })
             .map((term) => {
               return (
                 <Fragment
                   key={
-                    term.entry
-                      ? `${(term.entry as any).source}-${
-                          (term.entry as any).entryID
-                        }`
+                    isFvWordLocationCombo(term)
+                      ? `${term.entry.source}-${term.entry.entryID}`
                       : `${term.source}-${term.entryID}`
                   }
                 >
@@ -312,17 +323,34 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
     // that start with the selected letter.
     dataDict
       .filter((term) => {
-        return term.word.startsWith(selected?.title ?? '');
+        if (isFvWord(term)) {
+          return term.word.startsWith(selected?.title ?? '');
+        }
+        if (isFvWordLocationCombo(term)) {
+          return term.entry.word.startsWith(selected?.title ?? '');
+        }
       })
       .forEach((term) => {
-        // Get the image associated with the word/phrase.
-        if (term.img) {
-          mediaList.add(term.img);
+        if (isFvWord(term)) {
+          // Get the image associated with the word/phrase.
+          if (term.img) {
+            mediaList.add(term.img);
+          }
+          // Get all of the audio files associated with the word/phrase.
+          term.audio?.forEach((audio: Audio1) => {
+            mediaList.add(audio.filename);
+          });
         }
-        // Get all of the audio files associated with the word/phrase.
-        term.audio?.forEach((audio: Audio1) => {
-          mediaList.add(audio.filename);
-        });
+        if (isFvWordLocationCombo(term)) {
+          // Get the image associated with the word/phrase.
+          if (term.entry.img) {
+            mediaList.add(term.entry.img);
+          }
+          // Get all of the audio files associated with the word/phrase.
+          term.entry.audio?.forEach((audio: Audio1) => {
+            mediaList.add(audio.filename);
+          });
+        }
       });
 
     // If there is media to download get it and update the percentage.

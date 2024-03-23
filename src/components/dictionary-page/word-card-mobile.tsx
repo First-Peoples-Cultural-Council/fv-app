@@ -1,15 +1,30 @@
 import { useLocation } from 'react-router-dom';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import WordModal from './word-modal';
-import { FvWord, FvWordLocation } from '../common/data';
+import {
+  FvWord,
+  FvWordLocation,
+  FvWordLocationCombo,
+  isFvWord,
+  isFvWordLocationCombo,
+} from '../common/data';
 import { useModal } from '../common/use-modal/use-modal';
-import { useEffect } from 'react';
+import { Key, useEffect } from 'react';
 import { useAudio } from '../contexts/audioContext';
 import { applyHighlighting } from '../../util/applyHighlighting';
 
-function WordCardMobile(props: { item: FvWord }) {
+function WordCardMobile(props: { item: FvWord | FvWordLocationCombo }) {
   const { item } = props;
-  const term = (item.entry ? item.entry : item) as FvWord;
+  let term: any = {};
+  if (isFvWord(item)) {
+    term = item;
+  }
+
+  let wordLocations = null;
+  if (isFvWordLocationCombo(item)) {
+    term = item.entry;
+    wordLocations = item.locations;
+  }
   const location = useLocation();
   const { setShowModal, showModal, closeModal } = useModal();
   const { word, definition, audio } = term;
@@ -37,23 +52,19 @@ function WordCardMobile(props: { item: FvWord }) {
           <div className="col-span-8">
             <div>
               <h1 className="font-bold">
-                {applyHighlighting(
-                  word,
-                  item.location as FvWordLocation[] | null,
-                  'word'
-                )}
+                {wordLocations
+                  ? applyHighlighting(word, wordLocations, 'word')
+                  : word}
               </h1>
             </div>
             <h1 className="truncate">
-              {applyHighlighting(
-                definition,
-                item.location as FvWordLocation[] | null,
-                'definition'
-              )}
+              {wordLocations
+                ? applyHighlighting(definition, wordLocations, 'definition')
+                : definition}
             </h1>
           </div>
           <div className="self-center col-span-1">
-            {audio?.map((fvAudio) => (
+            {audio?.map((fvAudio: { filename: Key | null | undefined }) => (
               <i key={fvAudio.filename} className="fv-volume-up" />
             ))}
           </div>

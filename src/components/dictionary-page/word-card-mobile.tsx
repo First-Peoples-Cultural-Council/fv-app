@@ -1,13 +1,31 @@
 import { useLocation } from 'react-router-dom';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import WordModal from './word-modal';
-import { FvWord } from '../common/data';
+import {
+  FvWord,
+  FvWordLocationCombo,
+  isFvWord,
+  isFvWordLocationCombo,
+} from '../common/data';
 import { useModal } from '../common/use-modal/use-modal';
-import { useEffect } from 'react';
+import { Key, useEffect } from 'react';
 import { useAudio } from '../contexts/audioContext';
+import { applyHighlighting } from '../../util/applyHighlighting';
 
-function WordCardMobile(props: { term: FvWord }) {
-  const { term } = props;
+function WordCardMobile(
+  props: Readonly<{ item: FvWord | FvWordLocationCombo }>
+) {
+  const { item } = props;
+  let term: any = {};
+  if (isFvWord(item)) {
+    term = item;
+  }
+
+  let wordLocations = null;
+  if (isFvWordLocationCombo(item)) {
+    term = item.entry;
+    wordLocations = item.locations;
+  }
   const location = useLocation();
   const { setShowModal, showModal, closeModal } = useModal();
   const { word, definition, audio } = term;
@@ -34,12 +52,20 @@ function WordCardMobile(props: { term: FvWord }) {
         <div className="grid grid-cols-10 gap-4">
           <div className="col-span-8">
             <div>
-              <h1 className="font-bold">{word}</h1>
+              <h1 className="font-bold">
+                {wordLocations
+                  ? applyHighlighting(word, wordLocations, 'word')
+                  : word}
+              </h1>
             </div>
-            <h1 className="truncate">{definition}</h1>
+            <h1 className="truncate">
+              {wordLocations
+                ? applyHighlighting(definition, wordLocations, 'definition')
+                : definition}
+            </h1>
           </div>
           <div className="self-center col-span-1">
-            {audio?.map((fvAudio) => (
+            {audio?.map((fvAudio: { filename: Key | null | undefined }) => (
               <i key={fvAudio.filename} className="fv-volume-up" />
             ))}
           </div>

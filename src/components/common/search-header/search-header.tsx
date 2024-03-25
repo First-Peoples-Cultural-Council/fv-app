@@ -2,6 +2,7 @@ import SearchInput from '../search-input/search-input';
 import { useContext, useEffect, useState } from 'react';
 import { SearchContext } from '../../search-provider';
 import { sortResults, Result, MTDSearch } from '@mothertongues/search';
+import { FvWord, FvWordLocation } from '../data';
 
 export interface SearchHeaderProps {
   searchMatchRef: HTMLDivElement | null;
@@ -9,7 +10,7 @@ export interface SearchHeaderProps {
   backgroundColors: { to: string; from: string };
   setSearchEntries: (entries: {
     rawSearchQuery: string;
-    entries: any[];
+    entries: { entry: FvWord; locations: FvWordLocation[] }[];
   }) => void;
   shouldShowSearch?: boolean;
 }
@@ -53,12 +54,12 @@ export function SearchHeader({
       //  - The Okapi BM25 Score (float)
 
       const entries = allResults.map((result: Result) => {
-        return search.entriesHash[result[1]];
+        return { entry: search.entriesHash[result[1]], locations: result[2] };
       });
 
       setSearchEntries({ rawSearchQuery, entries });
 
-      search.updateAllResults(entries);
+      search.updateAllResults(entries.map((entry) => entry));
     } else {
       setSearchEntries({ rawSearchQuery: '', entries: [] });
     }

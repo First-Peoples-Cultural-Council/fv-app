@@ -5,12 +5,13 @@ import {
   MTDSearch,
 } from '@mothertongues/search';
 import { fetchWordsData } from '../services/wordsApiService';
+import { FvWordLocationCombo } from './common/data';
 
 type SearchContextType = {
   searchers: MTDSearch[];
   entriesHash: { [p: string]: DictionaryEntryExportFormat };
   allResults: DictionaryEntryExportFormat[];
-  updateAllResults: (newResults: DictionaryEntryExportFormat[]) => void;
+  updateAllResults: (newResults: FvWordLocationCombo[]) => void;
 } | null;
 
 const getSearch = async () => {
@@ -68,7 +69,7 @@ export const SearchProvider = ({ children }: SearchProviderProps) => {
     };
 
     getSearchValue().then((value) => {
-      setSearchValue(value);
+      setSearchValue(value as unknown as SearchContextType);
     });
   }, [allResults, entriesHash]);
 

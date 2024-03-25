@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import WordCardMobile from '../dictionary-page/word-card-mobile';
 import WordCardDesktop from '../dictionary-page/word-card-desktop';
-import { DictionaryType, FvWord } from '../common/data';
+import { DictionaryType, FvWord, isFvWordLocationCombo } from '../common/data';
 import MultiSwitch from '../common/multi-switch/multi-switch';
 import { useOutletContext } from 'react-router-dom';
 import fetchWordsData from '../../services/wordsApiService';
@@ -72,11 +72,25 @@ export function DictionaryView(props: WordsViewProps) {
     setVisibleItems(250);
     switch (selected) {
       case DictionaryType.Words: {
-        setData(dataDict.filter((entry) => entry.source === 'words'));
+        setData(
+          dataDict.filter(
+            (entry) =>
+              (isFvWordLocationCombo(entry)
+                ? entry.entry.source
+                : entry.source) === 'words'
+          )
+        );
         break;
       }
       case DictionaryType.Phrases: {
-        setData(dataDict.filter((entry) => entry.source === 'phrases'));
+        setData(
+          dataDict.filter(
+            (entry) =>
+              (isFvWordLocationCombo(entry)
+                ? entry.entry.source
+                : entry.source) === 'phrases'
+          )
+        );
         break;
       }
       default: {
@@ -87,7 +101,7 @@ export function DictionaryView(props: WordsViewProps) {
   }, [selected, dataDict]);
 
   useEffect(() => {
-    if (searchContext?.allResults) {
+    if (searchContext?.allResults && searchContext.allResults.length > 0) {
       setDataDict(searchContext.allResults);
     }
   }, [searchContext?.allResults]);
@@ -113,15 +127,18 @@ export function DictionaryView(props: WordsViewProps) {
       >
         {loading && <LoadingSpinner />}
         {!loading &&
-          data?.slice(0, visibleItems).map((term, _) => (
-            <div
-              key={`${term.source}-${term.entryID}`}
-              id={`${term.source}-${term.entryID}`}
-            >
-              <WordCardMobile term={term} />
-              <WordCardDesktop term={term} wordWidthClass="w-80" />
-            </div>
-          ))}{' '}
+          data?.slice(0, visibleItems).map((item, _) => {
+            const term = item.entry ? (item.entry as FvWord) : item;
+            return (
+              <div
+                key={`${term.source}-${term.entryID}`}
+                id={`${term.source}-${term.entryID}`}
+              >
+                <WordCardMobile item={item} />
+                <WordCardDesktop item={item} wordWidthClass="w-80" />
+              </div>
+            );
+          })}{' '}
       </div>
     </div>
   );

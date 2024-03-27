@@ -25,6 +25,7 @@ jobs:
     #   run: npx playwright test
     - name: Set variables
       run: |
+        rm -rf .env
         touch .env
         ls -a
         printf "%s\n" "REACT_APP_VERSION_NUMBER=\"${{vars.REACT_APP_VERSION_NUMBER}}\"" >> .env 

@@ -7,7 +7,7 @@ $ npm install
 ```
 
 ## Configure env
-> Rename ```.env.example``` to ```.env``` and inside of that update ```REACT_APP_API_URL``` and ```REACT_APP_API_SITE``` to the api that will be used.
+> The ```.env``` in the repo is just for local development its not used in deployment, the deployment ```.env``` is generated during the pipeline build. If the ```.env``` parameters needs to be updated for any of the deployment please do it using github secrets.
 
 ## Run Dev Server
 

@@ -30,7 +30,9 @@ export function Header({
         )}
       >
         <div>
-          <img src={FVLogo} alt="First Voices Logo" />
+          <Link to="/">
+            <img src={FVLogo} alt="First Voices Logo" />
+          </Link>
         </div>
         <nav>
           <ul className="flex">

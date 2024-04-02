@@ -30,7 +30,7 @@ export function Header({
         )}
       >
         <div>
-          <Link to="/">
+          <Link to="/alphabet">
             <img src={FVLogo} alt="First Voices Logo" />
           </Link>
         </div>

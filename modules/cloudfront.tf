@@ -10,7 +10,7 @@ resource "aws_cloudfront_distribution" "this" {
   aliases             = local.has_domain ? local.cloudfront_aliases : []
 
   dynamic "logging_config" {
-    for_each = for_dynamic_blocks
+    for_each = local.for_dynamic_blocks
     content{
       bucket          = aws_s3_bucket.logs[0].bucket_domain_name
       prefix          = "cnd/"

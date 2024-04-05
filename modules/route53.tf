@@ -1,5 +1,5 @@
 data "aws_route53_zone" "this" {
-  count = (local.has_domain && (local.local_env_name.env_name == "prod")) ? 1 : 0
+  count = (local.has_domain && (local.local_env_name == "prod")) ? 1 : 0
 
   name = "${var.domain}."
 }

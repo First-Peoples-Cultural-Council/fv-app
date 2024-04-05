@@ -17,7 +17,7 @@ data "aws_iam_policy_document" "s3_allow_access_from_cf" {
 }
 
 resource "aws_s3_bucket" "logs" {
-  count         = (local.local_env_name.env_name == "prod") ? 1 : 0
+  count         = (local.local_env_name == "prod") ? 1 : 0
   bucket        = "${var.application_name}-logs"
   force_destroy = !local.has_domain
 
@@ -25,7 +25,7 @@ resource "aws_s3_bucket" "logs" {
 }
 
 resource "aws_s3_bucket_acl" "acl_logs" {
-  count  = (local.local_env_name.env_name == "prod") ? 1 : 0
+  count  = (local.local_env_name == "prod") ? 1 : 0
   bucket = aws_s3_bucket.logs[0].id
   acl    = "log-delivery-write"
 
@@ -33,7 +33,7 @@ resource "aws_s3_bucket_acl" "acl_logs" {
 }
 
 resource "aws_s3_bucket_ownership_controls" "s3_logs_bucket_acl_ownership" {
-  count  = (local.local_env_name.env_name == "prod") ? 1 : 0
+  count  = (local.local_env_name == "prod") ? 1 : 0
   bucket = aws_s3_bucket.logs[0].id
   rule {
     object_ownership = "BucketOwnerPreferred"
@@ -90,7 +90,7 @@ resource "aws_s3_bucket_website_configuration" "bucket_website_configuration" {
 }
 
 resource "aws_s3_bucket_logging" "logging" {
-  count  = (local.local_env_name.env_name == "prod") ? 1 : 0
+  count  = (local.local_env_name == "prod") ? 1 : 0
   bucket = aws_s3_bucket.website.id
 
   target_bucket = aws_s3_bucket.logs[0].id

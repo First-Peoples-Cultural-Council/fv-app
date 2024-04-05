@@ -28,8 +28,8 @@ jobs:
     - name: Set variables
       run: |
         rm -rf .env
-        rm -rf prod-terraform.tf
-        mv pre-prod-terraform.tf terraform.tf
+        rm -rf modules/prod-terraform.tf
+        mv modules/pre-prod-terraform.tf modules/terraform.tf
         touch .env
         ls -a
         printf "%s\n" "REACT_APP_VERSION_NUMBER=\"${{vars.REACT_APP_VERSION_NUMBER}}\"" >> .env 

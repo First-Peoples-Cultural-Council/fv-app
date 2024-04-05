@@ -1,13 +1,8 @@
-name: Fv-Apps
+name: Fv-Apps-Prod
 on:
   push:
-    branches:
-      - main
     tags:
       - 'r-*'
-  pull_request:
-    branches:
-      - main
 jobs:
   test:
     environment: prod
@@ -30,6 +25,8 @@ jobs:
     - name: Set variables
       run: |
         rm -rf .env
+        rm -rf pre-prod-terraform.tf
+        mv prod-terraform.tf terraform.tf
         touch .env
         ls -a
         printf "%s\n" "REACT_APP_VERSION_NUMBER=\"${{vars.REACT_APP_VERSION_NUMBER}}\"" >> .env 

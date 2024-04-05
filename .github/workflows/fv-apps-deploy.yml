@@ -1,9 +1,13 @@
 name: Fv-Apps
 on:
   push:
-    branches: [ main, develop ]
+    branches:
+      - main
+    tags:
+      - 'r-*'
   pull_request:
-    branches: [ main, develop ]
+    branches:
+      - main
 jobs:
   test:
     environment: prod

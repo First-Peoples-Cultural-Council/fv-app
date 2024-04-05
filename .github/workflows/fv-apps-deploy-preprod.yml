@@ -28,8 +28,6 @@ jobs:
     - name: Set variables
       run: |
         rm -rf .env
-        rm -rf modules/prod-terraform.tf
-        mv modules/pre-prod-terraform.tf modules/terraform.tf
         touch .env
         ls -a
         printf "%s\n" "REACT_APP_VERSION_NUMBER=\"${{vars.REACT_APP_VERSION_NUMBER}}\"" >> .env 
@@ -74,12 +72,14 @@ jobs:
           path: downloads/
       - name: Check directory files
         run: |
-         ls
-         mv downloads/* modules/
-         cd modules
-         cd build
-         ls
-         cd ../..
+          rm -rf modules/prod-terraform.tf
+          mv modules/pre-prod-terraform.tf modules/terraform.tf
+          ls
+          mv downloads/* modules/
+          cd modules
+          cd build
+          ls
+          cd ../..
       - name: Terraform plan
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.FPCC_AWS_ACCESS_KEY_ID }}
@@ -106,13 +106,15 @@ jobs:
           path: downloads/
       - name: Check directory files
         run: |
-         ls
-         mv downloads/* modules/
-         cd modules
-         ls
-         cd build
-         ls
-         cd ../..
+          rm -rf modules/prod-terraform.tf
+          mv modules/pre-prod-terraform.tf modules/terraform.tf
+          ls
+          mv downloads/* modules/
+          cd modules
+          ls
+          cd build
+          ls
+          cd ../..
       - name: Terraform plan and apply
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.FPCC_AWS_ACCESS_KEY_ID }}

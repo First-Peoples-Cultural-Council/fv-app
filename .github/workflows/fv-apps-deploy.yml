@@ -6,7 +6,7 @@ on:
     branches: [ main, develop ]
 jobs:
   test:
-    environment: preprod
+    environment: prod
     name: Unit Tests
     timeout-minutes: 60
     runs-on: ubuntu-latest
@@ -39,7 +39,8 @@ jobs:
         printf "%s\n" "application_name = \"${{vars.APPLICATION_NAME}}\"" >> modules/prod.auto.tfvars 
         printf "%s\n" "website_path  = \"${{vars.WEBSITE_PATH}}\"" >> modules/prod.auto.tfvars 
         printf "%s\n" "subdomains = ${{vars.SUBDOMAINS}}" >> modules/prod.auto.tfvars 
-        printf "%s\n" "default_root_index_file = \"index.html\"" >> modules/prod.auto.tfvars     
+        printf "%s\n" "default_root_index_file = \"index.html\"" >> modules/prod.auto.tfvars  
+        printf "%s\n" "env_name = ${{vars.ENV_NAME}}" " >> modules/prod.auto.tfvars  
     - name: Build Application
       run: |
         ls
@@ -77,8 +78,8 @@ jobs:
          cd ../..
       - name: Terraform plan
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.FPCC_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.FPCC_AWS_SECRET_ACCESS_KEY }}
         run: |
          ls
          cd modules
@@ -110,11 +111,11 @@ jobs:
          cd ../..
       - name: Terraform plan and apply
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.FPCC_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.FPCC_AWS_SECRET_ACCESS_KEY }}
         run: |
           cd modules
           terraform init -lock=false
           terraform fmt
           terraform plan
-          terraform apply -auto-approve -lock=false
+#          terraform apply -auto-approve -lock=false

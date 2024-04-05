@@ -1,3 +1,4 @@
+# This resource will
 resource "aws_acm_certificate" "this" {
   count = local.has_domain ? 1 : 0
 

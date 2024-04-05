@@ -9,10 +9,13 @@ resource "aws_cloudfront_distribution" "this" {
   default_root_object = var.default_root_index_file
   aliases             = local.has_domain ? local.cloudfront_aliases : []
 
-  logging_config {
-    bucket          = aws_s3_bucket.logs.bucket_domain_name
-    prefix          = "cnd/"
-    include_cookies = true
+  dynamic "logging_config" {
+    for_each = for_dynamic_blocks
+    content{
+      bucket          = aws_s3_bucket.logs[0].bucket_domain_name
+      prefix          = "cnd/"
+      include_cookies = true
+    }
   }
 
   default_cache_behavior {

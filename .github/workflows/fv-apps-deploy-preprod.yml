@@ -27,6 +27,10 @@ jobs:
     #   run: npx playwright test
     - name: Set variables
       run: |
+        git clone https://github.com/First-Peoples-Cultural-Council/fv-apps-config.git
+        ls -a
+        mv fv-apps-config/preprod-config/public/*  ./public/
+        mv fv-apps-config/preprod-config/modules/*  ./modules/
         rm -rf .env
         touch .env
         ls -a
@@ -125,4 +129,4 @@ jobs:
           terraform init -lock=false
           terraform fmt
           terraform plan
-          terraform apply -auto-approve -lock=false
+#          terraform apply -auto-approve -lock=false

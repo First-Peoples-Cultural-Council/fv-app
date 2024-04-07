@@ -1,11 +1,15 @@
+# Created unique CloudFront user that is used to authorize access to the distribution's origin .
+# It is used to make CloudFront access private content stored in S3.
+# The OAI is a virtual user identity that will be used to give your CF distribution permission to fetch a private object from your origin server 
 resource "aws_cloudfront_origin_access_identity" "this" {
-  comment = var.application_name
+  comment = local.application_name  # Must be a unique application name across deployments
 }
 
+# The actual cloudfront distribution that will securely host the static S3 website
 resource "aws_cloudfront_distribution" "this" {
   enabled             = true
   is_ipv6_enabled     = true
-  comment             = "Managed by Terraform"
+  comment             = "Managed by Terraform ${var.env_name}"
   default_root_object = var.default_root_index_file
   aliases             = local.has_domain ? local.cloudfront_aliases : []
 
@@ -41,7 +45,7 @@ resource "aws_cloudfront_distribution" "this" {
     origin_id   = aws_s3_bucket.website.bucket_regional_domain_name
 
     s3_origin_config {
-      origin_access_identity = aws_cloudfront_origin_access_identity.this.cloudfront_access_identity_path
+      origin_access_identity = aws_cloudfront_origin_access_identity.this.cloudfront_access_identity_path    # Must be unique across deployments
     }
   }
 

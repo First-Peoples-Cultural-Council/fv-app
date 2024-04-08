@@ -59,7 +59,7 @@ jobs:
         ls
         npm run build
         mkdir uploads 
-        mv modules/pre-prod.auto.tfvars uploads/pre-prod.auto.tfvars
+        mv modules/* uploads/
         mv build uploads/build
     - name: Run Tests
       run: npm test
@@ -84,6 +84,7 @@ jobs:
           path: downloads/
       - name: Check directory files
         run: |
+          cd modules; ls -a; cd ..
           rm -rf modules/prod-terraform.tf
           mv modules/pre-prod-terraform.tf modules/terraform.tf
           ls

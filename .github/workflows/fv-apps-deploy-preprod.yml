@@ -23,14 +23,6 @@ jobs:
         ref: main
         repository: First-Peoples-Cultural-Council/fv-apps-config
         token: ${{ secrets.PULL_CONFIG_SECRET }}
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-    - name: Start server in background
-      run: npm run start & sleep 10
-    # - name: Run Playwright tests
-    #   run: npx playwright test
     - name: Set variables
       run: |
         ls -a
@@ -51,7 +43,15 @@ jobs:
         printf "%s\n" "website_path  = \"${{vars.WEBSITE_PATH}}\"" >> modules/pre-prod.auto.tfvars 
         printf "%s\n" "subdomains = ${{vars.SUBDOMAINS}}" >> modules/pre-prod.auto.tfvars 
         printf "%s\n" "default_root_index_file = \"index.html\"" >> modules/pre-prod.auto.tfvars
-        printf "%s\n" "env_name = \"${{vars.ENV_NAME}}\"" >> modules/pre-prod.auto.tfvars  
+        printf "%s\n" "env_name = \"${{vars.ENV_NAME}}\"" >> modules/pre-prod.auto.tfvars
+        - name: Install dependencies
+        run: npm ci
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+    - name: Start server in background
+      run: npm run start & sleep 10
+      # - name: Run Playwright tests
+      #   run: npx playwright test
     - name: Build Application
       run: |
         ls

@@ -26,8 +26,8 @@ jobs:
     - name: Set variables
       run: |
         ls -a; cd ..; ls -a
-        mv ../fv-apps-config/preprod-config/public/*  ./public/
-        mv ../fv-apps-config/preprod-config/modules/*  ./modules/
+        mv ../preprod-config/public/*  ./public/
+        mv ../preprod-config/modules/*  ./modules/
         rm -rf .env
         touch .env
         ls -a
@@ -44,6 +44,7 @@ jobs:
         printf "%s\n" "subdomains = ${{vars.SUBDOMAINS}}" >> modules/pre-prod.auto.tfvars 
         printf "%s\n" "default_root_index_file = \"index.html\"" >> modules/pre-prod.auto.tfvars
         printf "%s\n" "env_name = \"${{vars.ENV_NAME}}\"" >> modules/pre-prod.auto.tfvars
+      working-directory: ../fv-app
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers

@@ -14,8 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Publish
-      run: ls -a; cd ..; ls -a
     - uses: actions/setup-node@v3
       with:
         node-version: 16
@@ -25,15 +23,11 @@ jobs:
         ref: main
         repository: First-Peoples-Cultural-Council/fv-apps-config
         token: ${{ secrets.PULL_CONFIG_SECRET }}
-    - name: Publish
-      run: ls -a; cd ..; ls -a
-      working-directory: ../fv-apps-config
     - name: Set variables
       run: |
-        cd ..
-        ls -a
-        mv fv-apps-config/preprod-config/public/*  ./public/
-        mv fv-apps-config/preprod-config/modules/*  ./modules/
+        ls -a; cd ..; ls -a
+        mv ../fv-apps-config/preprod-config/public/*  ./public/
+        mv ../fv-apps-config/preprod-config/modules/*  ./modules/
         rm -rf .env
         touch .env
         ls -a
@@ -50,8 +44,9 @@ jobs:
         printf "%s\n" "subdomains = ${{vars.SUBDOMAINS}}" >> modules/pre-prod.auto.tfvars 
         printf "%s\n" "default_root_index_file = \"index.html\"" >> modules/pre-prod.auto.tfvars
         printf "%s\n" "env_name = \"${{vars.ENV_NAME}}\"" >> modules/pre-prod.auto.tfvars
-        - name: Install dependencies
-        run: npm ci
+      working-directory: ./fv-apps
+    - name: Install dependencies
+      run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Start server in background

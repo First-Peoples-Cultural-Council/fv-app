@@ -26,7 +26,7 @@ jobs:
         path: fv-apps-config
     - name: Set variables
       run: |
-       mkdir modules
+        mkdir modules
         ls -a;
         mv ./fv-apps-config/preprod-config/public/*  ./public/
         mv ./fv-apps-config/preprod-config/modules/*  ./modules/
@@ -76,20 +76,19 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3
       - uses: actions/download-artifact@v3
         with:
           name: uploads
           path: downloads/
       - name: Check directory files
         run: |
-          cd modules; ls -a; cd ..
+          ls
+          mkdir modules
+          mv downloads/* modules/
           rm -rf modules/prod-terraform.tf
           mv modules/pre-prod-terraform.tf modules/terraform.tf
-          ls
-          mv downloads/* modules/
           cd modules
+          ls
           cd build
           ls
           cd ../..
@@ -111,18 +110,17 @@ jobs:
     needs: inspect_changes
     if: github.ref == 'refs/heads/main'
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3
       - uses: actions/download-artifact@v3
         with:
           name: uploads
           path: downloads/
       - name: Check directory files
         run: |
+          ls
+          mkdir modules
+          mv downloads/* modules/
           rm -rf modules/prod-terraform.tf
           mv modules/pre-prod-terraform.tf modules/terraform.tf
-          ls
-          mv downloads/* modules/
           cd modules
           ls
           cd build

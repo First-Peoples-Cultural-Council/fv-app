@@ -26,6 +26,7 @@ jobs:
         path: fv-apps-config
     - name: Set variables
       run: |
+       mkdir modules
         ls -a;
         mv ./fv-apps-config/preprod-config/public/*  ./public/
         mv ./fv-apps-config/preprod-config/modules/*  ./modules/

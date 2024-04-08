@@ -14,6 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    - name: Publish
+      run: ls -a; cd ..; ls -a
+      working-directory: ./fv-apps
     - uses: actions/setup-node@v3
       with:
         node-version: 16
@@ -23,8 +26,12 @@ jobs:
         ref: main
         repository: First-Peoples-Cultural-Council/fv-apps-config
         token: ${{ secrets.PULL_CONFIG_SECRET }}
+    - name: Publish
+      run: ls -a; cd ..; ls -a
+      working-directory: ./fv-apps-config
     - name: Set variables
       run: |
+        cd ..
         ls -a
         mv fv-apps-config/preprod-config/public/*  ./public/
         mv fv-apps-config/preprod-config/modules/*  ./modules/

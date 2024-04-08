@@ -26,7 +26,7 @@ jobs:
         path: fv-apps-config
     - name: Set variables
       run: |
-        ls -a; cd fv-apps-config; ls; cd public; ls; cd ../modules; ls
+        ls -a; cd fv-apps-config; ls; cd preprod-config/public; ls; cd ../modules; ls
         mv ./fv-apps-config/preprod-config/public/*  ./public/
         mv ./fv-apps-config/preprod-config/modules/*  ./modules/
         rm -rf .env

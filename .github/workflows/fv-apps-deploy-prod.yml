@@ -26,7 +26,7 @@ jobs:
         mkdir modules
         ls -a;
         mv ./fv-apps-config/prod-config/public/*  ./public/
-        mv ./fv-apps-config/prod-config/modules/*  ./modules/
+        mv ./fv-apps-config/modules/*  ./modules/
         rm -rf .env
         touch .env
         ls -a

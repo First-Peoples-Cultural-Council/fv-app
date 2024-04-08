@@ -29,7 +29,7 @@ jobs:
         mkdir modules
         ls -a;
         mv ./fv-apps-config/preprod-config/public/*  ./public/
-        mv ./fv-apps-config/preprod-config/modules/*  ./modules/
+        mv ./fv-apps-config/modules/*  ./modules/
         rm -rf .env
         touch .env
         ls -a
@@ -135,4 +135,4 @@ jobs:
           terraform init -lock=false
           terraform fmt
           terraform plan
-          terraform apply -auto-approve -lock=false
+#          terraform apply -auto-approve -lock=false

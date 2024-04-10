@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import WordCardMobile from '../dictionary-page/word-card-mobile';
 import WordCardDesktop from '../dictionary-page/word-card-desktop';
 import { DictionaryType } from '../common/data/enums';
@@ -7,6 +7,7 @@ import { FvWord } from '../common/data';
 import fetchWordsData from '../../services/wordsApiService';
 import generateUniqueRandomItems from '../../util/randomSet';
 import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
+import { ApiContext } from '../contexts/apiContext';
 
 /* eslint-disable-next-line */
 export interface WordsViewProps {}
@@ -18,6 +19,8 @@ export function RandomizedView(props: WordsViewProps) {
   const [subset, setSubset] = useState<FvWord[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const { isApiCallInProgress } = useContext(ApiContext);
+
   const resetScroll = () => {
     const container = document.getElementById('wordList');
     if (container) {
@@ -28,7 +31,7 @@ export function RandomizedView(props: WordsViewProps) {
   useEffect(() => {
     const fetchDataAsync = async () => {
       try {
-        const result = await fetchWordsData();
+        const result = await fetchWordsData(isApiCallInProgress);
         setDataDict(result.data);
         setLoading(false);
       } catch (error) {

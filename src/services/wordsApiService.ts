@@ -4,87 +4,122 @@ import axios from 'axios';
 import IndexedDBService from './indexedDbService';
 import { MTDExportFormat } from '@mothertongues/search/src/lib/mtd';
 import isDateOlderThen from '../util/isDateOlderThen';
+import { MutableRefObject } from 'react';
 
 const db = new IndexedDBService('firstVoicesIndexedDb');
 
-export const fetchWordsData = async (): Promise<MTDExportFormat> => {
+const noData: MTDExportFormat = {
+  data: [],
+  config: {
+    L1: 'English',
+    L2: 'English',
+    build: '0',
+    credits: null,
+    alphabet: [],
+    l1_stemmer: 'none',
+    l2_stemmer: 'snowball_english',
+    l1_search_config: {
+      deletionCost: 1.0,
+      insertionCost: 1.0,
+      deletionAtEndCost: 1.0,
+      substitutionCosts: {},
+      substitutionCostsPath: null,
+      defaultSubstitutionCost: 1.0,
+      insertionAtBeginningCost: 1.0,
+    },
+    l2_search_config: null,
+    l1_search_strategy: 'weighted_levenstein',
+    l2_search_strategy: 'liblevenstein_automata',
+    optional_field_name: 'Optional Field',
+    l1_normalization_transducer: {
+      lower: true,
+      replace_rules: null,
+      remove_punctuation: "[.,/#!$%^&?*';:{}=\\-_`~()]",
+      unicode_normalization: 'NFC',
+      remove_combining_characters: true,
+    },
+    l2_normalization_transducer: {
+      lower: true,
+      replace_rules: null,
+      remove_punctuation: "[.,/#!$%^&?*';:{}=\\-_`~()]",
+      unicode_normalization: 'NFC',
+      remove_combining_characters: true,
+    },
+  },
+  l1_index: {},
+  l2_index: {},
+};
+
+export const fetchWordsData = async (isApiCallInProgress: MutableRefObject<boolean> | null): Promise<MTDExportFormat> => {
   try {
-    let url: string = `${
-      process.env.REACT_APP_BASE_API_URL
-    }/sites/${getCurrentDialect()}/mtd-data`;
+    console.log('--- Getting Data');
+    debugger
+    if (isApiCallInProgress) {
+      console.log('### API Call In Progress');
+      return new Promise((resolve) => {
+        const interval = setInterval(async () => {
+          console.log('!!! API Call In Progress');
+          if (isApiCallInProgress.current !== true) {
+            console.log('@@@ Waiting For API Call Done');
+            clearInterval(interval);
 
-    // Check the database to see if there is already data in there.
-    const dbData = await db.getData('words');
+            // Check the database to see if there is already data in there.
+            const dbData = await db.getData('words');
 
-    if (dbData) {
-      // Check to see if we need to update the data.
-      if (isDateOlderThen(dbData.timestamp, 1)) {
-        Promise.resolve().then(async () => {
-          // Refresh the data without waiting
-          getData(url, 'words');
-        });
+            isApiCallInProgress.current = false
+            if (dbData) {
+              resolve(dbData.data);
+            } else {
+              resolve(noData);
+            }
+          }
+        }, 100); // Check every 100ms for completion
+      });
+    } else {
+      isApiCallInProgress!.current = true;
+
+      let url: string = `${
+        process.env.REACT_APP_BASE_API_URL
+      }/sites/${getCurrentDialect()}/mtd-data`;
+
+      // Check the database to see if there is already data in there.
+      const dbData = await db.getData('words');
+
+      if (dbData) {
+        // Check to see if we need to update the data.
+        if (isDateOlderThen(dbData.timestamp, 1)) {
+          Promise.resolve().then(async () => {
+            // Refresh the data without waiting
+            getData(url);
+          });
+        }
+
+        // Return the cached data.
+        isApiCallInProgress!.current = false;
+        return dbData.data;
       }
 
-      // Return the cached data.
-      return dbData.data;
+      const data = await getData(url);
+      isApiCallInProgress!.current = false;
+      return data;
     }
-
-    const data = await getData(url, 'words');
-    return data;
   } catch (error) {
+    console.log('=== Getting Data Error');
+    isApiCallInProgress!.current = false;
     console.error(
       `Failed to fetch data for the ${'words'} from the API`,
       error
     );
   }
 
-  return {
-    data: [],
-    config: {
-      L1: 'English',
-      L2: 'English',
-      build: '0',
-      credits: null,
-      alphabet: [],
-      l1_stemmer: 'none',
-      l2_stemmer: 'snowball_english',
-      l1_search_config: {
-        deletionCost: 1.0,
-        insertionCost: 1.0,
-        deletionAtEndCost: 1.0,
-        substitutionCosts: {},
-        substitutionCostsPath: null,
-        defaultSubstitutionCost: 1.0,
-        insertionAtBeginningCost: 1.0,
-      },
-      l2_search_config: null,
-      l1_search_strategy: 'weighted_levenstein',
-      l2_search_strategy: 'liblevenstein_automata',
-      optional_field_name: 'Optional Field',
-      l1_normalization_transducer: {
-        lower: true,
-        replace_rules: null,
-        remove_punctuation: "[.,/#!$%^&?*';:{}=\\-_`~()]",
-        unicode_normalization: 'NFC',
-        remove_combining_characters: true,
-      },
-      l2_normalization_transducer: {
-        lower: true,
-        replace_rules: null,
-        remove_punctuation: "[.,/#!$%^&?*';:{}=\\-_`~()]",
-        unicode_normalization: 'NFC',
-        remove_combining_characters: true,
-      },
-    },
-    l1_index: {},
-    l2_index: {},
-  };
+  return noData;
 };
 
 async function getData(
   url: string,
-  collection: string
 ): Promise<MTDExportFormat> {
+  console.log('+++ Getting Data from API');
+
   // If not in the database make API call to get it.
   const response = await axios.get(url);
   const mtdData: MTDExportFormat = response.data;

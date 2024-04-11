@@ -4,7 +4,6 @@ import axios from 'axios';
 import IndexedDBService from './indexedDbService';
 import { MTDExportFormat } from '@mothertongues/search/src/lib/mtd';
 import isDateOlderThen from '../util/isDateOlderThen';
-import { MutableRefObject } from 'react';
 
 const db = new IndexedDBService('firstVoicesIndexedDb');
 
@@ -50,23 +49,23 @@ const noData: MTDExportFormat = {
   l2_index: {},
 };
 
-export const fetchWordsData = async (isApiCallInProgress: MutableRefObject<boolean> | null): Promise<MTDExportFormat> => {
+export const fetchWordsData = async (
+  isApiCallInProgress: any
+): Promise<MTDExportFormat> => {
   try {
     console.log('--- Getting Data');
-    debugger
-    if (isApiCallInProgress) {
+    if (isApiCallInProgress.current) {
       console.log('### API Call In Progress');
       return new Promise((resolve) => {
         const interval = setInterval(async () => {
           console.log('!!! API Call In Progress');
-          if (isApiCallInProgress.current !== true) {
+          if (!isApiCallInProgress.current) {
             console.log('@@@ Waiting For API Call Done');
             clearInterval(interval);
 
             // Check the database to see if there is already data in there.
             const dbData = await db.getData('words');
 
-            isApiCallInProgress.current = false
             if (dbData) {
               resolve(dbData.data);
             } else {
@@ -76,7 +75,7 @@ export const fetchWordsData = async (isApiCallInProgress: MutableRefObject<boole
         }, 100); // Check every 100ms for completion
       });
     } else {
-      isApiCallInProgress!.current = true;
+      isApiCallInProgress.current = true;
 
       let url: string = `${
         process.env.REACT_APP_BASE_API_URL
@@ -95,12 +94,12 @@ export const fetchWordsData = async (isApiCallInProgress: MutableRefObject<boole
         }
 
         // Return the cached data.
-        isApiCallInProgress!.current = false;
+        isApiCallInProgress.current = false;
         return dbData.data;
       }
 
       const data = await getData(url);
-      isApiCallInProgress!.current = false;
+      isApiCallInProgress.current = false;
       return data;
     }
   } catch (error) {
@@ -115,9 +114,7 @@ export const fetchWordsData = async (isApiCallInProgress: MutableRefObject<boole
   return noData;
 };
 
-async function getData(
-  url: string,
-): Promise<MTDExportFormat> {
+async function getData(url: string): Promise<MTDExportFormat> {
   console.log('+++ Getting Data from API');
 
   // If not in the database make API call to get it.

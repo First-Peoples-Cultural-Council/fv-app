@@ -1,4 +1,11 @@
-import { ReactNode, createContext, useState, useEffect, useContext, MutableRefObject } from 'react';
+import {
+  ReactNode,
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+  MutableRefObject,
+} from 'react';
 import {
   constructSearchers,
   DictionaryEntryExportFormat,
@@ -15,12 +22,16 @@ type SearchContextType = {
   updateAllResults: (newResults: FvWordLocationCombo[]) => void;
 } | null;
 
-const getSearch = async (isApiCallInProgress: MutableRefObject<boolean> | null) => {
+const getSearch = async (
+  isApiCallInProgress: MutableRefObject<boolean> | null
+) => {
   const wordsData = await fetchWordsData(isApiCallInProgress);
   return constructSearchers(wordsData);
 };
 
-const getSearchHash = async (isApiCallInProgress: MutableRefObject<boolean> | null) => {
+const getSearchHash = async (
+  isApiCallInProgress: MutableRefObject<boolean> | null
+) => {
   // The endpoint just returns a list
   // But to quickly fetch items in the local data, we create a hash
   // with the entry IDs. Not sure if you'll want to create the hash here
@@ -54,7 +65,7 @@ export const SearchProvider = ({ children }: SearchProviderProps) => {
     getSearchHash(isApiCallInProgress).then((hash) => {
       setEntriesHash(hash);
     });
-  }, []);
+  }, [isApiCallInProgress]);
 
   const updateAllResults = (newResults: DictionaryEntryExportFormat[]) => {
     setAllResults(newResults);
@@ -74,7 +85,7 @@ export const SearchProvider = ({ children }: SearchProviderProps) => {
     getSearchValue().then((value) => {
       setSearchValue(value as unknown as SearchContextType);
     });
-  }, [allResults, entriesHash]);
+  }, [allResults, entriesHash, isApiCallInProgress]);
 
   return (
     <SearchContext.Provider value={searchValue}>

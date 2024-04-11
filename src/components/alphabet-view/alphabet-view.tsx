@@ -96,7 +96,11 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
       setDataDict(searchResults?.entries as DictionaryEntryExportFormat[]);
       setLoading(false);
     }
-  }, [searchResults?.rawSearchQuery, searchResults?.entries]);
+  }, [
+    searchResults?.rawSearchQuery,
+    searchResults?.entries,
+    isApiCallInProgress,
+  ]);
 
   useEffect(() => {
     if (showMobileWordList) {

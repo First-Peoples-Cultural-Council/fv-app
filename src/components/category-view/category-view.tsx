@@ -94,7 +94,7 @@ export function CategoryView(props: CategoryViewProps) {
     };
 
     fetchDataAsync();
-  }, []);
+  }, [isApiCallInProgress]);
 
   useEffect(() => {
     switch (selected) {

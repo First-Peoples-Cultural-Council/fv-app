@@ -73,7 +73,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
     };
 
     fetchDataAsync();
-  }, []);
+  }, [isApiCallInProgress]);
 
   useEffect(() => {
     const usersBookmarks = async () => {

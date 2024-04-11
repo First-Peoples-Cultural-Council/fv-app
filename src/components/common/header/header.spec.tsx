@@ -1,5 +1,4 @@
-import { render } from '@testing-library/react';
-
+import render from '../../../testingUtils/renderWithProviders';
 import Header from './header';
 
 describe('Header', () => {

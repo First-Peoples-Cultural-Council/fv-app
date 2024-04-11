@@ -1,19 +1,19 @@
-import { ReactNode, useState, createContext, Dispatch, SetStateAction, useRef, MutableRefObject } from 'react';
+import { ReactNode, createContext, useRef, MutableRefObject } from 'react';
 
 export type ApiContextType = {
-  isApiCallInProgress: MutableRefObject<boolean> | null,
+  isApiCallInProgress: MutableRefObject<boolean>;
 };
 
 export const ApiContext = createContext<ApiContextType>({
-  isApiCallInProgress: null,
+  isApiCallInProgress: { current: false },
 });
 
 export interface ApiProviderProps {
   children: ReactNode;
-};
+}
 
 export const ApiProvider = ({ children }: ApiProviderProps) => {
-  const isApiCallInProgress = useRef(false);
+  const isApiCallInProgress = useRef<boolean>(false);
 
   return (
     <ApiContext.Provider

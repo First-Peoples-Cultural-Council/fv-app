@@ -35,7 +35,7 @@ export function DictionaryView(props: WordsViewProps) {
     };
 
     fetchDataAsync();
-  }, []);
+  }, [isApiCallInProgress]);
 
   const handleScroll = () => {
     const windowHeight = window.innerHeight;

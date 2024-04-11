@@ -40,7 +40,7 @@ export function RandomizedView(props: WordsViewProps) {
     };
 
     fetchDataAsync();
-  }, []);
+  }, [isApiCallInProgress]);
 
   useEffect(() => {
     switch (selected) {

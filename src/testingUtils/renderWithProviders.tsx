@@ -1,16 +1,38 @@
 import { render } from '@testing-library/react';
+import { MemoryRouter as Router, Route, Routes } from 'react-router-dom';
+import {
+  ReactElement,
+  JSXElementConstructor,
+  ReactFragment,
+  ReactPortal,
+} from 'react';
 import SearchProvider from '../components/search-provider';
-import { RouterProvider, createMemoryRouter } from 'react-router-dom';
-import { routesConfig } from '../index';
+import { AudioProvider } from '../components/contexts/audioContext';
 
-export const renderWithProviders = (initialEntries: string[]) => {
-  const router = createMemoryRouter(routesConfig, {
-    initialEntries,
-  });
-
+const customRender = (
+  ui:
+    | string
+    | number
+    | boolean
+    | ReactElement<any, string | JSXElementConstructor<any>>
+    | ReactFragment
+    | ReactPortal
+    | null
+    | undefined,
+  options = {}
+) => {
   return render(
     <SearchProvider>
-      <RouterProvider router={router} />
-    </SearchProvider>
+      <AudioProvider>
+        <Router initialEntries={['/initial']}>
+          <Routes>
+            <Route path="/initial" element={ui} />
+          </Routes>
+        </Router>
+      </AudioProvider>
+    </SearchProvider>,
+    options
   );
-}
+};
+
+export default customRender;

@@ -53,14 +53,10 @@ export const fetchWordsData = async (
   isApiCallInProgress: any
 ): Promise<MTDExportFormat> => {
   try {
-    console.log('--- Getting Data');
     if (isApiCallInProgress.current) {
-      console.log('### API Call In Progress');
       return new Promise((resolve) => {
         const interval = setInterval(async () => {
-          console.log('!!! API Call In Progress');
           if (!isApiCallInProgress.current) {
-            console.log('@@@ Waiting For API Call Done');
             clearInterval(interval);
 
             // Check the database to see if there is already data in there.
@@ -103,7 +99,6 @@ export const fetchWordsData = async (
       return data;
     }
   } catch (error) {
-    console.log('=== Getting Data Error');
     isApiCallInProgress!.current = false;
     console.error(
       `Failed to fetch data for the ${'words'} from the API`,
@@ -115,8 +110,6 @@ export const fetchWordsData = async (
 };
 
 async function getData(url: string): Promise<MTDExportFormat> {
-  console.log('+++ Getting Data from API');
-
   // If not in the database make API call to get it.
   const response = await axios.get(url);
   const mtdData: MTDExportFormat = response.data;

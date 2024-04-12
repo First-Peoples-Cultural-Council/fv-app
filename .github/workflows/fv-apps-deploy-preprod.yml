@@ -86,6 +86,7 @@ jobs:
           mkdir modules
           mv downloads/* modules/
           rm -rf modules/prod-terraform.tf
+          rm -rf modules/dev-terraform.tf
           mv modules/pre-prod-terraform.tf modules/terraform.tf
           cd modules
           ls
@@ -120,6 +121,7 @@ jobs:
           mkdir modules
           mv downloads/* modules/
           rm -rf modules/prod-terraform.tf
+          rm -rf modules/dev-terraform.tf
           mv modules/pre-prod-terraform.tf modules/terraform.tf
           cd modules
           ls

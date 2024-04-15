@@ -2,13 +2,14 @@ import classNames from 'classnames';
 import { Link, useParams } from 'react-router-dom';
 import styles from './category-view.module.css';
 import fetchCategoryData from '../../services/categoriesApiService';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useContext, useEffect, useState } from 'react';
 import WordCardDesktop from '../dictionary-page/word-card-desktop';
 import WordCardMobile from '../dictionary-page/word-card-mobile';
 import { DictionaryType, FvCategory, FvWord } from '../common/data';
 import MultiSwitch from '../common/multi-switch/multi-switch';
 import fetchWordsData from '../../services/wordsApiService';
 import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
+import { ApiContext } from '../contexts/apiContext';
 
 /* eslint-disable-next-line */
 export interface CategoryViewProps {}
@@ -20,6 +21,8 @@ export function CategoryView(props: CategoryViewProps) {
   const [dataDict, setDataDict] = useState<FvWord[]>([]);
   const [data, setData] = useState<FvWord[]>([]);
   const [dataCategories, setDataCategories] = useState<FvCategory[]>([]);
+
+  const { isApiCallInProgress } = useContext(ApiContext);
 
   useEffect(() => {
     fetchCategoryData().then((result) => {
@@ -83,7 +86,7 @@ export function CategoryView(props: CategoryViewProps) {
   useEffect(() => {
     const fetchDataAsync = async () => {
       try {
-        const result = await fetchWordsData();
+        const result = await fetchWordsData(isApiCallInProgress);
         setDataDict(result.data);
       } catch (error) {
         // Handle error scenarios
@@ -91,7 +94,7 @@ export function CategoryView(props: CategoryViewProps) {
     };
 
     fetchDataAsync();
-  }, []);
+  }, [isApiCallInProgress]);
 
   useEffect(() => {
     switch (selected) {

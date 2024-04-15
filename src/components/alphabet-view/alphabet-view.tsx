@@ -28,6 +28,7 @@ import { SearchResultsContext } from '../search-results-provider';
 import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 import { Keyboard } from './keyboard';
 import { SelectedLetterDisplay } from './selected-letter-display';
+import { ApiContext } from '../contexts/apiContext';
 
 /* eslint-disable-next-line */
 export interface AlphabetViewProps {}
@@ -61,6 +62,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
 
   const [loading, setLoading] = useState(true);
   const searchResults = useContext(SearchResultsContext);
+  const { isApiCallInProgress } = useContext(ApiContext);
 
   if (!useIsMobile() && selected === null && dataAlphabet.length !== 0) {
     setSelected(dataAlphabet[0]);
@@ -76,7 +78,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
         // Handle error scenarios
       }
       try {
-        const result = await fetchWordsData();
+        const result = await fetchWordsData(isApiCallInProgress);
         setDataDict(result.data);
       } catch (error) {
         // Handle error scenarios
@@ -94,7 +96,11 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
       setDataDict(searchResults?.entries as DictionaryEntryExportFormat[]);
       setLoading(false);
     }
-  }, [searchResults?.rawSearchQuery, searchResults?.entries]);
+  }, [
+    searchResults?.rawSearchQuery,
+    searchResults?.entries,
+    isApiCallInProgress,
+  ]);
 
   useEffect(() => {
     if (showMobileWordList) {

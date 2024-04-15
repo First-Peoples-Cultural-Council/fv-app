@@ -7,6 +7,7 @@ import { useOutletContext } from 'react-router-dom';
 import fetchWordsData from '../../services/wordsApiService';
 import { SearchContext } from '../search-provider';
 import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
+import { ApiContext } from '../contexts/apiContext';
 
 /* eslint-disable-next-line */
 export interface WordsViewProps {}
@@ -20,11 +21,12 @@ export function DictionaryView(props: WordsViewProps) {
   const [loading, setLoading] = useState(true);
 
   const searchContext = useContext(SearchContext);
+  const { isApiCallInProgress } = useContext(ApiContext);
 
   useEffect(() => {
     const fetchDataAsync = async () => {
       try {
-        const result = await fetchWordsData();
+        const result = await fetchWordsData(isApiCallInProgress);
         setDataDict(result.data);
         setLoading(false);
       } catch (error) {
@@ -33,7 +35,7 @@ export function DictionaryView(props: WordsViewProps) {
     };
 
     fetchDataAsync();
-  }, []);
+  }, [isApiCallInProgress]);
 
   const handleScroll = () => {
     const windowHeight = window.innerHeight;

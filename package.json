@@ -50,7 +50,7 @@
     "start": "react-scripts start",
     "prebuild": "node ./generateManifestFileArray.js",
     "build": "react-scripts build",
-    "test": "react-app-rewired test",
+    "test": "react-scripts test",
     "test:e2e": "npx playwright test",
     "eject": "react-scripts eject",
     "buildnserve": "npm run build && serve -s build",

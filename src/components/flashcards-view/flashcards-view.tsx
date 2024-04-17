@@ -273,20 +273,9 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                           <i className="fv-play">{fvAudio.description}</i>
                         </button>
                       ))}
-                  </div>
-                  <span className="absolute bottom-0 text-center w-full italic text-gray-400">
-                    press to flip
-                  </span>
-                </div>
-                <div className="absolute insert-0 h-full w-full rounded-xl bg-black px-12 text-slate-200 flex items-center justify-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
-                  <div className="text-4xl text-center break-words w-full">
-                    {flashcardData?.backWord}
-                  </div>
-                </div>
-              </div>
-              <div className="w-full flow-root">
+                      <div className="w-full flow-root">
                 {flashcardIndex !== 0 && (
-                  <div className="grid h-[55px] w-[55px] bg-gray-50 float-left rounded-3xl mt-4">
+                  <div className="grid h-[55px] w-[55px] bg-gray-300 float-left rounded-3xl mt-4">
                     <button
                       className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
                       onClick={async () => {
@@ -297,12 +286,12 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                       }}
                     >
                       <i className="fv-left-bold text-2xl"></i>
-                      <div className="italic text-gray-400">prev</div>
+                      <div className="italic text-gray-50"><i className="fv-left-open"></i></div>
                     </button>
                   </div>
                 )}
 
-                <div className="grid h-[55px] w-[55px] bg-gray-50 float-right rounded-3xl mt-4">
+                <div className="grid h-[55px] w-[55px] bg-gray-300 float-right rounded-3xl mt-4">
                   <button
                     className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
                     onClick={async () => {
@@ -318,10 +307,59 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                     }}
                   >
                     <i className="fv-right-bold text-2xl"></i>
-                    <div className="italic text-gray-400">next</div>
+                    <div className="italic text-gray-50"><i className="fv-right-open"></i></div>
                   </button>
                 </div>
               </div>
+                  </div>
+                  <span className="absolute bottom-0 text-center w-full italic text-gray-400">
+                    press to flip
+                  </span>
+                </div>
+                <div className="absolute insert-0 h-full w-full rounded-xl bg-black px-12 text-slate-200 flex items-center justify-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
+                  <div className="text-4xl text-center break-words w-full">
+                    {flashcardData?.backWord}
+                  </div>
+                </div>
+              </div>
+              {/* <div className="w-full flow-root">
+                {flashcardIndex !== 0 && (
+                  <div className="grid h-[55px] w-[55px] bg-gray-300 float-left rounded-3xl mt-4">
+                    <button
+                      className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
+                      onClick={async () => {
+                        setFlipped(false);
+                        setTimeout(() => {
+                          setDataForFlashcard(flashcardIndex - 1);
+                        }, 200);
+                      }}
+                    >
+                      <i className="fv-left-bold text-2xl"></i>
+                      <div className="italic text-gray-50"><i className="fv-left-open"></i></div>
+                    </button>
+                  </div>
+                )}
+
+                <div className="grid h-[55px] w-[55px] bg-gray-300 float-right rounded-3xl mt-4">
+                  <button
+                    className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
+                    onClick={async () => {
+                      if (flashcardIndex !== dataForFlashcardGroup.length - 1) {
+                        setFlipped(false);
+                        setTimeout(() => {
+                          setDataForFlashcard(flashcardIndex + 1);
+                        }, 200);
+                      } else {
+                        setShowFlashcardModal(false);
+                        setShowDonePromptModal(true);
+                      }
+                    }}
+                  >
+                    <i className="fv-right-bold text-2xl"></i>
+                    <div className="italic text-gray-50"><i className="fv-right-open"></i></div>
+                  </button>
+                </div>
+              </div> */}
             </div>
           </div>
         </div>

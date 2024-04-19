@@ -48,7 +48,7 @@ module.exports = {
         'color-flashcards-dark': '#4A2954',
         'color-profile-light': '#D6D3D1',
         'color-profile-dark': '#898886',
-        'color-main-header': '#737274',
+        'color-main-header': '#313133',
         phrase: '#C37829',
         song: '#830042',
         story: '#E9C46A',

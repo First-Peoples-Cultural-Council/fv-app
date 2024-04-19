@@ -1,3 +1,4 @@
+const colors = require('tailwindcss/colors')
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
@@ -49,11 +50,90 @@ module.exports = {
         'color-profile-light': '#D6D3D1',
         'color-profile-dark': '#898886',
         'color-main-header': '#737274',
-        phrase: '#C37829',
-        song: '#830042',
-        story: '#E9C46A',
-        word: '#2A9D8F',
         highlight: '#0585ff',
+        // Dark Blue
+        primary: {
+          light: '#44677E',
+          DEFAULT: '#264653',
+          dark: '#1b313a',
+        },
+        // Dark Orange
+        secondary: {
+          light: '#b07363',
+          DEFAULT: '#8E3720',
+          dark: '#632716',
+        },
+        // Purple
+        tertiaryA: {
+          light: '#857689',
+          DEFAULT: '#513B56',
+          dark: '#39293c',
+        },
+        // Green/Grey
+        tertiaryB: {
+          light: '#878a80',
+          DEFAULT: '#54584A',
+          dark: '#3b3e34',
+        },
+        // Yellow/Orange Accent - e.g. Stats WIdget
+        tertiaryC: {
+          DEFAULT: '#EFAD1A',
+        },
+        // Grey/Blue background - eg. landing banner
+        tertiaryD: {
+          DEFAULT: '#2D5B72',
+        },
+        word: {
+          light: '#6ABAB1',
+          DEFAULT: '#2A9D8F',
+          dark: '#1D6E64',
+        },
+        phrase: {
+          light: '#D5A169',
+          DEFAULT: '#C37829',
+          dark: '#89541D',
+        },
+        song: {
+          light: '#a84d7b',
+          DEFAULT: '#830042',
+          dark: '#5c002e',
+        },
+        story: {
+          light: '#f0d697',
+          DEFAULT: '#E9C46A',
+          dark: '#a3894a',
+        },
+        wordText: {
+          DEFAULT: '#264653',
+        },
+        phraseText: {
+          DEFAULT: '#9A270A',
+        },
+        songText: {
+          DEFAULT: '#830042',
+        },
+        storyText: {
+          DEFAULT: '#8C5822',
+        },
+        bgGreen: {
+          DEFAULT: '#2C876D',
+        },
+        bgRed: {
+          DEFAULT: '#B40212',
+        },
+        'fv-charcoal': {
+          xlight: '#979799',
+          light: '#54584A',
+          DEFAULT: '#313133',
+          dark: '#0f0f10',
+        },
+        'wordsy-correct': {
+          DEFAULT: '#2C876D', // as bgGreen
+        },
+        'wordsy-present': {
+          DEFAULT: '#C37829', // as phrase
+        },
+        gray: colors.stone,
       },
       maxHeight: {
         'calc-245': 'calc(100vh - 245px)',

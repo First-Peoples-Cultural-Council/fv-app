@@ -325,44 +325,6 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                   </span>
                 </div>
               </div>
-              {/* <div className="w-full flow-root">
-                {flashcardIndex !== 0 && (
-                  <div className="grid h-[55px] w-[55px] bg-gray-300 float-left rounded-3xl mt-4">
-                    <button
-                      className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
-                      onClick={async () => {
-                        setFlipped(false);
-                        setTimeout(() => {
-                          setDataForFlashcard(flashcardIndex - 1);
-                        }, 200);
-                      }}
-                    >
-                      <i className="fv-left-bold text-2xl"></i>
-                      <div className="italic text-gray-50"><i className="fv-left-open"></i></div>
-                    </button>
-                  </div>
-                )}
-
-                <div className="grid h-[55px] w-[55px] bg-gray-300 float-right rounded-3xl mt-4">
-                  <button
-                    className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
-                    onClick={async () => {
-                      if (flashcardIndex !== dataForFlashcardGroup.length - 1) {
-                        setFlipped(false);
-                        setTimeout(() => {
-                          setDataForFlashcard(flashcardIndex + 1);
-                        }, 200);
-                      } else {
-                        setShowFlashcardModal(false);
-                        setShowDonePromptModal(true);
-                      }
-                    }}
-                  >
-                    <i className="fv-right-bold text-2xl"></i>
-                    <div className="italic text-gray-50"><i className="fv-right-open"></i></div>
-                  </button>
-                </div>
-              </div> */}
             </div>
           </div>
         </div>

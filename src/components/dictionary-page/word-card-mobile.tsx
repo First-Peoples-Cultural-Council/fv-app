@@ -52,12 +52,10 @@ function WordCardMobile(
       >
         <div className="grid grid-cols-10 gap-2 text-left w-full">
           <div className="col-span-8">
-            <div>
-              <h1 className="font-bold">
-                {wordLocations
-                  ? applyHighlighting(word, wordLocations, 'word')
-                  : word}
-              </h1>
+            <div className="font-bold">
+              {wordLocations
+                ? applyHighlighting(word, wordLocations, 'word')
+                : word}
             </div>
             <p className="truncate">
               {wordLocations

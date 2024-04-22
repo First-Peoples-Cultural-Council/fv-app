@@ -252,7 +252,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                 )}
                 onClick={() => setFlipped(!flipped)}
               >
-                <div className="absolute top-0 inset-x-0 pl-2 font-bold">
+                <div className="items-center justify-center flex font-bold">
                   {flashcardIndex + 1}/{dataForFlashcardGroup.length}
                 </div>
                 <div className="absolute inset-0 items-center justify-center flex flex-wrap">

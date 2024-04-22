@@ -26,6 +26,7 @@ import AboutView from './components/about-view/about-view';
 import PageNotFound from './components/common/page-not-found/page-not-found';
 import SearchProvider from './components/search-provider';
 import { AudioProvider } from './components/contexts/audioContext';
+import { ApiProvider } from './components/contexts/apiContext';
 
 export const routesConfig = createRoutesFromElements(
   <>
@@ -58,11 +59,13 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <StrictMode>
-    <SearchProvider>
-      <AudioProvider>
-        <RouterProvider router={router} />
-      </AudioProvider>
-    </SearchProvider>
+    <ApiProvider>
+      <SearchProvider>
+        <AudioProvider>
+          <RouterProvider router={router} />
+        </AudioProvider>
+      </SearchProvider>
+    </ApiProvider>
   </StrictMode>
 );
 

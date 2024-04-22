@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import WordModal from './word-modal';
 import Modal from '../common/modal/modal';
 import fetchWordOfDayData from '../../services/wordOfTheDayApiService';
@@ -7,6 +7,7 @@ import fetchWordsData from '../../services/wordsApiService';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 import { useAudio } from '../contexts/audioContext';
+import { ApiContext } from '../contexts/apiContext';
 
 function WordOfTheDay() {
   const today = new Date();
@@ -16,10 +17,12 @@ function WordOfTheDay() {
   const [data, setData] = useState<any>(null);
   const [dataDict, setDataDict] = useState<FvWord[]>([]);
 
+  const { isApiCallInProgress } = useContext(ApiContext);
+
   useEffect(() => {
     const fetchDataAsync = async () => {
       try {
-        const result = await fetchWordsData();
+        const result = await fetchWordsData(isApiCallInProgress);
         setDataDict(result.data);
       } catch (error) {
         // Handle error scenarios

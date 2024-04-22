@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useButtonStyle } from '../common/hooks';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import useOnClickOutside from '../../util/clickOutside';
 import {
   Bookmark,
@@ -13,6 +13,7 @@ import shuffle from '../../util/shuffle';
 import fetchCategoryData from '../../services/categoriesApiService';
 import fetchWordsData from '../../services/wordsApiService';
 import IndexedDBService from '../../services/indexedDbService';
+import { ApiContext } from '../contexts/apiContext';
 
 /* eslint-disable-next-line */
 export interface FlashcardsViewProps {}
@@ -35,6 +36,8 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   const [flashcardIndex, setFlashcardIndex] = useState<number>(0);
   const [flashcardData, setFlashcardData] = useState<Flashcard>();
   const [dataCategories, setDataCategories] = useState<any>([]);
+
+  const { isApiCallInProgress } = useContext(ApiContext);
 
   const secondaryButtonStyle = useButtonStyle('secondary', 'button');
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
@@ -62,7 +65,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
 
     const fetchDataAsync = async () => {
       try {
-        const result = await fetchWordsData();
+        const result = await fetchWordsData(isApiCallInProgress);
         setDataDict(result.data);
       } catch (error) {
         // Handle error scenarios
@@ -70,7 +73,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
     };
 
     fetchDataAsync();
-  }, []);
+  }, [isApiCallInProgress]);
 
   useEffect(() => {
     const usersBookmarks = async () => {

@@ -141,21 +141,25 @@ export function CategoryView(props: CategoryViewProps) {
               })
               .map((term) => {
                 return (
-                  <Fragment key={`${term.source}-${term.entryID}`}>
+                  <div
+                    key={`${term.source}-${term.entryID}`}
+                    id={`${term.source}-${term.entryID}`}
+                    className="flex w-full"
+                  >
                     <WordCardMobile item={term} />
-                  </Fragment>
+                  </div>
                 );
               })}{' '}
           </div>
         </div>
       </div>
 
-      <div className="flex flex-row hidden md:block pr-5">
+      <div className="hidden md:flex flex-row  px-2">
         <div className={styles['container']}>
-          <div className="flex flex-row">
+          <div className="flex flex-row space-x-2">
             <div
               className={classNames(
-                'overflow-y-auto mr-8',
+                'overflow-y-auto',
                 styles['catsSubCatsContainer']
               )}
             >
@@ -211,9 +215,13 @@ export function CategoryView(props: CategoryViewProps) {
                   })
                   .map((term) => {
                     return (
-                      <Fragment key={`${term.source}-${term.entryID}`}>
+                      <div
+                        key={`${term.source}-${term.entryID}`}
+                        id={`${term.source}-${term.entryID}`}
+                        className="flex w-full"
+                      >
                         <WordCardDesktop item={term} wordWidthClass="w-40" />
-                      </Fragment>
+                      </div>
                     );
                   })}
                 <div className="h-48" />

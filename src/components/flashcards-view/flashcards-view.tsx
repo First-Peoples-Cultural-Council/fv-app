@@ -117,7 +117,26 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   }
 
   return (
-    <>
+    <div>
+      {flashcardIndex !== 0 && (
+        <div className="grid h-[55px] w-[55px] bg-gray-300 float-left rounded-3xl mt-4">
+          <button
+            className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
+            onClick={async () => {
+              setFlipped(false);
+              setTimeout(() => {
+                setDataForFlashcard(flashcardIndex - 1);
+              }, 200);
+            }}
+          >
+            <i className="fv-left-bold text-2xl"></i>
+            <div className="italic text-gray-50">
+              <i className="fv-left-open"></i>
+            </div>
+          </button>
+        </div>
+      )}
+      <div>
       <div className="w-full">
         <div className="flex flex-wrap justify-center">
           {flashCardType('Words', 'fv-wordsfc', () => {
@@ -253,7 +272,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                   'bg-gray-50 relative h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d]',
                   { '[transform:rotateY(180deg)]': flipped }
                 )}
-                onClick={() => setFlipped(!flipped)}
+                // onClick={() => setFlipped(!flipped)}
               >
                 <div className="items-center justify-center flex font-bold">
                   {flashcardIndex + 1}/{dataForFlashcardGroup.length}
@@ -276,8 +295,8 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                           <i className="fv-play">{fvAudio.description}</i>
                         </button>
                       ))}
-                      <div className="w-full flow-root">
-                {flashcardIndex !== 0 && (
+                    <div className="w-full flow-root">
+                      {/* {flashcardIndex !== 0 && (
                   <div className="grid h-[55px] w-[55px] bg-gray-300 float-left rounded-3xl mt-4">
                     <button
                       className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
@@ -292,30 +311,38 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                       <div className="italic text-gray-50"><i className="fv-left-open"></i></div>
                     </button>
                   </div>
-                )}
+                )} */}
 
-                <div className="grid h-[55px] w-[55px] bg-gray-300 float-right rounded-3xl mt-4">
-                  <button
-                    className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
-                    onClick={async () => {
-                      if (flashcardIndex !== dataForFlashcardGroup.length - 1) {
-                        setFlipped(false);
-                        setTimeout(() => {
-                          setDataForFlashcard(flashcardIndex + 1);
-                        }, 200);
-                      } else {
-                        setShowFlashcardModal(false);
-                        setShowDonePromptModal(true);
-                      }
-                    }}
-                  >
-                    <i className="fv-right-bold text-2xl"></i>
-                    <div className="italic text-gray-50"><i className="fv-right-open"></i></div>
-                  </button>
-                </div>
-              </div>
+                      <div className="grid h-[55px] w-[55px] bg-gray-300 float-right rounded-3xl mt-4">
+                        <button
+                          className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
+                          onClick={async () => {
+                            if (
+                              flashcardIndex !==
+                              dataForFlashcardGroup.length - 1
+                            ) {
+                              setFlipped(false);
+                              setTimeout(() => {
+                                setDataForFlashcard(flashcardIndex + 1);
+                              }, 200);
+                            } else {
+                              setShowFlashcardModal(false);
+                              setShowDonePromptModal(true);
+                            }
+                          }}
+                        >
+                          <i className="fv-right-bold text-2xl"></i>
+                          <div className="italic text-gray-50">
+                            <i className="fv-right-open"></i>
+                          </div>
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                  <span className="absolute bottom-0 text-center w-1/3 rounded-md italic text-white bg-tertiaryB">
+                  <span
+                    className="absolute bottom-0 text-center w-1/3 rounded-md italic text-white bg-tertiaryB"
+                    onClick={() => setFlipped(!flipped)}
+                  >
                     flip card
                   </span>
                 </div>
@@ -323,7 +350,10 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                   <div className="text-4xl text-center break-words w-full">
                     {flashcardData?.backWord}
                   </div>
-                  <span className="absolute bottom-0 text-center w-1/3 rounded-md italic text-white bg-tertiaryB">
+                  <span
+                    className="absolute bottom-0 text-center w-1/3 rounded-md italic text-white bg-tertiaryB"
+                    onClick={() => setFlipped(!flipped)}
+                  >
                     flip card
                   </span>
                 </div>
@@ -374,7 +404,8 @@ export function FlashcardsView(props: FlashcardsViewProps) {
           </div>
         </div>
       )}
-    </>
+      </div>
+    </div>
   );
 
   function saveDataForFlashcards(data: any[]) {

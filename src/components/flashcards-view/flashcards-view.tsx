@@ -238,8 +238,8 @@ export function FlashcardsView(props: FlashcardsViewProps) {
           >
             <div className="grid h-screen md:place-items-center outline-none focus:outline-none">
               <div className="group h-96 w-90 md:w-[36rem] [perspective:1000px] mt-10 mb-10 p-4">
-                <div className="flex justify-end w-full outline-dashed outline-purple-500">
-                  <p className="items-end mx-auto pl-6 flex font-bold text-white">
+                <div className="flex justify-end w-full">
+                  <p className="items-end mx-auto pl-6 flex font-bold text-white text-xl">
                     {flashcardIndex + 1}/{dataForFlashcardGroup.length}
                   </p>
                   <div className="grid h-10 w-10 bg-gray-50 float-right rounded-3xl mb-2 md:place-items-center">
@@ -253,12 +253,12 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                 </div>
                 <div
                   className={classNames(
-                    'bg-gray-50 flex justify-evenly items-center h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d] outline-blue-600 outline-dashed',
+                    'bg-gray-50 flex justify-evenly items-center h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d]',
                     { '[transform:rotateY(180deg)]': flipped }
                   )}
                 >
                   <div className="flex-col justify-between">
-                      <div className={`${flashcardIndex === 0 ? 'invisible' : 'grid h-[55px] w-[55px] bg-gray-300 float-left rounded-3xl outline-orange-600 outline-dashed'}`}>
+                      <div className={`${flashcardIndex === 0 ? 'invisible' : 'grid h-[55px] w-[55px] bg-gray-300 float-left rounded-3xl'}`}>
                         <button
                           className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
                           onClick={async () => {
@@ -275,7 +275,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                         </button>
                       </div>
                   </div>
-                  <div className="flex-col items-center justify-center flex flex-wrap outline-dotted w-2/3 outline-pink-600">
+                  <div className="flex-col items-center justify-center flex flex-wrap w-2/3">
                     <div className="text-4xl text-center break-words w-full">
                       {flashcardData?.type === 'word' &&
                         flashcardData?.frontWord}
@@ -314,7 +314,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                       flip card
                     </span>
                   </div>
-                  <div className="grid h-[55px] w-[55px] bg-gray-300 float-right rounded-3xl mt-4 outline-dotted">
+                  <div className="grid h-[55px] w-[55px] bg-gray-300 float-right rounded-3xl mt-4">
                     <button
                       className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
                       onClick={async () => {

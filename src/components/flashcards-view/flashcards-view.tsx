@@ -118,24 +118,6 @@ export function FlashcardsView(props: FlashcardsViewProps) {
 
   return (
     <div>
-      {/* {flashcardIndex !== 0 && (
-        <div className="grid h-[55px] w-[55px] bg-gray-300 float-left rounded-3xl mt-4">
-          <button
-            className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
-            onClick={async () => {
-              setFlipped(false);
-              setTimeout(() => {
-                setDataForFlashcard(flashcardIndex - 1);
-              }, 200);
-            }}
-          >
-            <i className="fv-left-bold text-2xl"></i>
-            <div className="italic text-gray-50">
-              <i className="fv-left-open"></i>
-            </div>
-          </button>
-        </div>
-      )} */}
       <div>
         <div className="w-full">
           <div className="flex flex-wrap justify-center">
@@ -249,34 +231,18 @@ export function FlashcardsView(props: FlashcardsViewProps) {
             </div>
           </div>
         )}
-
         {showFlashcardModal && (
           <div
             style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
-            className="fixed inset-0 w-full h-full backdrop outline-red-900 outline-dashed"
+            className="fixed inset-0 w-full h-full backdrop"
           >
             <div className="grid h-screen md:place-items-center outline-none focus:outline-none">
               <div className="group h-96 w-90 md:w-[36rem] [perspective:1000px] mt-10 mb-10 p-4">
-                <div className="w-full flow-root outline-dashed outline-purple-500">
-                  {/* {flashcardIndex !== 0 && (
-                    <div className="grid h-[55px] w-[55px] bg-gray-300 float-left rounded-3xl mt-4 outline-orange-600 outline-dashed">
-                      <button
-                        className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
-                        onClick={async () => {
-                          setFlipped(false);
-                          setTimeout(() => {
-                            setDataForFlashcard(flashcardIndex - 1);
-                          }, 200);
-                        }}
-                      >
-                        <i className="fv-left-bold text-2xl"></i>
-                        <div className="italic text-gray-50">
-                          <i className="fv-left-open"></i>
-                        </div>
-                      </button>
-                    </div>
-                  )} */}
-                  <div className="grid h-10 w-10 bg-gray-50 float-right rounded-3xl mb-4 md:place-items-center">
+                <div className="flex justify-end w-full outline-dashed outline-purple-500">
+                  <p className="items-end mx-auto pl-6 flex font-bold text-white">
+                    {flashcardIndex + 1}/{dataForFlashcardGroup.length}
+                  </p>
+                  <div className="grid h-10 w-10 bg-gray-50 float-right rounded-3xl mb-2 md:place-items-center">
                     <button
                       className="p-2 ml-auto bg-transparent border-0 text-black float-right text-1xl leading-none font-semibold outline-none focus:outline-none"
                       onClick={() => setShowFlashcardModal(false)}
@@ -287,36 +253,29 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                 </div>
                 <div
                   className={classNames(
-                    'bg-gray-50 flex justify-between items-center h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d] outline-blue-600 outline-dashed',
+                    'bg-gray-50 flex justify-evenly items-center h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d] outline-blue-600 outline-dashed',
                     { '[transform:rotateY(180deg)]': flipped }
                   )}
-                  // onClick={() => setFlipped(!flipped)}
                 >
                   <div className="flex-col justify-between">
-                   <div className="items-center justify-center flex font-bold">
-                    {flashcardIndex + 1}/{dataForFlashcardGroup.length}
+                      <div className={`${flashcardIndex === 0 ? 'invisible' : 'grid h-[55px] w-[55px] bg-gray-300 float-left rounded-3xl outline-orange-600 outline-dashed'}`}>
+                        <button
+                          className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
+                          onClick={async () => {
+                            setFlipped(false);
+                            setTimeout(() => {
+                              setDataForFlashcard(flashcardIndex - 1);
+                            }, 200);
+                          }}
+                        >
+                          <i className="fv-left-bold text-2xl"></i>
+                          <div className="italic text-gray-50">
+                            <i className="fv-left-open"></i>
+                          </div>
+                        </button>
+                      </div>
                   </div>
-                  {flashcardIndex !== 0 && (
-                    <div className="grid h-[55px] w-[55px] bg-gray-300 float-left rounded-3xl mt-4 outline-orange-600 outline-dashed">
-                      <button
-                        className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
-                        onClick={async () => {
-                          setFlipped(false);
-                          setTimeout(() => {
-                            setDataForFlashcard(flashcardIndex - 1);
-                          }, 200);
-                        }}
-                      >
-                        <i className="fv-left-bold text-2xl"></i>
-                        <div className="italic text-gray-50">
-                          <i className="fv-left-open"></i>
-                        </div>
-                      </button>
-                    </div>
-                  )}
-                  <div></div>
-                  </div>
-                  <div className="flex-col items-center justify-center flex flex-wrap outline-dotted">
+                  <div className="flex-col items-center justify-center flex flex-wrap outline-dotted w-2/3 outline-pink-600">
                     <div className="text-4xl text-center break-words w-full">
                       {flashcardData?.type === 'word' &&
                         flashcardData?.frontWord}
@@ -335,8 +294,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                             <i className="fv-play">{fvAudio.description}</i>
                           </button>
                         ))}
-                      <div className="w-full flow-root">
-                      </div>
+                      <div className="w-full flow-root"></div>
                     </div>
                     <span
                       className="absolute bottom-0 text-center w-1/3 rounded-md italic text-white bg-tertiaryB"

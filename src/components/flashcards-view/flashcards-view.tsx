@@ -296,23 +296,25 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                         ))}
                       <div className="w-full flow-root"></div>
                     </div>
-                    <span
+                    <button
                       className="absolute bottom-0 text-center w-1/3 rounded-md italic text-white bg-tertiaryB"
                       onClick={() => setFlipped(!flipped)}
+                      onKeyDown={() => setFlipped(!flipped)}
                     >
                       flip card
-                    </span>
+                    </button>
                   </div>
                   <div className="absolute insert-0 h-full w-full rounded-xl bg-black px-12 text-slate-200 flex items-center justify-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
                     <div className="text-4xl text-center break-words w-full">
                       {flashcardData?.backWord}
                     </div>
-                    <span
+                    <button
                       className="absolute bottom-0 text-center w-1/3 rounded-md italic text-white bg-tertiaryB"
                       onClick={() => setFlipped(!flipped)}
+                      onKeyDown={() => setFlipped(!flipped)}
                     >
                       flip card
-                    </span>
+                    </button>
                   </div>
                   <div className="grid h-[55px] w-[55px] bg-gray-300 float-right rounded-3xl mt-4">
                     <button
@@ -412,7 +414,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
           setSelectedFlashcardType(name);
         }}
         className={classNames(
-          'w-[175px] h-[175px] md:w-[300px] md:h-[150px] m-2 content-center grid grid-cols-1 md:grid-cols-2 cursor-pointer flex justify-center',
+          'w-[175px] h-[175px] md:w-[300px] md:h-[150px] m-2 content-center grid grid-cols-1 md:grid-cols-2 cursor-pointer justify-center',
           tertiaryButtonStyle
         )}
       >

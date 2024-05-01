@@ -135,6 +135,7 @@ export function DictionaryView(props: WordsViewProps) {
               <div
                 key={`${term.source}-${term.entryID}`}
                 id={`${term.source}-${term.entryID}`}
+                className="flex w-full"
               >
                 <WordCardMobile item={item} />
                 <WordCardDesktop item={item} wordWidthClass="w-80" />

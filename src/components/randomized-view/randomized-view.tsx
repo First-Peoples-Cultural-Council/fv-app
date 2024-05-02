@@ -98,6 +98,7 @@ export function RandomizedView(props: WordsViewProps) {
               <div
                 key={`${term.source}-${term.entryID}`}
                 id={`${term.source}-${term.entryID}`}
+                className="flex w-full"
               >
                 <WordCardMobile item={term} />
                 <WordCardDesktop item={term} wordWidthClass="w-80" />

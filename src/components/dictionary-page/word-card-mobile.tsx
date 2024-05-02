@@ -45,35 +45,34 @@ function WordCardMobile(
 
   return (
     <>
-      <div
-        className="block md:hidden rounded-lg bg-white p-6 m-2 shadow-lg hover:bg-slate-100 cursor-pointer"
+      <button
+        type="button"
+        className="flex md:hidden w-full bg-white p-5 m-2 rounded-lg shadow-lg hover:bg-slate-100 cursor-pointer"
         onClick={() => setShowModal(true)}
       >
-        <div className="grid grid-cols-10 gap-4">
+        <div className="grid grid-cols-10 gap-2 text-left w-full">
           <div className="col-span-8">
-            <div>
-              <h1 className="font-bold">
-                {wordLocations
-                  ? applyHighlighting(word, wordLocations, 'word')
-                  : word}
-              </h1>
+            <div className="font-bold">
+              {wordLocations
+                ? applyHighlighting(word, wordLocations, 'word')
+                : word}
             </div>
-            <h1 className="truncate">
+            <p className="truncate">
               {wordLocations
                 ? applyHighlighting(definition, wordLocations, 'definition')
                 : definition}
-            </h1>
+            </p>
           </div>
-          <div className="self-center col-span-1">
+          <div className="col-span-1 self-center">
             {audio?.map((fvAudio: { filename: Key | null | undefined }) => (
               <i key={fvAudio.filename} className="fv-volume-up" />
             ))}
           </div>
-          <div className="place-self-end self-center">
+          <div className="col-span-1 place-self-end self-center">
             <i className="fv-right-open" />
           </div>
         </div>
-      </div>
+      </button>
       {showModal && (
         <FullScreenModal onClose={() => closeModal()} actions={null}>
           <WordModal

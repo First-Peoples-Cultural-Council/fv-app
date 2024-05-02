@@ -54,28 +54,31 @@ function WordCardDesktop(
         onClick={() => setShowModal(true)}
       >
         <div className="grid grid-flow-col auto-cols-[minmax(0,_2fr)]">
-          <div className="flex grid-flow-col space-x-5 items-center col-span-2">
-            <div className={classNames('flex flex-wrap', wordWidthClass)}>
-              <h1 className="font-bold">
-                {wordLocations
-                  ? applyHighlighting(word, wordLocations, 'word')
-                  : word}
-              </h1>
-            </div>
-            <div className="w-20">
-              {audio?.map((fvAudio: Audio1) => (
-                <i key={fvAudio.filename} className="fv-volume-up" />
-              ))}
+          <div className="flex grid-flow-col items-center col-span-4">
+            <div
+              className={classNames(
+                'flex flex-wrap font-bold text-left',
+                wordWidthClass
+              )}
+            >
+              {wordLocations
+                ? applyHighlighting(word, wordLocations, 'word')
+                : word}
             </div>
           </div>
-          <div className="col-span-4">
-            <h1 className="truncate">
+          <div className="col-span-1">
+            {audio?.map((fvAudio: Audio1) => (
+              <i key={fvAudio.filename} className="fv-volume-up" />
+            ))}
+          </div>
+          <div className="col-span-7 text-left">
+            <p className="truncate">
               {wordLocations
                 ? applyHighlighting(definition, wordLocations, 'definition')
                 : definition}
-            </h1>
+            </p>
           </div>
-          <div className="place-self-end">
+          <div className="col-span-1 flex h-full justify-end items-center">
             <i className="fv-right-open" />
           </div>
         </div>

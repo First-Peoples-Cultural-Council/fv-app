@@ -236,7 +236,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
           className="fixed inset-0 w-full h-full backdrop"
         >
           <div className="grid h-screen md:place-items-center outline-none focus:outline-none">
-            <div className="group h-96 w-90 md:w-[36rem] [perspective:1000px] mt-10 mb-10 p-4">
+            <div className="group h-4/5 w-full md:w-[36rem] [perspective:1000px] mt-6 mb-10 p-4">
               <div className="flex justify-end w-full">
                 <p className="items-end mx-auto pl-6 flex font-bold text-white text-xl">
                   {flashcardIndex + 1}/{dataForFlashcardGroup.length}
@@ -252,7 +252,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
               </div>
               <div
                 className={classNames(
-                  'bg-gray-50 flex justify-evenly items-center h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d]',
+                  'bg-gray-50 flex justify-between items-center h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d]',
                   { '[transform:rotateY(180deg)]': flipped }
                 )}
               >
@@ -281,7 +281,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                   </div>
                 </div>
                 <div className="flex-col items-center justify-center flex flex-wrap w-2/3">
-                  <div className="text-4xl text-center break-words w-full">
+                  <div className="text-2xl text-center break-words w-full">
                     {flashcardData?.type === 'word' && flashcardData?.frontWord}
                     {flashcardData?.type === 'audio' &&
                       flashcardData?.audio?.map((fvAudio: FvAudio) => (

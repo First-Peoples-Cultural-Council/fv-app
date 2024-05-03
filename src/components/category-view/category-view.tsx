@@ -115,7 +115,7 @@ export function CategoryView(props: CategoryViewProps) {
   return (
     <>
       <div className="block md:hidden w-full">
-        <div className="flex flex-auto w-[100vw] overflow-x-auto">
+        <div className="grid grid-cols-2 w-full overflow-x-auto">
           {selectedCategory()}
           {subcategories()}
         </div>

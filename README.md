@@ -1,17 +1,19 @@
 # Developer Setup
+Step 1: Clone the repository https://github.com/First-Peoples-Cultural-Council/fv-app and switch to “dev” branch.
 
-1. Clone the repository and switch to the `dev` branch.
-1. Configure the `.env` file, being sure to set the correct `REACT_APP_BASE_API_URL` of your API server.
-1. Install dependencies and build the application.
+Step 2: Make sure you have node dependencies installed on your machine using the command “npm install"
+
+Step 3: Run the application build using the command “npm run build" on your terminal.
+
+Step 4: Test the application using the command “npm test"
+
+Step 5: Start the application locally using the command “npm start"
+
+Step 6: If your IDE supports auto trigger of the application onto the browser it will open on “localhost:3000”. However, this would not work as in our backend API CORS rule we allow localhost with a prefix subdomain. So open the language site app you want to access e.g. “samalgyax.localhost:3000”
 
 ```bash
 $ npm install
 $ npm run build
-```
-
-4. Start the application.
-```bash
-$ npm start
 ```
 
 ## Running the tests
@@ -20,11 +22,17 @@ $ npm start
 $ npm test
 ```
 
+## Start the application.
+```bash
+$ npm start
+```
+
 ## Adding Icons Using Fontello
 
 ```bash
 $ npm run icons:open
 ```
+
 This will open the fontello website in your browser.
 
 Drag and drop the icons you want to add to the fontello website.
@@ -45,11 +53,11 @@ $ npm run icons:generate
 
 ## Adding new dialects/languages
 
-In order to add an app for a new language:
+Step 1: Add the icon artifacts for the language in the “fv-apps-config” repository. Please make sure you add the artifact in the right directory e.g. If we want to add smalgyax to dev deployment, check “dev-config/public”  directory which contains artifacts for the dev deployment, we want to add smalgyax language in dev deployment, hence, create a directory named smalgyax in path “dev-config/public/smalgyax”. Then add add a manifest file for the language “manifest.smalgyax.json“ in the path “dev-config/public/manifest.smalgyax.json”. Once both of these are added the icon artifacts are in the right place.
 
-1. You will need to add a subdomain for the new language app. Then a DNS record needs to be created to point that subdomain to the application server. All subdomains can point to the same place; the application will detect the subdomain.
+Step 2: Next is we want to add the new language to the environment’s variable. For this go to the “fv-app” repository main page  → Click on Repository Settings → Environments. This will display the list of available environments “dev” , “preprod” and “prod”. Click on the the environment where you want to add the new language. E.g: If we want to add a dummy language called “awesomelanguage” to dev. We will click on dev, then scroll to the bottom of the page to the section called “Environment variables” there will be an existing variable SUBDOMAIN with value [\"smalgyax\", \"gitsenimx\"]. We will make edit to this vaiable to make the value from this [\"smalgyax\", \"gitsenimx\"]---> to this [\"smalgyax\", \"gitsenimx\", \”awesomelanguage\”]
 
-1. Create a manifest file for the new language in the `public` folder using the pattern `manifest.language-sub-domain.json`. Any new manifest files can be kept in a directory that is named the language sub-domain in the `public` folder. For example, for the Esperanto language, the manifest file would be `public/manifest.esperanto.json` and any new manifest files would be kept in the `public/esperanto` directory. That is also where all the asset files (e.g., favicons) in the manifest file will be kept for that language. Make sure to update the `src` properties in the manifest file to match where the assets are kept. *Note* for the FirstVoices deployments these configuration files are managed in a separate repository and moved to the `public` folder during deployment.
+Step 3: Last task it to push a new workflow in the environment of deployment. Once we have the artifacts added and the environment variables updated. We just need a Github Actions workflow to run to complete the deployment. If there is a change in the code in the “fv-app” repo we can make the change and push and the new subdomain will be enabled. But usually there can be case where there is no change and we need to add a subdomain. For dev and preprod just re-run the last run workflow for the environment’s associated branch. For prod create a new release tag.
 
 ## Note on Service Worker Caching
 

@@ -1,4 +1,4 @@
-const colors = require('tailwindcss/colors')
+const colors = require('tailwindcss/colors');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
@@ -49,7 +49,7 @@ module.exports = {
         'color-flashcards-dark': '#4A2954',
         'color-profile-light': '#D6D3D1',
         'color-profile-dark': '#898886',
-        'color-main-header': '#737274',
+        'color-main-header': '#313133',
         highlight: '#0585ff',
         // Dark Blue
         primary: {

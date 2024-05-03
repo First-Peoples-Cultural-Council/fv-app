@@ -9,7 +9,7 @@ $ npm install
 $ npm run build
 ```
 
-1. Start the application.
+4. Start the application.
 ```bash
 $ npm start
 ```

@@ -38,6 +38,7 @@ export function FlashcardView({
       <div className="absolute inset-0 bg-gray-50 p-1 flex justify-between items-center h-full w-full rounded-xl shadow-xl ">
         <div>
           <button
+            id="previous-btn"
             className={classNames(
               'flex flex-col items-center justify-center h-12 w-12 bg-gray-300 rounded-full outline-none focus:outline-none',
               { 'opacity-0 cursor-default': flashcardIndex <= 0 }
@@ -49,7 +50,9 @@ export function FlashcardView({
               setFlashcard(flashcardIndex - 1);
             }}
           >
-            <label className="sr-only">Previous word</label>
+            <label htmlFor="previous-btn" className="sr-only">
+              Previous word
+            </label>
             <i className="fv-left-open text-gray-50"></i>
           </button>
         </div>
@@ -84,12 +87,15 @@ export function FlashcardView({
 
         <div>
           <button
+            id="next-btn"
             className="flex flex-col items-center justify-center h-12 w-12 bg-gray-300 rounded-full outline-none focus:outline-none"
             onClick={() => {
               setFlashcard(flashcardIndex + 1);
             }}
           >
-            <label className="sr-only">Next word</label>
+            <label htmlFor="previous-btn" className="sr-only">
+              Next word
+            </label>
             <i className="fv-right-open text-gray-50"></i>
           </button>
         </div>

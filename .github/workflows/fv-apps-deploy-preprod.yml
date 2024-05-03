@@ -135,3 +135,10 @@ jobs:
           terraform fmt
           terraform plan
           terraform apply -auto-approve -lock=false
+          echo "Distro_ID=$(terraform output cloudfront_discribution)" >> "$GITHUB_ENV";
+      - name: Invalidate cloudfront cache
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.FPCC_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.FPCC_AWS_SECRET_ACCESS_KEY }}
+        run: |
+            aws cloudfront create-invalidation --distribution-id ${{  env.Distro_ID  }} --paths "/"

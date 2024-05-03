@@ -134,4 +134,20 @@ jobs:
           terraform init -lock=false
           terraform fmt
           terraform plan
-          terraform apply -auto-approve -lock=false 
+          terraform apply -auto-approve -lock=false
+          terraform output cloudfront_discribution
+          echo "Distro_ID=$(terraform output cloudfront_discribution)" >> "$GITHUB_ENV";
+  invalidate_cloudfront_cache:
+    environment: dev
+    name: Invalidate Cloudfront cache
+    runs-on: ubuntu-latest
+    needs: update_infra_changes
+    if: github.ref == 'refs/heads/dev'
+    steps:
+      - name: Invalidate cache
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.FPCC_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.FPCC_AWS_SECRET_ACCESS_KEY }}
+        run: |
+            echo "${{  env.Distro_ID  }}"
+            aws cloudfront create-invalidation --distribution-id ${{  env.Distro_ID  }} --paths "/"

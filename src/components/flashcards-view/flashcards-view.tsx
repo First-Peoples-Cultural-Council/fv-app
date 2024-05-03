@@ -14,6 +14,7 @@ import fetchCategoryData from '../../services/categoriesApiService';
 import fetchWordsData from '../../services/wordsApiService';
 import IndexedDBService from '../../services/indexedDbService';
 import { ApiContext } from '../contexts/apiContext';
+import { FlipButton } from './flip-button';
 
 /* eslint-disable-next-line */
 export interface FlashcardsViewProps {}
@@ -241,7 +242,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                 <p className="items-end mx-auto pl-6 flex font-bold text-white text-xl">
                   {flashcardIndex + 1}/{dataForFlashcardGroup.length}
                 </p>
-                <div className="grid h-10 w-10 bg-gray-50 float-right rounded-3xl mb-2 md:place-items-center">
+                <div className="grid h-10 w-10 bg-gray-50 float-right rounded-full mb-2 md:place-items-center">
                   <button
                     className="p-2 ml-auto bg-transparent border-0 text-black float-right text-1xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowFlashcardModal(false)}
@@ -252,37 +253,35 @@ export function FlashcardsView(props: FlashcardsViewProps) {
               </div>
               <div
                 className={classNames(
-                  'bg-gray-50 flex justify-between items-center h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d]',
+                  'relative h-full w-full transition-all duration-500 [transform-style:preserve-3d] ',
                   { '[transform:rotateY(180deg)]': flipped }
                 )}
               >
-                <div className="flex-col justify-between">
-                  <div
-                    className={`${
-                      flashcardIndex === 0
-                        ? 'invisible'
-                        : 'grid h-[55px] w-[55px] bg-gray-300 float-left rounded-3xl'
-                    }`}
-                  >
+                {/* Front */}
+                <div className="absolute inset-0 bg-gray-50 p-1 flex justify-between items-center h-full w-full rounded-xl shadow-xl ">
+                  <div>
                     <button
-                      className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
-                      onClick={async () => {
-                        setFlipped(false);
-                        setTimeout(() => {
-                          setDataForFlashcard(flashcardIndex - 1);
-                        }, 200);
+                      className={classNames(
+                        'flex flex-col items-center justify-center h-12 w-12 bg-gray-300 rounded-full outline-none focus:outline-none',
+                        { 'opacity-0 cursor-default': flashcardIndex <= 0 }
+                      )}
+                      onClick={() => {
+                        if (flashcardIndex <= 0) {
+                          return;
+                        }
+                        setDataForFlashcard(flashcardIndex - 1);
                       }}
                     >
-                      <i className="fv-left-bold text-2xl"></i>
-                      <div className="italic text-gray-50">
-                        <i className="fv-left-open"></i>
-                      </div>
+                      <label className="sr-only">Previous word</label>
+                      <i className="fv-left-open text-gray-50"></i>
                     </button>
                   </div>
-                </div>
-                <div className="flex-col items-center justify-center flex flex-wrap w-2/3">
-                  <div className="text-2xl text-center break-words w-full">
-                    {flashcardData?.type === 'word' && flashcardData?.frontWord}
+                  <div className="flex-col items-center justify-center flex flex-wrap w-2/3">
+                    {flashcardData?.type === 'word' && (
+                      <div className="text-2xl text-center break-words w-full">
+                        {flashcardData?.frontWord}
+                      </div>
+                    )}
                     {flashcardData?.type === 'audio' &&
                       flashcardData?.audio?.map((fvAudio: FvAudio) => (
                         <button
@@ -298,48 +297,36 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                           <i className="fv-play">{fvAudio.description}</i>
                         </button>
                       ))}
-                    <div className="w-full flow-root"></div>
+
+                    <FlipButton handleClick={() => setFlipped(!flipped)} />
                   </div>
-                  <button
-                    className="absolute bottom-0 text-center w-1/3 rounded-md italic text-white bg-tertiaryB"
-                    onClick={() => setFlipped(!flipped)}
-                    onKeyDown={() => setFlipped(!flipped)}
-                  >
-                    flip card
-                  </button>
+
+                  <div>
+                    <button
+                      className="flex flex-col items-center justify-center h-12 w-12 bg-gray-300 rounded-full outline-none focus:outline-none"
+                      onClick={async () => {
+                        if (
+                          flashcardIndex !==
+                          dataForFlashcardGroup.length - 1
+                        ) {
+                          setDataForFlashcard(flashcardIndex + 1);
+                        } else {
+                          setShowFlashcardModal(false);
+                          setShowDonePromptModal(true);
+                        }
+                      }}
+                    >
+                      <label className="sr-only">Next word</label>
+                      <i className="fv-right-open text-gray-50"></i>
+                    </button>
+                  </div>
                 </div>
-                <div className="absolute insert-0 h-full w-full rounded-xl bg-black px-12 text-slate-200 flex items-center justify-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
+                {/* Back */}
+                <div className="absolute insert-0 h-full w-full rounded-xl bg-black p-2 text-slate-200 flex items-center justify-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
                   <div className="text-4xl text-center break-words w-full">
                     {flashcardData?.backWord}
                   </div>
-                  <button
-                    className="absolute bottom-0 text-center w-1/3 rounded-md italic text-white bg-tertiaryB"
-                    onClick={() => setFlipped(!flipped)}
-                    onKeyDown={() => setFlipped(!flipped)}
-                  >
-                    flip card
-                  </button>
-                </div>
-                <div className="grid h-[55px] w-[55px] bg-gray-300 float-right rounded-3xl mt-4">
-                  <button
-                    className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
-                    onClick={async () => {
-                      if (flashcardIndex !== dataForFlashcardGroup.length - 1) {
-                        setFlipped(false);
-                        setTimeout(() => {
-                          setDataForFlashcard(flashcardIndex + 1);
-                        }, 200);
-                      } else {
-                        setShowFlashcardModal(false);
-                        setShowDonePromptModal(true);
-                      }
-                    }}
-                  >
-                    <i className="fv-right-bold text-2xl"></i>
-                    <div className="italic text-gray-50">
-                      <i className="fv-right-open"></i>
-                    </div>
-                  </button>
+                  <FlipButton handleClick={() => setFlipped(!flipped)} />
                 </div>
               </div>
             </div>

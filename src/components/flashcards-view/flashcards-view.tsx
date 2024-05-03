@@ -323,7 +323,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                 </div>
                 {/* Back */}
                 <div className="absolute insert-0 h-full w-full rounded-xl bg-black p-2 text-slate-200 flex items-center justify-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
-                  <div className="text-4xl text-center break-words w-full">
+                  <div className="text-2xl text-center break-words w-full">
                     {flashcardData?.backWord}
                   </div>
                   <FlipButton handleClick={() => setFlipped(!flipped)} />

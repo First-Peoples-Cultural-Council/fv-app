@@ -112,7 +112,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
 
   return (
     <>
-      <div className="block md:hidden flex justify-center w-full">
+      <div className="flex md:hidden justify-center w-full">
         <div
           className={classNames(
             'overflow-y-auto col-span-1 w-full',

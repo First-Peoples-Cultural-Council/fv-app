@@ -17,12 +17,13 @@ export function SearchInput({
   onClear,
 }: SearchInputProps) {
   return (
-    <div className="flex items-center w-full max-w-md ml-2 group relative">
+    <div className="flex items-center w-full max-w-md group relative">
       <input
         value={value}
         onChange={onChange}
+        placeholder="Search"
         className={classNames(
-          'pl-2 rounded-l h-7 border border-gray-400 w-full shadow shadow-inner',
+          'pl-2 rounded-l h-7 border border-gray-400 w-full shadow-inner',
           className
         )}
       />

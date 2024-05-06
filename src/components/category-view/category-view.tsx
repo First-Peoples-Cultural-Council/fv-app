@@ -114,9 +114,10 @@ export function CategoryView(props: CategoryViewProps) {
 
   return (
     <>
-      <div className="block md:hidden w-full">
+      <div className="block md:hidden w-full mx-4">
+      {selectedCategory()}
         <div className="grid grid-cols-2 w-full overflow-x-auto">
-          {selectedCategory()}
+          {/* {selectedCategory()} */}
           {subcategories()}
         </div>
         <div className={'w-full'}>
@@ -260,7 +261,7 @@ export function CategoryView(props: CategoryViewProps) {
               key={subCategory.id}
               to={`/categories/${subCategory.id}`}
               className={classNames(
-                'mt-2 transition duration-500 ease-in-out ml-4 lg:ml-8 pr-4 lg:px-0 rounded-lg flex items-center cursor-pointer hover:opacity-75',
+                'mt-2 transition duration-500 ease-in-out lg:ml-8 pr-4 lg:px-0 rounded-lg flex items-center cursor-pointer hover:opacity-75',
                 {
                   'bg-gray-300 rounded-md':
                     subCategory.id === currentCategory.id,

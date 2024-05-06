@@ -26,7 +26,7 @@ export function Keyboard({
   wordListRef,
   promptForDownload,
 }: Readonly<KeyboardProps>) {
-  const alphabetRows: FvLetter[][] = _.chunk(dataAlphabet, 4);
+  const alphabetRows: FvLetter[][] = _.chunk(dataAlphabet, 5);
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
   const scrollToTop = () => {
     if (wordListRef.current) {
@@ -35,7 +35,7 @@ export function Keyboard({
   };
 
   return (
-    <div className="mt-5 mb-5 p-10 md:p-2 w-full">
+    <div className="p-6 md:p-2 w-full space-y-2">
       {alphabetRows.map((row) => {
         let showLetterDisplay = false;
         const onClickLetterDataButton = (letterData: FvLetter) => {
@@ -50,7 +50,7 @@ export function Keyboard({
               return letterData.title;
             })}`}
           >
-            <div className="grid gap-4 md:gap-2 grid-cols-4 pb-4">
+            <div className="grid gap-2 grid-cols-5">
               {row.map((letterData) => {
                 if (letterData === selected) {
                   showLetterDisplay = true;

@@ -140,7 +140,7 @@ export type NavigationItem = {
 
 export type Flashcard = {
   type: string;
-  frontWord: string | null;
+  frontWord: string;
   backWord: string;
   audio: FvAudio[] | null;
 };

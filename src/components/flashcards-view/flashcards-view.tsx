@@ -2,18 +2,13 @@ import classNames from 'classnames';
 import { useButtonStyle } from '../common/hooks';
 import { useContext, useEffect, useRef, useState } from 'react';
 import useOnClickOutside from '../../util/clickOutside';
-import {
-  Bookmark,
-  Flashcard,
-  FvAudio,
-  FvCategory,
-  FvWord,
-} from '../common/data';
+import { Bookmark, Flashcard, FvCategory, FvWord } from '../common/data';
 import shuffle from '../../util/shuffle';
 import fetchCategoryData from '../../services/categoriesApiService';
 import fetchWordsData from '../../services/wordsApiService';
 import IndexedDBService from '../../services/indexedDbService';
 import { ApiContext } from '../contexts/apiContext';
+import { FlashcardView } from './flashcard-view';
 
 /* eslint-disable-next-line */
 export interface FlashcardsViewProps {}
@@ -27,7 +22,6 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   const [selectedFlashcardType, setSelectedFlashcardType] = useState<string>();
   const [selectedFlashcardDisplayType, setSelectedFlashcardDisplayType] =
     useState('');
-  const [flipped, setFlipped] = useState(false);
   const [db, setDb] = useState<IndexedDBService>();
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
   const [dictionaryData, setDataDict] = useState<FvWord[]>([]);
@@ -39,7 +33,6 @@ export function FlashcardsView(props: FlashcardsViewProps) {
 
   const { isApiCallInProgress } = useContext(ApiContext);
 
-  const secondaryButtonStyle = useButtonStyle('secondary', 'button');
   const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 
   const SelectModalRef = useRef<HTMLDivElement>(null);
@@ -117,7 +110,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   }
 
   return (
-    <>
+    <div>
       <div className="w-full">
         <div className="flex flex-wrap justify-center">
           {flashCardType('Words', 'fv-wordsfc', () => {
@@ -230,16 +223,18 @@ export function FlashcardsView(props: FlashcardsViewProps) {
           </div>
         </div>
       )}
-
       {showFlashcardModal && (
         <div
           style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
           className="fixed inset-0 w-full h-full backdrop"
         >
           <div className="grid h-screen md:place-items-center outline-none focus:outline-none">
-            <div className="group h-96 w-90 md:w-[36rem] [perspective:1000px] mt-10 mb-10 p-4">
-              <div className="w-full flow-root">
-                <div className="grid h-10 w-10 bg-gray-50 float-right rounded-3xl mb-4 md:place-items-center">
+            <div className="group h-4/5 w-full md:w-[36rem] [perspective:1000px] mt-6 mb-10 p-4">
+              <div className="flex justify-end w-full">
+                <p className="items-end mx-auto pl-6 flex font-bold text-white text-xl">
+                  {flashcardIndex + 1}/{dataForFlashcardGroup.length}
+                </p>
+                <div className="grid h-10 w-10 bg-gray-50 float-right rounded-full mb-2 md:place-items-center">
                   <button
                     className="p-2 ml-auto bg-transparent border-0 text-black float-right text-1xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowFlashcardModal(false)}
@@ -248,83 +243,11 @@ export function FlashcardsView(props: FlashcardsViewProps) {
                   </button>
                 </div>
               </div>
-              <div
-                className={classNames(
-                  'bg-gray-50 relative h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d]',
-                  { '[transform:rotateY(180deg)]': flipped }
-                )}
-                onClick={() => setFlipped(!flipped)}
-              >
-                <div className="absolute inset-0 pl-2 font-bold">
-                  {flashcardIndex + 1}/{dataForFlashcardGroup.length}
-                </div>
-                <div className="absolute inset-0 items-center justify-center flex flex-wrap">
-                  <div className="text-4xl text-center break-words w-full">
-                    {flashcardData?.type === 'word' && flashcardData?.frontWord}
-                    {flashcardData?.type === 'audio' &&
-                      flashcardData?.audio?.map((fvAudio: FvAudio) => (
-                        <button
-                          key={fvAudio.filename}
-                          className={secondaryButtonStyle}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            playAudio(fvAudio.filename).catch((err: any) => {
-                              console.error(err);
-                            });
-                          }}
-                        >
-                          <i className="fv-play">{fvAudio.description}</i>
-                        </button>
-                      ))}
-                  </div>
-                  <span className="absolute bottom-0 text-center w-full italic text-gray-400">
-                    press to flip
-                  </span>
-                </div>
-                <div className="absolute insert-0 h-full w-full rounded-xl bg-black px-12 text-slate-200 flex items-center justify-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
-                  <div className="text-4xl text-center break-words w-full">
-                    {flashcardData?.backWord}
-                  </div>
-                </div>
-              </div>
-              <div className="w-full flow-root">
-                {flashcardIndex !== 0 && (
-                  <div className="grid h-[55px] w-[55px] bg-gray-50 float-left rounded-3xl mt-4">
-                    <button
-                      className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
-                      onClick={async () => {
-                        setFlipped(false);
-                        setTimeout(() => {
-                          setDataForFlashcard(flashcardIndex - 1);
-                        }, 200);
-                      }}
-                    >
-                      <i className="fv-left-bold text-2xl"></i>
-                      <div className="italic text-gray-400">prev</div>
-                    </button>
-                  </div>
-                )}
-
-                <div className="grid h-[55px] w-[55px] bg-gray-50 float-right rounded-3xl mt-4">
-                  <button
-                    className="bg-transparent border-0 text-black text-1xl leading-none font-semibold outline-none focus:outline-none flex-col items-center justify-center flex"
-                    onClick={async () => {
-                      if (flashcardIndex !== dataForFlashcardGroup.length - 1) {
-                        setFlipped(false);
-                        setTimeout(() => {
-                          setDataForFlashcard(flashcardIndex + 1);
-                        }, 200);
-                      } else {
-                        setShowFlashcardModal(false);
-                        setShowDonePromptModal(true);
-                      }
-                    }}
-                  >
-                    <i className="fv-right-bold text-2xl"></i>
-                    <div className="italic text-gray-400">next</div>
-                  </button>
-                </div>
-              </div>
+              <FlashcardView
+                flashcardData={flashcardData}
+                setFlashcard={setDataForFlashcard}
+                flashcardIndex={flashcardIndex}
+              />
             </div>
           </div>
         </div>
@@ -371,7 +294,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 
   function saveDataForFlashcards(data: any[]) {
@@ -395,7 +318,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
           setSelectedFlashcardType(name);
         }}
         className={classNames(
-          'w-[175px] h-[175px] md:w-[300px] md:h-[150px] m-2 content-center grid grid-cols-1 md:grid-cols-2 cursor-pointer flex justify-center',
+          'w-[175px] h-[175px] md:w-[300px] md:h-[150px] m-2 content-center grid grid-cols-1 md:grid-cols-2 cursor-pointer justify-center',
           tertiaryButtonStyle
         )}
       >
@@ -421,46 +344,53 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   }
 
   function setDataForFlashcard(fcIndex: number) {
-    setFlashcardIndex(fcIndex);
-    setFlipped(false);
+    if (fcIndex === dataForFlashcardGroup.length - 1) {
+      setShowFlashcardModal(false);
+      setShowDonePromptModal(true);
+    } else {
+      setFlashcardIndex(fcIndex);
 
-    // If set to mix select one of the type randomly.
-    let displayType = selectedFlashcardDisplayType;
-    if (selectedFlashcardDisplayType === 'mix') {
-      const index: number = randomIntFromInterval(0, 2);
-      const types: string[] = ['e2l', 'l2e', 'a2e'];
-      displayType = types[index];
-    }
-
-    switch (displayType) {
-      case 'e2l': {
-        setFlashcardData({
-          type: 'word',
-          frontWord: dataForFlashcardGroup[fcIndex].definition ?? '',
-          backWord: dataForFlashcardGroup[fcIndex].word ?? '',
-          audio: null,
-        });
-        break;
+      // If set to mix select one of the type randomly.
+      let displayType = selectedFlashcardDisplayType;
+      if (selectedFlashcardDisplayType === 'mix') {
+        const index: number = randomIntFromInterval(0, 2);
+        const types: string[] = ['e2l', 'l2e', 'a2e'];
+        displayType = types[index];
       }
+      console.log({
+        cardTitle: dataForFlashcardGroup[fcIndex].word,
+        index: fcIndex,
+      });
+      switch (displayType) {
+        case 'e2l': {
+          setFlashcardData({
+            type: 'word',
+            frontWord: dataForFlashcardGroup[fcIndex].definition ?? '',
+            backWord: dataForFlashcardGroup[fcIndex].word ?? '',
+            audio: null,
+          });
+          break;
+        }
 
-      case 'l2e': {
-        setFlashcardData({
-          type: 'word',
-          frontWord: dataForFlashcardGroup[fcIndex].word ?? '',
-          backWord: dataForFlashcardGroup[fcIndex].definition ?? '',
-          audio: null,
-        });
-        break;
-      }
+        case 'l2e': {
+          setFlashcardData({
+            type: 'word',
+            frontWord: dataForFlashcardGroup[fcIndex].word ?? '',
+            backWord: dataForFlashcardGroup[fcIndex].definition ?? '',
+            audio: null,
+          });
+          break;
+        }
 
-      case 'a2e': {
-        setFlashcardData({
-          type: 'audio',
-          frontWord: null,
-          backWord: dataForFlashcardGroup[fcIndex].definition ?? '',
-          audio: dataForFlashcardGroup[fcIndex].audio,
-        });
-        break;
+        case 'a2e': {
+          setFlashcardData({
+            type: 'audio',
+            frontWord: '',
+            backWord: dataForFlashcardGroup[fcIndex].definition ?? '',
+            audio: dataForFlashcardGroup[fcIndex].audio,
+          });
+          break;
+        }
       }
     }
   }
@@ -468,13 +398,6 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   // Min and max are included
   function randomIntFromInterval(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-
-  async function playAudio(fileName: string) {
-    const audio = new Audio(fileName);
-    audio.play().catch((err: any) => {
-      console.error(err);
-    });
   }
 }
 

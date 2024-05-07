@@ -281,9 +281,9 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
           dataDict
             ?.filter((term) => {
               if (isFvWordLocationCombo(term)) {
-                return term.entry.word.startsWith(selected?.title ?? '');
+                return term?.entry?.word?.startsWith(selected?.title ?? '');
               }
-              return term.word.startsWith(selected?.title ?? '');
+              return term?.word?.startsWith(selected?.title ?? '');
             })
             .sort((a, b) => {
               if (isFvWordLocationCombo(a) && isFvWordLocationCombo(b)) {

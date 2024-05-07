@@ -125,12 +125,7 @@ export function Dictionary(props: DictionaryProps) {
           from: currentNavItem.colors.from,
         }}
         setSearchEntries={setSearchResults}
-        shouldShowSearch={
-          !!matchRoutes(
-            [{ path: 'dictionary' }, { path: 'alphabet' }],
-            location
-          )
-        }
+        shouldShowSearch={!!matchRoutes([{ path: 'dictionary' }], location)}
       />
       <SearchResultsProvider
         results={

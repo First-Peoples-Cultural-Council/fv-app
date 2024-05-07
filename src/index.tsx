@@ -32,7 +32,7 @@ export const routesConfig = createRoutesFromElements(
   <>
     <Route path="/" element={<App />}>
       <Route path="/" element={<Dictionary />}>
-        <Route path="/" element={<AlphabetView />} />
+        <Route path="/" element={<DictionaryView />} />
         <Route path="alphabet/:letter?" element={<AlphabetView />} />
         <Route path="dictionary" element={<DictionaryView />} />
         <Route path="categories/:id" element={<CategoryView />} />

@@ -142,4 +142,13 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.FPCC_AWS_SECRET_ACCESS_KEY }}
           AWS_EC2_METADATA_DISABLED: true
         run: |
-            aws cloudfront create-invalidation --distribution-id ${{  env.Distro_ID  }} --paths "/"
+            aws cloudfront create-invalidation --distribution-id ${{  env.Distro_ID  }} --paths "/*"
+            echo "Invalidation_ID=$(aws cloudfront list-invalidations --distribution-id ${{  env.Distro_ID  }} | jq -c '.InvalidationList.Items | .[] | select(.Status | contains("InProgress")) | .Id' | head -n 1)" >> "$GITHUB_ENV";
+      - name: Wait for invalidation completion
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.FPCC_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.FPCC_AWS_SECRET_ACCESS_KEY }}
+          AWS_EC2_METADATA_DISABLED: true
+        run: |
+            aws cloudfront wait invalidation-completed --id ${{  env.Invalidation_ID  }} --distribution-id ${{  env.Distro_ID  }}
+            echo "Deployment Completed"

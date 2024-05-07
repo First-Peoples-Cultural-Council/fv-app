@@ -169,7 +169,6 @@ export function SongsView(props: SongsViewProps) {
     if (selectedSong === null) {
       return <></>;
     }
-    console.log({ selectedSong })
     return (
       <div className="m-5 border shadow-lg p-10 rounded max-w-[600px]">
         {selectedSong?.relatedImages.length !== 0 && (

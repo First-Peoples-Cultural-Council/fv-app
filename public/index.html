@@ -4,37 +4,51 @@
     body.word-of-the-day-modal-open {
       overflow: hidden !important;
     }
+    /* CRITICAL CSS */
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .root {
+      min-height: 100vh;
+    }
   </style>
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <title>Download FirstVoices App</title>
-    <meta name="description" content="Web apps for BC Indigenous languages, from FirstVoices" />
+    <meta
+      name="description"
+      content="Web apps for BC Indigenous languages, from FirstVoices"
+    />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    
+
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+
     <!--
       manifest.default.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <script>
       const hostnameParts = window.location.hostname.split('.');
-      const subdomain =  hostnameParts.length > 2 ? hostnameParts[0] : 'default';
+      const subdomain = hostnameParts.length > 2 ? hostnameParts[0] : 'default';
       const manifestUrl = `%PUBLIC_URL%/manifest.${subdomain}.json`;
 
       // link the manifest
       const linkElement = document.createElement('link');
       linkElement.rel = 'manifest';
-      linkElement.href = manifestUrl
+      linkElement.href = manifestUrl;
       document.head.appendChild(linkElement);
 
       // customize the title for this language
       const request = new Request(manifestUrl);
       const response = fetch(request)
-        .then(response => response.json())
-        .then(json => document.title = `Download ${json.name} Language App` );
+        .then((response) => response.json())
+        .then(
+          (json) => (document.title = `Download ${json.name} Language App`)
+        );
     </script>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.

@@ -15,9 +15,9 @@ export function isFvWordLocationCombo(obj: any): obj is FvWordLocationCombo {
     obj &&
     typeof obj === 'object' &&
     'entry' in obj &&
-    'location' in obj &&
+    'locations' in obj &&
     isFvWord(obj.entry) &&
-    Array.isArray(obj.location) &&
-    obj.location.length === 2
+    Array.isArray(obj.locations) &&
+    obj.locations.length >= 1
   );
 }

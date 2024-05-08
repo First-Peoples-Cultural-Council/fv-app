@@ -10,6 +10,7 @@ import fetchStoriesData from '../../services/storiesApiService';
 import FvImage from '../common/image/image';
 import AudioControl from '../common/audio-control/audio-control';
 import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
+import { convertJsonToComponent } from '../common/convert-json/convert-json';
 
 /* eslint-disable-next-line */
 export interface StoriesViewProps {}
@@ -467,44 +468,5 @@ export function StoriesView(props: StoriesViewProps) {
       </>
     );
   }
-
-  function convertJsonToComponent(jsonString: string) {
-    if (jsonString === '') {
-      return <></>;
-    }
-
-    try {
-      const json = JSON.parse(jsonString);
-
-      return (
-        <>
-          {json.blocks.map(
-            (block: {
-              inlineStyleRanges: any[];
-              text: string;
-              key: string;
-            }) => (
-              <p
-                key={block.key}
-                style={{
-                  fontWeight: block.inlineStyleRanges.some(
-                    (range) => range.style === 'BOLD'
-                  )
-                    ? 'bold'
-                    : 'normal',
-                }}
-              >
-                {block.text}
-              </p>
-            )
-          )}
-        </>
-      );
-    } catch (error) {
-      console.error(error);
-      return <></>;
-    }
-  }
 }
-
 export default StoriesView;

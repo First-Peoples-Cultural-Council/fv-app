@@ -10,6 +10,7 @@ import FvImage from '../common/image/image';
 import FvVideo from '../common/video/video';
 import AudioControl from '../common/audio-control/audio-control';
 import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
+import { convertJsonToComponent } from '../common/convert-json/convert-json';
 
 /* eslint-disable-next-line */
 export interface SongsViewProps {}
@@ -200,6 +201,18 @@ export function SongsView(props: SongsViewProps) {
             </div>
           );
         })}
+        {(selectedSong?.introduction !== null || selectedSong.introductionTranslation !== null) && (
+          <>
+            <div className="p-2 text-lg font-bold mt-8">INTRODUCTION</div>
+                <div key="introduction">
+
+                  <div className="p-2">{convertJsonToComponent(selectedSong?.introduction ?? '{}')}</div>
+                  <div className="p-2 italic text-slate-400">
+                    {convertJsonToComponent(selectedSong?.introductionTranslation ?? '{}')}
+                  </div>
+                </div>
+          </>
+        )}
         {selectedSong?.lyrics !== null && selectedSong.lyrics.length !== 0 && (
           <>
             <div className="p-2 text-lg font-bold mt-8">LYRICS</div>

@@ -15,8 +15,8 @@ export interface WordsViewProps {}
 export function DictionaryView(props: WordsViewProps) {
   const { setSearchMatchRef }: any = useOutletContext();
   const [selected, setSelected] = useState<number>(DictionaryType.Both);
-  const [dataDict, setDataDict] = useState<FvWord[]>([]);
-  const [data, setData] = useState<FvWord[]>([]);
+  const [dataUnfiltered, setDataUnfiltered] = useState<FvWord[]>([]);
+  const [dataToDisplay, setDataToDisplay] = useState<FvWord[]>([]);
   const [visibleItems, setVisibleItems] = useState(250);
   const [loading, setLoading] = useState(true);
 
@@ -27,7 +27,7 @@ export function DictionaryView(props: WordsViewProps) {
     const fetchDataAsync = async () => {
       try {
         const result = await fetchWordsData(isApiCallInProgress);
-        setDataDict(result.data);
+        setDataUnfiltered(result.data);
         setLoading(false);
       } catch (error) {
         // Handle error scenarios
@@ -74,8 +74,8 @@ export function DictionaryView(props: WordsViewProps) {
     setVisibleItems(250);
     switch (selected) {
       case DictionaryType.Words: {
-        setData(
-          dataDict.filter(
+        setDataToDisplay(
+          dataUnfiltered.filter(
             (entry) =>
               (isFvWordLocationCombo(entry)
                 ? entry.entry.source
@@ -85,8 +85,8 @@ export function DictionaryView(props: WordsViewProps) {
         break;
       }
       case DictionaryType.Phrases: {
-        setData(
-          dataDict.filter(
+        setDataToDisplay(
+          dataUnfiltered.filter(
             (entry) =>
               (isFvWordLocationCombo(entry)
                 ? entry.entry.source
@@ -96,15 +96,15 @@ export function DictionaryView(props: WordsViewProps) {
         break;
       }
       default: {
-        setData(dataDict);
+        setDataToDisplay(dataUnfiltered);
         break;
       }
     }
-  }, [selected, dataDict]);
+  }, [selected, dataUnfiltered]);
 
   useEffect(() => {
     if (searchContext?.allResults && searchContext.allResults.length > 0) {
-      setDataDict(searchContext.allResults);
+      setDataUnfiltered(searchContext.allResults);
     }
   }, [searchContext?.allResults]);
 
@@ -129,7 +129,7 @@ export function DictionaryView(props: WordsViewProps) {
       >
         {loading && <LoadingSpinner />}
         {!loading &&
-          data?.slice(0, visibleItems).map((item, _) => {
+          dataToDisplay?.slice(0, visibleItems).map((item, _) => {
             const term = item.entry ? (item.entry as FvWord) : item;
             return (
               <div
@@ -137,8 +137,8 @@ export function DictionaryView(props: WordsViewProps) {
                 id={`${term.source}-${term.entryID}`}
                 className="flex w-full"
               >
-                <WordCardMobile item={item} />
-                <WordCardDesktop item={item} wordWidthClass="w-80" />
+                <WordCardMobile item={term} />
+                <WordCardDesktop item={term} wordWidthClass="w-80" />
               </div>
             );
           })}{' '}

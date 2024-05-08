@@ -15,28 +15,29 @@ export function SearchInput({
   onChange,
   clickSearch,
   onClear,
-}: SearchInputProps) {
+}: Readonly<SearchInputProps>) {
   return (
-    <div className="flex items-center w-full max-w-md ml-2 group relative">
+    <div className="flex items-center w-full max-w-md group relative">
       <input
         value={value}
         onChange={onChange}
+        placeholder="Search"
         className={classNames(
-          'pl-2 rounded-l h-7 border border-gray-400 w-full shadow shadow-inner',
+          'p-2 rounded-l-lg h-7 border border-gray-400 w-full shadow-inner',
           className
         )}
       />
-      <button
-        onClick={clickSearch}
-        className="py-1 px-2.5 h-7 rounded-r bg-white border border-gray-400 border-l-0 flex items-center"
-      >
-        <i className="fv-search text-text-gray" />
-      </button>
       <button
         onClick={onClear}
         className="opacity-0 group-hover:opacity-100 absolute right-12 top-1/2 transform -translate-y-1/2 text-xs cursor-pointer transition-opacity duration-200 ease-in-out"
       >
         <i className="fv-close text-gray-500" />
+      </button>
+      <button
+        onClick={clickSearch}
+        className="p-2 h-7 rounded-r-lg bg-white border border-gray-400 border-l-0 flex items-center"
+      >
+        <i className="fv-search text-text-gray" />
       </button>
     </div>
   );

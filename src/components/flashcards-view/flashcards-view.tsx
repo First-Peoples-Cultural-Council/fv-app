@@ -357,10 +357,6 @@ export function FlashcardsView(props: FlashcardsViewProps) {
         const types: string[] = ['e2l', 'l2e', 'a2e'];
         displayType = types[index];
       }
-      console.log({
-        cardTitle: dataForFlashcardGroup[fcIndex].word,
-        index: fcIndex,
-      });
       switch (displayType) {
         case 'e2l': {
           setFlashcardData({

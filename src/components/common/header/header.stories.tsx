@@ -15,7 +15,7 @@ export const Primary: Story = {
         {
           id: 'dictionary',
           label: 'Dictionary',
-          to: '/alphabet',
+          to: '/dictionary',
           icon: <i className="fv-book" />,
         },
       ]}

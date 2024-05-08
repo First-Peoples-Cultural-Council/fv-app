@@ -21,21 +21,21 @@ export function SearchHeader({
   backgroundColors,
   setSearchEntries,
   shouldShowSearch = false,
-}: SearchHeaderProps) {
+}: Readonly<SearchHeaderProps>) {
   const [searchValue, setSearchValue] = useState<string>('');
   const [l1Search, setL1Search] = useState<MTDSearch>();
   const [l2Search, setL2Search] = useState<MTDSearch>();
-  const search = useContext(SearchContext);
+  const searchContext = useContext(SearchContext);
 
   useEffect(() => {
-    if (search) {
-      setL1Search(search.searchers[0]);
-      setL2Search(search.searchers[1]);
+    if (searchContext) {
+      setL1Search(searchContext.searchers[0]);
+      setL2Search(searchContext.searchers[1]);
     }
-  }, [search]);
+  }, [searchContext]);
 
   const getResults = (rawSearchQuery: string) => {
-    if (rawSearchQuery.length > 1 && l1Search && l2Search && search) {
+    if (rawSearchQuery.length >= 1 && l1Search && l2Search && searchContext) {
       // @ts-ignore
       // Search Results in target language
       const l1Results = l1Search.search(rawSearchQuery);
@@ -54,12 +54,15 @@ export function SearchHeader({
       //  - The Okapi BM25 Score (float)
 
       const entries = allResults.map((result: Result) => {
-        return { entry: search.entriesHash[result[1]], locations: result[2] };
+        return {
+          entry: searchContext.entriesHash[result[1]],
+          locations: result[2],
+        };
       });
 
       setSearchEntries({ rawSearchQuery, entries });
 
-      search.updateAllResults(entries.map((entry) => entry));
+      searchContext.updateAllResults(entries);
     } else {
       setSearchEntries({ rawSearchQuery: '', entries: [] });
     }
@@ -70,7 +73,7 @@ export function SearchHeader({
       role="banner"
       className={`sub-header flex py-5 px-4 bg-gradient-to-t ${backgroundColors.from} ${backgroundColors.to} justify-between items-center`}
     >
-      <div className="text-white uppercase">{title}</div>
+      <div className="text-white uppercase mr-2">{title}</div>
       {shouldShowSearch && (
         <SearchInput
           value={searchValue}

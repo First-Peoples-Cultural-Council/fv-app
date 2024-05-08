@@ -9,7 +9,7 @@ const navItems: NavigationItem[] = [
   {
     id: 'dictionary',
     label: 'Dictionary',
-    to: '/alphabet',
+    to: '/dictionary',
     icon: <i className="fv-book" />,
   },
   {

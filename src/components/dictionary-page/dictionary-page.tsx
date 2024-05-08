@@ -1,11 +1,6 @@
 import styles from './dictionary-page.module.css';
-import {
-  matchRoutes,
-  Outlet,
-  useLocation,
-  useNavigate,
-} from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { matchRoutes, Outlet, useLocation } from 'react-router-dom';
+import { useState } from 'react';
 import SubNavDesktop from '../sub-nav-desktop/sub-nav-desktop';
 import SubNavMobile from '../sub-nav-mobile/sub-nav-mobile';
 import SearchHeader from '../common/search-header/search-header';
@@ -18,20 +13,6 @@ import {
 
 const navItems: SubNavItem[] = [
   {
-    id: 'alphabet',
-    path: 'alphabet',
-    icon: 'fv-alphabet',
-    iconSize: 'text-2xl',
-    title: 'Alphabet',
-    colors: {
-      to: 'to-color-alphabet-light',
-      from: 'from-color-alphabet-dark',
-      hoverText: 'hover:text-color-alphabet-dark',
-      activeText: 'text-color-alphabet-dark',
-      border: 'border-color-alphabet-dark',
-    },
-  },
-  {
     id: 'dictionary',
     path: 'dictionary',
     icon: 'fv-words',
@@ -43,6 +24,20 @@ const navItems: SubNavItem[] = [
       hoverText: 'hover:text-color-words-dark',
       activeText: 'text-color-words-dark',
       border: 'border-color-words-dark',
+    },
+  },
+  {
+    id: 'alphabet',
+    path: 'alphabet',
+    icon: 'fv-alphabet',
+    iconSize: 'text-2xl',
+    title: 'Alphabet',
+    colors: {
+      to: 'to-color-alphabet-light',
+      from: 'from-color-alphabet-dark',
+      hoverText: 'hover:text-color-alphabet-dark',
+      activeText: 'text-color-alphabet-dark',
+      border: 'border-color-alphabet-dark',
     },
   },
   {
@@ -88,31 +83,14 @@ export function Dictionary(props: DictionaryProps) {
     entries: SearchResultsType;
   } | null>(null);
   const location = useLocation();
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (location.pathname === '/') {
-      navigate('/alphabet');
-    }
-  }, [location, navigate]);
-
-  const [currentNavItem, setCurrentNavItem] = useState(
+  const currentNavItem =
     navItems.find((item) =>
       matchRoutes(
         [{ path: item.path }, ...(item?.activePathMatches ?? [])],
         location
       )
-    ) ?? navItems[0]
-  );
-
-  useEffect(() => {
-    const currentNavItem = navItems.find((item) =>
-      matchRoutes([{ path: item.path }], location)
-    );
-    if (currentNavItem) {
-      setCurrentNavItem(currentNavItem);
-    }
-  }, [location]);
+    ) ?? navItems[0];
 
   if (!currentNavItem) return null;
   return (
@@ -125,12 +103,7 @@ export function Dictionary(props: DictionaryProps) {
           from: currentNavItem.colors.from,
         }}
         setSearchEntries={setSearchResults}
-        shouldShowSearch={
-          !!matchRoutes(
-            [{ path: 'dictionary' }, { path: 'alphabet' }],
-            location
-          )
-        }
+        shouldShowSearch={!!matchRoutes([{ path: 'dictionary' }], location)}
       />
       <SearchResultsProvider
         results={

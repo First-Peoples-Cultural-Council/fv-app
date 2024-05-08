@@ -66,7 +66,8 @@ function WordModal(props: { term: FvWord; onClose: () => void }) {
               <span className="text-xl">COPY</span>
             </button>
           </div>
-          <div className="pl-2 pr-2">
+          {/* Hiding share button for now FW-5780 */}
+          {/* <div className="pl-2 pr-2">
             <button
               onClick={() => {
                 if (navigator.share && navigator.canShare(shareData)) {
@@ -85,7 +86,7 @@ function WordModal(props: { term: FvWord; onClose: () => void }) {
               <i className="fv-share pr-2" />
               <span className="text-xl">SHARE</span>
             </button>
-          </div>
+          </div> */}
           <div className="pl-2 pr-2">
             <button
               onClick={async () => {

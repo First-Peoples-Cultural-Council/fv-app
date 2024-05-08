@@ -264,7 +264,8 @@ export function SongsView(props: SongsViewProps) {
     return (
       <div className="grid grid-cols-1 pb-4">
         {copyButton()}
-        {shareButton()}
+       {/* Hiding Share button for now FW-5780 */}
+        {/* {shareButton()} */}
         {bookmarkButton()}
       </div>
     );

@@ -137,8 +137,8 @@ export function DictionaryView(props: WordsViewProps) {
                 id={`${term.source}-${term.entryID}`}
                 className="flex w-full"
               >
-                <WordCardMobile item={term} />
-                <WordCardDesktop item={term} wordWidthClass="w-80" />
+                <WordCardMobile item={item} />
+                <WordCardDesktop item={item} wordWidthClass="w-80" />
               </div>
             );
           })}{' '}

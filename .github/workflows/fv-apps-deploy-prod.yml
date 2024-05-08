@@ -35,7 +35,6 @@ jobs:
         printf "%s\n" "REACT_APP_ABOUT_ORG_NAME=\"${{vars.REACT_APP_ABOUT_ORG_NAME}}\"" >> .env
         printf "%s\n" "REACT_APP_BASE_HOST=\"${{vars.REACT_APP_BASE_HOST}}\"" >> .env
         printf "%s\n" "REACT_APP_BASE_API_URL=\"${{vars.REACT_APP_BASE_API_URL}}\"" >> .env
-        printf "%s\n" "NODE_ENV=\"production\"" >> .env
         touch modules/prod.auto.tfvars
         printf "%s\n" "aws_profile = \"default\"" >> modules/prod.auto.tfvars 
         printf "%s\n" "domain = \"${{vars.DOMAIN}}\"" >> modules/prod.auto.tfvars 

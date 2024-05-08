@@ -1,4 +1,6 @@
 const colors = require('tailwindcss/colors');
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
@@ -10,7 +12,9 @@ module.exports = {
         padding: 'padding',
       },
       fontFamily: {
-        sans: ['BCSans', 'sans-serif'],
+        sans: ['BCSans', ...defaultTheme.fontFamily.sans],
+        serif: [...defaultTheme.fontFamily.serif],
+        mono: [...defaultTheme.fontFamily.mono],
       },
       fontSize: {
         '20xl': '15rem',

@@ -49,6 +49,29 @@ function WordModal(props: { term: FvWord; onClose: () => void }) {
     }
   };
 
+  function shareButton() {
+    return (
+      <div className="pl-2 pr-2">
+        <button
+          onClick={() => {
+            if (navigator.share && navigator.canShare(shareData)) {
+              navigator.share(shareData).catch((err: any) => {
+                console.error(err);
+              });
+            } else {
+              navigator.clipboard.writeText(shareData.url).catch((err: any) => {
+                console.error(err);
+              });
+            }
+          }}
+        >
+          <i className="fv-share pr-2" />
+          <span className="text-xl">SHARE</span>
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="md:p-10">
       <div className="flex text-2xl">
@@ -66,26 +89,7 @@ function WordModal(props: { term: FvWord; onClose: () => void }) {
               <span className="text-xl">COPY</span>
             </button>
           </div>
-          <div className="pl-2 pr-2">
-            <button
-              onClick={() => {
-                if (navigator.share && navigator.canShare(shareData)) {
-                  navigator.share(shareData).catch((err: any) => {
-                    console.error(err);
-                  });
-                } else {
-                  navigator.clipboard
-                    .writeText(shareData.url)
-                    .catch((err: any) => {
-                      console.error(err);
-                    });
-                }
-              }}
-            >
-              <i className="fv-share pr-2" />
-              <span className="text-xl">SHARE</span>
-            </button>
-          </div>
+          {/* Hiding share button for now FW-5780 {shareButton()} */}
           <div className="pl-2 pr-2">
             <button
               onClick={async () => {

@@ -17,7 +17,6 @@ import ConfirmDialog from '../common/confirm/confirm';
 import Modal from '../common/modal/modal';
 import { Audio1, DictionaryEntryExportFormat } from '@mothertongues/search';
 import styles from './alphabet-view.module.css';
-import { SearchResultsContext } from '../search-results-provider';
 import { Keyboard } from './keyboard';
 import { SelectedLetterDisplay } from './selected-letter-display';
 import { ApiContext } from '../contexts/apiContext';
@@ -29,6 +28,7 @@ export interface AlphabetViewProps {}
 
 export function AlphabetView(this: any, props: AlphabetViewProps) {
   const wordListRef = useRef<HTMLDivElement | null>(null);
+  const isMobile = useIsMobile();
 
   const { letter } = useParams();
   const location = useLocation();
@@ -37,28 +37,20 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
   >([]);
   const [dataAlphabet, setDataAlphabet] = useState<FvLetter[]>([]);
   const [selected, setSelected] = useState<FvLetter | null>(null);
-  const [showMobileWordList, setShowMobileWordList] = useState(
-    location.hash &&
-      !location.hash.startsWith('#') &&
-      !window.matchMedia('(min-width: 768px').matches
-  );
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [downloadPercentage, setDownloadPercentage] = useState(0);
   const [showDownloadProgress, setShowDownloadProgress] = useState(false);
   const [currentlyDownloading, setCurrentlyDownloading] = useState(false);
 
   const [loading, setLoading] = useState(true);
-  const searchResults = useContext(SearchResultsContext);
   const { isApiCallInProgress } = useContext(ApiContext);
 
-  if (!useIsMobile() && selected === null && dataAlphabet.length !== 0) {
+  if (!isMobile && selected === null && dataAlphabet.length !== 0) {
     setSelected(dataAlphabet[0]);
   }
 
-  console.log(dataAlphabet);
-
   useEffect(() => {
-    const fetchDataAsync = async () => {
+    const fetchDataAlphabetAsync = async () => {
       try {
         const result = await fetchCharactersData();
         _.keyBy(result, 'title');
@@ -66,6 +58,9 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
       } catch (error) {
         // Handle error scenarios
       }
+    };
+
+    const fetchDataDictAsync = async () => {
       try {
         const result = await fetchWordsData(isApiCallInProgress);
         setDataDict(result.data);
@@ -73,34 +68,26 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
         // Handle error scenarios
         console.error('Error occurred:', error);
       }
-      setLoading(false);
     };
 
-    if (
-      !searchResults?.rawSearchQuery ||
-      searchResults?.rawSearchQuery.length <= 1
-    ) {
-      fetchDataAsync();
-    } else {
-      setDataDict(searchResults?.entries as DictionaryEntryExportFormat[]);
+    if (dataAlphabet.length === 0) {
+      fetchDataAlphabetAsync();
+      fetchDataDictAsync();
       setLoading(false);
     }
-  }, [
-    searchResults?.rawSearchQuery,
-    searchResults?.entries,
-    isApiCallInProgress,
-  ]);
+  }, [isApiCallInProgress]);
 
   useEffect(() => {
-    if (showMobileWordList) {
+    if (selected && isMobile) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
     }
-  }, [showMobileWordList]);
+  }, [selected, isMobile]);
 
   return (
     <>
+      {/* Small */}
       <div className="flex md:hidden justify-center w-full">
         <div
           className={classNames(
@@ -113,13 +100,11 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
             setSelected={setSelected}
             dataAlphabet={dataAlphabet}
             loading={loading}
-            note={note}
-            setShowMobileWordList={setShowMobileWordList}
             wordListRef={wordListRef}
-            promptForDownload={promptForDownload}
           />
         </div>
       </div>
+      {/* Medium */}
       <div className="hidden md:block w-full">
         <div className="grid grid-cols-3">
           <div
@@ -130,7 +115,6 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
           >
             <SelectedLetterDisplay
               selected={selected}
-              setSelected={setSelected}
               promptForDownload={promptForDownload}
             />
 
@@ -139,10 +123,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
               setSelected={setSelected}
               dataAlphabet={dataAlphabet}
               loading={loading}
-              note={note}
-              setShowMobileWordList={setShowMobileWordList}
               wordListRef={wordListRef}
-              promptForDownload={promptForDownload}
             />
           </div>
           <div
@@ -155,17 +136,25 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
             {selected && selected?.relatedDictionaryEntries.length !== 0 && (
               <WordExampleList selected={selected} />
             )}
-            {selected?.note !== undefined && note()}
+            {selected?.note?.length !== 0 && note()}
             {selected && <WordStartsWithList selected={selected} />}
           </div>
         </div>
       </div>
-      {showMobileWordList && (
-        <FullScreenModal
-          onClose={() => setShowMobileWordList(false)}
-          actions={<></>}
-        >
-          {selected && <WordStartsWithList selected={selected} />}
+      {/* Mobile - Character Detail Modal */}
+      {selected && isMobile && (
+        <FullScreenModal onClose={() => setSelected(null)} actions={<></>}>
+          <div>
+            <SelectedLetterDisplay
+              selected={selected}
+              promptForDownload={promptForDownload}
+            />
+            {selected?.relatedDictionaryEntries.length !== 0 && (
+              <WordExampleList selected={selected} />
+            )}
+            {selected?.note?.length !== 0 && note()}
+            <WordStartsWithList selected={selected} />
+          </div>
         </FullScreenModal>
       )}
       {showConfirmDialog && (

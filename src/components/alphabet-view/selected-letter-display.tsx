@@ -6,25 +6,17 @@ import { FvLetter, FVMedia } from '../common/data';
 
 export interface SelectedLetterDisplayProps {
   selected: FvLetter | null;
-  setSelected: (letter: FvLetter | null) => void;
   promptForDownload: () => void;
 }
 
 export function SelectedLetterDisplay({
   selected,
-  setSelected,
   promptForDownload,
 }: Readonly<SelectedLetterDisplayProps>) {
   const audioCount = selected?.relatedAudio.length ?? 0;
 
   return (
     <>
-      <button
-        className="fv-close float-right block md:hidden"
-        onClick={() => {
-          setSelected(null);
-        }}
-      />
       <div className="flex text-8xl justify-center pb-6">{selected?.title}</div>
       {audioCount === 0 && (
         <div className="flex w-full justify-center">

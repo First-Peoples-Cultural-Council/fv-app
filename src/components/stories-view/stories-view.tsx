@@ -192,8 +192,7 @@ export function StoriesView(props: StoriesViewProps) {
     return (
       <div className="grid grid-cols-1 pb-4">
         {copyButton()}
-        {/* hiding share button FW-5780 */}
-        {/* {shareButton()} */}
+        {/* hiding share button FW-5780 {shareButton()} */}
         {bookmarkButton()}
       </div>
     );

@@ -1,7 +1,5 @@
+import React, { useRef, useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
-import { useRef, useContext, useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import _ from 'lodash';
 import { useIsMobile } from '../../util/useMediaQuery';
 import {
   FvLetter,
@@ -30,9 +28,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
   const wordListRef = useRef<HTMLDivElement | null>(null);
   const isMobile = useIsMobile();
 
-  const { letter } = useParams();
-  const location = useLocation();
-  const [dataDict, setDataDict] = useState<
+  const [dataDictionary, setDataDictionary] = useState<
     (DictionaryEntryExportFormat | FvWordLocationCombo)[]
   >([]);
   const [dataAlphabet, setDataAlphabet] = useState<FvLetter[]>([]);
@@ -53,7 +49,6 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
     const fetchDataAlphabetAsync = async () => {
       try {
         const result = await fetchCharactersData();
-        _.keyBy(result, 'title');
         setDataAlphabet(result);
       } catch (error) {
         // Handle error scenarios
@@ -63,7 +58,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
     const fetchDataDictAsync = async () => {
       try {
         const result = await fetchWordsData(isApiCallInProgress);
-        setDataDict(result.data);
+        setDataDictionary(result.data);
       } catch (error) {
         // Handle error scenarios
         console.error('Error occurred:', error);
@@ -134,10 +129,20 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
             )}
           >
             {selected && selected?.relatedDictionaryEntries.length !== 0 && (
-              <WordExampleList selected={selected} />
+              <WordExampleList
+                selected={selected}
+                dataDictionary={dataDictionary}
+                loading={loading}
+              />
             )}
             {selected?.note?.length !== 0 && note()}
-            {selected && <WordStartsWithList selected={selected} />}
+            {selected && (
+              <WordStartsWithList
+                selected={selected}
+                dataDictionary={dataDictionary}
+                loading={loading}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -150,10 +155,18 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
               promptForDownload={promptForDownload}
             />
             {selected?.relatedDictionaryEntries.length !== 0 && (
-              <WordExampleList selected={selected} />
+              <WordExampleList
+                selected={selected}
+                dataDictionary={dataDictionary}
+                loading={loading}
+              />
             )}
             {selected?.note?.length !== 0 && note()}
-            <WordStartsWithList selected={selected} />
+            <WordStartsWithList
+              selected={selected}
+              dataDictionary={dataDictionary}
+              loading={loading}
+            />
           </div>
         </FullScreenModal>
       )}
@@ -213,7 +226,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
 
     // Get a list of the assets associated with the words/phrases
     // that start with the selected letter.
-    dataDict
+    dataDictionary
       .filter((term) => {
         if (isFvWord(term)) {
           return term.word.startsWith(selected?.title ?? '');

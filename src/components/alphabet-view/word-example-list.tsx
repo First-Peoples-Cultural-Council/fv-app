@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import WordAlphabetRowCard from './word-row-card';
 import {
   FvLetter,
@@ -6,43 +6,21 @@ import {
   isFvWord,
   isFvWordLocationCombo,
 } from '../common/data';
-import fetchWordsData from '../../services/wordsApiService';
 import { DictionaryEntryExportFormat } from '@mothertongues/search';
 import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
-import { ApiContext } from '../contexts/apiContext';
 
 /* eslint-disable-next-line */
 export interface WordExampleListProps {
+  dataDictionary: (DictionaryEntryExportFormat | FvWordLocationCombo)[];
+  loading: boolean;
   selected: FvLetter;
 }
 
-export function WordExampleList({ selected }: Readonly<WordExampleListProps>) {
-  const [dataDict, setDataDict] = useState<
-    (DictionaryEntryExportFormat | FvWordLocationCombo)[]
-  >([]);
-
-  const [loading, setLoading] = useState(true);
-  const { isApiCallInProgress } = useContext(ApiContext);
-
-  useEffect(() => {
-    const fetchDataAsync = async () => {
-      try {
-        const result = await fetchWordsData(isApiCallInProgress);
-        setDataDict(result.data);
-      } catch (error) {
-        // Handle error scenarios
-        console.error('Error occurred:', error);
-      }
-      setLoading(false);
-    };
-
-    if (!dataDict || dataDict.length <= 1) {
-      fetchDataAsync();
-    } else {
-      setLoading(false);
-    }
-  }, [isApiCallInProgress]);
-
+export function WordExampleList({
+  dataDictionary,
+  loading,
+  selected,
+}: Readonly<WordExampleListProps>) {
   return (
     <div className="w-full">
       <div className="p-5">
@@ -53,7 +31,7 @@ export function WordExampleList({ selected }: Readonly<WordExampleListProps>) {
       {!loading &&
         selected?.relatedDictionaryEntries.map((example) => {
           let term;
-          term = dataDict.find((item) => {
+          term = dataDictionary.find((item) => {
             if (isFvWord(item)) {
               return item.entryID === example.id;
             }

@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 import WordAlphabetRowCard from './word-row-card';
 import {
   FvLetter,
@@ -6,47 +6,23 @@ import {
   isFvWord,
   isFvWordLocationCombo,
 } from '../common/data';
-import fetchWordsData from '../../services/wordsApiService';
 import { DictionaryEntryExportFormat } from '@mothertongues/search';
 import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
-import { ApiContext } from '../contexts/apiContext';
 
 /* eslint-disable-next-line */
 export interface WordStartsWithListProps {
+  dataDictionary: (DictionaryEntryExportFormat | FvWordLocationCombo)[];
+  loading: boolean;
   selected: FvLetter;
 }
 
 let dataAlphabetMap: Record<string, FvLetter>;
 
 export function WordStartsWithList({
+  dataDictionary,
+  loading,
   selected,
 }: Readonly<WordStartsWithListProps>) {
-  const [dataDict, setDataDict] = useState<
-    (DictionaryEntryExportFormat | FvWordLocationCombo)[]
-  >([]);
-
-  const [loading, setLoading] = useState(true);
-  const { isApiCallInProgress } = useContext(ApiContext);
-
-  useEffect(() => {
-    const fetchDataAsync = async () => {
-      try {
-        const result = await fetchWordsData(isApiCallInProgress);
-        setDataDict(result.data);
-      } catch (error) {
-        // Handle error scenarios
-        console.error('Error occurred:', error);
-      }
-      setLoading(false);
-    };
-
-    if (!dataDict || dataDict.length <= 1) {
-      fetchDataAsync();
-    } else {
-      setLoading(false);
-    }
-  }, [isApiCallInProgress]);
-
   function getAlphabetSort(a: string, b: string, letterIndex: number): number {
     const aOrder = dataAlphabetMap?.[a[letterIndex]]?.sortOrder;
     const bOrder = dataAlphabetMap?.[b[letterIndex]]?.sortOrder;
@@ -69,7 +45,7 @@ export function WordStartsWithList({
       </div>
       {loading && <LoadingSpinner />}
       {!loading &&
-        dataDict
+        dataDictionary
           ?.filter((term) => {
             if (isFvWordLocationCombo(term)) {
               return term?.entry?.word?.startsWith(selected?.title ?? '');

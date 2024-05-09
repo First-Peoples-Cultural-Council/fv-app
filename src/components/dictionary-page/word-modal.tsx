@@ -49,29 +49,27 @@ function WordModal(props: { term: FvWord; onClose: () => void }) {
     }
   };
 
-  function shareButton () {
+  function shareButton() {
     return (
       <div className="pl-2 pr-2">
-      <button
-        onClick={() => {
-          if (navigator.share && navigator.canShare(shareData)) {
-            navigator.share(shareData).catch((err: any) => {
-              console.error(err);
-            });
-          } else {
-            navigator.clipboard
-              .writeText(shareData.url)
-              .catch((err: any) => {
+        <button
+          onClick={() => {
+            if (navigator.share && navigator.canShare(shareData)) {
+              navigator.share(shareData).catch((err: any) => {
                 console.error(err);
               });
-          }
-        }}
-      >
-        <i className="fv-share pr-2" />
-        <span className="text-xl">SHARE</span>
-      </button>
-    </div>
-    )
+            } else {
+              navigator.clipboard.writeText(shareData.url).catch((err: any) => {
+                console.error(err);
+              });
+            }
+          }}
+        >
+          <i className="fv-share pr-2" />
+          <span className="text-xl">SHARE</span>
+        </button>
+      </div>
+    );
   }
 
   return (

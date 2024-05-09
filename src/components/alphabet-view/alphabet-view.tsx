@@ -1,20 +1,14 @@
 import React, { useRef, useContext, useEffect, useState } from 'react';
+import { DictionaryEntryExportFormat } from '@mothertongues/search';
+
+// FPCC
 import classNames from 'classnames';
+import styles from './alphabet-view.module.css';
 import { useIsMobile } from '../../util/useMediaQuery';
-import {
-  FvLetter,
-  FvWordLocationCombo,
-  isFvWord,
-  isFvWordLocationCombo,
-} from '../common/data';
+import { FvLetter, FvWordLocationCombo } from '../common/data';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import fetchWordsData from '../../services/wordsApiService';
 import fetchCharactersData from '../../services/charactersApiService';
-import axios from 'axios';
-import ConfirmDialog from '../common/confirm/confirm';
-import Modal from '../common/modal/modal';
-import { Audio1, DictionaryEntryExportFormat } from '@mothertongues/search';
-import styles from './alphabet-view.module.css';
 import { Keyboard } from './keyboard';
 import { SelectedLetterDisplay } from './selected-letter-display';
 import { ApiContext } from '../contexts/apiContext';
@@ -33,10 +27,6 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
   >([]);
   const [dataAlphabet, setDataAlphabet] = useState<FvLetter[]>([]);
   const [selected, setSelected] = useState<FvLetter | null>(null);
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-  const [downloadPercentage, setDownloadPercentage] = useState(0);
-  const [showDownloadProgress, setShowDownloadProgress] = useState(false);
-  const [currentlyDownloading, setCurrentlyDownloading] = useState(false);
 
   const [loading, setLoading] = useState(true);
   const { isApiCallInProgress } = useContext(ApiContext);
@@ -82,7 +72,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
 
   return (
     <>
-      {/* Small */}
+      {/* Mobile */}
       <div className="flex md:hidden justify-center w-full">
         <div
           className={classNames(
@@ -99,7 +89,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
           />
         </div>
       </div>
-      {/* Medium */}
+      {/* Tablet */}
       <div className="hidden md:block w-full">
         <div className="grid grid-cols-3">
           <div
@@ -108,10 +98,12 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
               styles['largeContainer']
             )}
           >
-            <SelectedLetterDisplay
-              selected={selected}
-              promptForDownload={promptForDownload}
-            />
+            {selected && (
+              <SelectedLetterDisplay
+                selected={selected}
+                dataDictionary={dataDictionary}
+              />
+            )}
 
             <Keyboard
               selected={selected}
@@ -121,29 +113,29 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
               wordListRef={wordListRef}
             />
           </div>
-          <div
-            ref={wordListRef}
-            className={classNames(
-              'overflow-y-auto col-span-2',
-              styles['largeContainer']
-            )}
-          >
-            {selected && selected?.relatedDictionaryEntries.length !== 0 && (
-              <WordExampleList
-                selected={selected}
-                dataDictionary={dataDictionary}
-                loading={loading}
-              />
-            )}
-            {selected?.note?.length !== 0 && note()}
-            {selected && (
+          {selected && (
+            <div
+              ref={wordListRef}
+              className={classNames(
+                'overflow-y-auto col-span-2',
+                styles['largeContainer']
+              )}
+            >
+              {selected?.relatedDictionaryEntries.length > 0 && (
+                <WordExampleList
+                  selected={selected}
+                  dataDictionary={dataDictionary}
+                  loading={loading}
+                />
+              )}
+              {selected?.note?.length > 0 && note()}
               <WordStartsWithList
                 selected={selected}
                 dataDictionary={dataDictionary}
                 loading={loading}
               />
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
       {/* Mobile - Character Detail Modal */}
@@ -152,16 +144,16 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
           <div>
             <SelectedLetterDisplay
               selected={selected}
-              promptForDownload={promptForDownload}
+              dataDictionary={dataDictionary}
             />
-            {selected?.relatedDictionaryEntries.length !== 0 && (
+            {selected?.relatedDictionaryEntries.length > 0 && (
               <WordExampleList
                 selected={selected}
                 dataDictionary={dataDictionary}
                 loading={loading}
               />
             )}
-            {selected?.note?.length !== 0 && note()}
+            {selected?.note?.length > 0 && note()}
             <WordStartsWithList
               selected={selected}
               dataDictionary={dataDictionary}
@@ -169,34 +161,6 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
             />
           </div>
         </FullScreenModal>
-      )}
-      {showConfirmDialog && (
-        <ConfirmDialog
-          title="Confirm Download"
-          message="You are about to download all the media files for this letter."
-          confirmLabel="Continue"
-          cancelLabel="No, Thanks"
-          onConfirm={() => downloadAssets()}
-          onCancel={() => setShowConfirmDialog(false)}
-        />
-      )}
-      {showDownloadProgress && (
-        <Modal
-          title="Download Progress"
-          onClose={() => setShowDownloadProgress(false)}
-        >
-          <div className="grid place-items-center">
-            <div className={`rounded-md bg-gray-300 w-[400px] h-2 ml-10 mr-10`}>
-              <div
-                className={`rounded-l-md bg-green-500 h-2`}
-                style={{
-                  width: `${downloadPercentage}%`,
-                }}
-              />
-            </div>
-            <div className="text-xl p-2">{downloadPercentage}%</div>
-          </div>
-        </Modal>
       )}
     </>
   );
@@ -208,79 +172,6 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
         <div>{selected?.note}</div>
       </div>
     );
-  }
-
-  async function promptForDownload() {
-    if (currentlyDownloading) {
-      setShowDownloadProgress(true);
-    } else {
-      setShowConfirmDialog(true);
-    }
-  }
-
-  async function downloadAssets() {
-    setDownloadPercentage(0);
-    setCurrentlyDownloading(true);
-
-    const mediaList: Set<string> = new Set();
-
-    // Get a list of the assets associated with the words/phrases
-    // that start with the selected letter.
-    dataDictionary
-      .filter((term) => {
-        if (isFvWord(term)) {
-          return term.word.startsWith(selected?.title ?? '');
-        }
-        if (isFvWordLocationCombo(term)) {
-          return term.entry.word.startsWith(selected?.title ?? '');
-        }
-        return false;
-      })
-      .forEach((term) => {
-        if (isFvWord(term)) {
-          // Get the image associated with the word/phrase.
-          if (term.img) {
-            mediaList.add(term.img);
-          }
-          // Get all of the audio files associated with the word/phrase.
-          term.audio?.forEach((audio: Audio1) => {
-            mediaList.add(audio.filename);
-          });
-        }
-        if (isFvWordLocationCombo(term)) {
-          // Get the image associated with the word/phrase.
-          if (term.entry.img) {
-            mediaList.add(term.entry.img);
-          }
-          // Get all of the audio files associated with the word/phrase.
-          term.entry.audio?.forEach((audio: Audio1) => {
-            mediaList.add(audio.filename);
-          });
-        }
-      });
-
-    // If there is media to download get it and update the percentage.
-    if (mediaList.size > 0) {
-      const promises: Promise<void>[] = [];
-
-      setShowDownloadProgress(true);
-      let downloadComplete = 0;
-
-      mediaList.forEach((media) => {
-        promises.push(
-          axios.get(media).then(() => {
-            downloadComplete++;
-            setDownloadPercentage(
-              Math.round((downloadComplete / mediaList.size) * 100)
-            );
-          })
-        );
-      });
-
-      await Promise.all(promises);
-      setCurrentlyDownloading(false);
-      setShowDownloadProgress(false);
-    }
   }
 }
 

@@ -4,6 +4,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "@bcgov/bc-sans": "^2.1.0",
     "@heroicons/react": "^2.0.15",
     "@mothertongues/search": "^0.0.3",
     "@nrwl/webpack": "15.8.9",

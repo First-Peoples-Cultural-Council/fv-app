@@ -1,5 +1,6 @@
 @import './assets/fonts/css/animation.css';
 @import './assets/fonts/css/first-voices.css';
+@import '@bcgov/bc-sans/css/BCSans.css';
 
 @tailwind base;
 @tailwind components;
@@ -7,14 +8,4 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
 }

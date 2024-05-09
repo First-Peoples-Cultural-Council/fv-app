@@ -1,25 +1,21 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { CopyButton } from './copy-button';
 import { DownloadButton } from './download-button';
 import { AudioButton } from './audio-button';
-import { FVMedia } from '../common/data';
+import { FvLetter, FVMedia } from '../common/data';
 
 export interface SelectedLetterDisplayProps {
-  selected: any;
-  setSelected: (letter: any) => void;
-  setShowMobileWordList: (show: boolean) => void;
+  selected: FvLetter | null;
+  setSelected: (letter: FvLetter | null) => void;
   promptForDownload: () => void;
 }
 
 export function SelectedLetterDisplay({
   selected,
   setSelected,
-  setShowMobileWordList,
   promptForDownload,
 }: Readonly<SelectedLetterDisplayProps>) {
   const audioCount = selected?.relatedAudio.length ?? 0;
-  const navigate = useNavigate();
 
   return (
     <>
@@ -27,8 +23,6 @@ export function SelectedLetterDisplay({
         className="fv-close float-right block md:hidden"
         onClick={() => {
           setSelected(null);
-          setShowMobileWordList(false);
-          navigate('/alphabet');
         }}
       />
       <div className="flex text-8xl justify-center pb-6">{selected?.title}</div>

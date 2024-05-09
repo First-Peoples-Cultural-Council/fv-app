@@ -1,13 +1,6 @@
 import classNames from 'classnames';
-import React, {
-  useRef,
-  Fragment,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
-import { useLocation, useParams, useOutletContext } from 'react-router-dom';
-import WordAlphabetRowCard from './word-row-card';
+import { useRef, useContext, useEffect, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 import _ from 'lodash';
 import { useIsMobile } from '../../util/useMediaQuery';
 import {
@@ -25,31 +18,25 @@ import Modal from '../common/modal/modal';
 import { Audio1, DictionaryEntryExportFormat } from '@mothertongues/search';
 import styles from './alphabet-view.module.css';
 import { SearchResultsContext } from '../search-results-provider';
-import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 import { Keyboard } from './keyboard';
 import { SelectedLetterDisplay } from './selected-letter-display';
 import { ApiContext } from '../contexts/apiContext';
+import { WordExampleList } from './word-example-list';
+import { WordStartsWithList } from './word-starts-with-list';
 
 /* eslint-disable-next-line */
 export interface AlphabetViewProps {}
 
-let dataAlphabetMap: Record<string, FvLetter>;
-
 export function AlphabetView(this: any, props: AlphabetViewProps) {
   const wordListRef = useRef<HTMLDivElement | null>(null);
 
-  const { setSearchMatchRef }: any = useOutletContext();
   const { letter } = useParams();
   const location = useLocation();
   const [dataDict, setDataDict] = useState<
     (DictionaryEntryExportFormat | FvWordLocationCombo)[]
   >([]);
   const [dataAlphabet, setDataAlphabet] = useState<FvLetter[]>([]);
-  const [selected, setSelected] = useState<FvLetter | null>(
-    (dataAlphabet.find(
-      (letterData) => letterData.title === decodeURIComponent(letter ?? '')
-    ) as FvLetter) ?? null
-  );
+  const [selected, setSelected] = useState<FvLetter | null>(null);
   const [showMobileWordList, setShowMobileWordList] = useState(
     location.hash &&
       !location.hash.startsWith('#') &&
@@ -67,6 +54,8 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
   if (!useIsMobile() && selected === null && dataAlphabet.length !== 0) {
     setSelected(dataAlphabet[0]);
   }
+
+  console.log(dataAlphabet);
 
   useEffect(() => {
     const fetchDataAsync = async () => {
@@ -123,7 +112,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
             selected={selected}
             setSelected={setSelected}
             dataAlphabet={dataAlphabet}
-            exampleWordList={exampleWordList}
+            loading={loading}
             note={note}
             setShowMobileWordList={setShowMobileWordList}
             wordListRef={wordListRef}
@@ -142,14 +131,14 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
             <SelectedLetterDisplay
               selected={selected}
               setSelected={setSelected}
-              setShowMobileWordList={setShowMobileWordList}
               promptForDownload={promptForDownload}
             />
+
             <Keyboard
               selected={selected}
               setSelected={setSelected}
               dataAlphabet={dataAlphabet}
-              exampleWordList={exampleWordList}
+              loading={loading}
               note={note}
               setShowMobileWordList={setShowMobileWordList}
               wordListRef={wordListRef}
@@ -163,10 +152,11 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
               styles['largeContainer']
             )}
           >
-            {selected?.relatedDictionaryEntries.length !== 0 &&
-              exampleWordList()}
+            {selected && selected?.relatedDictionaryEntries.length !== 0 && (
+              <WordExampleList selected={selected} />
+            )}
             {selected?.note !== undefined && note()}
-            {wordList()}
+            {selected && <WordStartsWithList selected={selected} />}
           </div>
         </div>
       </div>
@@ -175,7 +165,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
           onClose={() => setShowMobileWordList(false)}
           actions={<></>}
         >
-          {wordList()}
+          {selected && <WordStartsWithList selected={selected} />}
         </FullScreenModal>
       )}
       {showConfirmDialog && (
@@ -209,104 +199,11 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
     </>
   );
 
-  function exampleWordList() {
-    return (
-      <div className="w-full">
-        <div ref={setSearchMatchRef}></div>
-        <div className="p-5">
-          <span className="text-xl pr-2">EXAMPLE WORDS WITH</span>
-          <span className="text-5xl bold">{selected?.title}</span>
-        </div>
-        {loading && <LoadingSpinner />}
-        {!loading &&
-          selected?.relatedDictionaryEntries.map((example) => {
-            let term;
-            term = dataDict.find((item) => {
-              if (isFvWord(item)) {
-                return item.entryID === example.id;
-              }
-              if (isFvWordLocationCombo(item)) {
-                return item.entry.entryID === example.id;
-              }
-              return false;
-            });
-            if (term === undefined) {
-              return null;
-            }
-            return (
-              <div
-                key={`${example.type}-${example.id}-example`}
-                id={`${example.type}-${example.id}`}
-              >
-                <WordAlphabetRowCard term={term} />
-              </div>
-            );
-          })}
-      </div>
-    );
-  }
-
   function note() {
     return (
       <div className="p-5">
         <div className="text-xl pb-2">NOTES</div>
         <div>{selected?.note}</div>
-      </div>
-    );
-  }
-
-  function getAlphabetSort(a: string, b: string, letterIndex: number): number {
-    const aOrder = dataAlphabetMap?.[a[letterIndex]]?.sortOrder;
-    const bOrder = dataAlphabetMap?.[b[letterIndex]]?.sortOrder;
-    if (aOrder === undefined) {
-      return 1;
-    } else if (bOrder === undefined) {
-      return -1;
-    } else if (aOrder === bOrder) {
-      return getAlphabetSort(a, b, letterIndex + 1);
-    } else {
-      return aOrder - bOrder;
-    }
-  }
-
-  function wordList() {
-    return (
-      <div className="w-full">
-        <div className="p-5">
-          <span className="text-xl pr-2">WORDS STARTING WITH</span>
-          <span className="text-5xl bold">{selected?.title}</span>
-        </div>
-        {loading && <LoadingSpinner />}
-        {!loading &&
-          dataDict
-            ?.filter((term) => {
-              if (isFvWordLocationCombo(term)) {
-                return term?.entry?.word?.startsWith(selected?.title ?? '');
-              }
-              return term?.word?.startsWith(selected?.title ?? '');
-            })
-            .sort((a, b) => {
-              if (isFvWordLocationCombo(a) && isFvWordLocationCombo(b)) {
-                return getAlphabetSort(a.entry.word, b.entry.word, 1);
-              }
-              if (isFvWord(a) && isFvWord(b)) {
-                return getAlphabetSort(a.word, b.word, 1);
-              }
-              return 0;
-            })
-            .map((term) => {
-              return (
-                <Fragment
-                  key={
-                    isFvWordLocationCombo(term)
-                      ? `${term.entry.source}-${term.entry.entryID}`
-                      : `${term.source}-${term.entryID}`
-                  }
-                >
-                  <WordAlphabetRowCard term={term} />
-                </Fragment>
-              );
-            })}{' '}
       </div>
     );
   }

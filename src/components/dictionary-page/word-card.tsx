@@ -71,7 +71,7 @@ function WordCard(
       ))}
       {term.img && (
         <FvImage
-          className="pt-10 max-w-sm max-h-sm"
+          className="pt-10"
           src={term.img}
           alt={term.word}
         />

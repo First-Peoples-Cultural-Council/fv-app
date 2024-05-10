@@ -95,6 +95,7 @@ export function Dictionary(props: DictionaryProps) {
   if (!currentNavItem) return null;
   return (
     <div className={styles['container']}>
+      <SubNavMobile navItems={navItems} />
       <SearchHeader
         searchMatchRef={searchMatchRef}
         title={currentNavItem.title}
@@ -113,7 +114,6 @@ export function Dictionary(props: DictionaryProps) {
           }
         }
       >
-        <SubNavMobile navItems={navItems} />
         <div className="flex w-full">
           <SubNavDesktop navItems={navItems} />
           <Outlet context={{ setSearchMatchRef }} />

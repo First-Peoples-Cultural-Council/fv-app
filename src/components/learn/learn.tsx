@@ -80,6 +80,7 @@ export function LearnView(props: LearnViewProps) {
 
   return (
     <div>
+      <SubNavMobile navItems={navItems} />
       {currentNavItem && (
         <SearchHeader
           searchMatchRef={null}
@@ -99,7 +100,6 @@ export function LearnView(props: LearnViewProps) {
           }
         }
       >
-        <SubNavMobile navItems={navItems} />
         <div className="flex w-full">
           <SubNavDesktop navItems={navItems} />
           {currentNavItem && <Outlet />}

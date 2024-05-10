@@ -7,11 +7,11 @@ export interface SubNavMobileProps {
   navItems: SubNavItem[];
 }
 
-export function SubNavMobile({ navItems }: SubNavMobileProps) {
+export function SubNavMobile({ navItems }: Readonly<SubNavMobileProps>) {
   const location = useLocation();
 
   return (
-    <div className="md:hidden flex justify-around bg-white border border-black border-solid">
+    <div className="md:hidden flex justify-around bg-white font-bold">
       {navItems.map((item) => {
         return (
           <Link

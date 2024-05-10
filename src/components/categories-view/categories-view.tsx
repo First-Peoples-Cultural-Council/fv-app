@@ -27,7 +27,7 @@ export function CategoriesView(props: CategoriesViewProps) {
       {loading && <LoadingSpinner />}
       <div
         className={classNames(
-          'block md:hidden flex flex-wrap overflow-y-auto',
+          'md:hidden flex justify-center flex-wrap overflow-y-auto',
           styles['scrollable-div']
         )}
       >

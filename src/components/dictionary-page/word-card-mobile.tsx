@@ -44,8 +44,9 @@ function WordCardMobile(
   }, [location]);
 
   return (
-    <div data-testid="word-card-mobile">
+    <>
       <button
+        data-testid="word-card-mobile"
         type="button"
         className="flex md:hidden w-full bg-white p-5 m-2 rounded-lg shadow-lg hover:bg-slate-100 cursor-pointer"
         onClick={() => setShowModal(true)}
@@ -84,7 +85,7 @@ function WordCardMobile(
           />
         </FullScreenModal>
       )}
-    </div>
+    </>
   );
 }
 

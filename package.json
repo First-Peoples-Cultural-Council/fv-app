@@ -48,7 +48,7 @@
     "workbox-streams": "^6.5.4"
   },
   "scripts": {
-    "start": "set CI=false&&react-scripts start",
+    "start": "react-scripts start",
     "prebuild": "node ./generateManifestFileArray.js",
     "build": "react-scripts build",
     "test": "react-scripts test",

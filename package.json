@@ -50,7 +50,7 @@
   "scripts": {
     "start": "react-scripts start",
     "prebuild": "node ./generateManifestFileArray.js",
-    "build": "set CI=false&&react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "test:e2e": "npx playwright test",
     "eject": "react-scripts eject",

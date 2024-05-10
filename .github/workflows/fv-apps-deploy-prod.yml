@@ -52,6 +52,8 @@ jobs:
       # - name: Run Playwright tests
       #   run: npx playwright test
     - name: Build Application
+      env:
+        CI: false
       run: |
         ls
         npm run build

@@ -19,6 +19,7 @@ import { WordStartsWithList } from './word-starts-with-list';
 export interface AlphabetViewProps {}
 
 export function AlphabetView(this: any, props: AlphabetViewProps) {
+  const { isApiCallInProgress } = useContext(ApiContext);
   const wordListRef = useRef<HTMLDivElement | null>(null);
   const isMobile = useIsMobile();
 
@@ -27,9 +28,8 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
   >([]);
   const [dataAlphabet, setDataAlphabet] = useState<FvLetter[]>([]);
   const [selected, setSelected] = useState<FvLetter | null>(null);
-
-  const [loading, setLoading] = useState(true);
-  const { isApiCallInProgress } = useContext(ApiContext);
+  const [loadingAlphabet, setLoadingAlphabet] = useState(true);
+  const [loadingDictionary, setLoadingDictionary] = useState(true);
 
   if (!isMobile && selected === null && dataAlphabet.length !== 0) {
     setSelected(dataAlphabet[0]);
@@ -42,7 +42,9 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
         setDataAlphabet(result);
       } catch (error) {
         // Handle error scenarios
+        console.error('Error occurred:', error);
       }
+      setLoadingAlphabet(false);
     };
 
     const fetchDataDictAsync = async () => {
@@ -53,12 +55,12 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
         // Handle error scenarios
         console.error('Error occurred:', error);
       }
+      setLoadingDictionary(false);
     };
 
     if (dataAlphabet.length === 0) {
       fetchDataAlphabetAsync();
       fetchDataDictAsync();
-      setLoading(false);
     }
   }, [isApiCallInProgress]);
 
@@ -84,7 +86,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
             selected={selected}
             setSelected={setSelected}
             dataAlphabet={dataAlphabet}
-            loading={loading}
+            loading={loadingAlphabet}
             wordListRef={wordListRef}
           />
         </div>
@@ -109,7 +111,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
               selected={selected}
               setSelected={setSelected}
               dataAlphabet={dataAlphabet}
-              loading={loading}
+              loading={loadingAlphabet}
               wordListRef={wordListRef}
             />
           </div>
@@ -125,14 +127,14 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
                 <WordExampleList
                   selected={selected}
                   dataDictionary={dataDictionary}
-                  loading={loading}
+                  loading={loadingDictionary}
                 />
               )}
               {selected?.note?.length > 0 && note()}
               <WordStartsWithList
                 selected={selected}
                 dataDictionary={dataDictionary}
-                loading={loading}
+                loading={loadingDictionary}
               />
             </div>
           )}
@@ -150,14 +152,14 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
               <WordExampleList
                 selected={selected}
                 dataDictionary={dataDictionary}
-                loading={loading}
+                loading={loadingDictionary}
               />
             )}
             {selected?.note?.length > 0 && note()}
             <WordStartsWithList
               selected={selected}
               dataDictionary={dataDictionary}
-              loading={loading}
+              loading={loadingDictionary}
             />
           </div>
         </FullScreenModal>

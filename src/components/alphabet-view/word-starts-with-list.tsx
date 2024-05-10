@@ -73,7 +73,7 @@ export function WordStartsWithList({
                 <WordAlphabetRowCard term={term} />
               </Fragment>
             );
-          })}{' '}
+          })}
     </div>
   );
 }

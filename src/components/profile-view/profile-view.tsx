@@ -103,7 +103,7 @@ export function ProfileView() {
             </div>
           </div>
 
-          <div className="block md:hidden grid grid-cols-10 gap-4 top-5 w-full ml-2">
+          <div className="md:hidden grid grid-cols-10 gap-4 top-5 w-full ml-2">
             <div className="col-span-8">
               <div>
                 <h1 className="font-bold">{bookmark.name}</h1>
@@ -143,9 +143,9 @@ export function ProfileView() {
       >
         <DeletableList
           header="Bookmarks"
-          confirmMessage="Unbookmark selected bookmarks?"
-          removeButtonText="Unbookmark"
-          removeSelectedButtonText="Unbookmark Selected"
+          confirmMessage="Remove selected bookmarks?"
+          removeButtonText="Edit bookmarks"
+          removeSelectedButtonText="Remove selected"
           items={list}
           showSearch={false}
           onDelete={function (ids: string[]) {

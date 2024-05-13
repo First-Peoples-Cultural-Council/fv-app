@@ -1,4 +1,4 @@
-import { noop } from 'lodash';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useButtonStyle } from '../hooks/useButtonStyle';
 
@@ -28,13 +28,14 @@ export function PageNotFound(props: PageNotFoundProps) {
               <Link className={primaryButtonStyle} to="/">
                 Go back home
               </Link>
-              <button
-                onClick={noop}
-                type="button"
+              <a
+                href="https://firstvoices.atlassian.net/servicedesk/customer/portal/6"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={secondaryButtonStyle}
               >
                 Contact support
-              </button>
+              </a>
             </div>
           </div>
         </main>

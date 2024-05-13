@@ -62,7 +62,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
       fetchDataAlphabetAsync();
       fetchDataDictAsync();
     }
-  }, [isApiCallInProgress]);
+  }, [isApiCallInProgress, dataAlphabet]);
 
   useEffect(() => {
     if (selected && isMobile) {

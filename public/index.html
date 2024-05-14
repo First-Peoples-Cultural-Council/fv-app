@@ -15,7 +15,8 @@
   </style>
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" href="%PUBLIC_URL%/default/favicon.ico" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/default/logo192.png" />
     <title>Download FirstVoices App</title>
     <meta
       name="description"
@@ -24,8 +25,6 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
 
     <!--
       manifest.default.json provides metadata used when your web app is installed on a
@@ -41,6 +40,16 @@
       linkElement.rel = 'manifest';
       linkElement.href = manifestUrl;
       document.head.appendChild(linkElement);
+
+      // Link the logos
+      const faviconLink = document.createElement('link');
+      faviconLink.rel = 'icon';
+      faviconLink.href = `%PUBLIC_URL%/${subdomain}/favicon.ico`;
+      document.head.appendChild(faviconLink);
+      const logoLink = document.createElement('link');
+      logoLink.rel = 'apple-touch-icon';
+      logoLink.href = `%PUBLIC_URL%/${subdomain}/logo192.png`;
+      document.head.appendChild(logoLink);
 
       // customize the title for this language
       const request = new Request(manifestUrl);

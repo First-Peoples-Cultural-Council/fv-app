@@ -26,6 +26,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
   const [dictionaryData, setDataDict] = useState<FvWord[]>([]);
   const [data, setData] = useState<FvWord[]>([]);
+  const [initialFilteredData, setInitialFilteredData] = useState<FvWord[]>([]);
   const [dataForFlashcardGroup, setDataForFlashcardGroup] = useState<any>();
   const [flashcardIndex, setFlashcardIndex] = useState<number>(0);
   const [flashcardData, setFlashcardData] = useState<Flashcard>();
@@ -94,6 +95,13 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   useEffect(() => {
     if (selectedFlashcardDisplayType !== '') {
       setShowSelectModal(false);
+      let filteredData = initialFilteredData;
+
+      if (selectedFlashcardDisplayType === 'a2e') {
+        filteredData = initialFilteredData.filter((entry) => entry.audio && entry.audio.length > 0);
+        saveDataForFlashcards(filteredData);
+      }
+
       setDataForFlashcard(0);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -114,14 +122,12 @@ export function FlashcardsView(props: FlashcardsViewProps) {
       <div className="w-full">
         <div className="flex flex-wrap justify-center">
           {flashCardType('Words', 'fv-wordsfc', () => {
-            setSelectedFlashcardDisplayType('');
-            saveDataForFlashcards(
+            handleFlashcardTypeSelection(
               dictionaryData.filter((entry) => entry.source === 'words')
             );
           })}
           {flashCardType('Phrases', 'fv-phrasesfc', () => {
-            setSelectedFlashcardDisplayType('');
-            saveDataForFlashcards(
+            handleFlashcardTypeSelection(
               dictionaryData.filter((entry) => entry.source === 'phrases')
             );
           })}
@@ -130,8 +136,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
             setShowCategoryModal(true);
           })}
           {flashCardType('Bookmarks', 'fv-bookmark', () => {
-            setSelectedFlashcardDisplayType('');
-            saveDataForFlashcards(
+            handleFlashcardTypeSelection(
               dictionaryData.filter((entry) =>
                 bookmarks.some(
                   (bookmark) =>
@@ -310,6 +315,12 @@ export function FlashcardsView(props: FlashcardsViewProps) {
     setDataForFlashcardGroup(flashcardSet);
   }
 
+  function handleFlashcardTypeSelection(data: FvWord[]) {
+    setSelectedFlashcardDisplayType('');
+    setInitialFilteredData(data);
+    saveDataForFlashcards(data);
+  }
+
   function flashCardType(name: string, icon: string, getTypeData: Function) {
     return (
       <button
@@ -344,7 +355,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   }
 
   function setDataForFlashcard(fcIndex: number) {
-    if (fcIndex === dataForFlashcardGroup.length - 1) {
+    if (fcIndex === dataForFlashcardGroup.length) {
       setShowFlashcardModal(false);
       setShowDonePromptModal(true);
     } else {

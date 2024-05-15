@@ -93,8 +93,11 @@ self.addEventListener('message', (event) => {
 
 // Any other custom service worker logic can go here.
 
+console.log("Adding listener for fetch event")
 self.addEventListener('fetch', function (event) {
+  event.preventDefault()
   const url = event.request.url;
+  console.log("service-worker event listener for fetch: ", url)
 
   event.respondWith(
     (async function () {
@@ -119,9 +122,11 @@ self.addEventListener('fetch', function (event) {
           ])
         ) {
           if (await hasMediaFile(url)) {
+          console.log("service-worker getting media file from cache: ", url)
             const file: File = await getMediaFile(url);
             return new Response(file, { status: 200 });
           } else {
+            console.log("service-worker getting fresh media file from web: ", url)
             // Save the media file in the database.
             const file = await getFileFromUrl(url);
             db.saveMediaFile(url, file);
@@ -129,15 +134,19 @@ self.addEventListener('fetch', function (event) {
             return response;
           }
         } else {
+          console.log("service-worker not a cacheable fetch: ", url)
           return response;
         }
       } catch (error) {
+        console.log("service-worker fetch error: ", url, error)
         // Handle fetch error when app is offline
         // Check to see if the db has the media file.
         if (await hasMediaFile(url)) {
+          console.log("service-worker getting file from cache due to fetch error: ", url)
           const file: File = await getMediaFile(url);
           return new Response(file, { status: 200 });
         } else {
+          console.log("service-worker no file available, fetch error: ", url)
           // Return a custom offline response
           return new Response('Offline', {
             status: 503,
@@ -161,20 +170,26 @@ self.addEventListener('install', (event) => {
 });
 
 async function hasMediaFile(urlPath: string): Promise<boolean> {
+  console.log("service-worker hasMediaFile start", urlPath);
   const url = new URL(urlPath);
   url.search = '';
-  return await db.hasMediaFile(url.toString());
+  const result = await db.hasMediaFile(url.toString());
+  console.log("service-worker hasMediaFile finished", urlPath, result);
+  return result;
 }
 
 async function getMediaFile(urlPath: string): Promise<File> {
+  console.log("service-worker getMediaFile start");
   const url = new URL(urlPath);
   url.search = '';
   const { file: blob } = (await db.getMediaFile(url.toString())) as {
     file: Blob;
   };
-  return new File([blob], getFileNameFromUrl(url.toString()), {
+  const file = new File([blob], getFileNameFromUrl(url.toString()), {
     type: blob.type,
   });
+  console.log("service-worker getMediaFile finished: ", file);
+  return file;
 }
 
 function endsWithAny(text: string, endings: string[]): boolean {
@@ -187,11 +202,14 @@ function endsWithAny(text: string, endings: string[]): boolean {
 }
 
 async function getFileFromUrl(url: string): Promise<File> {
+  console.log("service-worker getFileFromUrl start", url);
   const response = await fetch(url);
   const blob = await response.blob();
   const fileName = getFileNameFromUrl(url);
 
-  return new File([blob], fileName);
+  const file = new File([blob], fileName);
+  console.log("service-worker getFileFromUrl finished", url);
+  return file;
 }
 
 function getFileNameFromUrl(url: string): string {

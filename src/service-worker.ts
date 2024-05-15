@@ -95,6 +95,7 @@ self.addEventListener('message', (event) => {
 
 console.log("Adding listener for fetch event")
 self.addEventListener('fetch', function (event) {
+  event.preventDefault()
   const url = event.request.url;
   console.log("service-worker event listener for fetch: ", url)
 

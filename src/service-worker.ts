@@ -95,6 +95,7 @@ self.addEventListener('message', (event) => {
 
 self.addEventListener('fetch', function (event) {
   const url = event.request.url;
+  console.log("service-worker event listener for fetch: ", url)
 
   event.respondWith(
     (async function () {
@@ -119,9 +120,11 @@ self.addEventListener('fetch', function (event) {
           ])
         ) {
           if (await hasMediaFile(url)) {
+          console.log("service-worker getting media file from cache: ", url)
             const file: File = await getMediaFile(url);
             return new Response(file, { status: 200 });
           } else {
+            console.log("service-worker getting fresh media file from web: ", url)
             // Save the media file in the database.
             const file = await getFileFromUrl(url);
             db.saveMediaFile(url, file);
@@ -129,15 +132,19 @@ self.addEventListener('fetch', function (event) {
             return response;
           }
         } else {
+          console.log("service-worker not a cacheable fetch: ", url)
           return response;
         }
       } catch (error) {
+        console.log("service-worker fetch error: ", url, error)
         // Handle fetch error when app is offline
         // Check to see if the db has the media file.
         if (await hasMediaFile(url)) {
+          console.log("service-worker getting file from cache due to fetch error: ", url)
           const file: File = await getMediaFile(url);
           return new Response(file, { status: 200 });
         } else {
+          console.log("service-worker no file available, fetch error: ", url)
           // Return a custom offline response
           return new Response('Offline', {
             status: 503,

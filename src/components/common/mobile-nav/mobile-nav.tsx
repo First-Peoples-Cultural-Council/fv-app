@@ -11,7 +11,6 @@ export interface MobileNavProps {
 
 export function MobileNav({ navItems, extraNavItems, currentTab }: MobileNavProps) {
   const [showExtraNav, setShowExtraNav] = React.useState(false);
-  console.log({navItems})
   return (
     <>
       {/* Mobile Nav Spacer */}

@@ -93,6 +93,7 @@ self.addEventListener('message', (event) => {
 
 // Any other custom service worker logic can go here.
 
+console.log("Adding listener for fetch event")
 self.addEventListener('fetch', function (event) {
   const url = event.request.url;
   console.log("service-worker event listener for fetch: ", url)
@@ -168,20 +169,26 @@ self.addEventListener('install', (event) => {
 });
 
 async function hasMediaFile(urlPath: string): Promise<boolean> {
+  console.log("service-worker hasMediaFile start", urlPath);
   const url = new URL(urlPath);
   url.search = '';
-  return await db.hasMediaFile(url.toString());
+  const result = await db.hasMediaFile(url.toString());
+  console.log("service-worker hasMediaFile finished", urlPath, result);
+  return result;
 }
 
 async function getMediaFile(urlPath: string): Promise<File> {
+  console.log("service-worker getMediaFile start");
   const url = new URL(urlPath);
   url.search = '';
   const { file: blob } = (await db.getMediaFile(url.toString())) as {
     file: Blob;
   };
-  return new File([blob], getFileNameFromUrl(url.toString()), {
+  const file = new File([blob], getFileNameFromUrl(url.toString()), {
     type: blob.type,
   });
+  console.log("service-worker getMediaFile finished: ", file);
+  return file;
 }
 
 function endsWithAny(text: string, endings: string[]): boolean {
@@ -194,11 +201,14 @@ function endsWithAny(text: string, endings: string[]): boolean {
 }
 
 async function getFileFromUrl(url: string): Promise<File> {
+  console.log("service-worker getFileFromUrl start", url);
   const response = await fetch(url);
   const blob = await response.blob();
   const fileName = getFileNameFromUrl(url);
 
-  return new File([blob], fileName);
+  const file = new File([blob], fileName);
+  console.log("service-worker getFileFromUrl finished", url);
+  return file;
 }
 
 function getFileNameFromUrl(url: string): string {

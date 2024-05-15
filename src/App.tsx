@@ -22,7 +22,7 @@ const navItems: NavigationItem[] = [
     id: 'bookmarks',
     label: 'Bookmarks',
     to: '/bookmarks',
-    icon: <i className="fv-user" />,
+    icon: <i className="fv-bookmark" />,
   },
 ];
 const extraNavItems: NavigationItem[] = [

@@ -23,7 +23,7 @@ const navItems: SubNavItem[] = [
       activeText: 'text-color-stories-dark',
       border: 'border-color-stories-dark',
     },
-    activePathMatches: [{ path: 'learn/stories' }],
+    activePathMatches: [{ path: 'learn/stories' }, { path: 'learn' }], // Stories is the default page for 'learn'
   },
   {
     id: 'songs',

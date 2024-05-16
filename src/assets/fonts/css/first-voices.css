@@ -1,6 +1,6 @@
 @charset "UTF-8";
 @font-face {
-  font-family: 'first-voices', 'sans-serif';
+  font-family: 'first-voices', sans-serif;
   src: url('../font/first-voices.eot?52153691');
   src: url('../font/first-voices.eot?52153691#iefix') format('embedded-opentype'),
        url('../font/first-voices.woff2?52153691') format('woff2'),
@@ -21,7 +21,7 @@
 }
 */
 [class^="fv-"]:before, [class*=" fv-"]:before {
-  font-family: "first-voices";
+  font-family: "first-voices", sans-serif;
   font-style: normal;
   font-weight: normal;
   speak: never;

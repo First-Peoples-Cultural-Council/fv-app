@@ -1,15 +1,12 @@
 import React from 'react';
-import { Link, useRouteError, isRouteErrorResponse } from 'react-router-dom';
+import { useRouteError, isRouteErrorResponse } from 'react-router-dom';
 
 // FPCC
 import ErrorView from '../common/error-view/error-view';
 
-/* eslint-disable-next-line */
-export interface ErrorPageProps {}
-
-export function ErrorPage(props: ErrorPageProps) {
+export function ErrorPage() {
   const error = useRouteError();
-  let errorMessage: string;
+  let errorMessage: string = 'Unknown error';
   let errorStatus: string = '';
 
   if (isRouteErrorResponse(error)) {
@@ -22,7 +19,6 @@ export function ErrorPage(props: ErrorPageProps) {
     errorMessage = error;
   } else {
     console.error(error);
-    errorMessage = 'Unknown error';
   }
 
   return (

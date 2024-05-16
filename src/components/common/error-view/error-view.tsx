@@ -2,18 +2,26 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 /* eslint-disable-next-line */
-export interface PageNotFoundProps {}
+export interface ErrorViewProps {
+  errorStatus: string | number | null;
+  errorHeader: string | null;
+  errorMessage: string;
+}
 
-export function PageNotFound(props: PageNotFoundProps) {
+export function ErrorView({
+  errorHeader,
+  errorMessage,
+  errorStatus,
+}: Readonly<ErrorViewProps>) {
   return (
     <main className="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">
       <div className="text-center">
-        <p className="text-base font-semibold text-primary">404</p>
+        <p className="text-base font-semibold text-primary">{errorStatus}</p>
         <h1 className="mt-4 text-3xl font-bold tracking-tight text-fv-charcoal sm:text-5xl">
-          Page not found
+          {errorHeader ?? 'Sorry, an unexpected error has occurred.'}
         </h1>
         <p className="mt-6 text-base leading-7 text-fv-charcoal-light">
-          Sorry, we couldn’t find the page you’re looking for.
+          {errorMessage}
         </p>
 
         <div className="mt-10 flex items-center justify-center gap-x-6">
@@ -34,4 +42,4 @@ export function PageNotFound(props: PageNotFoundProps) {
   );
 }
 
-export default PageNotFound;
+export default ErrorView;

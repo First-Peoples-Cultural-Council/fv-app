@@ -15,7 +15,7 @@ const navItems: NavigationItem[] = [
   {
     id: 'learn',
     label: 'Learn',
-    to: '/learn/stories',
+    to: '/learn',
     icon: <i className="fv-computer" />,
   },
   {

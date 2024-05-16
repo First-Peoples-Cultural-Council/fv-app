@@ -25,6 +25,7 @@ const navItems: SubNavItem[] = [
       activeText: 'text-color-words-dark',
       border: 'border-color-words-dark',
     },
+    activePathMatches: [{ path: '' }], // Dictionary is the default page
   },
   {
     id: 'alphabet',
@@ -104,7 +105,9 @@ export function Dictionary(props: DictionaryProps) {
           from: currentNavItem.colors.from,
         }}
         setSearchEntries={setSearchResults}
-        shouldShowSearch={!!matchRoutes([{ path: 'dictionary' }], location)}
+        shouldShowSearch={
+          !!matchRoutes([{ path: '' }, { path: 'dictionary' }], location)
+        }
       />
       <SearchResultsProvider
         results={

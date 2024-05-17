@@ -1,121 +1,115 @@
-import { Bookmark, FvWord } from '../common/data';
-import WordCard from './word-card';
+import { Bookmark, FvWord, FvAudio } from '../common/data';
+import WordCategories from './word-categories';
 import classNames from 'classnames';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import IndexedDBService from '../../services/indexedDbService';
+import { FvImage } from '../common/image/image';
+import { AudioButton } from '../common/audio-button/audio';
 
-function WordModal(props: { term: FvWord; onClose: () => void }) {
-  const { term, onClose } = props;
+export interface WordModalProps {
+  term: FvWord;
+  onClose: () => void;
+}
 
+function WordModal({ term, onClose }: Readonly<WordModalProps>) {
   const [db, setDb] = useState<IndexedDBService>();
   const [bookmarked, setBookmarked] = useState<boolean>(false);
 
-  const { word } = term;
-
-  const shareData = {
-    title: 'FirstVoices',
-    text: `Learn what the word ${word} means from FirstVoices!`,
-    url: `${window.location.origin}${
-      window.location.pathname !== '/'
-        ? window.location.pathname
-        : '/dictionary'
-    }#${term.source}-${term.entryID}`,
-  };
-
-  const bookmark: Bookmark = {
-    id: term.entryID,
-    type: term.source,
-    definition: term.definition,
-    name: term.word,
-    hasAudio: term.audio?.length !== 0,
-    url: `${window.location.pathname}#${term.source}-${term.entryID}`,
-    timestamp: new Date(),
-  };
+  const bookmark: Bookmark = useMemo(() => {
+    return {
+      id: term.entryID,
+      type: term.source,
+      definition: term.definition,
+      name: term.word,
+      hasAudio: term.audio?.length !== 0,
+      url: `${window.location.pathname}#${term.source}-${term.entryID}`,
+      timestamp: new Date(),
+    };
+  }, [term]);
 
   useEffect(() => {
     setDb(new IndexedDBService('firstVoicesIndexedDb'));
   }, []);
 
-  useEffect(() => {
-    bookmarkIcon(db).catch((err: any) => {
-      console.error(err);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [db]);
+  const bookmarkIcon = useCallback(
+    async (db: IndexedDBService | undefined) => {
+      if (db)
+        try {
+          setBookmarked(!!(await db?.getBookmarkByUrl(bookmark.url)));
+        } catch (error) {
+          // Handle error scenarios
+          console.error('Error occurred:', error);
+        }
+    },
+    [bookmark]
+  );
 
-  const bookmarkIcon = async (db: IndexedDBService | undefined) => {
-    if (db) {
-      setBookmarked((await db?.getBookmarkByUrl(bookmark.url)) ? true : false);
+  useEffect(() => {
+    bookmarkIcon(db);
+  }, [db, bookmarkIcon]);
+
+  const onBookmarkClick = async () => {
+    if (bookmarked) {
+      await db?.removeBookmark(bookmark.url);
+    } else {
+      await db?.addBookmark(bookmark);
     }
+    bookmarkIcon(db);
   };
 
-  function shareButton() {
-    return (
-      <div className="pl-2 pr-2">
-        <button
-          onClick={() => {
-            if (navigator.share && navigator.canShare(shareData)) {
-              navigator.share(shareData).catch((err: any) => {
-                console.error(err);
-              });
-            } else {
-              navigator.clipboard.writeText(shareData.url).catch((err: any) => {
-                console.error(err);
-              });
-            }
-          }}
-        >
-          <i className="fv-share pr-2" />
-          <span className="text-xl">SHARE</span>
-        </button>
-      </div>
-    );
-  }
-
   return (
-    <div className="md:p-10">
-      <div className="flex text-2xl">
-        <p className="grow font-bold md:text-3xl pl-5">{word}</p>
-        <div className="grid grid-cols-1 min-w-fit">
-          <div className="pl-2 pr-2">
-            <i className="fv-copy pr-2" />
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(word).catch((err: any) => {
-                  console.error(err);
-                });
-              }}
-            >
-              <span className="text-xl">COPY</span>
-            </button>
-          </div>
+    <div className="md:p-10 space-y-5">
+      <div className="flex justify-between">
+        <div className="py-2">
+          <p className="grow font-bold text-2xl md:text-3xl">{term.word}</p>
+          <p className="italic">
+            {term?.optional?.['Part of Speech' as keyof typeof term.optional]
+              ? `(${
+                  term.optional['Part of Speech' as keyof typeof term.optional]
+                })`
+              : ' '}
+          </p>
+        </div>
+        <div className="block">
+          <button
+            data-testid="copy-btn"
+            className="flex items-center py-2"
+            onClick={() => {
+              navigator.clipboard.writeText(term.word).catch((err: any) => {
+                console.error(err);
+              });
+            }}
+          >
+            <i className="fv-copy pr-2 text-xl" />
+            <span className="text-lg">COPY</span>
+          </button>
+
           {/* Hiding share button for now FW-5780 {shareButton()} */}
-          <div className="pl-2 pr-2">
-            <button
-              onClick={async () => {
-                if (bookmarked) {
-                  await db?.removeBookmark(bookmark.url);
-                } else {
-                  await db?.addBookmark(bookmark);
-                }
-                bookmarkIcon(db).catch((err: any) => {
-                  console.error(err);
-                });
-              }}
-            >
-              <i
-                className={classNames(
-                  bookmarked ? 'fv-bookmark' : 'fv-bookmark-empty',
-                  'pr-2'
-                )}
-              />
-              <span className="text-xl">BOOKMARK</span>
-            </button>
-          </div>
+
+          <button
+            data-testid="bookmark-btn"
+            className="flex items-center py-2"
+            onClick={onBookmarkClick}
+          >
+            <i
+              className={classNames(
+                bookmarked ? 'fv-bookmark' : 'fv-bookmark-empty',
+                'pr-2  text-xl'
+              )}
+            />
+            <span className="text-lg">BOOKMARK</span>
+          </button>
         </div>
       </div>
-      <div className="-mt-14 pb-10">
-        <WordCard term={term} categoryPressed={onClose} />
+      <div className="space-y-5">
+        <p>{term.definition}</p>
+        {term.audio?.map((fvAudio: FvAudio) => (
+          <AudioButton key={fvAudio.filename} fvAudio={fvAudio} />
+        ))}
+        {term.img && (
+          <FvImage className="mx-auto md:mx-0" src={term.img} alt={term.word} />
+        )}
+        <WordCategories term={term} categoryPressed={onClose} />
       </div>
     </div>
   );

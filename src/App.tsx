@@ -44,6 +44,7 @@ export function App() {
   let currentTab = 'dictionary';
   const location = useLocation();
   switch (location.pathname) {
+    case '/learn':
     case '/learn/stories':
     case '/learn/songs':
     case '/learn/flashcards':
@@ -65,11 +66,7 @@ export function App() {
 
   return (
     <Suspense fallback={<LoadingSpinner />}>
-      <Header
-        navItems={navItems}
-        extraNavItems={extraNavItems}
-        currentTab={currentTab}
-      />
+      <Header navItems={navItems} extraNavItems={extraNavItems} />
       <Outlet />
       <MobileNav
         navItems={navItems}

@@ -164,7 +164,7 @@ export function StoriesView(props: StoriesViewProps) {
       </div>
 
       {showModal && (
-        <FullScreenModal onClose={() => closeModal()} actions={<></>}>
+        <FullScreenModal onClose={() => closeModal()}>
           {storyDetails()}
         </FullScreenModal>
       )}

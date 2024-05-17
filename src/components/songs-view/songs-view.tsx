@@ -158,7 +158,7 @@ export function SongsView(props: SongsViewProps) {
         </div>
       </div>
       {showModal && (
-        <FullScreenModal onClose={() => closeModal()} actions={<></>}>
+        <FullScreenModal onClose={() => closeModal()}>
           {songDetails()}
         </FullScreenModal>
       )}
@@ -201,16 +201,20 @@ export function SongsView(props: SongsViewProps) {
             </div>
           );
         })}
-        {(selectedSong?.introduction !== null || selectedSong.introductionTranslation !== null) && (
+        {(selectedSong?.introduction !== null ||
+          selectedSong.introductionTranslation !== null) && (
           <>
             <div className="p-2 text-lg font-bold mt-8">INTRODUCTION</div>
-                <div key="introduction">
-
-                  <div className="p-2">{convertJsonToComponent(selectedSong?.introduction ?? '{}')}</div>
-                  <div className="p-2 italic text-slate-400">
-                    {convertJsonToComponent(selectedSong?.introductionTranslation ?? '{}')}
-                  </div>
-                </div>
+            <div key="introduction">
+              <div className="p-2">
+                {convertJsonToComponent(selectedSong?.introduction ?? '{}')}
+              </div>
+              <div className="p-2 italic text-slate-400">
+                {convertJsonToComponent(
+                  selectedSong?.introductionTranslation ?? '{}'
+                )}
+              </div>
+            </div>
           </>
         )}
         {selectedSong?.lyrics !== null && selectedSong.lyrics.length !== 0 && (
@@ -264,7 +268,7 @@ export function SongsView(props: SongsViewProps) {
     return (
       <div className="grid grid-cols-1 pb-4">
         {copyButton()}
-       {/* Hiding Share button for now FW-5780 {shareButton()} */}
+        {/* Hiding Share button for now FW-5780 {shareButton()} */}
         {bookmarkButton()}
       </div>
     );

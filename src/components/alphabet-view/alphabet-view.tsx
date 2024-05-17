@@ -142,7 +142,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
       </div>
       {/* Mobile - Character Detail Modal */}
       {selected && isMobile && (
-        <FullScreenModal onClose={() => setSelected(null)} actions={<></>}>
+        <FullScreenModal onClose={() => setSelected(null)}>
           <div>
             <SelectedLetterDisplay
               selected={selected}

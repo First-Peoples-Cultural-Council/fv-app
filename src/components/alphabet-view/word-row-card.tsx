@@ -74,7 +74,7 @@ function WordAlphabetRowCard(
         </Modal>
       )}
       {!window.matchMedia('(min-width: 768px').matches && showModal && (
-        <FullScreenModal onClose={() => closeModal()} actions={null}>
+        <FullScreenModal onClose={() => closeModal()}>
           <WordModal
             term={entry}
             onClose={() => {

@@ -10,10 +10,7 @@ type Story = StoryObj<typeof FullScreenModal>;
 
 export const Primary: Story = {
   render: () => (
-    <FullScreenModal
-      onClose={() => alert('close')}
-      actions={<div>Actions go here</div>}
-    >
+    <FullScreenModal onClose={() => alert('close')}>
       <div>Content</div>
     </FullScreenModal>
   ),

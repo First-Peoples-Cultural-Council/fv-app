@@ -58,9 +58,9 @@ function WordModal({ term, onClose }: Readonly<WordModalProps>) {
   };
 
   return (
-    <div className="md:p-10 space-y-5">
+    <div className="md:px-8 md:pb-8 space-y-5">
       <div className="flex justify-between">
-        <div className="py-2">
+        <div>
           <p className="grow font-bold text-2xl md:text-3xl">{term.word}</p>
           <p className="italic">
             {term?.optional?.['Part of Speech' as keyof typeof term.optional]
@@ -70,10 +70,10 @@ function WordModal({ term, onClose }: Readonly<WordModalProps>) {
               : ' '}
           </p>
         </div>
-        <div className="block">
+        <div className="block space-y-3">
           <button
             data-testid="copy-btn"
-            className="flex items-center py-2"
+            className="flex items-center"
             onClick={() => {
               navigator.clipboard.writeText(term.word).catch((err: any) => {
                 console.error(err);
@@ -88,7 +88,7 @@ function WordModal({ term, onClose }: Readonly<WordModalProps>) {
 
           <button
             data-testid="bookmark-btn"
-            className="flex items-center py-2"
+            className="flex items-center"
             onClick={onBookmarkClick}
           >
             <i
@@ -107,7 +107,11 @@ function WordModal({ term, onClose }: Readonly<WordModalProps>) {
           <AudioButton key={fvAudio.filename} fvAudio={fvAudio} />
         ))}
         {term.img && (
-          <FvImage className="mx-auto md:mx-0" src={term.img} alt={term.word} />
+          <FvImage
+            className="object-contain w-full md:max-h-[45dvh] md:mx-auto"
+            src={term.img}
+            alt={term.word}
+          />
         )}
         <WordCategories term={term} categoryPressed={onClose} />
       </div>

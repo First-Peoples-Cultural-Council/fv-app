@@ -413,6 +413,7 @@
       "css": "pause",
       "code": 59428,
       "src": "fontawesome"
+<<<<<<< HEAD
     },
 
     {
@@ -438,6 +439,8 @@
         "width": 1000
       },
       "search": ["noun-dictionary-6313610-ffffff"]
+=======
+>>>>>>> dev
     }
   ]
 }

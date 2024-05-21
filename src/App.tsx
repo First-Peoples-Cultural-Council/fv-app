@@ -10,19 +10,23 @@ const navItems: NavigationItem[] = [
     id: 'dictionary',
     label: 'Dictionary',
     to: '/dictionary',
-    icon: <i className="fv-dictionary" />,
+    icon: <i className="fv-book" />,
   },
   {
     id: 'learn',
     label: 'Learn',
     to: '/learn',
+<<<<<<< HEAD
     icon: <i className="fv-learning" />,
+=======
+    icon: <i className="fv-computer" />,
+>>>>>>> dev
   },
   {
     id: 'bookmarks',
     label: 'Bookmarks',
     to: '/bookmarks',
-    icon: <i className="fv-bookmark" />,
+    icon: <i className="fv-user" />,
   },
 ];
 const extraNavItems: NavigationItem[] = [

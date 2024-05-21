@@ -28,6 +28,12 @@ export function AudioButton({ fvAudio }: AudioButtonProps) {
   useEffect(() => {
     db.hasMediaFile(fvAudio.filename).then((response) => {
       setHasFile(response);
+      if(!response) {
+        console.log("fetching audio file in order to cache it", fvAudio.filename);
+        fetch(fvAudio.filename).then((response) => {
+          console.log("fetched audio file: ", fvAudio.filename, response)
+        })
+      }
       const audioElement = new Audio(fvAudio.filename);
       addAudio(audioElement);
       setAudio(audioElement);

@@ -93,7 +93,7 @@ function WordCardDesktop(
       </button>
       {showModal && (
         <Modal onClose={() => closeModal()}>
-          <div ref={modalRef}> {/* Add the ref to the modal wrapper */}
+          <div ref={modalRef}>
             <WordModal
               term={term}
               onClose={() => {

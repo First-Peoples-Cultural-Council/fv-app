@@ -1,12 +1,11 @@
-@charset "UTF-8";
 @font-face {
   font-family: 'first-voices';
-  src: url('../font/first-voices.eot?2270520');
-  src: url('../font/first-voices.eot?2270520#iefix') format('embedded-opentype'),
-       url('../font/first-voices.woff2?2270520') format('woff2'),
-       url('../font/first-voices.woff?2270520') format('woff'),
-       url('../font/first-voices.ttf?2270520') format('truetype'),
-       url('../font/first-voices.svg?2270520#first-voices') format('svg');
+  src: url('../font/first-voices.eot?52153691');
+  src: url('../font/first-voices.eot?52153691#iefix') format('embedded-opentype'),
+       url('../font/first-voices.woff2?52153691') format('woff2'),
+       url('../font/first-voices.woff?52153691') format('woff'),
+       url('../font/first-voices.ttf?52153691') format('truetype'),
+       url('../font/first-voices.svg?52153691#first-voices') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -16,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'first-voices';
-    src: url('../font/first-voices.svg?2270520#first-voices') format('svg');
+    src: url('../font/first-voices.svg?52153691#first-voices') format('svg');
   }
 }
 */
@@ -62,36 +61,39 @@
 .fv-left-open:before { content: '\e804'; } /* '' */
 .fv-play:before { content: '\e805'; } /* '' */
 .fv-search:before { content: '\e806'; } /* '' */
-.fv-alphabet:before { content: '\e807'; } /* '' */
-.fv-categories:before { content: '\e808'; } /* '' */
-.fv-phrases:before { content: '\e809'; } /* '' */
-.fv-words:before { content: '\e80a'; } /* '' */
-.fv-body:before { content: '\e80b'; } /* '' */
-.fv-colours:before { content: '\e80c'; } /* '' */
-.fv-events:before { content: '\e80d'; } /* '' */
-.fv-book:before { content: '\e80e'; } /* '' */
-.fv-star:before { content: '\e80f'; } /* '' */
-.fv-computer:before { content: '\e810'; } /* '' */
+.fv-close:before { content: '\e807'; } /* '' */
+.fv-alphabet:before { content: '\e808'; } /* '' */
+.fv-categories:before { content: '\e809'; } /* '' */
+.fv-phrases:before { content: '\e80a'; } /* '' */
+.fv-words:before { content: '\e80b'; } /* '' */
+.fv-body:before { content: '\e80c'; } /* '' */
+.fv-colours:before { content: '\e80d'; } /* '' */
+.fv-events:before { content: '\e80e'; } /* '' */
+.fv-book:before { content: '\e80f'; } /* '' */
+.fv-star:before { content: '\e810'; } /* '' */
 .fv-user:before { content: '\e811'; } /* '' */
-.fv-refresh-counter-clockwise:before { content: '\e812'; } /* '' */
-.fv-refresh-clockwise:before { content: '\e813'; } /* '' */
-.fv-mix:before { content: '\e814'; } /* '' */
+.fv-computer:before { content: '\e812'; } /* '' */
+.fv-refresh-counter-clockwise:before { content: '\e813'; } /* '' */
+.fv-refresh-clockwise:before { content: '\e814'; } /* '' */
 .fv-left-big:before { content: '\e815'; } /* '' */
 .fv-arrows-cw:before { content: '\e816'; } /* '' */
-.fv-games:before { content: '\e817'; } /* '' */
+.fv-mix:before { content: '\e817'; } /* '' */
 .fv-wordsfc:before { content: '\e818'; } /* '' */
 .fv-phrasesfc:before { content: '\e819'; } /* '' */
 .fv-ccw:before { content: '\e81a'; } /* '' */
 .fv-right-big:before { content: '\e81b'; } /* '' */
 .fv-check:before { content: '\e81c'; } /* '' */
 .fv-bookmark:before { content: '\e81d'; } /* '' */
-.fv-songs:before { content: '\e81e'; } /* '' */
+.fv-games:before { content: '\e81e'; } /* '' */
 .fv-stories:before { content: '\e81f'; } /* '' */
-.fv-flashcard:before { content: '\e820'; } /* '' */
+.fv-songs:before { content: '\e820'; } /* '' */
 .fv-picture:before { content: '\e821'; } /* '' */
-.fv-cloud-arrow-down-regular:before { content: '\e822'; } /* '' */
+.fv-flashcard:before { content: '\e822'; } /* '' */
 .fv-video:before { content: '\e823'; } /* '' */
 .fv-pause:before { content: '\e824'; } /* '' */
+.fv-cloud-arrow-down-regular:before { content: '\e825'; } /* '' */
+.fv-learning:before { content: '\e826'; } /* '' */
+.fv-dictionary:before { content: '\e828'; } /* '' */
 .fv-cog:before { content: '\f013'; } /* '' */
 .fv-bookmark-empty:before { content: '\f097'; } /* '' */
 .fv-menu:before { content: '\f0c9'; } /* '' */
@@ -99,4 +101,3 @@
 .fv-spinner:before { content: '\f110'; } /* '' */
 .fv-info:before { content: '\f129'; } /* '' */
 .fv-share:before { content: '\f1e0'; } /* '' */
-.fv-close:before { content: '🔀'; } /* '\1f500' */

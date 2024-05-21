@@ -24,11 +24,6 @@ export function SongsView(props: SongsViewProps) {
   const [selectedSong, setSelectedSong] = useState<FVSong | null>(null);
   const [bookmark, setBookmark] = useState<Bookmark | null>(null);
   const [bookmarked, setBookmarked] = useState<boolean>(false);
-  const [shareData, setShareData] = useState<{
-    title: string;
-    text: string;
-    url: string;
-  } | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -69,13 +64,7 @@ export function SongsView(props: SongsViewProps) {
   }, [db, bookmark]);
 
   useEffect(() => {
-    if (selectedSong) {
-      setShareData({
-        title: 'FirstVoices',
-        text: `Learn more about the ${selectedSong.title} song from FirstVoices!`,
-        url: `${window.location.origin}${window.location.pathname}#${selectedSong.id}`,
-      });
-
+    if (selectedSong && selectedSong?.id !== bookmark?.id) {
       setBookmark({
         id: selectedSong.id,
         type: 'song',
@@ -86,7 +75,7 @@ export function SongsView(props: SongsViewProps) {
         timestamp: new Date(),
       });
     }
-  }, [selectedSong]);
+  }, [selectedSong, bookmark]);
 
   const bookmarkIcon = async (db: IndexedDBService | undefined) => {
     if (db) {
@@ -288,33 +277,6 @@ export function SongsView(props: SongsViewProps) {
           }}
         >
           <span className="text-xl">COPY</span>
-        </button>
-      </div>
-    );
-  }
-
-  function shareButton() {
-    return (
-      <div className="pl-2 pr-2">
-        <button
-          onClick={() => {
-            if (shareData) {
-              if (navigator.share && navigator.canShare(shareData)) {
-                navigator.share(shareData).catch((err: any) => {
-                  console.error(err);
-                });
-              } else {
-                navigator.clipboard
-                  .writeText(shareData.url)
-                  .catch((err: any) => {
-                    console.error(err);
-                  });
-              }
-            }
-          }}
-        >
-          <i className="fv-share pr-2" />
-          <span className="text-xl">SHARE</span>
         </button>
       </div>
     );

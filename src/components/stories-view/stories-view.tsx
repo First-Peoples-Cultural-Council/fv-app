@@ -27,11 +27,6 @@ export function StoriesView(props: StoriesViewProps) {
   const [bookmarked, setBookmarked] = useState<boolean>(false);
   const [showPictureModal, setShowPictureModal] = useState<boolean>(false);
   const [pictureUrl, setPictureUrl] = useState<string>('');
-  const [shareData, setShareData] = useState<{
-    title: string;
-    text: string;
-    url: string;
-  } | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -82,13 +77,7 @@ export function StoriesView(props: StoriesViewProps) {
   }, [db, bookmark]);
 
   useEffect(() => {
-    if (selectedStory) {
-      setShareData({
-        title: 'FirstVoices',
-        text: `Learn more about the ${selectedStory.title} story from FirstVoices!`,
-        url: `${window.location.origin}${window.location.pathname}#${selectedStory.id}`,
-      });
-
+    if (selectedStory && selectedStory?.id !== bookmark?.id) {
       setBookmark({
         id: selectedStory.id,
         type: 'story',
@@ -99,7 +88,7 @@ export function StoriesView(props: StoriesViewProps) {
         timestamp: new Date(),
       });
     }
-  }, [selectedStory]);
+  }, [selectedStory, bookmark]);
 
   const bookmarkIcon = async (db: IndexedDBService | undefined) => {
     if (db) {
@@ -165,28 +154,20 @@ export function StoriesView(props: StoriesViewProps) {
 
       {showModal && (
         <FullScreenModal onClose={() => closeModal()}>
-          {storyDetails()}
+          <div>
+            {currentPage === -2 && title()}
+            {currentPage === -1 && intro()}
+            {currentPage !== -2 && currentPage !== -1 && page()}
+          </div>
         </FullScreenModal>
       )}
       {showPictureModal && (
         <Modal onClose={() => setShowPictureModal(false)}>
-          {pictureModal()}
+          <FvImage className="w-full" src={pictureUrl} alt="" />
         </Modal>
       )}
     </>
   );
-
-  function storyDetails() {
-    return (
-      <>
-        <div>
-          {currentPage === -2 && title()}
-          {currentPage === -1 && intro()}
-          {currentPage !== -2 && currentPage !== -1 && page()}
-        </div>
-      </>
-    );
-  }
 
   function actionButtons() {
     return (
@@ -212,33 +193,6 @@ export function StoriesView(props: StoriesViewProps) {
           }}
         >
           <span className="text-xl">COPY</span>
-        </button>
-      </div>
-    );
-  }
-
-  function shareButton() {
-    return (
-      <div className="pl-2 pr-2">
-        <button
-          onClick={() => {
-            if (shareData) {
-              if (navigator.share && navigator.canShare(shareData)) {
-                navigator.share(shareData).catch((err: any) => {
-                  console.error(err);
-                });
-              } else {
-                navigator.clipboard
-                  .writeText(shareData.url)
-                  .catch((err: any) => {
-                    console.error(err);
-                  });
-              }
-            }
-          }}
-        >
-          <i className="fv-share pr-2" />
-          <span className="text-xl">SHARE</span>
         </button>
       </div>
     );
@@ -385,12 +339,12 @@ export function StoriesView(props: StoriesViewProps) {
         </div>
 
         <div className="flex flex-col md:flex-row">
-          <div className="md:w-1/2 p-2 rounded-lg bg-white p-6 m-2 shadow-lg m-4">
+          <div className="md:w-1/2 p-2 md:p-6 m-2 md:m-4 rounded-lg bg-white shadow-lg ">
             {convertJsonToComponent(
               selectedStory?.pages[currentPage]?.text ?? '{}'
             )}
           </div>
-          <div className="md:w-1/2 p-2 rounded-lg bg-white p-6 m-2 shadow-lg m-4">
+          <div className="md:w-1/2 p-2 md:p-6 m-2 md:m-4 rounded-lg bg-white shadow-lg ">
             {convertJsonToComponent(
               selectedStory?.pages[currentPage]?.translation ?? '{}'
             )}
@@ -458,14 +412,6 @@ export function StoriesView(props: StoriesViewProps) {
           </button>
         </div>
       </div>
-    );
-  }
-
-  function pictureModal() {
-    return (
-      <>
-        <FvImage className="w-full" src={pictureUrl} alt="" />
-      </>
     );
   }
 }

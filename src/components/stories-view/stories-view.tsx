@@ -1,8 +1,10 @@
+import { useEffect, useState } from 'react';
 import classNames from 'classnames';
+import { useLocation } from 'react-router-dom';
+
+// FPCC
 import { Bookmark, FVStory } from '../common/data/types';
 import IndexedDBService from '../../services/indexedDbService';
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import Modal from '../common/modal/modal';
 import { useModal } from '../common/use-modal/use-modal';
@@ -11,6 +13,7 @@ import FvImage from '../common/image/image';
 import AudioControl from '../common/audio-control/audio-control';
 import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 import { convertJsonToComponent } from '../common/convert-json/convert-json';
+import CopyButton from '../common/copy-button/copy-button';
 
 /* eslint-disable-next-line */
 export interface StoriesViewProps {}
@@ -171,66 +174,47 @@ export function StoriesView(props: StoriesViewProps) {
 
   function actionButtons() {
     return (
-      <div className="grid grid-cols-1 pb-4">
-        {copyButton()}
+      <>
+        <CopyButton text={selectedStory?.title} />
         {/* hiding share button FW-5780 {shareButton()} */}
         {bookmarkButton()}
-      </div>
-    );
-  }
-
-  function copyButton() {
-    return (
-      <div className="pl-2 pr-2">
-        <i className="fv-copy pr-2" />
-        <button
-          onClick={async () => {
-            await navigator.clipboard
-              .writeText(selectedStory?.title ?? '')
-              .catch((err: any) => {
-                console.error(err);
-              });
-          }}
-        >
-          <span className="text-xl">COPY</span>
-        </button>
-      </div>
+      </>
     );
   }
 
   function bookmarkButton() {
     return (
-      <div className="pl-2 pr-2">
-        <button
-          onClick={async () => {
-            if (bookmark) {
-              if (bookmarked) {
-                await db?.removeBookmark(bookmark.url);
-              } else {
-                await db?.addBookmark(bookmark);
-              }
+      <button
+        data-testid="bookmark-btn"
+        className="flex items-center"
+        onClick={async () => {
+          if (bookmark) {
+            if (bookmarked) {
+              await db?.removeBookmark(bookmark.url);
+            } else {
+              await db?.addBookmark(bookmark);
             }
-            bookmarkIcon(db).catch((err: any) => {
-              console.error(err);
-            });
-          }}
-        >
-          <i
-            className={classNames(
-              bookmarked ? 'fv-bookmark' : 'fv-bookmark-empty',
-              'pr-2'
-            )}
-          />
-          <span className="text-xl">BOOKMARK</span>
-        </button>
-      </div>
+          }
+          bookmarkIcon(db).catch((err: any) => {
+            console.error(err);
+          });
+        }}
+      >
+        <i
+          className={classNames(
+            bookmarked ? 'fv-bookmark' : 'fv-bookmark-empty',
+            'pr-2  text-xl'
+          )}
+        />
+        <span className="text-lg">BOOKMARK</span>
+      </button>
     );
   }
 
   function title() {
     return (
-      <div className="m-5 border border-gray-300 shadow-lg p-10 rounded max-w-[600px]">
-        <div className="flex flex-col h-full">
+      <div className="border border-gray-300 shadow-lg p-5 rounded w-full">
+        <div className="flex flex-col h-full space-y-5">
           <div className="h-3/5 flex-1">
             {selectedStory?.relatedImages[0] && (
               <FvImage
@@ -240,31 +224,24 @@ export function StoriesView(props: StoriesViewProps) {
               />
             )}
             {(selectedStory?.relatedImages[0]?.original.path ?? '') === '' && (
-              <div className="fv-stories text-20xl"></div>
+              <div className="fv-stories text-20xl text-story"></div>
             )}
           </div>
-          <div className="flex-1">
-            <div className="flex w-full">
-              <div className="w-full">
-                <div className="p-2 text-2xl font-bold pt-6">
-                  {selectedStory?.title}
-                </div>
-                <div className="p-2">{selectedStory?.titleTranslation}</div>{' '}
-              </div>
-              <div className="items-end justify-self-end w-[300px] pt-6">
-                {actionButtons()}
-              </div>
-            </div>
-            <button
-              onClick={() => setCurrentPage(-1)}
-              type="button"
-              className={classNames(
-                'w-full text-white rounded-md px-2 py-1.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 bg-color-alphabet-light hover:bg-color-alphabet-dark'
-              )}
-            >
-              Start Reading
-            </button>
+
+          <div className="space-y-1">
+            <div className="text-2xl font-bold">{selectedStory?.title}</div>
+            <div>{selectedStory?.titleTranslation}</div>
           </div>
+          <div className="block space-y-2">{actionButtons()}</div>
+          <button
+            onClick={() => setCurrentPage(-1)}
+            type="button"
+            className={classNames(
+              'w-full text-white rounded-md px-2 py-1.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 bg-color-alphabet-light hover:bg-color-alphabet-dark'
+            )}
+          >
+            Start Reading
+          </button>
         </div>
       </div>
     );
@@ -272,7 +249,7 @@ export function StoriesView(props: StoriesViewProps) {
 
   function intro() {
     return (
-      <div className="max-w-5xl mx-auto p-2 rounded-lg bg-white p-6 m-2 shadow-lg m-4">
+      <div className="max-w-5xl mx-auto p-2 md:p-6 m-2 md:m-4 rounded-lg bg-white shadow-lg">
         <div className="flex flex-wrap w-full">
           {selectedStory?.relatedImages?.map((img) => {
             return (
@@ -320,7 +297,7 @@ export function StoriesView(props: StoriesViewProps) {
 
   function page() {
     return (
-      <div className="max-w-5xl mx-auto p-2 rounded-lg bg-white p-6 m-2 shadow-lg m-4">
+      <div className="max-w-5xl mx-auto p-2 md:p-6 m-2 md:m-4 rounded-lg bg-white shadow-lg">
         <div className="flex flex-wrap w-full justify-center">
           {selectedStory?.pages[currentPage]?.relatedImages?.map((img) => {
             return (

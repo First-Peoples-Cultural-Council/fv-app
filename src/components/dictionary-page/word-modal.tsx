@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import IndexedDBService from '../../services/indexedDbService';
 import { FvImage } from '../common/image/image';
 import { AudioButton } from '../common/audio-button/audio';
+import CopyButton from '../common/copy-button/copy-button';
 
 export interface WordModalProps {
   term: FvWord;
@@ -71,21 +72,8 @@ function WordModal({ term, onClose }: Readonly<WordModalProps>) {
           </p>
         </div>
         <div className="block space-y-3">
-          <button
-            data-testid="copy-btn"
-            className="flex items-center"
-            onClick={() => {
-              navigator.clipboard.writeText(term.word).catch((err: any) => {
-                console.error(err);
-              });
-            }}
-          >
-            <i className="fv-copy pr-2 text-xl" />
-            <span className="text-lg">COPY</span>
-          </button>
-
+          <CopyButton text={term?.word} />
           {/* Hiding share button for now FW-5780 {shareButton()} */}
-
           <button
             data-testid="bookmark-btn"
             className="flex items-center"

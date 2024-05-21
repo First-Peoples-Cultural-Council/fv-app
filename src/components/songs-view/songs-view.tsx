@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
-import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
-import { Bookmark, FVSong } from '../common/data/types';
 import classNames from 'classnames';
 import { useLocation } from 'react-router';
+
+// FPCC
+import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
+import { Bookmark, FVSong } from '../common/data/types';
 import IndexedDBService from '../../services/indexedDbService';
 import { useModal } from '../common/use-modal/use-modal';
 import fetchSongsData from '../../services/songsApiService';
@@ -11,6 +13,7 @@ import FvVideo from '../common/video/video';
 import AudioControl from '../common/audio-control/audio-control';
 import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 import { convertJsonToComponent } from '../common/convert-json/convert-json';
+import CopyButton from '../common/copy-button/copy-button';
 
 /* eslint-disable-next-line */
 export interface SongsViewProps {}
@@ -159,155 +162,130 @@ export function SongsView(props: SongsViewProps) {
       return <></>;
     }
     return (
-      <div className="m-5 border shadow-lg p-10 rounded max-w-[600px]">
-        {selectedSong?.relatedImages.length !== 0 && (
-          <FvImage
-            src={selectedSong?.relatedImages[0].original.path}
-            alt={selectedSong?.relatedImages[0].title}
-          />
-        )}
-        <div className="flex justify-between mt-4">
-          <div>
-            <div className="p-2 text-2xl font-bold">{selectedSong.title}</div>
-            <div className="p-2">{selectedSong.titleTranslation}</div>
+      <div className="border border-gray-300 shadow-lg p-5 rounded w-full">
+        <div className="flex flex-col h-full space-y-5">
+          <div className="h-3/5 flex-1">
+            {selectedSong?.relatedImages.length !== 0 && (
+              <FvImage
+                src={selectedSong?.relatedImages[0].original.path}
+                alt={selectedSong?.relatedImages[0].title}
+              />
+            )}
           </div>
-          <div className="whitespace-nowrap overflow-hidden flex-shrink-0">
-            {actionButtons()}
+          <div className="space-y-1">
+            <div className="text-2xl font-bold">{selectedSong.title}</div>
+            <div>{selectedSong.titleTranslation}</div>
           </div>
-        </div>
+          <div className="block space-y-2">{actionButtons()}</div>
 
-        {selectedSong?.relatedAudio?.map((audio) => {
-          return (
-            <div key={audio.original.path} className="mt-6 p-2">
-              {audio?.title && <div className="font-bold">{audio?.title}</div>}
-              <AudioControl className="mt-1" audio={audio} />
-              {audio?.description && <div>{audio?.description}</div>}
-              {audio?.acknowledgement && (
-                <div className="italic text-slate-400">
-                  {audio?.acknowledgement}
-                </div>
-              )}
-            </div>
-          );
-        })}
-        {(selectedSong?.introduction !== null ||
-          selectedSong.introductionTranslation !== null) && (
-          <>
-            <div className="p-2 text-lg font-bold mt-8">INTRODUCTION</div>
-            <div key="introduction">
-              <div className="p-2">
-                {convertJsonToComponent(selectedSong?.introduction ?? '{}')}
-              </div>
-              <div className="p-2 italic text-slate-400">
-                {convertJsonToComponent(
-                  selectedSong?.introductionTranslation ?? '{}'
+          {selectedSong?.relatedAudio?.map((audio) => {
+            return (
+              <div key={audio.original.path} className="space-y-1">
+                {audio?.title && (
+                  <div className="font-bold">{audio?.title}</div>
+                )}
+                <AudioControl audio={audio} />
+                {audio?.description && <div>{audio?.description}</div>}
+                {audio?.acknowledgement && (
+                  <div className="italic text-fv-charcoal-light">
+                    {audio?.acknowledgement}
+                  </div>
                 )}
               </div>
-            </div>
-          </>
-        )}
-        {selectedSong?.lyrics !== null && selectedSong.lyrics.length !== 0 && (
-          <>
-            <div className="p-2 text-lg font-bold mt-8">LYRICS</div>
-            {selectedSong?.lyrics?.map((lyrics) => {
-              return (
-                <div key={lyrics.id}>
-                  <div className="p-2">{lyrics.text}</div>
-                  <div className="p-2 italic text-slate-400">
-                    {lyrics.translation}
-                  </div>
+            );
+          })}
+          {(selectedSong?.introduction !== null ||
+            selectedSong.introductionTranslation !== null) && (
+            <div className="space-y-2">
+              <div className="text-lg font-bold">INTRODUCTION</div>
+              <div key="introduction">
+                <div>
+                  {convertJsonToComponent(selectedSong?.introduction ?? '{}')}
                 </div>
-              );
-            })}
-          </>
-        )}
-        {(selectedSong?.relatedVideos?.length !== 0 ||
-          (selectedSong?.relatedImages?.length !== undefined &&
-            selectedSong?.relatedImages?.length > 1)) && (
-          <>
-            <div className="p-2 text-lg font-bold mt-8">MEDIA</div>
-            {selectedSong?.relatedVideos?.map((video) => {
-              return (
-                <FvVideo
-                  key={video.id}
-                  className="mt-4"
-                  disabledClassName="mt-4"
-                  src={video.original.path}
-                />
-              );
-            })}
-            {selectedSong?.relatedImages?.slice(1).map((image) => {
-              return (
-                <FvImage
-                  key={image.id}
-                  className="mt-4"
-                  src={image.original.path}
-                  alt={image.title}
-                />
-              );
-            })}
-          </>
-        )}
-        <div className="pb-6" />
+                <div className="italic text-fv-charcoal-light">
+                  {convertJsonToComponent(
+                    selectedSong?.introductionTranslation ?? '{}'
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+          {selectedSong?.lyrics !== null &&
+            selectedSong.lyrics.length !== 0 && (
+              <div className="space-y-2">
+                <div className="text-lg font-bold">LYRICS</div>
+                {selectedSong?.lyrics?.map((lyrics) => {
+                  return (
+                    <div key={lyrics.id}>
+                      <div>{lyrics.text}</div>
+                      <div className="italic text-fv-charcoal-light">
+                        {lyrics.translation}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          {(selectedSong?.relatedVideos?.length !== 0 ||
+            (selectedSong?.relatedImages?.length !== undefined &&
+              selectedSong?.relatedImages?.length > 1)) && (
+            <div className="space-y-2">
+              <div className="text-lg font-bold">MEDIA</div>
+              {selectedSong?.relatedVideos?.map((video) => {
+                return <FvVideo key={video.id} src={video.original.path} />;
+              })}
+              {selectedSong?.relatedImages?.slice(1).map((image) => {
+                return (
+                  <FvImage
+                    key={image.id}
+                    src={image.original.path}
+                    alt={image.title}
+                  />
+                );
+              })}
+            </div>
+          )}
+        </div>
       </div>
     );
   }
 
   function actionButtons() {
     return (
-      <div className="grid grid-cols-1 pb-4">
-        {copyButton()}
+      <>
+        <CopyButton text={selectedSong?.title} />
         {/* Hiding Share button for now FW-5780 {shareButton()} */}
         {bookmarkButton()}
-      </div>
-    );
-  }
-
-  function copyButton() {
-    return (
-      <div className="pl-2 pr-2">
-        <i className="fv-copy pr-2" />
-        <button
-          onClick={async () => {
-            await navigator.clipboard
-              .writeText(selectedSong?.title ?? '')
-              .catch((err: any) => {
-                console.error(err);
-              });
-          }}
-        >
-          <span className="text-xl">COPY</span>
-        </button>
-      </div>
+      </>
     );
   }
 
   function bookmarkButton() {
     return (
-      <div className="pl-2 pr-2">
-        <button
-          onClick={async () => {
-            if (bookmark) {
-              if (bookmarked) {
-                await db?.removeBookmark(bookmark.url);
-              } else {
-                await db?.addBookmark(bookmark);
-              }
+      <button
+        data-testid="bookmark-btn"
+        className="flex items-center"
+        onClick={async () => {
+          if (bookmark) {
+            if (bookmarked) {
+              await db?.removeBookmark(bookmark.url);
+            } else {
+              await db?.addBookmark(bookmark);
             }
-            bookmarkIcon(db).catch((err: any) => {
-              console.error(err);
-            });
-          }}
-        >
-          <i
-            className={classNames(
-              bookmarked ? 'fv-bookmark' : 'fv-bookmark-empty',
-              'pr-2'
-            )}
-          />
-          <span className="text-xl">BOOKMARK</span>
-        </button>
-      </div>
+          }
+          bookmarkIcon(db).catch((err: any) => {
+            console.error(err);
+          });
+        }}
+      >
+        <i
+          className={classNames(
+            bookmarked ? 'fv-bookmark' : 'fv-bookmark-empty',
+            'pr-2  text-xl'
+          )}
+        />
+        <span className="text-lg">BOOKMARK</span>
+      </button>
     );
   }
 }

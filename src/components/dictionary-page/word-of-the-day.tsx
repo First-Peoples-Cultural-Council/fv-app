@@ -99,10 +99,10 @@ function WordOfTheDay() {
       } else if (!window.matchMedia('(min-width: 768px').matches) {
         console.info('smaller than 768px');
         return (
-          <FullScreenModal
-            onClose={() => wordOfTheDaySeen()}
-            title="Word of the Day"
-          >
+          <FullScreenModal onClose={() => wordOfTheDaySeen()}>
+            <div className="flex w-full text-center text-3xl mb-5">
+              Word of the Day
+            </div>
             <WordModal
               term={data}
               onClose={() => {

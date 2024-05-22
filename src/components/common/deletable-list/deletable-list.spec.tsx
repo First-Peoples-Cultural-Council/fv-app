@@ -11,7 +11,6 @@ describe('DeletableList', () => {
         removeButtonText={''}
         removeSelectedButtonText={''}
         items={[]}
-        showSearch={true}
         onDelete={function (): void {
           throw new Error('Function not implemented.');
         }}

@@ -75,6 +75,9 @@ module.exports = {
         },
         // Dark Orange
         secondary: {
+          100: '#e8d7d2',
+          200: '#d2afa6',
+          300: '#bb8779',
           light: '#b07363',
           DEFAULT: '#8E3720',
           dark: '#632716',

@@ -213,31 +213,30 @@ export function StoriesView(props: StoriesViewProps) {
 
   function title() {
     return (
-      <div className="border border-gray-300 shadow-lg p-5 rounded w-full">
-        <div className="flex flex-col h-full space-y-5">
-          <div className="h-3/5 flex-1">
-            {selectedStory?.relatedImages[0] && (
-              <FvImage
-                className="h-full"
-                src={selectedStory?.relatedImages[0].original.path ?? ''}
-                alt={selectedStory?.title ?? ''}
-              />
-            )}
-            {(selectedStory?.relatedImages[0]?.original.path ?? '') === '' && (
-              <div className="fv-stories text-20xl text-story"></div>
-            )}
-          </div>
+      <div className="flex items-center border border-gray-300 shadow-lg p-5 rounded-lg max-w-2xl mx-auto mb-5">
+        <div className="space-y-5">
+          {selectedStory?.relatedImages[0] && (
+            <FvImage
+              className="h-[58vh] w-[90vw] object-contain"
+              src={selectedStory?.relatedImages[0].original.path ?? ''}
+              alt={selectedStory?.title ?? ''}
+            />
+          )}
 
           <div className="space-y-1">
-            <div className="text-2xl font-bold">{selectedStory?.title}</div>
-            <div>{selectedStory?.titleTranslation}</div>
+            <div className="text-lg md:text-2xl font-bold">
+              {selectedStory?.title}
+            </div>
+            <div className="text-sm md:text-base">
+              {selectedStory?.titleTranslation}
+            </div>
           </div>
           <div className="block space-y-2">{actionButtons()}</div>
           <button
             onClick={() => setCurrentPage(-1)}
             type="button"
             className={classNames(
-              'w-full text-white rounded-md px-2 py-1.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 bg-color-alphabet-light hover:bg-color-alphabet-dark'
+              'w-full btn-contained bg-color-alphabet-light'
             )}
           >
             Start Reading

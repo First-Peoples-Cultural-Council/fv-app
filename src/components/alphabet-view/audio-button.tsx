@@ -15,7 +15,7 @@ export interface AudioButtonProps {
 export function AudioButton({ fvAudio }: Readonly<AudioButtonProps>) {
   return (
     <div key={fvAudio.url} className="flex justify-center items-center">
-      <button onClick={() => playAudio(fvAudio.url)}>
+      <button onClick={() => playAudio(fvAudio.original.path)}>
         <span className="fv-volume-up text-4xl justify-self-end cursor-pointer" />
       </button>
     </div>

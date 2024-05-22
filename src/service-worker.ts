@@ -102,8 +102,6 @@ self.addEventListener('fetch', function (event) {
   event.respondWith(
     (async function () {
       try {
-        // Attempt to fetch the request
-        const response = await fetch(event.request);
 
         // Check to see if the app should cache the file.
         if (
@@ -131,10 +129,16 @@ self.addEventListener('fetch', function (event) {
             const file = await getFileFromUrl(url);
             db.saveMediaFile(url, file);
 
+            // Attempt to fetch the request
+            console.log("service worker fetching file: ", event.request);
+            const response = await fetch(event.request);
             return response;
           }
         } else {
           console.log("service-worker not a cacheable fetch: ", url)
+          // Attempt to fetch the request
+          console.log("service worker fetching file: ", event.request);
+          const response = await fetch(event.request);
           return response;
         }
       } catch (error) {

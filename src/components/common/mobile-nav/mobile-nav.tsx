@@ -9,8 +9,16 @@ export interface MobileNavProps {
   currentTab: string;
 }
 
-export function MobileNav({ navItems, extraNavItems, currentTab }: MobileNavProps) {
+export function MobileNav({
+  navItems,
+  extraNavItems,
+  currentTab,
+}: Readonly<MobileNavProps>) {
   const [showExtraNav, setShowExtraNav] = React.useState(false);
+  console.log({
+    navItems,
+    currentTab,
+  });
 
   return (
     <>
@@ -24,26 +32,23 @@ export function MobileNav({ navItems, extraNavItems, currentTab }: MobileNavProp
                 to={item.to}
                 className={classNames(
                   'flex items-center text-white cursor-pointer text-3xl',
-                  { 'ml-2': !!item.icon }
+                  {
+                    'ml-2': !!item.icon,
+                    'text-word': item.id === currentTab,
+                  }
                 )}
-                style={{
-                  textShadow:
-                    item.id === currentTab ? '0 0 10px #9F6' : '0 0 0px #000',
-                }}
               >
                 {item.icon}
               </Link>
             </li>
           ))}
-            {!showExtraNav && (
+          {!showExtraNav && (
             <li key="extra-nav">
-              <button
-                onClick={() => setShowExtraNav(true)}
-              >
+              <button onClick={() => setShowExtraNav(true)}>
                 <i className="fv-menu text-white cursor-pointer text-3xl" />
               </button>
             </li>
-            )}
+          )}
         </ul>
         {showExtraNav && (
           <ul className="flex justify-around w-full pt-3">
@@ -53,28 +58,22 @@ export function MobileNav({ navItems, extraNavItems, currentTab }: MobileNavProp
                   to={item.to}
                   className={classNames(
                     'flex items-center text-white cursor-pointer text-3xl',
-                    { 'ml-2': !!item.icon }
+                    { 'ml-2': !!item.icon, 'text-word': item.id === currentTab }
                   )}
-                  style={{
-                    textShadow:
-                      item.id === currentTab ? '0 0 10px #9F6' : '0 0 0px #000',
-                  }}
                 >
                   {item.icon}
                 </Link>
               </li>
             ))}
             {showExtraNav && (
-            <li key="extra-nav">
-              <button
-                onClick={() => setShowExtraNav(false)}
-              >
-                <i className="fv-menu text-white cursor-pointer text-3xl" />
-              </button>
-            </li>
+              <li key="extra-nav">
+                <button onClick={() => setShowExtraNav(false)}>
+                  <i className="fv-menu text-white cursor-pointer text-3xl" />
+                </button>
+              </li>
             )}
           </ul>
-          )}
+        )}
       </nav>
     </>
   );

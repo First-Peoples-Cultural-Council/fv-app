@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { DeletableList } from './deletable-list';
-import { DeleteListType } from '../data';
 
 const meta: Meta<typeof DeletableList> = {
   component: DeletableList,
@@ -23,7 +22,6 @@ export const Primary: Story = {
           display: <div>2</div>,
         },
       ]}
-      showSearch
       confirmMessage="Are you sure you want to delete this?"
       removeButtonText="Remove"
       removeSelectedButtonText="Remove Selected"

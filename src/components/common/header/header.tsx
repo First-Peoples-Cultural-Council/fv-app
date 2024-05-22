@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
 import FVLogo from '../../../assets/images/FVlogo.svg';
 import { NavigationItem } from '../data';
@@ -8,16 +8,14 @@ export interface HeaderProps {
   className?: string;
   navItems?: NavigationItem[];
   extraNavItems?: NavigationItem[];
-  currentTab: string;
 }
 
 export function Header({
   className,
   navItems,
   extraNavItems,
-  currentTab,
 }: Readonly<HeaderProps>) {
-  const [showExtraNav, setShowExtraNav] = React.useState(false);
+  const [showExtraNav, setShowExtraNav] = useState(false);
 
   return (
     <header
@@ -37,36 +35,32 @@ export function Header({
         <ul className="flex">
           {navItems?.map((item) => (
             <li key={item.id} className="mr-5">
-              <button onClick={() => setShowExtraNav(false)}>
-                <Link
-                  to={item.to}
-                  className={classNames(
-                    'flex items-center text-white cursor-pointer',
-                    { 'ml-2': !!item.icon }
-                  )}
-                  style={{
-                    textShadow:
-                      item.id === currentTab ? '0 0 10px #9F6' : '0 0 0px #000',
-                  }}
-                >
-                  <div className="mr-2">{item.icon}</div>
-                  {item.label}
-                </Link>
-              </button>
+              <Link
+                to={item.to}
+                onClick={() => setShowExtraNav(false)}
+                className={classNames(
+                  'flex items-center text-white cursor-pointer',
+                  { 'ml-2': !!item.icon }
+                )}
+              >
+                <div className="mr-2">{item.icon}</div>
+                {item.label}
+              </Link>
             </li>
           ))}
           <li key="extra-nav" className="mr-5">
-            <div className="mr-2">
+            <div className="relative mr-2">
               <button onClick={() => setShowExtraNav(!showExtraNav)}>
                 <i className="fv-menu text-white cursor-pointer" />
               </button>
             </div>
             {showExtraNav && (
-              <div className="absolute top-14 -translate-x-2/4 bg-color-main-header p-4 z-50">
+              <div className="absolute top-14 right-0 w-48 p-2 space-y-2 transform lg:-translate-x-0 bg-fv-charcoal  rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 {extraNavItems?.map((item) => (
                   <button
                     key={`${item.id}`}
                     onClick={() => setShowExtraNav(false)}
+                    className="block"
                   >
                     <Link
                       to={item.to}
@@ -74,12 +68,6 @@ export function Header({
                         'flex items-center text-white cursor-pointer',
                         { 'ml-2': !!item.icon }
                       )}
-                      style={{
-                        textShadow:
-                          item.id === currentTab
-                            ? '0 0 10px #9F6'
-                            : '0 0 0px #000',
-                      }}
                     >
                       <div className="mr-2">{item.icon}</div>
                       {item.label}

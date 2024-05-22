@@ -5,7 +5,7 @@ import Header from './header';
 
 describe('Header', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Header currentTab={''} />, { wrapper: BrowserRouter});
+    const { baseElement } = render(<Header />, { wrapper: BrowserRouter });
     expect(baseElement).toBeTruthy();
   });
 });

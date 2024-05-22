@@ -101,7 +101,6 @@ function WordOfTheDay() {
         return (
           <FullScreenModal
             onClose={() => wordOfTheDaySeen()}
-            actions={null}
             title="Word of the Day"
           >
             <WordModal

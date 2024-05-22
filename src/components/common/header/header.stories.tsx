@@ -19,7 +19,6 @@ export const Primary: Story = {
           icon: <i className="fv-book" />,
         },
       ]}
-      currentTab="dictionary"
     />
   ),
 };

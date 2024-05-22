@@ -4,6 +4,18 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  safelist: [
+    {
+      pattern:
+        /(bg|border|from|to|text)-(word|phrase|song|story|tertiaryA|tertiaryB|tertiaryC|wordText|phraseText|songText|storyText|bgGreen)-(light|dark)/,
+      variants: ['hover'],
+    },
+    {
+      pattern:
+        /(bg|border|from|to|text)-(word|phrase|song|story|tertiaryA|tertiaryB|tertiaryC|wordText|phraseText|songText|storyText|bgGreen)/,
+      variants: ['hover'],
+    },
+  ],
   theme: {
     extend: {
       transitionProperty: {
@@ -38,7 +50,7 @@ module.exports = {
         'color-words-light': '#2A9D8F',
         'color-words-dark': '#057266',
         'color-shuffle-light': '#513B56',
-        'color-shuffle-dark': '#4A2954',
+        'color-shuffle-dark': '#39293c',
         'color-phrases-light': '#C37829',
         'color-phrases-dark': '#753C00',
         'color-alphabet-light': '#830042',
@@ -50,9 +62,9 @@ module.exports = {
         'color-stories-light': '#E9C46A',
         'color-stories-dark': '#A37D21',
         'color-flashcards-light': '#513B56',
-        'color-flashcards-dark': '#4A2954',
-        'color-profile-light': '#D6D3D1',
-        'color-profile-dark': '#898886',
+        'color-flashcards-dark': '#39293c',
+        'color-profile-light': '#513B56',
+        'color-profile-dark': '#39293c',
         'color-main-header': '#313133',
         highlight: '#0585ff',
         // Dark Blue

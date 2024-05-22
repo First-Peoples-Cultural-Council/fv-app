@@ -12,10 +12,11 @@ import { Key, useEffect } from 'react';
 import { useAudio } from '../contexts/audioContext';
 import { applyHighlighting } from '../../util/applyHighlighting';
 
-function WordCardMobile(
-  props: Readonly<{ item: FvWord | FvWordLocationCombo }>
-) {
-  const { item } = props;
+export interface WordCardMobileProps {
+  item: FvWord | FvWordLocationCombo;
+}
+
+function WordCardMobile({ item }: Readonly<WordCardMobileProps>) {
   let term: any = {};
   if (isFvWord(item)) {
     term = item;
@@ -75,7 +76,7 @@ function WordCardMobile(
         </div>
       </button>
       {showModal && (
-        <FullScreenModal onClose={() => closeModal()} actions={null}>
+        <FullScreenModal onClose={() => closeModal()}>
           <WordModal
             term={term}
             onClose={() => {

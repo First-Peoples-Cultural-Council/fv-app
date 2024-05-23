@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import classNames from 'classnames';
 
 // FPCC
 import { FVStory } from '../common/data/types';
@@ -8,6 +7,7 @@ import FvImage from '../common/image/image';
 import AudioControl from '../common/audio-control/audio-control';
 import { convertJsonToComponent } from '../common/convert-json/convert-json';
 import CoverView from '../story-view/cover-view';
+import PageControls from '../story-view/page-controls';
 
 export interface StoryViewProps {
   story: FVStory;
@@ -82,7 +82,12 @@ export function StoryView({ story, goBack }: Readonly<StoryViewProps>) {
             />
           );
         })}
-        {pageControl()}
+        <PageControls
+          isLastPage={currentPage === (story?.pages?.length ?? -1) - 1}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          goBack={goBack}
+        />
       </div>
     );
   }
@@ -130,48 +135,12 @@ export function StoryView({ story, goBack }: Readonly<StoryViewProps>) {
             );
           })}
         </div>
-        {pageControl()}
-      </div>
-    );
-  }
-
-  function pageControl() {
-    return (
-      <div className="flex justify-between pt-4">
-        <button
-          onClick={() => setCurrentPage(currentPage - 1)}
-          type="button"
-          className="btn-contained bg-color-alphabet-light w-32 md:w-48"
-        >
-          {currentPage === -1 && 'Cover'}
-          {currentPage === 0 && 'Intro'}
-          {currentPage !== -1 && currentPage !== 0 && 'Previous Page'}
-        </button>
-
-        <div className="flex items-center justify-center flex-grow">
-          <div className="italic text-fv-charcoal-light">
-            {currentPage === -1 && 'Intro'}
-            {currentPage !== -1 && <>Page {currentPage + 1}</>}
-          </div>
-        </div>
-
-        <button
-          onClick={() =>
-            currentPage !== (story?.pages?.length ?? -1) - 1
-              ? setCurrentPage(currentPage + 1)
-              : goBack()
-          }
-          type="button"
-          className={classNames(
-            'btn-contained bg-color-alphabet-light w-32 md:w-48',
-            {
-              'bg-primary': currentPage === (story?.pages?.length ?? -1) - 1,
-            }
-          )}
-        >
-          {currentPage !== (story?.pages?.length ?? -1) - 1 && 'Next Page'}
-          {currentPage === (story?.pages?.length ?? -1) - 1 && 'Done'}
-        </button>
+        <PageControls
+          isLastPage={currentPage === (story?.pages?.length ?? -1) - 1}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          goBack={goBack}
+        />
       </div>
     );
   }

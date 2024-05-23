@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 
 // FPCC
 import { FVStory } from '../common/data/types';
-import IndexedDBService from '../../services/indexedDbService';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import { useModal } from '../common/use-modal/use-modal';
 import fetchStoriesData from '../../services/storiesApiService';
@@ -18,8 +17,6 @@ export interface StoriesViewProps {}
 export function StoriesView(props: StoriesViewProps) {
   const location = useLocation();
   const { setShowModal, showModal, closeModal } = useModal();
-
-  const [db, setDb] = useState<IndexedDBService>();
   const [storiesData, setStoriesData] = useState<FVStory[]>([]);
   const [selectedStory, setSelectedStory] = useState<FVStory | null>(null);
   const [loading, setLoading] = useState(true);
@@ -48,10 +45,6 @@ export function StoriesView(props: StoriesViewProps) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
-
-  useEffect(() => {
-    setDb(new IndexedDBService('firstVoicesIndexedDb'));
-  }, []);
 
   useEffect(() => {
     const storyId = location.hash.slice(1).split('?')[0];
@@ -114,13 +107,9 @@ export function StoriesView(props: StoriesViewProps) {
         </div>
       </div>
 
-      {showModal && selectedStory && db !== undefined && (
+      {showModal && selectedStory && (
         <FullScreenModal onClose={() => closeModal()}>
-          <StoryView
-            db={db}
-            selectedStory={selectedStory}
-            goBack={() => closeModal()}
-          />
+          <StoryView story={selectedStory} goBack={() => closeModal()} />
         </FullScreenModal>
       )}
     </>

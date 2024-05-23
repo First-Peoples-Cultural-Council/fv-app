@@ -47,7 +47,7 @@ function PageView({
       </div>
       {/* To display Introduction header */}
       {children}
-      <div className="grid grid-cols-1 md:grid-cols-2 p-4 divide-y-2 md:divide-y-0 md:divide-x-2 divide-fv-charcoal-light">
+      <div className="grid grid-cols-1 p-4 divide-y-2">
         <div className="col-span-1 p-4">
           {convertJsonToComponent(page?.text ?? '{}')}
         </div>
@@ -56,17 +56,18 @@ function PageView({
         </div>
       </div>
 
-      <div className="flex w-full justify-center">
+      <div className="flex w-full justify-center my-4 h-10 space-x-1">
         {page?.relatedAudio?.map((audio) => {
           return (
             <AudioControl
-              className="my-4 mx-auto"
+              className="inline-flex"
               key={audio.original.path}
               audio={audio}
             />
           );
         })}
       </div>
+
       <PageControls
         isLastPage={isLastPage}
         currentPage={currentPage}

@@ -102,6 +102,8 @@ self.addEventListener('fetch', function (event) {
   event.respondWith(
     (async function () {
       try {
+        console.log("service-worker getting fresh file from web: ", url)
+        const response = await fetch(event.request);
 
         // Check to see if the app should cache the file.
         if (
@@ -119,44 +121,41 @@ self.addEventListener('fetch', function (event) {
             ':content/',
           ])
         ) {
-          if (await hasMediaFile(url)) {
-          console.log("service-worker getting media file from cache: ", url)
-            const file: File = await getMediaFile(url);
-            return new Response(file, { status: 200 });
-          } else {
-            console.log("service-worker getting fresh media file from web: ", url)
-            // Save the media file in the database.
-            const file = await getFileFromUrl(url);
-            db.saveMediaFile(url, file);
+          try {
+            console.log("service-worker saving media file in cache: ", url)
 
-            // Attempt to fetch the request
-            console.log("service worker fetching file: ", event.request);
-            const response = await fetch(event.request);
-            return response;
+            // Save the media file in the database.
+            const file = await getFileFromResponse(response);
+            db.saveMediaFile(url, file);
           }
-        } else {
-          console.log("service-worker not a cacheable fetch: ", url)
-          // Attempt to fetch the request
-          console.log("service worker fetching file: ", event.request);
-          const response = await fetch(event.request);
-          return response;
+          catch(err) {
+            console.log("Failed to save media file in cache: ", url, err);
+          }
         }
+
+        return response;
       } catch (error) {
-        console.log("service-worker fetch error: ", url, error)
-        // Handle fetch error when app is offline
-        // Check to see if the db has the media file.
-        if (await hasMediaFile(url)) {
-          console.log("service-worker getting file from cache due to fetch error: ", url)
-          const file: File = await getMediaFile(url);
-          return new Response(file, { status: 200 });
-        } else {
-          console.log("service-worker no file available, fetch error: ", url)
-          // Return a custom offline response
-          return new Response('Offline', {
-            status: 503,
-            statusText: 'Service Unavailable',
-          });
+        console.log("service-worker fetch error: ", url, error);
+        // If possible, return a cached file instead.
+        console.log("service-worker getting file from cache due to fetch error: ", url)
+        try {
+          const file: File|null = await getMediaFile(url);
+
+          if (file) {
+            return new Response(file, { status: 200 });
+          } 
         }
+        catch(err) {
+          console.log("error getting media file from db: ", url, err);
+        }
+
+        console.log("service-worker has no file available, returning 503 error: ", url)
+        // Return a custom offline response
+        return new Response('Offline', {
+          status: 503,
+          statusText: 'Service Unavailable',
+        });
+        
       }
     })()
   );
@@ -173,20 +172,17 @@ self.addEventListener('install', (event) => {
   );
 });
 
-async function hasMediaFile(urlPath: string): Promise<boolean> {
-  console.log("service-worker hasMediaFile start", urlPath);
-  const url = new URL(urlPath);
-  url.search = '';
-  const result = await db.hasMediaFile(url.toString());
-  console.log("service-worker hasMediaFile finished", urlPath, result);
-  return result;
-}
-
-async function getMediaFile(urlPath: string): Promise<File> {
+async function getMediaFile(urlPath: string): Promise<File|null> {
   console.log("service-worker getMediaFile start");
   const url = new URL(urlPath);
   url.search = '';
-  const { file: blob } = (await db.getMediaFile(url.toString())) as {
+  const result = await db.getMediaFile(url.toString());
+  if (result === undefined) {
+    console.log("No cached file available: ", url);
+    return null;
+  }
+
+  const { file: blob } = result as {
     file: Blob;
   };
   const file = new File([blob], getFileNameFromUrl(url.toString()), {
@@ -205,14 +201,13 @@ function endsWithAny(text: string, endings: string[]): boolean {
   return false;
 }
 
-async function getFileFromUrl(url: string): Promise<File> {
-  console.log("service-worker getFileFromUrl start", url);
-  const response = await fetch(url);
+async function getFileFromResponse(response: Response): Promise<File> {
+  console.log("service-worker getFileFromResponse start", response.url, response);
   const blob = await response.blob();
-  const fileName = getFileNameFromUrl(url);
+  const fileName = getFileNameFromUrl(response.url);
 
   const file = new File([blob], fileName);
-  console.log("service-worker getFileFromUrl finished", url);
+  console.log("service-worker getFileFromResponse finished", response.url, file);
   return file;
 }
 

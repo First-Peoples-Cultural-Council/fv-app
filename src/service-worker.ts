@@ -98,68 +98,55 @@ self.addEventListener('fetch', function (event) {
 
   event.respondWith(
     (async function () {
-      try {
-        console.log("service-worker getting fresh file from web: ", url)
-        const response = await fetch(event.request);
-
-        // Check to see if the app should cache the file.
-        if (
-          endsWithAny(url, [
-            '.jpeg',
-            '.jpg',
-            '.gif',
-            '.png',
-            '.tiff',
-            '.tif',
-            '.mp3',
-            '.wav',
-            '.mov',
-            '.mp4',
-            ':content/',
-          ]) && isNotFailedResponse(response)
-        ) {
+        // Check to see if the request can be served from the cache
+        if (isMediaFile(url)) {
           try {
-            
+            console.log("service-worker looking for cached file: ", url);
+            const file: File|null = await getMediaFile(url);
+  
+            if (file) {
+              return new Response(file, { status: 200 });
+            } 
+            else {
+              console.log("service-worker: media file was not in db", url);
+            }
+          }
+          catch(err) {
+            console.log("service-worker: error getting media file from db: ", url, err);
+          }
+        }
 
-            // Save the media file in the database.
-            const filename = getFileNameFromUrl(url);
-            console.log("service-worker saving media file in cache: ", url, filename, response)
-            const file = await getFileFromResponse(response.clone(), filename);
-            db.saveMediaFile(url, file);
+        // Request new file if necessary
+        try {
+          console.log("service-worker: getting a fresh copy from the web: ", url);
+          const response = await fetch(event.request);
+
+          // Cache file if necessary
+          try {
+            if (isMediaFile(url) && isNotFailedResponse(response)) {
+              // Save the media file in the database.
+              const filename = getFileNameFromUrl(url);
+              console.log("service-worker saving media file in cache: ", url, filename, response)
+              const file = await getFileFromResponse(response.clone(), filename);
+              db.saveMediaFile(url, file);
+            }
           }
           catch(err) {
             console.log("service-worker failed to save media file in cache: ", url, err);
           }
-        }
-        else {
-          console.log("service-worker: not a cacheable response: ", url, response.ok, response);
-        }
 
-        console.log("service-worker returning response: ", url, response);
-        return response;
-      } catch (error) {
-        console.log("service-worker fetch error: ", url, error);
-        // If possible, return a cached file instead.
-        console.log("service-worker getting file from cache due to fetch error: ", url)
-        try {
-          const file: File|null = await getMediaFile(url);
+          console.log("service-worker returning response: ", url, response);
+          return response;
 
-          if (file) {
-            return new Response(file, { status: 200 });
-          } 
         }
-        catch(err) {
-          console.log("error getting media file from db: ", url, err);
+        catch (error) {       
+          console.log("service-worker has no file available, returning 503 error: ", url)
+          // Return a custom offline response
+          return new Response('Offline', {
+            status: 503,
+            statusText: 'Service Unavailable',
+          });
         }
-
-        console.log("service-worker has no file available, returning 503 error: ", url)
-        // Return a custom offline response
-        return new Response('Offline', {
-          status: 503,
-          statusText: 'Service Unavailable',
-        });
-        
-      }
     })()
   );
 });
@@ -174,6 +161,22 @@ self.addEventListener('install', (event) => {
     })()
   );
 });
+
+function isMediaFile(url: string) {
+  return endsWithAny(url, [
+    '.jpeg',
+    '.jpg',
+    '.gif',
+    '.png',
+    '.tiff',
+    '.tif',
+    '.mp3',
+    '.wav',
+    '.mov',
+    '.mp4',
+    ':content/',
+  ]);
+}
 
 async function getMediaFile(urlPath: string): Promise<File|null> {
   console.log("service-worker getMediaFile start");

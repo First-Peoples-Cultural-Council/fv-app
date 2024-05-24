@@ -92,12 +92,9 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
-
-console.log("Adding listener for fetch event")
 self.addEventListener('fetch', function (event) {
   event.preventDefault()
   const url = event.request.url;
-  console.log("service-worker event listener for fetch: ", url)
 
   event.respondWith(
     (async function () {
@@ -119,7 +116,7 @@ self.addEventListener('fetch', function (event) {
             '.mov',
             '.mp4',
             ':content/',
-          ])
+          ]) && response.ok
         ) {
           try {
             console.log("service-worker saving media file in cache: ", url)

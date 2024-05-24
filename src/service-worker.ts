@@ -126,10 +126,14 @@ self.addEventListener('fetch', function (event) {
             db.saveMediaFile(url, file);
           }
           catch(err) {
-            console.log("Failed to save media file in cache: ", url, err);
+            console.log("service-worker failed to save media file in cache: ", url, err);
           }
         }
+        else {
+          console.log("service-worker: not a cacheable response: ", url, response.ok, response);
+        }
 
+        console.log("service-worker returning response: ", url, response);
         return response;
       } catch (error) {
         console.log("service-worker fetch error: ", url, error);

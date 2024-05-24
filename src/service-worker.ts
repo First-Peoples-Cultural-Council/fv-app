@@ -125,7 +125,7 @@ self.addEventListener('fetch', function (event) {
             console.log("service-worker saving media file in cache: ", url)
 
             // Save the media file in the database.
-            const file = await getFileFromResponse(response);
+            const file = await getFileFromResponse(response.clone());
             db.saveMediaFile(url, file);
           }
           catch(err) {

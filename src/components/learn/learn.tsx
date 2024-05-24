@@ -3,11 +3,7 @@ import { useEffect, useState } from 'react';
 import SubNavDesktop from '../sub-nav-desktop/sub-nav-desktop';
 import SubNavMobile from '../sub-nav-mobile/sub-nav-mobile';
 import { SubNavItem } from '../common/data';
-import SearchHeader from '../common/search-header/search-header';
-import {
-  SearchResultsProvider,
-  SearchResultsType,
-} from '../search-results-provider';
+import PageHeader from '../common/page-header/page-header';
 
 const navItems: SubNavItem[] = [
   {
@@ -62,12 +58,7 @@ export interface LearnViewProps {}
 
 export function LearnView(props: LearnViewProps) {
   const location = useLocation();
-
   const [currentNavItem, setCurrentNavItem] = useState(navItems[0]);
-  const [searchResults, setSearchResults] = useState<{
-    rawSearchQuery: string;
-    entries: SearchResultsType;
-  } | null>(null);
 
   useEffect(() => {
     const currentNavItem = navItems.find((item) =>
@@ -82,29 +73,18 @@ export function LearnView(props: LearnViewProps) {
     <div>
       <SubNavMobile navItems={navItems} />
       {currentNavItem && (
-        <SearchHeader
-          searchMatchRef={null}
+        <PageHeader
           title={currentNavItem.title}
           backgroundColors={{
             to: currentNavItem.colors.to,
             from: currentNavItem.colors.from,
           }}
-          setSearchEntries={setSearchResults}
         />
       )}
-      <SearchResultsProvider
-        results={
-          searchResults as {
-            rawSearchQuery: string;
-            entries: SearchResultsType;
-          }
-        }
-      >
-        <div className="flex w-full">
-          <SubNavDesktop navItems={navItems} />
-          {currentNavItem && <Outlet />}
-        </div>
-      </SearchResultsProvider>
+      <div className="flex w-full">
+        <SubNavDesktop navItems={navItems} />
+        {currentNavItem && <Outlet />}
+      </div>
     </div>
   );
 }

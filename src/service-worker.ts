@@ -219,9 +219,8 @@ function getFileNameFromUrl(url: string): string {
   return parts[parts.length - 1];
 }
 
-function isNotFailedResponse(response:Response): Boolean {
+function isNotFailedResponse(response:Response): boolean {
   // Rather than checking for a 2xx or "ok", we check for not having an error or redirect status.
   // This accounts for requests that are served from the browser cache, which have no status or status 0 in some browsers.
-  const status = response.status;
-  return !(status > 299)
+  return response.status < 300
 }

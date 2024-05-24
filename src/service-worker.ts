@@ -116,13 +116,15 @@ self.addEventListener('fetch', function (event) {
             '.mov',
             '.mp4',
             ':content/',
-          ]) && response.ok
+          ]) && isNotFailedResponse(response)
         ) {
           try {
-            console.log("service-worker saving media file in cache: ", url)
+            
 
             // Save the media file in the database.
-            const file = await getFileFromResponse(response.clone());
+            const filename = getFileNameFromUrl(url);
+            console.log("service-worker saving media file in cache: ", url, filename, response)
+            const file = await getFileFromResponse(response.clone(), filename);
             db.saveMediaFile(url, file);
           }
           catch(err) {
@@ -202,12 +204,11 @@ function endsWithAny(text: string, endings: string[]): boolean {
   return false;
 }
 
-async function getFileFromResponse(response: Response): Promise<File> {
+async function getFileFromResponse(response: Response, filename: string): Promise<File> {
   console.log("service-worker getFileFromResponse start", response.url, response);
   const blob = await response.blob();
-  const fileName = getFileNameFromUrl(response.url);
 
-  const file = new File([blob], fileName);
+  const file = new File([blob], filename);
   console.log("service-worker getFileFromResponse finished", response.url, file);
   return file;
 }
@@ -216,4 +217,10 @@ function getFileNameFromUrl(url: string): string {
   // Extract the file name from the URL
   const parts = url.split('/');
   return parts[parts.length - 1];
+}
+
+function isNotFailedResponse(response:Response): boolean {
+  // Rather than checking for a 2xx or "ok", we check for not having an error or redirect status.
+  // This accounts for requests that are served from the browser cache, which have no status or status 0 in some browsers.
+  return response.status < 300
 }

@@ -92,68 +92,61 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
-
-console.log("Adding listener for fetch event")
 self.addEventListener('fetch', function (event) {
   event.preventDefault()
   const url = event.request.url;
-  console.log("service-worker event listener for fetch: ", url)
 
   event.respondWith(
     (async function () {
-      try {
-        // Attempt to fetch the request
-        const response = await fetch(event.request);
-
-        // Check to see if the app should cache the file.
-        if (
-          endsWithAny(url, [
-            '.jpeg',
-            '.jpg',
-            '.gif',
-            '.png',
-            '.tiff',
-            '.tif',
-            '.mp3',
-            '.wav',
-            '.mov',
-            '.mp4',
-            ':content/',
-          ])
-        ) {
-          if (await hasMediaFile(url)) {
-          console.log("service-worker getting media file from cache: ", url)
-            const file: File = await getMediaFile(url);
-            return new Response(file, { status: 200 });
-          } else {
-            console.log("service-worker getting fresh media file from web: ", url)
-            // Save the media file in the database.
-            const file = await getFileFromUrl(url);
-            db.saveMediaFile(url, file);
-
-            return response;
+        // Check to see if the request can be served from the cache
+        if (isMediaFile(url)) {
+          try {
+            console.log("service-worker looking for cached file: ", url);
+            const file: File|null = await getMediaFile(url);
+  
+            if (file) {
+              return new Response(file, { status: 200 });
+            } 
+            else {
+              console.log("service-worker: media file was not in db", url);
+            }
           }
-        } else {
-          console.log("service-worker not a cacheable fetch: ", url)
-          return response;
+          catch(err) {
+            console.log("service-worker: error getting media file from db: ", url, err);
+          }
         }
-      } catch (error) {
-        console.log("service-worker fetch error: ", url, error)
-        // Handle fetch error when app is offline
-        // Check to see if the db has the media file.
-        if (await hasMediaFile(url)) {
-          console.log("service-worker getting file from cache due to fetch error: ", url)
-          const file: File = await getMediaFile(url);
-          return new Response(file, { status: 200 });
-        } else {
-          console.log("service-worker no file available, fetch error: ", url)
+
+        // Request new file if necessary
+        try {
+          console.log("service-worker: getting a fresh copy from the web: ", url);
+          const response = await fetch(event.request);
+
+          // Cache file if necessary
+          try {
+            if (isMediaFile(url) && isNotFailedResponse(response)) {
+              // Save the media file in the database.
+              const filename = getFileNameFromUrl(url);
+              console.log("service-worker saving media file in cache: ", url, filename, response)
+              const file = await getFileFromResponse(response.clone(), filename);
+              db.saveMediaFile(url, file);
+            }
+          }
+          catch(err) {
+            console.log("service-worker failed to save media file in cache: ", url, err);
+          }
+
+          console.log("service-worker returning response: ", url, response);
+          return response;
+
+        }
+        catch (error) {       
+          console.log("service-worker has no file available, returning 503 error: ", url)
           // Return a custom offline response
           return new Response('Offline', {
             status: 503,
             statusText: 'Service Unavailable',
           });
         }
-      }
     })()
   );
 });
@@ -169,20 +162,33 @@ self.addEventListener('install', (event) => {
   );
 });
 
-async function hasMediaFile(urlPath: string): Promise<boolean> {
-  console.log("service-worker hasMediaFile start", urlPath);
-  const url = new URL(urlPath);
-  url.search = '';
-  const result = await db.hasMediaFile(url.toString());
-  console.log("service-worker hasMediaFile finished", urlPath, result);
-  return result;
+function isMediaFile(url: string) {
+  return endsWithAny(url, [
+    '.jpeg',
+    '.jpg',
+    '.gif',
+    '.png',
+    '.tiff',
+    '.tif',
+    '.mp3',
+    '.wav',
+    '.mov',
+    '.mp4',
+    ':content/',
+  ]);
 }
 
-async function getMediaFile(urlPath: string): Promise<File> {
+async function getMediaFile(urlPath: string): Promise<File|null> {
   console.log("service-worker getMediaFile start");
   const url = new URL(urlPath);
   url.search = '';
-  const { file: blob } = (await db.getMediaFile(url.toString())) as {
+  const result = await db.getMediaFile(url.toString());
+  if (result === undefined) {
+    console.log("No cached file available: ", url);
+    return null;
+  }
+
+  const { file: blob } = result as {
     file: Blob;
   };
   const file = new File([blob], getFileNameFromUrl(url.toString()), {
@@ -201,14 +207,12 @@ function endsWithAny(text: string, endings: string[]): boolean {
   return false;
 }
 
-async function getFileFromUrl(url: string): Promise<File> {
-  console.log("service-worker getFileFromUrl start", url);
-  const response = await fetch(url);
+async function getFileFromResponse(response: Response, filename: string): Promise<File> {
+  console.log("service-worker getFileFromResponse start", response.url, response);
   const blob = await response.blob();
-  const fileName = getFileNameFromUrl(url);
 
-  const file = new File([blob], fileName);
-  console.log("service-worker getFileFromUrl finished", url);
+  const file = new File([blob], filename);
+  console.log("service-worker getFileFromResponse finished", response.url, file);
   return file;
 }
 
@@ -216,4 +220,10 @@ function getFileNameFromUrl(url: string): string {
   // Extract the file name from the URL
   const parts = url.split('/');
   return parts[parts.length - 1];
+}
+
+function isNotFailedResponse(response:Response): boolean {
+  // Rather than checking for a 2xx or "ok", we check for not having an error or redirect status.
+  // This accounts for requests that are served from the browser cache, which have no status or status 0 in some browsers.
+  return response.status < 300
 }

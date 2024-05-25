@@ -26,18 +26,19 @@ export function AudioButton({ fvAudio }: AudioButtonProps) {
   const { isOnline } = useDetectOnlineStatus();
 
   useEffect(() => {
-    db.hasMediaFile(fvAudio.filename).then((response) => {
-      setHasFile(response);
-      if(!response) {
-        console.log("fetching audio file in order to cache it", fvAudio.filename);
-        fetch(fvAudio.filename).then((response) => {
-          console.log("fetched audio file: ", fvAudio.filename, response)
-        })
-      }
-      const audioElement = new Audio(fvAudio.filename);
-      addAudio(audioElement);
-      setAudio(audioElement);
-    });
+      console.log("audio useEffect - fetching audio file before testing cache", fvAudio.filename);
+
+      fetch(fvAudio.filename).then((fetchResponse) => {
+        console.log("fetched audio file: ", fvAudio.filename, fetchResponse)
+        console.log("audio useEffect - checking for cached file", fvAudio.filename);
+        return db.hasMediaFile(fvAudio.filename);
+      }).then((dbResponse) => {
+        setHasFile(dbResponse);
+        console.log("audio useEffect - creating Audio element", fvAudio.filename);
+        const audioElement = new Audio(fvAudio.filename);
+        addAudio(audioElement);
+        setAudio(audioElement);
+      });
     return () => {
       if (audio) {
         removeAudio(audio);

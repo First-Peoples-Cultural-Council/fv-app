@@ -27,7 +27,6 @@ export function AudioControl({
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
 
-    console.log("AudioControl useEffect checking file status", audio.original.path);
     db.hasMediaFile(audio.original.path).then((response) => {
       setHasFile(response);
     });

@@ -81,12 +81,10 @@ class IndexedDBService {
   }
 
   async hasMediaFile(url: string): Promise<boolean> {
-    console.log("Start hasMediaFile: ", url)
     const db = await this.database;
     const transaction = db.transaction(['mediaFiles'], 'readonly');
     const store = transaction.objectStore('mediaFiles');
     const mediaFile = await store.get(url);
-    console.log("hasMediaFile? ", mediaFile)
     return mediaFile !== undefined;
   }
 
@@ -97,16 +95,15 @@ class IndexedDBService {
   }
 
   async addMediaFile(url: string, file: Blob) {
+    console.log("addMediaFile start: ", url, file);
     const store = await this.getMediaStore();
-    await store.add(
-      {
-        downloadedAt: new Date().toISOString(),
-        lastAccessedAt: new Date().toISOString(),
-        file,
-      },
-      url
-    );
-    console.log("Finished addMediaFile: ", url)
+    const mediaFile = {
+      downloadedAt: new Date().toISOString(),
+      lastAccessedAt: new Date().toISOString(),
+      file,
+    };
+    await store.add(mediaFile,url);
+    console.log("Finished addMediaFile: ", url, mediaFile);
   }
 
   async getMediaFile(url: string): Promise<
@@ -117,13 +114,16 @@ class IndexedDBService {
       }
     | undefined
   > {
-    console.log("Start getMediaFile: ", url)
     const store = await this.getMediaStore();
     const mediaFile = (await store.get(url)) as {
       downloadedAt: string;
       lastAccessedAt: string;
       file: Blob;
     };
+    console.log("getMediaFile updating lastAccessedAt", url, {
+      ...mediaFile,
+      lastAccessedAt: new Date().toISOString(),
+    });
     await store.put(
       {
         ...mediaFile,
@@ -157,14 +157,11 @@ class IndexedDBService {
   }
 
   async clearMediaFilesCollection() {
-    console.log("Start clearMediaFilesCollection")
     try {
       const db = await this.database;
       const transaction = db.transaction('mediaFiles', 'readwrite');
       const store = transaction.objectStore('mediaFiles');
-      console.log("clearMediaFilesCollection got mediaFiles store", store)
       store.clear();
-      console.log("Finished clearMediaFilesCollection")
     } catch (error) {
       // Handle the error
       console.error('Error clearing mediaFiles collection:', error);

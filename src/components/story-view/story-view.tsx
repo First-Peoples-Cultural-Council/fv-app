@@ -1,30 +1,38 @@
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 // FPCC
 import { FVStory, FVPage } from '../common/data/types';
 import CoverView from '../story-view/cover-view';
 import PageView from '../story-view/page-view';
+import { useStories } from '../stories-page/stories-page';
 
-export interface StoryViewProps {
-  story: FVStory;
-  goBack: () => any;
-}
+/* eslint-disable-next-line */
+export interface StoryViewProps {}
 
-export function StoryView({ story, goBack }: Readonly<StoryViewProps>) {
+export function StoryView(props: Readonly<StoryViewProps>) {
+  const { id } = useParams();
+  const { storiesData } = useStories();
+  const goBack = () => {};
+  const storyId = id;
+  const story: FVStory | undefined = storiesData.find(
+    (story) => story.id === storyId
+  );
+
   const [currentPage, setCurrentPage] = useState<number>(-2);
 
-  const introPage: FVPage = {
-    ordering: -1,
-    notes: [],
-    text: story?.introduction,
-    translation: story?.introductionTranslation,
-    relatedAudio: story?.relatedAudio,
-    relatedVideos: [],
-    relatedImages: story?.relatedImages,
-  };
+  const pageToRender = (page: number, story: FVStory) => {
+    const introPage: FVPage = {
+      ordering: -1,
+      notes: [],
+      text: story?.introduction,
+      translation: story?.introductionTranslation,
+      relatedAudio: story?.relatedAudio,
+      relatedVideos: [],
+      relatedImages: story?.relatedImages,
+    };
 
-  const pageToRender = (page: number) => {
-    switch (currentPage) {
+    switch (page) {
       case -2: // Cover
         return (
           <CoverView story={story} startReading={() => setCurrentPage(-1)} />
@@ -65,6 +73,10 @@ export function StoryView({ story, goBack }: Readonly<StoryViewProps>) {
     }
   };
 
-  return <div data-testid="story-view">{pageToRender(currentPage)}</div>;
+  return (
+    <div data-testid="story-view">
+      {story && pageToRender(currentPage, story)}
+    </div>
+  );
 }
 export default StoryView;

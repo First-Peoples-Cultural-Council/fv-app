@@ -15,10 +15,6 @@ export function MobileNav({
   currentTab,
 }: Readonly<MobileNavProps>) {
   const [showExtraNav, setShowExtraNav] = React.useState(false);
-  console.log({
-    navItems,
-    currentTab,
-  });
 
   return (
     <>

@@ -1,33 +1,38 @@
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import reportWebVitals from './reportWebVitals';
 import { StrictMode } from 'react';
+import ReactDOM from 'react-dom/client';
 import {
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
   Route,
 } from 'react-router-dom';
-import Dictionary from './components/dictionary-page/dictionary-page';
+
+// FPCC
+import './index.css';
+import App from './App';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import reportWebVitals from './reportWebVitals';
+import { ApiProvider } from './components/contexts/apiContext';
+import { AudioProvider } from './components/contexts/audioContext';
+import SearchProvider from './components/search-provider';
+// Components
+import AboutView from './components/about-view/about-view';
 import AlphabetView from './components/alphabet-view/alphabet-view';
-import DictionaryView from './components/dictionary-view/dictionary-view';
 import CategoryView from './components/category-view/category-view';
 import CategoriesView from './components/categories-view/categories-view';
+import Dictionary from './components/dictionary-page/dictionary-page';
+import DictionaryView from './components/dictionary-view/dictionary-view';
 import ErrorPage from './components/error-page/error-page';
-import Learn from './components/learn/learn';
-import StoriesView from './components/stories-view/stories-view';
-import SongsView from './components/songs-view/songs-view';
 import FlashcardsView from './components/flashcards-view/flashcards-view';
+import Learn from './components/learn/learn';
+import PageNotFound from './components/page-not-found/page-not-found';
 import ProfileView from './components/profile-view/profile-view';
 import RandomizedView from './components/randomized-view/randomized-view';
 import SettingsView from './components/settings-view/settings-view';
-import AboutView from './components/about-view/about-view';
-import PageNotFound from './components/page-not-found/page-not-found';
-import SearchProvider from './components/search-provider';
-import { AudioProvider } from './components/contexts/audioContext';
-import { ApiProvider } from './components/contexts/apiContext';
+import SongsView from './components/songs-view/songs-view';
+import StoriesPage from './components/stories-page/stories-page';
+import StoriesView from './components/stories-view/stories-view';
+import StoryView from './components/story-view/story-view';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,10 +46,12 @@ export const router = createBrowserRouter(
         <Route index element={<DictionaryView />} />
       </Route>
       <Route path="learn" element={<Learn />} errorElement={<ErrorPage />}>
-        <Route path="stories" element={<StoriesView />} />
+        <Route path="stories" element={<StoriesPage />}>
+          <Route path="" element={<StoriesView />} />
+          <Route path=":id" element={<StoryView />} />
+        </Route>
         <Route path="songs" element={<SongsView />} />
         <Route path="flashcards" element={<FlashcardsView />} />
-        <Route index element={<StoriesView />} />
       </Route>
       <Route path="bookmarks" element={<ProfileView />} />
       <Route path="settings" element={<SettingsView />} />

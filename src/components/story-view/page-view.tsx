@@ -28,7 +28,10 @@ function PageView({
   const [showPictureModal, setShowPictureModal] = useState<boolean>(false);
   const [pictureUrl, setPictureUrl] = useState<string>('');
   return (
-    <div className="max-w-5xl mx-auto p-2 md:p-6 m-2 md:m-4 rounded-lg bg-white shadow-lg">
+    <div
+      data-testid="story-page-view"
+      className="max-w-5xl mx-auto p-2 md:p-6 m-2 md:m-4 rounded-lg bg-white shadow-lg"
+    >
       <div className="flex flex-wrap w-full justify-center">
         {page.relatedImages?.map((img) => {
           return (

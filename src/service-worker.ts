@@ -124,15 +124,20 @@ self.addEventListener('fetch', function (event) {
           // Cache file if necessary
           try {
             if (isMediaFile(url) && isNotFailedResponse(response)) {
-              // Save the media file in the database.
+              // Try to save the media file as a new entry in the database.
               const filename = getFileNameFromUrl(url);
               console.log("service-worker saving media file in cache: ", url, filename, response)
               const file = await getFileFromResponse(response.clone(), filename);
-              db.saveMediaFile(url, file);
+              if(file) {
+                db.addMediaFile(url, file).then(null, (result) => { console.log("service-worker: error adding media file to cache ", url, result)});
+              }
+              else {
+                console.log("service-worker not saving in cache because response did not contain a file: ", url, response);
+              }
             }
           }
           catch(err) {
-            console.log("service-worker failed to save media file in cache: ", url, err);
+            console.log("service-worker failed to prepare media file for caching: ", url, err);
           }
 
           console.log("service-worker returning response: ", url, response);

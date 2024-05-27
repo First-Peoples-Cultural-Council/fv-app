@@ -90,11 +90,14 @@ class IndexedDBService {
     return mediaFile !== undefined;
   }
 
-  async saveMediaFile(url: string, file: Blob) {
-    console.log("Start saveMediaFile: ", url)
+  async getMediaStore() {
     const db = await this.database;
     const transaction = db.transaction('mediaFiles', 'readwrite');
-    const store = transaction.objectStore('mediaFiles');
+    return transaction.objectStore('mediaFiles');
+  }
+
+  async addMediaFile(url: string, file: Blob) {
+    const store = await this.getMediaStore();
     await store.add(
       {
         downloadedAt: new Date().toISOString(),
@@ -103,7 +106,7 @@ class IndexedDBService {
       },
       url
     );
-    console.log("Finished saveMediaFile: ", url)
+    console.log("Finished addMediaFile: ", url)
   }
 
   async getMediaFile(url: string): Promise<
@@ -115,9 +118,7 @@ class IndexedDBService {
     | undefined
   > {
     console.log("Start getMediaFile: ", url)
-    const db = await this.database;
-    const transaction = db.transaction(['mediaFiles'], 'readwrite');
-    const store = transaction.objectStore('mediaFiles');
+    const store = await this.getMediaStore();
     const mediaFile = (await store.get(url)) as {
       downloadedAt: string;
       lastAccessedAt: string;

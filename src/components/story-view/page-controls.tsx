@@ -1,18 +1,18 @@
+import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 
 export interface PageControlsProps {
   currentPage: number;
   setCurrentPage: (pageNumber: number) => any;
-  goBack: () => any;
   isLastPage: boolean;
 }
 
 export function PageControls({
   currentPage,
   setCurrentPage,
-  goBack,
   isLastPage,
 }: Readonly<PageControlsProps>) {
+  const navigate = useNavigate();
   const nextLabel = isLastPage ? 'Done' : 'Next Page';
   const currentLabel = currentPage === -1 ? 'Intro' : `Page ${currentPage + 1}`;
   const backLabel = (function () {
@@ -25,6 +25,8 @@ export function PageControls({
         return 'Previous Page';
     }
   })();
+
+  const goBack = () => navigate(-1);
 
   const nextClick = () => {
     isLastPage ? goBack() : setCurrentPage(currentPage + 1);
@@ -45,7 +47,7 @@ export function PageControls({
       </button>
 
       <div className="flex items-center justify-center flex-grow">
-        <div className="italic text-fv-charcoal-light">{currentLabel}</div>
+        <div className="italic text-fv-charcoal-light mx-2">{currentLabel}</div>
       </div>
 
       <button

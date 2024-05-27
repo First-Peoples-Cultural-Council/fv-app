@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
-import { Outlet, useOutletContext } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 // FPCC
 import { FVStory } from '../common/data/types';
 import fetchStoriesData from '../../services/storiesApiService';
 import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 
+import StoriesView from '../stories-view/stories-view';
+import StoryView from '../story-view/story-view';
+
 /* eslint-disable-next-line */
 export interface StoriesPageProps {}
-
-type ContextType = { storiesData: FVStory[] | [] };
 
 export default function StoriesPage(props: StoriesPageProps) {
   const [storiesData, setStoriesData] = useState<FVStory[]>([]);
@@ -29,17 +30,12 @@ export default function StoriesPage(props: StoriesPageProps) {
     fetchDataAsync();
   }, []);
 
-  return (
-    <>
-      {loading ? (
-        <LoadingSpinner />
-      ) : (
-        <Outlet context={{ storiesData } satisfies ContextType} />
-      )}
-    </>
+  return loading ? (
+    <LoadingSpinner />
+  ) : (
+    <Routes>
+      <Route path="" element={<StoriesView storiesData={storiesData} />} />
+      <Route path=":id" element={<StoryView storiesData={storiesData} />} />
+    </Routes>
   );
-}
-
-export function useStories() {
-  return useOutletContext<ContextType>();
 }

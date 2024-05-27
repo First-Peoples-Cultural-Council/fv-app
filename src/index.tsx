@@ -46,12 +46,10 @@ export const router = createBrowserRouter(
         <Route index element={<DictionaryView />} />
       </Route>
       <Route path="learn" element={<Learn />} errorElement={<ErrorPage />}>
-        <Route path="stories" element={<StoriesPage />}>
-          <Route path="" element={<StoriesView />} />
-          <Route path=":id" element={<StoryView />} />
-        </Route>
+        <Route path="stories/*" element={<StoriesPage />} />
         <Route path="songs" element={<SongsView />} />
         <Route path="flashcards" element={<FlashcardsView />} />
+        <Route index element={<StoriesPage />} />
       </Route>
       <Route path="bookmarks" element={<ProfileView />} />
       <Route path="settings" element={<SettingsView />} />

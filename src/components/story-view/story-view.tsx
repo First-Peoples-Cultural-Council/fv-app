@@ -5,15 +5,14 @@ import { useParams } from 'react-router-dom';
 import { FVStory, FVPage } from '../common/data/types';
 import CoverView from '../story-view/cover-view';
 import PageView from '../story-view/page-view';
-import { useStories } from '../stories-page/stories-page';
 
 /* eslint-disable-next-line */
-export interface StoryViewProps {}
+export interface StoryViewProps {
+  storiesData: FVStory[];
+}
 
-export function StoryView(props: Readonly<StoryViewProps>) {
+export function StoryView({ storiesData }: Readonly<StoryViewProps>) {
   const { id } = useParams();
-  const { storiesData } = useStories();
-  const goBack = () => {};
   const storyId = id;
   const story: FVStory | undefined = storiesData.find(
     (story) => story.id === storyId
@@ -44,7 +43,6 @@ export function StoryView(props: Readonly<StoryViewProps>) {
             isLastPage={currentPage === (story?.pages?.length ?? -1) - 1}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            goBack={goBack}
           >
             <div>
               <div className="space-y-1 p-2">
@@ -67,14 +65,13 @@ export function StoryView(props: Readonly<StoryViewProps>) {
             isLastPage={currentPage === (story?.pages?.length ?? -1) - 1}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            goBack={goBack}
           />
         );
     }
   };
 
   return (
-    <div data-testid="story-view">
+    <div data-testid="story-view" className="w-full">
       {story && pageToRender(currentPage, story)}
     </div>
   );

@@ -5,15 +5,13 @@ import { Link } from 'react-router-dom';
 // FPCC
 import { FVStory } from '../common/data/types';
 import FvImage from '../common/image/image';
-import { useStories } from '../stories-page/stories-page';
 
 /* eslint-disable-next-line */
-export interface StoriesViewProps {}
+export interface StoriesViewProps {
+  storiesData: FVStory[];
+}
 
-export function StoriesView(props: StoriesViewProps) {
-  const { storiesData } = useStories();
-  console.log(storiesData);
-
+export function StoriesView({ storiesData }: Readonly<StoriesViewProps>) {
   return (
     <div className="grid grid-cols-1 w-full">
       <div className="flex flex-col overflow-y-auto max-h-calc-185 md:max-h-calc-125">
@@ -21,7 +19,7 @@ export function StoriesView(props: StoriesViewProps) {
           return (
             <Link
               key={story.id}
-              to={story.id}
+              to={`/learn/stories/${story.id}`}
               className={classNames(
                 'rounded-lg bg-white p-6 m-2 shadow-lg hover:bg-slate-100 cursor-pointer'
               )}

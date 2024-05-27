@@ -120,17 +120,20 @@ class IndexedDBService {
       lastAccessedAt: string;
       file: Blob;
     };
-    console.log("getMediaFile updating lastAccessedAt", url, {
-      ...mediaFile,
-      lastAccessedAt: new Date().toISOString(),
-    });
-    await store.put(
-      {
+
+    if(mediaFile) {
+      console.log("getMediaFile updating lastAccessedAt", url, mediaFile, {
         ...mediaFile,
         lastAccessedAt: new Date().toISOString(),
-      },
-      url
-    );
+      });
+      await store.put(
+        {
+          ...mediaFile,
+          lastAccessedAt: new Date().toISOString(),
+        },
+        url
+      );
+    }
     console.log("Finished getMediaFile: ", url, mediaFile)
     return mediaFile;
   }

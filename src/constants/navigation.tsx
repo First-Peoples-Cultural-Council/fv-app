@@ -64,7 +64,7 @@ export const dictionarySubNavItems: SubNavItem[] = [
 export const learnSubNavItems: SubNavItem[] = [
   {
     id: 'stories',
-    path: 'stories',
+    path: '/learn/stories',
     icon: 'fv-stories',
     iconSize: 'text-3xl',
     title: 'Stories',
@@ -75,11 +75,11 @@ export const learnSubNavItems: SubNavItem[] = [
       activeText: 'text-color-stories-dark',
       border: 'border-color-stories-dark',
     },
-    activePathMatches: [{ path: 'learn/stories' }, { path: 'learn' }], // Stories is the default page for 'learn'
+    activePathMatches: [{ path: '/learn/stories' }, { path: '/learn' }], // Stories is the default page for 'learn'
   },
   {
     id: 'songs',
-    path: 'songs',
+    path: '/learn/songs',
     icon: 'fv-songs',
     iconSize: 'text-4xl',
     title: 'Songs',
@@ -90,11 +90,11 @@ export const learnSubNavItems: SubNavItem[] = [
       activeText: 'text-color-songs-dark',
       border: 'border-color-songs-dark',
     },
-    activePathMatches: [{ path: 'learn/songs' }],
+    activePathMatches: [{ path: '/learn/songs' }],
   },
   {
     id: 'flashcards',
-    path: 'flashcards',
+    path: '/learn/flashcards',
     icon: 'fv-flashcard',
     iconSize: 'text-4xl',
     title: 'Flashcards',
@@ -105,7 +105,7 @@ export const learnSubNavItems: SubNavItem[] = [
       activeText: 'text-color-flashcards-dark',
       border: 'border-color-flashcards-dark',
     },
-    activePathMatches: [{ path: 'learn/flashcards' }],
+    activePathMatches: [{ path: '/learn/flashcards' }],
   },
 ];
 

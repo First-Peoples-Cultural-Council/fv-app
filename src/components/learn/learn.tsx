@@ -6,24 +6,32 @@ import SubNavDesktop from '../sub-nav-desktop/sub-nav-desktop';
 import SubNavMobile from '../sub-nav-mobile/sub-nav-mobile';
 import PageHeader from '../common/page-header/page-header';
 import { learnSubNavItems } from '../../constants/navigation';
+import { SubNavItem } from '../common/data';
 
 /* eslint-disable-next-line */
 export interface LearnViewProps {}
 
 export function LearnView(props: LearnViewProps) {
   const location = useLocation();
-  const [currentNavItem, setCurrentNavItem] = useState(learnSubNavItems[0]);
+  const [currentNavItem, setCurrentNavItem] = useState<SubNavItem | null>(
+    learnSubNavItems[0]
+  );
 
   useEffect(() => {
     const currentNavItem = learnSubNavItems.find((item) =>
-      matchRoutes([{ path: `/learn/${item.path}` }], location)
+      matchRoutes(
+        [{ path: item.path }, ...(item?.activePathMatches ?? [])],
+        location
+      )
     );
     if (currentNavItem) {
       setCurrentNavItem(currentNavItem);
+    } else {
+      setCurrentNavItem(null);
     }
   }, [location]);
 
-  return (
+  return currentNavItem ? (
     <div>
       <SubNavMobile navItems={learnSubNavItems} />
       {currentNavItem && (
@@ -37,9 +45,11 @@ export function LearnView(props: LearnViewProps) {
       )}
       <div className="flex w-full">
         <SubNavDesktop navItems={learnSubNavItems} />
-        {currentNavItem && <Outlet />}
+        <Outlet />
       </div>
     </div>
+  ) : (
+    <Outlet />
   );
 }
 

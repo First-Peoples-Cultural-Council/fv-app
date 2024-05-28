@@ -2,8 +2,8 @@ import { useState, useEffect, useContext } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
 // FPCC
-import WordCardMobile from '../dictionary-page/word-card-mobile';
-import WordCardDesktop from '../dictionary-page/word-card-desktop';
+import WordCardMobile from './word-card-mobile';
+import WordCardDesktop from './word-card-desktop';
 import { DictionaryType, FvWord, isFvWordLocationCombo } from '../common/data';
 import MultiSwitch from '../common/multi-switch/multi-switch';
 import fetchWordsData from '../../services/wordsApiService';

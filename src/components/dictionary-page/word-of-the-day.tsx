@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import WordModal from './word-modal';
+
+// FPCC
+import WordModal from '../dictionary-view/word-modal';
 import Modal from '../common/modal/modal';
 import fetchWordOfDayData from '../../services/wordOfTheDayApiService';
 import { FvWord } from '../common/data';

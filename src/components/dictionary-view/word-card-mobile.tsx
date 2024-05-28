@@ -1,4 +1,7 @@
+import { Key, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+
+// FPCC
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import WordModal from './word-modal';
 import {
@@ -8,7 +11,6 @@ import {
   isFvWordLocationCombo,
 } from '../common/data';
 import { useModal } from '../common/use-modal/use-modal';
-import { Key, useEffect } from 'react';
 import { useAudio } from '../contexts/audioContext';
 import { applyHighlighting } from '../../util/applyHighlighting';
 

@@ -1,5 +1,8 @@
+import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import WordModal from './word-modal';
+import classNames from 'classnames';
+
+// FPCC
 import {
   FvWord,
   FvWordLocationCombo,
@@ -8,12 +11,11 @@ import {
 } from '../common/data';
 import Modal from '../common/modal/modal';
 import { useModal } from '../common/use-modal/use-modal';
-import { useEffect, useRef } from 'react';
 import { Audio1 } from '@mothertongues/search';
 import { useAudio } from '../contexts/audioContext';
-import classNames from 'classnames';
 import { applyHighlighting } from '../../util/applyHighlighting';
 import useOnClickOutside from '../../util/clickOutside';
+import WordModal from './word-modal';
 
 function WordCardDesktop(
   props: Readonly<{

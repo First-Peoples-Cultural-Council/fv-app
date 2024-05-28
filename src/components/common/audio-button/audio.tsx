@@ -26,14 +26,23 @@ export function AudioButton({ fvAudio }: AudioButtonProps) {
   const { isOnline } = useDetectOnlineStatus();
 
   useEffect(() => {
-      fetch(fvAudio.filename).then((fetchResponse) => {
-        return db.hasMediaFile(fvAudio.filename);
-      }).then((dbResponse) => {
-        setHasFile(dbResponse);
-        const audioElement = new Audio(fvAudio.filename);
-        addAudio(audioElement);
-        setAudio(audioElement);
-      });
+    const audioElement = new Audio(fvAudio.filename);
+    addAudio(audioElement);
+    setAudio(audioElement);
+
+    db.hasMediaFile(fvAudio.filename).then((hasFile) => {
+      if(!hasFile){
+        // try fetching the file if it isn't cached yet
+        fetch(fvAudio.filename, { mode: "cors" })
+          .then((response) => db.hasMediaFile(fvAudio.filename))
+          .then((hasFile) => {
+            setHasFile(hasFile);
+          });
+      }
+      else {
+        setHasFile(hasFile);
+      }
+    });
     return () => {
       if (audio) {
         removeAudio(audio);

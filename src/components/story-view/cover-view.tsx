@@ -26,24 +26,31 @@ export function CoverView({ story, startReading }: Readonly<CoverViewProps>) {
   }, [story]);
 
   return (
-    <div className="flex items-center border border-gray-300 shadow-lg p-5 rounded-lg max-w-2xl mx-auto mb-5">
-      <div className="space-y-5">
-        {story?.relatedImages[0] && (
-          <FvImage
-            className="h-[58vh] w-[90vw] object-contain"
-            src={story?.relatedImages[0].original.path ?? ''}
-            alt={story?.title ?? ''}
-          />
-        )}
-
-        <div className="space-y-1">
-          <div className="text-lg md:text-2xl font-bold">{story?.title}</div>
-          <div className="text-sm md:text-base">{story?.titleTranslation}</div>
+    <div data-testid="cover-page-view">
+      <div className="max-w-xl mx-auto space-y-3">
+        <div className="flex flex-wrap w-full justify-center">
+          {story?.relatedImages[0] && (
+            <FvImage
+              className="h-[58vh] w-auto object-contain bg-gray-200"
+              src={story?.relatedImages[0].original.path ?? ''}
+              alt={story?.title ?? ''}
+            />
+          )}
         </div>
-        <div className="block space-y-2">
-          <CopyButton text={story?.title} />
-          {/* hiding share button FW-5780 {shareButton()} */}
-          <BookmarkButton bookmark={bookmark} />
+        <div className="flex w-full justify-center">
+          <div className="space-y-1">
+            <div className="text-lg md:text-2xl font-bold">{story?.title}</div>
+            <div className="text-sm md:text-base">
+              {story?.titleTranslation}
+            </div>
+          </div>
+        </div>
+        <div className="flex w-full justify-center">
+          <div className="space-y-2">
+            <CopyButton text={story?.title} />
+            {/* hiding share button FW-5780 {shareButton()} */}
+            <BookmarkButton bookmark={bookmark} />
+          </div>
         </div>
         <button
           onClick={() => startReading()}

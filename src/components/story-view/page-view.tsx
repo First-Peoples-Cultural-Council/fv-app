@@ -27,10 +27,7 @@ function PageView({
   const [pictureUrl, setPictureUrl] = useState<string>('');
   console.log(page);
   return (
-    <div
-      data-testid="story-page-view"
-      className="max-w-5xl w-full md:w-[85vw] mx-auto p-2 md:p-6 m-2 md:m-4 rounded-lg bg-white shadow-lg"
-    >
+    <div data-testid="story-page-view">
       <div className="flex flex-wrap w-full justify-center">
         {page.relatedImages?.map((img) => {
           return (

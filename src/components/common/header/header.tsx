@@ -28,7 +28,7 @@ export function Header({
     >
       <div>
         <Link to="/">
-          <img src={FVLogo} alt="First Voices Logo" />
+          <img src={FVLogo} alt="First Voices Logo" className="h-12" />
         </Link>
       </div>
       <nav>

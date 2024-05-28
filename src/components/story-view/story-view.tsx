@@ -72,14 +72,13 @@ export function StoryView({ storiesData }: Readonly<StoryViewProps>) {
   };
 
   return (
-    <div
-      data-testid="story-view"
-      className="max-w-5xl w-full md:w-[85vw] mx-auto p-2 md:p-4 mb-4  md:m-4 md:border border-gray-300 rounded-lg md:shadow-lg bg-white"
-    >
-      <div className="py-2">
+    <div data-testid="story-view" className="max-w-5xl w-full mx-auto">
+      <div className="p-2 md:p-3">
         <BackButton />
       </div>
-      {story && pageToRender(currentPage, story)}
+      <div className="w-full md:w-[85vw] mx-auto p-2 md:p-4 mb-4 md:border border-gray-300 rounded-lg md:shadow-lg bg-white">
+        {story && pageToRender(currentPage, story)}
+      </div>
     </div>
   );
 }

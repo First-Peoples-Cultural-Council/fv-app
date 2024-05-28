@@ -31,7 +31,7 @@ export function CoverView({ story, startReading }: Readonly<CoverViewProps>) {
         <div className="flex flex-wrap w-full justify-center">
           {story?.relatedImages[0] && (
             <FvImage
-              className="h-[58vh] w-auto object-contain bg-gray-200"
+              className="h-[58vh] w-auto object-contain"
               src={story?.relatedImages[0].original.path ?? ''}
               alt={story?.title ?? ''}
             />

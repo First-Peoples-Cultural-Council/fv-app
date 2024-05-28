@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 
 // FPCC
 import { FVPage } from '../common/data';
@@ -25,7 +25,11 @@ function PageView({
 }: Readonly<PageViewProps>) {
   const [showPictureModal, setShowPictureModal] = useState<boolean>(false);
   const [pictureUrl, setPictureUrl] = useState<string>('');
-  console.log(page);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [page]);
+
   return (
     <div data-testid="story-page-view">
       <div className="flex flex-wrap w-full justify-center">

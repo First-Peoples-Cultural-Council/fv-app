@@ -114,14 +114,14 @@ self.addEventListener('fetch', function (event) {
 
         // Request new file if necessary
         try {
-          const response = await fetch(event.request);
+          const response = await fetch(event.request, { mode:  'cors' });
 
           // Cache file if necessary
           try {
             if (isMediaFile(url) && isNotFailedResponse(response)) {
               // Try to save the media file as a new entry in the database.
               const filename = getFileNameFromUrl(url);
-              console.log("service-worker saving media file in cache: ", url, filename, response);
+              console.log("service-worker saving media file in cache: ", url, filename, response.clone());
               const file = await getFileFromResponse(response.clone(), filename);
               if(file) {
                 db.addMediaFile(url, file).then(null, (result) => { console.log("service-worker: error adding media file to cache ", url, result)});
@@ -205,13 +205,19 @@ function endsWithAny(text: string, endings: string[]): boolean {
   return false;
 }
 
-async function getFileFromResponse(response: Response, filename: string): Promise<File> {
+async function getFileFromResponse(response: Response, filename: string): Promise<File|null> {
   console.log("service-worker getFileFromResponse start", response.url, response);
   const blob = await response.blob();
+  console.log("service-worker getFileFromResponse content: ", blob);
 
-  const file = new File([blob], filename);
-  console.log("service-worker getFileFromResponse finished", response.url, file);
-  return file;
+  if(blob) {
+    const file = new File([blob], filename);
+    console.log("service-worker getFileFromResponse finished", response.url, file);
+    return file;
+  }
+
+  console.log("service-worker getFileFromResponse: response had no content", response.url, blob, response);
+  return null;
 }
 
 function getFileNameFromUrl(url: string): string {

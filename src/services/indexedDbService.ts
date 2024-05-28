@@ -95,7 +95,6 @@ class IndexedDBService {
   }
 
   async addMediaFile(url: string, file: Blob) {
-    console.log("addMediaFile start: ", url, file);
     const store = await this.getMediaStore();
     const mediaFile = {
       downloadedAt: new Date().toISOString(),
@@ -103,7 +102,6 @@ class IndexedDBService {
       file,
     };
     await store.add(mediaFile,url);
-    console.log("Finished addMediaFile: ", url, mediaFile);
   }
 
   async getMediaFile(url: string): Promise<
@@ -122,10 +120,6 @@ class IndexedDBService {
     };
 
     if(mediaFile) {
-      console.log("getMediaFile updating lastAccessedAt", url, mediaFile, {
-        ...mediaFile,
-        lastAccessedAt: new Date().toISOString(),
-      });
       await store.put(
         {
           ...mediaFile,
@@ -134,7 +128,6 @@ class IndexedDBService {
         url
       );
     }
-    console.log("Finished getMediaFile: ", url, mediaFile)
     return mediaFile;
   }
 

@@ -6,6 +6,7 @@ import { FVStory, FVPage } from '../common/data/types';
 import CoverView from '../story-view/cover-view';
 import PageView from '../story-view/page-view';
 import BackButton from '../common/back-button/back-button';
+import PageNotFound from '../page-not-found/page-not-found';
 
 /* eslint-disable-next-line */
 export interface StoryViewProps {
@@ -77,7 +78,11 @@ export function StoryView({ storiesData }: Readonly<StoryViewProps>) {
         <BackButton />
       </div>
       <div className="w-full md:w-[85vw] mx-auto p-2 md:p-4 mb-4 md:border border-gray-300 rounded-lg md:shadow-lg bg-white">
-        {story && pageToRender(currentPage, story)}
+        {story === undefined ? (
+          <PageNotFound />
+        ) : (
+          pageToRender(currentPage, story)
+        )}
       </div>
     </div>
   );

@@ -39,15 +39,17 @@ export function CoverView({ story, startReading }: Readonly<CoverViewProps>) {
         </div>
         <div className="flex w-full justify-center">
           <div className="space-y-1">
-            <div className="text-lg md:text-2xl font-bold">{story?.title}</div>
-            <div className="text-sm md:text-base">
+            <div className="text-lg md:text-2xl font-bold text-center">
+              {story?.title}
+            </div>
+            <div className="text-sm md:text-base text-center">
               {story?.titleTranslation}
             </div>
           </div>
         </div>
         <div className="flex w-full justify-center">
           <div className="space-y-2">
-            <CopyButton text={story?.title} />
+            <CopyButton text={story?.title} label="COPY TITLE" />
             {/* hiding share button FW-5780 {shareButton()} */}
             <BookmarkButton bookmark={bookmark} />
           </div>

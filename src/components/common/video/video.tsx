@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import Alert from '../alert/alert';
 
 export interface FvVideoProps {
@@ -15,7 +15,8 @@ export function FvVideo({
   const [showAlt, setShowAlt] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
-  const handleVideoError = () => {
+  const handleVideoError = (event: SyntheticEvent) => {
+    console.error("Error loading video: ", event);
     setShowAlt(true);
   };
 

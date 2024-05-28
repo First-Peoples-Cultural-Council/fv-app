@@ -121,12 +121,9 @@ self.addEventListener('fetch', function (event) {
           if (isMediaFile(url) && isNotFailedResponse(response)) {
             // Try to save the media file as a new entry in the database.
             const filename = getFileNameFromUrl(url);
-            const file = await getFileFromResponse(response.clone(), filename).catch((result) => { console.error("service-worker: error getting media file from response ", url, result)});
+            const file = await getFileFromResponse(response.clone(), filename).catch((result) => { /* no action necessary */ });
             if(file) {
-              db.addMediaFile(url, file).catch((result) => { console.error("service-worker: error adding media file to cache ", url, result)});
-            }
-            else {
-              console.error("service-worker: not adding to cache because response did not contain a file: ", url, response);
+              db.addMediaFile(url, file).catch((result) => {  });
             }
           }
 

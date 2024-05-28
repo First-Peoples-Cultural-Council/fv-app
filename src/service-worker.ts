@@ -101,15 +101,11 @@ self.addEventListener('fetch', function (event) {
         // Check to see if the request can be served from the cache
         if (isMediaFile(url)) {
           try {
-            console.log("service-worker looking for cached file: ", url);
             const file: File|null = await getMediaFile(url);
   
             if (file) {
               return new Response(file, { status: 200 });
             } 
-            else {
-              console.log("service-worker: media file was not in db", url);
-            }
           }
           catch(err) {
             console.log("service-worker: error getting media file from db: ", url, err);
@@ -118,29 +114,32 @@ self.addEventListener('fetch', function (event) {
 
         // Request new file if necessary
         try {
-          console.log("service-worker: getting a fresh copy from the web: ", url);
           const response = await fetch(event.request);
 
           // Cache file if necessary
           try {
             if (isMediaFile(url) && isNotFailedResponse(response)) {
-              // Save the media file in the database.
+              // Try to save the media file as a new entry in the database.
               const filename = getFileNameFromUrl(url);
-              console.log("service-worker saving media file in cache: ", url, filename, response)
+              console.log("service-worker saving media file in cache: ", url, filename, response);
               const file = await getFileFromResponse(response.clone(), filename);
-              db.saveMediaFile(url, file);
+              if(file) {
+                db.addMediaFile(url, file).then(null, (result) => { console.log("service-worker: error adding media file to cache ", url, result)});
+              }
+              else {
+                console.log("service-worker not saving in cache because response did not contain a file: ", url, response);
+              }
             }
           }
           catch(err) {
-            console.log("service-worker failed to save media file in cache: ", url, err);
+            console.log("service-worker failed to prepare media file for caching: ", url, err);
           }
 
-          console.log("service-worker returning response: ", url, response);
           return response;
 
         }
         catch (error) {       
-          console.log("service-worker has no file available, returning 503 error: ", url)
+          console.log("service-worker has no file available, returning 503 error: ", url);
           // Return a custom offline response
           return new Response('Offline', {
             status: 503,
@@ -179,12 +178,11 @@ function isMediaFile(url: string) {
 }
 
 async function getMediaFile(urlPath: string): Promise<File|null> {
-  console.log("service-worker getMediaFile start");
   const url = new URL(urlPath);
   url.search = '';
   const result = await db.getMediaFile(url.toString());
   if (result === undefined) {
-    console.log("No cached file available: ", url);
+    console.log("service-worker getMediaFile: no cached file available. ", urlPath);
     return null;
   }
 

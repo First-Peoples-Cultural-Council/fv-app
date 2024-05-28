@@ -1,20 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 import { NavigationItem } from '../data';
 
 export interface MobileNavProps {
   navItems?: NavigationItem[];
   extraNavItems?: NavigationItem[];
-  currentTab: string;
 }
 
 export function MobileNav({
   navItems,
   extraNavItems,
-  currentTab,
 }: Readonly<MobileNavProps>) {
-  const [showExtraNav, setShowExtraNav] = React.useState(false);
+  const [showExtraNav, setShowExtraNav] = useState(false);
+  const location = useLocation();
 
   return (
     <>
@@ -30,7 +29,7 @@ export function MobileNav({
                   'flex items-center text-white cursor-pointer text-3xl',
                   {
                     'ml-2': !!item.icon,
-                    'text-word': item.id === currentTab,
+                    'text-word': location.pathname.includes(item.id),
                   }
                 )}
               >
@@ -54,7 +53,10 @@ export function MobileNav({
                   to={item.to}
                   className={classNames(
                     'flex items-center text-white cursor-pointer text-3xl',
-                    { 'ml-2': !!item.icon, 'text-word': item.id === currentTab }
+                    {
+                      'ml-2': !!item.icon,
+                      'text-word': location.pathname.includes(item.id),
+                    }
                   )}
                 >
                   {item.icon}

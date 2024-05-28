@@ -31,8 +31,6 @@ import RandomizedView from './components/randomized-view/randomized-view';
 import SettingsView from './components/settings-view/settings-view';
 import SongsView from './components/songs-view/songs-view';
 import StoriesPage from './components/stories-page/stories-page';
-import StoriesView from './components/stories-view/stories-view';
-import StoryView from './components/story-view/story-view';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(

@@ -20,7 +20,7 @@ export function CoverView({ story, startReading }: Readonly<CoverViewProps>) {
       definition: story?.titleTranslation ?? '',
       name: story.title ?? '',
       hasAudio: story.relatedAudio?.length !== 0,
-      url: `${window.location.pathname}#${story.id}`,
+      url: `/learn/stories#${story.id}`,
       timestamp: new Date(),
     };
   }, [story]);

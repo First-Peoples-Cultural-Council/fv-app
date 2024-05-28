@@ -114,7 +114,7 @@ self.addEventListener('fetch', function (event) {
 
         // Request new file if necessary
         try {
-          const response = await fetch(event.request);
+          const response = await fetch(event.request, { mode:  'cors' });
 
           // Cache file if necessary
           try {

@@ -9,10 +9,11 @@ function useOnClickOutside(ref: any, handler: any) {
         if (!ref.current || ref.current.contains(event.target)) {
           return;
         }
+        event.preventDefault();
         handler(event);
       };
-      document.addEventListener("mousedown", listener);
-      document.addEventListener("touchstart", listener);
+      document.addEventListener("mousedown", listener, { passive: false });
+      document.addEventListener("touchstart", listener, { passive: false });
       return () => {
         document.removeEventListener("mousedown", listener);
         document.removeEventListener("touchstart", listener);

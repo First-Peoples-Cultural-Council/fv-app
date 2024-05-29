@@ -32,7 +32,7 @@ export function ConfirmDialog({
   const secondaryButtonStyle = useButtonStyle('secondary', 'button');
 
   return (
-    <Modal title={title} onClose={closeModal} showCloseButton={false}>
+    <Modal title={title} onClose={closeModal} showCloseButton={false} closeOnOutsideClick={false}>
       <div className="p-4">{message}</div>
       <div className="flex justify-end">
         <div className="p-4">

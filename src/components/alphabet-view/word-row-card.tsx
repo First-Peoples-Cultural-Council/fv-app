@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import WordModal from '../dictionary-page/word-modal';
+import WordModal from '../dictionary-view/word-modal';
 import {
   FvWord,
   FvWordLocationCombo,

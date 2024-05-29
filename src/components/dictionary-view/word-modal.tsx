@@ -1,11 +1,12 @@
+import { useMemo, useRef } from 'react';
+
+// FPCC
 import { Bookmark, FvWord, FvAudio } from '../common/data';
 import WordCategories from './word-categories';
-import classNames from 'classnames';
-import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
-import IndexedDBService from '../../services/indexedDbService';
 import { FvImage } from '../common/image/image';
 import { AudioButton } from '../common/audio-button/audio';
 import CopyButton from '../common/copy-button/copy-button';
+import BookmarkButton from '../common/bookmark-button/bookmark-button';
 import useOnClickOutside from '../../util/clickOutside';
 
 export interface WordModalProps {
@@ -14,10 +15,7 @@ export interface WordModalProps {
 }
 
 function WordModal({ term, onClose }: Readonly<WordModalProps>) {
-  const [db, setDb] = useState<IndexedDBService>();
-  const [bookmarked, setBookmarked] = useState<boolean>(false);
   const modalRef = useRef(null);
-
   const bookmark: Bookmark = useMemo(() => {
     return {
       id: term.entryID,
@@ -29,36 +27,6 @@ function WordModal({ term, onClose }: Readonly<WordModalProps>) {
       timestamp: new Date(),
     };
   }, [term]);
-
-  useEffect(() => {
-    setDb(new IndexedDBService('firstVoicesIndexedDb'));
-  }, []);
-
-  const bookmarkIcon = useCallback(
-    async (db: IndexedDBService | undefined) => {
-      if (db)
-        try {
-          setBookmarked(!!(await db?.getBookmarkByUrl(bookmark.url)));
-        } catch (error) {
-          // Handle error scenarios
-          console.error('Error occurred:', error);
-        }
-    },
-    [bookmark]
-  );
-
-  useEffect(() => {
-    bookmarkIcon(db);
-  }, [db, bookmarkIcon]);
-
-  const onBookmarkClick = async () => {
-    if (bookmarked) {
-      await db?.removeBookmark(bookmark.url);
-    } else {
-      await db?.addBookmark(bookmark);
-    }
-    bookmarkIcon(db);
-  };
 
   useOnClickOutside(modalRef, onClose);
 
@@ -78,19 +46,7 @@ function WordModal({ term, onClose }: Readonly<WordModalProps>) {
         <div className="block space-y-3">
           <CopyButton text={term?.word} />
           {/* Hiding share button for now FW-5780 {shareButton()} */}
-          <button
-            data-testid="bookmark-btn"
-            className="flex items-center"
-            onClick={onBookmarkClick}
-          >
-            <i
-              className={classNames(
-                bookmarked ? 'fv-bookmark' : 'fv-bookmark-empty',
-                'pr-2  text-xl'
-              )}
-            />
-            <span className="text-lg">BOOKMARK</span>
-          </button>
+          <BookmarkButton bookmark={bookmark} />
         </div>
       </div>
       <div className="space-y-5">

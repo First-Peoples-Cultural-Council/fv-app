@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
-import WordCardMobile from '../dictionary-page/word-card-mobile';
-import WordCardDesktop from '../dictionary-page/word-card-desktop';
+import WordCardMobile from '../dictionary-view/word-card-mobile';
+import WordCardDesktop from '../dictionary-view/word-card-desktop';
 import { DictionaryType } from '../common/data/enums';
 import MultiSwitch from '../common/multi-switch/multi-switch';
 import { FvWord } from '../common/data';

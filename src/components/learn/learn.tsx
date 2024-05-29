@@ -1,111 +1,55 @@
-import { matchRoutes, Outlet, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { matchRoutes, Outlet, useLocation } from 'react-router-dom';
+
+// FPCC
 import SubNavDesktop from '../sub-nav-desktop/sub-nav-desktop';
 import SubNavMobile from '../sub-nav-mobile/sub-nav-mobile';
+import PageHeader from '../common/page-header/page-header';
+import { learnSubNavItems } from '../../constants/navigation';
 import { SubNavItem } from '../common/data';
-import SearchHeader from '../common/search-header/search-header';
-import {
-  SearchResultsProvider,
-  SearchResultsType,
-} from '../search-results-provider';
-
-const navItems: SubNavItem[] = [
-  {
-    id: 'stories',
-    path: 'stories',
-    icon: 'fv-stories',
-    iconSize: 'text-3xl',
-    title: 'Stories',
-    colors: {
-      to: 'to-color-stories-light',
-      from: 'from-color-stories-dark',
-      hoverText: 'hover:text-color-stories-dark',
-      activeText: 'text-color-stories-dark',
-      border: 'border-color-stories-dark',
-    },
-    activePathMatches: [{ path: 'learn/stories' }, { path: 'learn' }], // Stories is the default page for 'learn'
-  },
-  {
-    id: 'songs',
-    path: 'songs',
-    icon: 'fv-songs',
-    iconSize: 'text-4xl',
-    title: 'Songs',
-    colors: {
-      to: 'to-color-songs-light',
-      from: 'from-color-songs-dark',
-      hoverText: 'hover:text-color-songs-dark',
-      activeText: 'text-color-songs-dark',
-      border: 'border-color-songs-dark',
-    },
-    activePathMatches: [{ path: 'learn/songs' }],
-  },
-  {
-    id: 'flashcards',
-    path: 'flashcards',
-    icon: 'fv-flashcard',
-    iconSize: 'text-4xl',
-    title: 'Flashcards',
-    colors: {
-      to: 'to-color-flashcards-light',
-      from: 'from-color-flashcards-dark',
-      hoverText: 'hover:text-color-flashcards-dark',
-      activeText: 'text-color-flashcards-dark',
-      border: 'border-color-flashcards-dark',
-    },
-    activePathMatches: [{ path: 'learn/flashcards' }],
-  },
-];
 
 /* eslint-disable-next-line */
 export interface LearnViewProps {}
 
 export function LearnView(props: LearnViewProps) {
   const location = useLocation();
-
-  const [currentNavItem, setCurrentNavItem] = useState(navItems[0]);
-  const [searchResults, setSearchResults] = useState<{
-    rawSearchQuery: string;
-    entries: SearchResultsType;
-  } | null>(null);
+  const [currentNavItem, setCurrentNavItem] = useState<SubNavItem | null>(
+    learnSubNavItems[0]
+  );
 
   useEffect(() => {
-    const currentNavItem = navItems.find((item) =>
-      matchRoutes([{ path: `/learn/${item.path}` }], location)
+    const currentNavItem = learnSubNavItems.find((item) =>
+      matchRoutes(
+        [{ path: item.path }, ...(item?.activePathMatches ?? [])],
+        location
+      )
     );
     if (currentNavItem) {
       setCurrentNavItem(currentNavItem);
+    } else {
+      setCurrentNavItem(null);
     }
   }, [location]);
 
-  return (
+  return currentNavItem ? (
     <div>
-      <SubNavMobile navItems={navItems} />
+      <SubNavMobile navItems={learnSubNavItems} />
       {currentNavItem && (
-        <SearchHeader
-          searchMatchRef={null}
+        <PageHeader
           title={currentNavItem.title}
           backgroundColors={{
             to: currentNavItem.colors.to,
             from: currentNavItem.colors.from,
           }}
-          setSearchEntries={setSearchResults}
         />
       )}
-      <SearchResultsProvider
-        results={
-          searchResults as {
-            rawSearchQuery: string;
-            entries: SearchResultsType;
-          }
-        }
-      >
-        <div className="flex w-full">
-          <SubNavDesktop navItems={navItems} />
-          {currentNavItem && <Outlet />}
-        </div>
-      </SearchResultsProvider>
+      <div className="flex w-full">
+        <SubNavDesktop navItems={learnSubNavItems} />
+        <Outlet />
+      </div>
     </div>
+  ) : (
+    <Outlet />
   );
 }
 

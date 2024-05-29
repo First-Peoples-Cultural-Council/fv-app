@@ -1,43 +1,48 @@
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
-import WordModal from './word-modal';
+import classNames from 'classnames';
+
+// FPCC
 import {
   FvWord,
   FvWordLocationCombo,
   isFvWord,
   isFvWordLocationCombo,
 } from '../common/data';
+import Modal from '../common/modal/modal';
 import { useModal } from '../common/use-modal/use-modal';
-import { Key, useEffect } from 'react';
+import { Audio1 } from '@mothertongues/search';
 import { useAudio } from '../contexts/audioContext';
 import { applyHighlighting } from '../../util/applyHighlighting';
+import WordModal from './word-modal';
 
-export interface WordCardMobileProps {
-  item: FvWord | FvWordLocationCombo;
-}
-
-function WordCardMobile({ item }: Readonly<WordCardMobileProps>) {
+function WordCardDesktop(
+  props: Readonly<{
+    item: FvWord | FvWordLocationCombo;
+    wordWidthClass?: string;
+  }>
+) {
+  const { item, wordWidthClass } = props;
   let term: any = {};
   if (isFvWord(item)) {
     term = item;
   }
-
   let wordLocations = null;
   if (isFvWordLocationCombo(item)) {
     term = item.entry;
     wordLocations = item.locations;
   }
+  const { word, definition, audio } = term;
   const location = useLocation();
   const { setShowModal, showModal, closeModal } = useModal();
-  const { word, definition, audio } = term;
   const { stopAll } = useAudio();
 
   useEffect(() => {
+    const locationHash = `#${term.source}-${term.entryID}`;
     if (
-      (location.hash === `#${term.source}-${term.entryID}` ||
-        location.hash ===
-          `#${term.source}-${term.entryID}?source=/bookmarks`) &&
-      !window.matchMedia('(min-width: 768px').matches
+      (location.hash === locationHash ||
+        location.hash === `${locationHash}?source=/bookmarks`) &&
+      window.matchMedia('(min-width: 768px').matches
     ) {
       setShowModal(true);
     }
@@ -47,36 +52,41 @@ function WordCardMobile({ item }: Readonly<WordCardMobileProps>) {
   return (
     <>
       <button
-        data-testid="word-card-mobile"
-        type="button"
-        className="flex md:hidden w-full bg-white p-5 m-2 rounded-lg shadow-lg hover:bg-slate-100 cursor-pointer"
+        className="hidden md:block rounded-lg bg-white p-6 m-1 shadow-lg hover:bg-slate-100 cursor-pointer w-full mx-2"
         onClick={() => setShowModal(true)}
       >
-        <div className="grid grid-cols-10 gap-2 text-left w-full">
-          <div className="col-span-8">
-            <div className="font-bold">
+        <div className="grid grid-flow-col auto-cols-[minmax(0,_2fr)]">
+          <div className="flex grid-flow-col items-center col-span-4">
+            <div
+              className={classNames(
+                'flex flex-wrap font-bold text-left',
+                wordWidthClass
+              )}
+            >
               {wordLocations
                 ? applyHighlighting(word, wordLocations, 'word')
                 : word}
             </div>
+          </div>
+          <div className="col-span-1">
+            {audio?.map((fvAudio: Audio1) => (
+              <i key={fvAudio.filename} className="fv-volume-up" />
+            ))}
+          </div>
+          <div className="col-span-7 text-left">
             <p className="truncate">
               {wordLocations
                 ? applyHighlighting(definition, wordLocations, 'definition')
                 : definition}
             </p>
           </div>
-          <div className="col-span-1 self-center">
-            {audio?.map((fvAudio: { filename: Key | null | undefined }) => (
-              <i key={fvAudio.filename} className="fv-volume-up" />
-            ))}
-          </div>
-          <div className="col-span-1 place-self-end self-center">
+          <div className="col-span-1 flex h-full justify-end items-center">
             <i className="fv-right-open" />
           </div>
         </div>
       </button>
       {showModal && (
-        <FullScreenModal onClose={() => closeModal()}>
+        <Modal onClose={() => closeModal()}>
           <WordModal
             term={term}
             onClose={() => {
@@ -84,10 +94,10 @@ function WordCardMobile({ item }: Readonly<WordCardMobileProps>) {
               stopAll();
             }}
           />
-        </FullScreenModal>
+        </Modal>
       )}
     </>
   );
 }
 
-export default WordCardMobile;
+export default WordCardDesktop;

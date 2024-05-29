@@ -6,14 +6,11 @@ export interface SubNavDesktopProps {
   navItems: SubNavItem[];
 }
 
-export function SubNavDesktop({ navItems }: SubNavDesktopProps) {
+export function SubNavDesktop({ navItems }: Readonly<SubNavDesktopProps>) {
   const location = useLocation();
 
   return (
-    <nav
-      className="hidden md:flex flex-col sidebar w-[100px] mr-2"
-      role="complementary"
-    >
+    <nav className="hidden md:flex flex-col sidebar w-[100px] mr-2">
       {navItems.map((item) => {
         return (
           <Link

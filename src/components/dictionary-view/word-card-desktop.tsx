@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
@@ -14,7 +14,6 @@ import { useModal } from '../common/use-modal/use-modal';
 import { Audio1 } from '@mothertongues/search';
 import { useAudio } from '../contexts/audioContext';
 import { applyHighlighting } from '../../util/applyHighlighting';
-import useOnClickOutside from '../../util/clickOutside';
 import WordModal from './word-modal';
 
 function WordCardDesktop(
@@ -38,8 +37,6 @@ function WordCardDesktop(
   const { setShowModal, showModal, closeModal } = useModal();
   const { stopAll } = useAudio();
 
-  const modalRef = useRef(null);
-
   useEffect(() => {
     const locationHash = `#${term.source}-${term.entryID}`;
     if (
@@ -51,11 +48,6 @@ function WordCardDesktop(
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
-
-  useOnClickOutside(modalRef, () => {
-    closeModal();
-    stopAll();
-  });
 
   return (
     <>
@@ -95,15 +87,13 @@ function WordCardDesktop(
       </button>
       {showModal && (
         <Modal onClose={() => closeModal()}>
-          <div ref={modalRef}>
-            <WordModal
-              term={term}
-              onClose={() => {
-                closeModal();
-                stopAll();
-              }}
-            />
-          </div>
+          <WordModal
+            term={term}
+            onClose={() => {
+              closeModal();
+              stopAll();
+            }}
+          />
         </Modal>
       )}
     </>

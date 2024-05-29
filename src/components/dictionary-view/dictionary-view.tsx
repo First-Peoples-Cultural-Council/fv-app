@@ -5,37 +5,22 @@ import WordCardMobile from './word-card-mobile';
 import WordCardDesktop from './word-card-desktop';
 import { DictionaryType, FvWord, isFvWordLocationCombo } from '../common/data';
 import MultiSwitch from '../common/multi-switch/multi-switch';
-import fetchWordsData from '../../services/wordsApiService';
+import { useDictionaryData } from '../dictionary-page/dictionary-page';
 import { SearchContext } from '../search-provider';
-import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
-import { ApiContext } from '../contexts/apiContext';
 
 /* eslint-disable-next-line */
-export interface WordsViewProps {}
+export interface DictionaryViewProps {}
 
-export function DictionaryView(props: WordsViewProps) {
+export function DictionaryView(props: DictionaryViewProps) {
+  const { dictionaryData } = useDictionaryData();
   const [selected, setSelected] = useState<number>(DictionaryType.Both);
-  const [dataUnfiltered, setDataUnfiltered] = useState<FvWord[]>([]);
+  const [dataUnfiltered, setDataUnfiltered] = useState<FvWord[] | []>(
+    dictionaryData
+  );
   const [dataToDisplay, setDataToDisplay] = useState<FvWord[]>([]);
   const [visibleItems, setVisibleItems] = useState(250);
-  const [loading, setLoading] = useState(true);
 
   const searchContext = useContext(SearchContext);
-  const { isApiCallInProgress } = useContext(ApiContext);
-
-  useEffect(() => {
-    const fetchDataAsync = async () => {
-      try {
-        const result = await fetchWordsData(isApiCallInProgress);
-        setDataUnfiltered(result.data);
-        setLoading(false);
-      } catch (error) {
-        // Handle error scenarios
-      }
-    };
-
-    fetchDataAsync();
-  }, [isApiCallInProgress]);
 
   const handleScroll = () => {
     const windowHeight = window.innerHeight;
@@ -126,21 +111,19 @@ export function DictionaryView(props: WordsViewProps) {
         id="wordList"
         className="overflow-y-auto max-h-calc-245 md:max-h-calc-195"
       >
-        {loading && <LoadingSpinner />}
-        {!loading &&
-          dataToDisplay?.slice(0, visibleItems).map((item, _) => {
-            const term = item.entry ? (item.entry as FvWord) : item;
-            return (
-              <div
-                key={`${term.source}-${term.entryID}`}
-                id={`${term.source}-${term.entryID}`}
-                className="flex w-full"
-              >
-                <WordCardMobile item={item} />
-                <WordCardDesktop item={item} wordWidthClass="w-80" />
-              </div>
-            );
-          })}{' '}
+        {dataToDisplay?.slice(0, visibleItems).map((item, _) => {
+          const term = item.entry ? (item.entry as FvWord) : item;
+          return (
+            <div
+              key={`${term.source}-${term.entryID}`}
+              id={`${term.source}-${term.entryID}`}
+              className="flex w-full"
+            >
+              <WordCardMobile item={item} />
+              <WordCardDesktop item={item} wordWidthClass="w-80" />
+            </div>
+          );
+        })}
       </div>
     </div>
   );

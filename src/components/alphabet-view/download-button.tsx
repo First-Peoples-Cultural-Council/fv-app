@@ -89,7 +89,6 @@ export function DownloadButton({
   }
 
   async function downloadAssets() {
-    console.log("start downloadAssets", dataDictionary)
     setDownloadPercentage(0);
     setCurrentlyDownloading(true);
 
@@ -130,10 +129,8 @@ export function DownloadButton({
         }
       });
 
-    console.log("downloadAssets found list of media: ", mediaList)
     // If there is media to download get it and update the percentage.
     if (mediaList.size > 0) {
-      console.log("downloadAssets downloading list of media", mediaList)
       const promises: Promise<void>[] = [];
 
       setShowDownloadProgress(true);
@@ -142,7 +139,6 @@ export function DownloadButton({
       mediaList.forEach((media) => {
         promises.push(
           axios.get(media).then(() => {
-            console.log("downloadAssets got media file: ", media)
             downloadComplete++;
             setDownloadPercentage(
               Math.round((downloadComplete / mediaList.size) * 100)

@@ -1,8 +1,11 @@
-import SearchInput from '../search-input/search-input';
 import { useContext, useEffect, useState } from 'react';
-import { SearchContext } from '../../search-provider';
 import { sortResults, Result, MTDSearch } from '@mothertongues/search';
+
+// FPCC
+import SearchInput from '../search-input/search-input';
+import { SearchContext } from '../../search-provider';
 import { FvWord, FvWordLocation } from '../data';
+import PageHeader from '../page-header/page-header';
 
 export interface SearchHeaderProps {
   searchMatchRef: HTMLDivElement | null;
@@ -69,11 +72,7 @@ export function SearchHeader({
   };
 
   return (
-    <header
-      role="banner"
-      className={`sub-header flex py-5 px-4 bg-gradient-to-t ${backgroundColors.from} ${backgroundColors.to} justify-between items-center`}
-    >
-      <div className="text-white uppercase mr-2">{title}</div>
+    <PageHeader title={title} backgroundColors={backgroundColors}>
       {shouldShowSearch && (
         <SearchInput
           value={searchValue}
@@ -90,7 +89,7 @@ export function SearchHeader({
           }}
         />
       )}
-    </header>
+    </PageHeader>
   );
 }
 

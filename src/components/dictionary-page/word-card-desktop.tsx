@@ -8,12 +8,11 @@ import {
 } from '../common/data';
 import Modal from '../common/modal/modal';
 import { useModal } from '../common/use-modal/use-modal';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { Audio1 } from '@mothertongues/search';
 import { useAudio } from '../contexts/audioContext';
 import classNames from 'classnames';
 import { applyHighlighting } from '../../util/applyHighlighting';
-import useOnClickOutside from '../../util/clickOutside';
 
 function WordCardDesktop(
   props: Readonly<{
@@ -36,8 +35,6 @@ function WordCardDesktop(
   const { setShowModal, showModal, closeModal } = useModal();
   const { stopAll } = useAudio();
 
-  const modalRef = useRef(null);
-
   useEffect(() => {
     const locationHash = `#${term.source}-${term.entryID}`;
     if (
@@ -49,11 +46,6 @@ function WordCardDesktop(
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
-
-  useOnClickOutside(modalRef, () => {
-    closeModal();
-    stopAll();
-  });
 
   return (
     <>
@@ -93,7 +85,6 @@ function WordCardDesktop(
       </button>
       {showModal && (
         <Modal onClose={() => closeModal()}>
-          <div ref={modalRef}>
             <WordModal
               term={term}
               onClose={() => {
@@ -101,7 +92,6 @@ function WordCardDesktop(
                 stopAll();
               }}
             />
-          </div>
         </Modal>
       )}
     </>

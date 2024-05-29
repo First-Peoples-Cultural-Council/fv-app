@@ -1,11 +1,12 @@
 import { Bookmark, FvWord, FvAudio } from '../common/data';
 import WordCategories from './word-categories';
 import classNames from 'classnames';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import IndexedDBService from '../../services/indexedDbService';
 import { FvImage } from '../common/image/image';
 import { AudioButton } from '../common/audio-button/audio';
 import CopyButton from '../common/copy-button/copy-button';
+import useOnClickOutside from '../../util/clickOutside';
 
 export interface WordModalProps {
   term: FvWord;
@@ -15,6 +16,7 @@ export interface WordModalProps {
 function WordModal({ term, onClose }: Readonly<WordModalProps>) {
   const [db, setDb] = useState<IndexedDBService>();
   const [bookmarked, setBookmarked] = useState<boolean>(false);
+  const modalRef = useRef(null);
 
   const bookmark: Bookmark = useMemo(() => {
     return {
@@ -58,8 +60,10 @@ function WordModal({ term, onClose }: Readonly<WordModalProps>) {
     bookmarkIcon(db);
   };
 
+  useOnClickOutside(modalRef, onClose);
+
   return (
-    <div className="md:px-8 md:pb-8 space-y-5">
+    <div ref={modalRef} className="md:px-8 md:pb-8 space-y-5">
       <div className="flex justify-between">
         <div>
           <p className="grow font-bold text-2xl md:text-3xl">{term.word}</p>

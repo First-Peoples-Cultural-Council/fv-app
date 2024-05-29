@@ -52,7 +52,7 @@ export function DownloadButton({
       {showConfirmDialog && (
         <ConfirmDialog
           title="Confirm Download"
-          message="You are about to download all the media files for this letter."
+          message={`You are about to download all the media files for dictionary entries beginning with ${selected.title}.`}
           confirmLabel="Continue"
           cancelLabel="No, Thanks"
           onConfirm={() => downloadAssets()}

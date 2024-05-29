@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from 'react';
-import { useOutletContext } from 'react-router-dom';
 
 // FPCC
 import WordCardMobile from './word-card-mobile';
@@ -15,7 +14,6 @@ import { ApiContext } from '../contexts/apiContext';
 export interface WordsViewProps {}
 
 export function DictionaryView(props: WordsViewProps) {
-  const { setSearchMatchRef }: any = useOutletContext();
   const [selected, setSelected] = useState<number>(DictionaryType.Both);
   const [dataUnfiltered, setDataUnfiltered] = useState<FvWord[]>([]);
   const [dataToDisplay, setDataToDisplay] = useState<FvWord[]>([]);
@@ -112,7 +110,6 @@ export function DictionaryView(props: WordsViewProps) {
 
   return (
     <div>
-      <div ref={setSearchMatchRef}></div>
       <MultiSwitch
         selected={selected}
         items={[

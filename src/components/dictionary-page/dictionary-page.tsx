@@ -5,21 +5,19 @@ import { matchRoutes, Outlet, useLocation } from 'react-router-dom';
 import styles from './dictionary-page.module.css';
 import SubNavDesktop from '../sub-nav-desktop/sub-nav-desktop';
 import SubNavMobile from '../sub-nav-mobile/sub-nav-mobile';
-import SearchHeader from '../common/search-header/search-header';
 import WordOfTheDay from './word-of-the-day';
 import {
   SearchResultsProvider,
   SearchResultsType,
 } from '../search-results-provider';
 import { dictionarySubNavItems } from '../../constants/navigation';
+import SearchInput from '../common/search-input/search-input';
+import PageHeader from '../common/page-header/page-header';
 
 /* eslint-disable-next-line */
 export interface DictionaryProps {}
 
 export function Dictionary(props: DictionaryProps) {
-  const [searchMatchRef, setSearchMatchRef] = useState<HTMLDivElement | null>(
-    null
-  );
   const [searchResults, setSearchResults] = useState<{
     rawSearchQuery: string;
     entries: SearchResultsType;
@@ -38,18 +36,17 @@ export function Dictionary(props: DictionaryProps) {
   return (
     <div className={styles['container']}>
       <SubNavMobile navItems={dictionarySubNavItems} />
-      <SearchHeader
-        searchMatchRef={searchMatchRef}
+      <PageHeader
         title={currentNavItem.title}
         backgroundColors={{
           to: currentNavItem.colors.to,
           from: currentNavItem.colors.from,
         }}
-        setSearchEntries={setSearchResults}
-        shouldShowSearch={
-          !!matchRoutes([{ path: '' }, { path: 'dictionary' }], location)
-        }
-      />
+      >
+        {!!matchRoutes([{ path: '' }, { path: 'dictionary' }], location) && (
+          <SearchInput setSearchResults={setSearchResults} />
+        )}
+      </PageHeader>
       <SearchResultsProvider
         results={
           searchResults as {
@@ -60,7 +57,7 @@ export function Dictionary(props: DictionaryProps) {
       >
         <div className="flex w-full">
           <SubNavDesktop navItems={dictionarySubNavItems} />
-          <Outlet context={{ setSearchMatchRef }} />
+          <Outlet />
         </div>
       </SearchResultsProvider>
       <WordOfTheDay />

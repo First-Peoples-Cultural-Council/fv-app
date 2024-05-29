@@ -1,38 +1,27 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { DictionaryEntryExportFormat } from '@mothertongues/search';
 
 // FPCC
 import WordModal from '../dictionary-view/word-modal';
 import Modal from '../common/modal/modal';
 import fetchWordOfDayData from '../../services/wordOfTheDayApiService';
 import { FvWord } from '../common/data';
-import fetchWordsData from '../../services/wordsApiService';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 import { useAudio } from '../contexts/audioContext';
-import { ApiContext } from '../contexts/apiContext';
 
-function WordOfTheDay() {
+export interface WordOfTheDayProps {
+  dictionaryData: FvWord[];
+}
+
+function WordOfTheDay({ dictionaryData }: Readonly<WordOfTheDayProps>) {
   const today = new Date();
   const { stopAll } = useAudio();
 
   const [showModal, setShowModal] = React.useState(false);
   const [data, setData] = useState<any>(null);
-  const [dataDict, setDataDict] = useState<FvWord[]>([]);
-
-  const { isApiCallInProgress } = useContext(ApiContext);
 
   useEffect(() => {
-    const fetchDataAsync = async () => {
-      try {
-        const result = await fetchWordsData(isApiCallInProgress);
-        setDataDict(result.data);
-      } catch (error) {
-        // Handle error scenarios
-      }
-    };
-
-    fetchDataAsync();
-
     if (
       today.toDateString() !== (localStorage.getItem('lastWOTDSeenOn') ?? '')
     ) {
@@ -64,17 +53,23 @@ function WordOfTheDay() {
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dataDict]);
+  }, [dictionaryData]);
 
   async function getWordOfTheDay() {
     try {
       const data = await fetchWordOfDayData();
       return (
-        dataDict.find((term) => term.entryID === data.dictionaryEntry.id) ??
-        dataDict[Math.floor(Math.random() * (dataDict?.length || 0))]
+        dictionaryData.find(
+          (term) => term.entryID === data.dictionaryEntry.id
+        ) ??
+        dictionaryData[
+          Math.floor(Math.random() * (dictionaryData?.length || 0))
+        ]
       );
     } catch (error: any) {
-      return dataDict?.[Math.floor(Math.random() * (dataDict?.length || 0))];
+      return dictionaryData?.[
+        Math.floor(Math.random() * (dictionaryData?.length || 0))
+      ];
     }
   }
 

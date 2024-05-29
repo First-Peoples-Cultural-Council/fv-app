@@ -77,7 +77,9 @@ export function Dictionary(props: DictionaryProps) {
         <Outlet context={{ dictionaryData } satisfies ContextType} />
       </div>
 
-      <WordOfTheDay />
+      {dictionaryData?.length > 0 && (
+        <WordOfTheDay dictionaryData={dictionaryData} />
+      )}
     </div>
   );
 }

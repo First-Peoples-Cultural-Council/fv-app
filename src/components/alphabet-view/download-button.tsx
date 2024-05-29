@@ -60,7 +60,7 @@ export function DownloadButton({
         />
       )}
       {showDownloadProgress && (
-        <Modal
+        <Modal closeOnOutsideClick={false}
           title="Download Progress"
           onClose={() => setShowDownloadProgress(false)}
         >

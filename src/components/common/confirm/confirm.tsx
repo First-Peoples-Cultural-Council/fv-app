@@ -1,5 +1,3 @@
-import classNames from 'classnames';
-import { useButtonStyle } from '../hooks';
 import Modal from '../modal/modal';
 
 type ConfirmDialogProps = {
@@ -28,22 +26,19 @@ export function ConfirmDialog({
     closeModal();
   };
 
-  const primaryButtonStyle = useButtonStyle('primary', 'button');
-  const secondaryButtonStyle = useButtonStyle('secondary', 'button');
-
   return (
     <Modal title={title} onClose={closeModal} showCloseButton={false} closeOnOutsideClick={false}>
       <div className="p-4">{message}</div>
       <div className="flex justify-end">
         <div className="p-4">
           <button
-            className={classNames('mr-2', primaryButtonStyle)}
+            className="btn-contained bg-secondary mr-2"
             onClick={handleConfirm}
           >
             {confirmLabel}
           </button>
           <button
-            className={classNames('mr-2', secondaryButtonStyle)}
+            className="btn-contained bg-primary mr-2"
             onClick={closeModal}
           >
             {cancelLabel}

@@ -131,6 +131,11 @@ class IndexedDBService {
     return mediaFile;
   }
 
+  async getMediaCount(): Promise<number> {
+    const store = await this.getMediaStore();
+    return store.count();
+  }
+
   async saveData(key: string, data: any) {
     const db = await this.database;
     const transaction = db.transaction('data', 'readwrite');

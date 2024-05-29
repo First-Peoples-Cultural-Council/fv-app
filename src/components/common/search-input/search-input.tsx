@@ -3,16 +3,11 @@ import { sortResults, Result, MTDSearch } from '@mothertongues/search';
 
 // FPCC
 import { SearchContext } from '../../search-provider';
-import { FvWord, FvWordLocation } from '../data';
 
-export interface SearchInputProps {
-  setSearchResults: (entries: {
-    rawSearchQuery: string;
-    entries: { entry: FvWord; locations: FvWordLocation[] }[];
-  }) => void;
-}
+/* eslint-disable-next-line */
+export interface SearchInputProps {}
 
-export function SearchInput({ setSearchResults }: Readonly<SearchInputProps>) {
+export function SearchInput(props: Readonly<SearchInputProps>) {
   const [searchValue, setSearchValue] = useState<string>('');
   const [l1Search, setL1Search] = useState<MTDSearch>();
   const [l2Search, setL2Search] = useState<MTDSearch>();
@@ -51,18 +46,18 @@ export function SearchInput({ setSearchResults }: Readonly<SearchInputProps>) {
         };
       });
 
-      setSearchResults({ rawSearchQuery, entries });
-
       searchContext.updateAllResults(entries);
-    } else {
-      setSearchResults({ rawSearchQuery: '', entries: [] });
     }
   };
 
   const onSearchInputChange = (event: ChangeEvent<any>) => {
-    console.log(event);
     setSearchValue(event?.target?.value);
-    getResults(event?.target?.value);
+  };
+
+  const onKeyUp = (event: any) => {
+    if (event.keyCode === 13 || event.key === 'Enter') {
+      getResults(event?.target?.value);
+    }
   };
 
   const clickSearch = () => {
@@ -77,6 +72,7 @@ export function SearchInput({ setSearchResults }: Readonly<SearchInputProps>) {
       <input
         value={searchValue}
         onChange={onSearchInputChange}
+        onKeyUp={onKeyUp}
         placeholder="Search"
         className="p-2 rounded-l-lg h-7 border border-gray-400 w-full shadow-inner"
       />

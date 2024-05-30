@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
+
+// FPCC
+import { useAudio } from '../../contexts/audioContext';
 
 export interface FullScreenModalProps {
   onClose: () => void;
-  children: React.ReactNode;
-  title?: string;
+  children: ReactNode;
 }
 
 export function FullScreenModal({ onClose, children }: FullScreenModalProps) {
+  const { stopAll } = useAudio();
+
+  const onCloseClick = () => {
+    onClose();
+    stopAll();
+  };
+
   return createPortal(
     <div className="modal fixed w-full h-full top-0 left-0 flex items-center justify-center bg-white">
       <div className="modal-container fixed w-full h-full z-50 bg-grey">
@@ -15,7 +24,7 @@ export function FullScreenModal({ onClose, children }: FullScreenModalProps) {
           <div className="flex h-14 items-center justify-left w-full">
             <button
               className="py-4 bg-transparent border-0 text-black text-xl leading-none outline-none focus:outline-none"
-              onClick={() => onClose()}
+              onClick={onCloseClick}
             >
               <i className="fv-left-open pr-5">BACK</i>
             </button>

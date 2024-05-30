@@ -1,11 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useRef, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { useAudio } from '../../contexts/audioContext';
 import useOnClickOutside from '../../../util/clickOutside';
 
 export interface ModalProps {
   onClose: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
   showCloseButton?: boolean;
   closeOnOutsideClick?: boolean;
 }
@@ -19,10 +19,14 @@ export function Modal({
   const { stopAll } = useAudio();
   const modalContentRef = useRef<HTMLDivElement>(null);
 
+  const onCloseClick = () => {
+    onClose();
+    stopAll();
+  };
+
   useOnClickOutside(modalContentRef, () => {
     if (closeOnOutsideClick) {
-      onClose();
-      stopAll();
+      onCloseClick();
     }
   });
 
@@ -41,10 +45,7 @@ export function Modal({
               {showCloseButton && (
                 <button
                   className="p-4 text-black text-1xl leading-none"
-                  onClick={() => {
-                    onClose();
-                    stopAll();
-                  }}
+                  onClick={onCloseClick}
                 >
                   <i className="fv-close"></i>
                 </button>

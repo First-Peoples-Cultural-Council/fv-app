@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { DictionaryEntryExportFormat } from '@mothertongues/search';
 
 // FPCC
 import WordModal from '../dictionary-view/word-modal';

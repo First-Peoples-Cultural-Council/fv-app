@@ -1,30 +1,51 @@
-import { useState } from 'react';
-import { matchRoutes, Outlet, useLocation } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import {
+  matchRoutes,
+  Outlet,
+  useLocation,
+  useOutletContext,
+} from 'react-router-dom';
 
 // FPCC
 import styles from './dictionary-page.module.css';
 import SubNavDesktop from '../sub-nav-desktop/sub-nav-desktop';
 import SubNavMobile from '../sub-nav-mobile/sub-nav-mobile';
-import SearchHeader from '../common/search-header/search-header';
 import WordOfTheDay from './word-of-the-day';
-import {
-  SearchResultsProvider,
-  SearchResultsType,
-} from '../search-results-provider';
 import { dictionarySubNavItems } from '../../constants/navigation';
+import SearchInput from '../common/search-input/search-input';
+import PageHeader from '../common/page-header/page-header';
+import { FvWord } from '../common/data';
+import { ApiContext } from '../contexts/apiContext';
+import fetchWordsData from '../../services/wordsApiService';
+import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 
 /* eslint-disable-next-line */
 export interface DictionaryProps {}
 
+type ContextType = {
+  dictionaryData: FvWord[] | [];
+};
+
 export function Dictionary(props: DictionaryProps) {
-  const [searchMatchRef, setSearchMatchRef] = useState<HTMLDivElement | null>(
-    null
-  );
-  const [searchResults, setSearchResults] = useState<{
-    rawSearchQuery: string;
-    entries: SearchResultsType;
-  } | null>(null);
+  const [dictionaryData, setDictionaryData] = useState<FvWord[] | []>([]);
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
+
+  const { isApiCallInProgress } = useContext(ApiContext);
+
+  useEffect(() => {
+    const fetchDataAsync = async () => {
+      try {
+        const result = await fetchWordsData(isApiCallInProgress);
+        setDictionaryData(result.data);
+        setLoading(false);
+      } catch (error) {
+        // Handle error scenarios
+      }
+    };
+
+    fetchDataAsync();
+  }, [isApiCallInProgress]);
 
   const currentNavItem =
     dictionarySubNavItems.find((item) =>
@@ -34,38 +55,37 @@ export function Dictionary(props: DictionaryProps) {
       )
     ) ?? dictionarySubNavItems[0];
 
-  if (!currentNavItem) return null;
-  return (
+  return loading ? (
+    <LoadingSpinner />
+  ) : (
     <div className={styles['container']}>
       <SubNavMobile navItems={dictionarySubNavItems} />
-      <SearchHeader
-        searchMatchRef={searchMatchRef}
+      <PageHeader
         title={currentNavItem.title}
         backgroundColors={{
           to: currentNavItem.colors.to,
           from: currentNavItem.colors.from,
         }}
-        setSearchEntries={setSearchResults}
-        shouldShowSearch={
-          !!matchRoutes([{ path: '' }, { path: 'dictionary' }], location)
-        }
-      />
-      <SearchResultsProvider
-        results={
-          searchResults as {
-            rawSearchQuery: string;
-            entries: SearchResultsType;
-          }
-        }
       >
-        <div className="flex w-full">
-          <SubNavDesktop navItems={dictionarySubNavItems} />
-          <Outlet context={{ setSearchMatchRef }} />
-        </div>
-      </SearchResultsProvider>
-      <WordOfTheDay />
+        {!!matchRoutes([{ path: '' }, { path: 'dictionary' }], location) && (
+          <SearchInput />
+        )}
+      </PageHeader>
+
+      <div className="flex w-full">
+        <SubNavDesktop navItems={dictionarySubNavItems} />
+        <Outlet context={{ dictionaryData } satisfies ContextType} />
+      </div>
+
+      {dictionaryData?.length > 0 && (
+        <WordOfTheDay dictionaryData={dictionaryData} />
+      )}
     </div>
   );
 }
 
 export default Dictionary;
+
+export function useDictionaryData() {
+  return useOutletContext<ContextType>();
+}

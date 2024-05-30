@@ -3,39 +3,25 @@ import WordAlphabetRowCard from './word-row-card';
 import {
   FvLetter,
   FvWordLocationCombo,
-  isFvWord,
   isFvWordLocationCombo,
 } from '../common/data';
 import { DictionaryEntryExportFormat } from '@mothertongues/search';
-import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 
-/* eslint-disable-next-line */
 export interface WordStartsWithListProps {
-  dataDictionary: (DictionaryEntryExportFormat | FvWordLocationCombo)[];
-  loading: boolean;
+  dictionaryData: (DictionaryEntryExportFormat | FvWordLocationCombo)[];
   selected: FvLetter;
 }
 
-let dataAlphabetMap: Record<string, FvLetter>;
-
 export function WordStartsWithList({
-  dataDictionary,
-  loading,
+  dictionaryData,
   selected,
 }: Readonly<WordStartsWithListProps>) {
-  function getAlphabetSort(a: string, b: string, letterIndex: number): number {
-    const aOrder = dataAlphabetMap?.[a[letterIndex]]?.sortOrder;
-    const bOrder = dataAlphabetMap?.[b[letterIndex]]?.sortOrder;
-    if (aOrder === undefined) {
-      return 1;
-    } else if (bOrder === undefined) {
-      return -1;
-    } else if (aOrder === bOrder) {
-      return getAlphabetSort(a, b, letterIndex + 1);
-    } else {
-      return aOrder - bOrder;
+  const wordsStartingWith = [...dictionaryData].filter((term) => {
+    if (isFvWordLocationCombo(term)) {
+      return term?.entry?.word?.startsWith(selected?.title ?? '');
     }
-  }
+    return term?.word?.startsWith(selected?.title ?? '');
+  });
 
   return (
     <div className="w-full">
@@ -43,37 +29,19 @@ export function WordStartsWithList({
         <span className="text-xl pr-2">WORDS STARTING WITH</span>
         <span className="text-5xl bold">{selected?.title}</span>
       </div>
-      {loading && <LoadingSpinner />}
-      {!loading &&
-        dataDictionary
-          ?.filter((term) => {
-            if (isFvWordLocationCombo(term)) {
-              return term?.entry?.word?.startsWith(selected?.title ?? '');
+      {wordsStartingWith.map((term) => {
+        return (
+          <Fragment
+            key={
+              isFvWordLocationCombo(term)
+                ? `${term.entry.source}-${term.entry.entryID}`
+                : `${term.source}-${term.entryID}`
             }
-            return term?.word?.startsWith(selected?.title ?? '');
-          })
-          .sort((a, b) => {
-            if (isFvWordLocationCombo(a) && isFvWordLocationCombo(b)) {
-              return getAlphabetSort(a.entry.word, b.entry.word, 1);
-            }
-            if (isFvWord(a) && isFvWord(b)) {
-              return getAlphabetSort(a.word, b.word, 1);
-            }
-            return 0;
-          })
-          .map((term) => {
-            return (
-              <Fragment
-                key={
-                  isFvWordLocationCombo(term)
-                    ? `${term.entry.source}-${term.entry.entryID}`
-                    : `${term.source}-${term.entryID}`
-                }
-              >
-                <WordAlphabetRowCard term={term} />
-              </Fragment>
-            );
-          })}
+          >
+            <WordAlphabetRowCard term={term} />
+          </Fragment>
+        );
+      })}
     </div>
   );
 }

@@ -14,7 +14,6 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { ApiProvider } from './components/contexts/apiContext';
 import { AudioProvider } from './components/contexts/audioContext';
-import SearchProvider from './components/search-provider';
 // Components
 import AboutView from './components/about-view/about-view';
 import AlphabetView from './components/alphabet-view/alphabet-view';
@@ -63,11 +62,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <StrictMode>
     <ApiProvider>
-      <SearchProvider>
-        <AudioProvider>
-          <RouterProvider router={router} />
-        </AudioProvider>
-      </SearchProvider>
+      <AudioProvider>
+        <RouterProvider router={router} />
+      </AudioProvider>
     </ApiProvider>
   </StrictMode>
 );

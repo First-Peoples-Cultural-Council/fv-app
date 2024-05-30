@@ -18,6 +18,7 @@ import { FvWord } from '../common/data';
 import { ApiContext } from '../contexts/apiContext';
 import fetchWordsData from '../../services/wordsApiService';
 import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
+import SearchProvider from '../search-provider';
 
 /* eslint-disable-next-line */
 export interface DictionaryProps {}
@@ -58,29 +59,31 @@ export function Dictionary(props: DictionaryProps) {
   return loading ? (
     <LoadingSpinner />
   ) : (
-    <div className={styles['container']}>
-      <SubNavMobile navItems={dictionarySubNavItems} />
-      <PageHeader
-        title={currentNavItem.title}
-        backgroundColors={{
-          to: currentNavItem.colors.to,
-          from: currentNavItem.colors.from,
-        }}
-      >
-        {!!matchRoutes([{ path: '' }, { path: 'dictionary' }], location) && (
-          <SearchInput />
+    <SearchProvider>
+      <div className={styles['container']}>
+        <SubNavMobile navItems={dictionarySubNavItems} />
+        <PageHeader
+          title={currentNavItem.title}
+          backgroundColors={{
+            to: currentNavItem.colors.to,
+            from: currentNavItem.colors.from,
+          }}
+        >
+          {!!matchRoutes([{ path: '' }, { path: 'dictionary' }], location) && (
+            <SearchInput />
+          )}
+        </PageHeader>
+
+        <div className="flex w-full">
+          <SubNavDesktop navItems={dictionarySubNavItems} />
+          <Outlet context={{ dictionaryData } satisfies ContextType} />
+        </div>
+
+        {dictionaryData?.length > 0 && (
+          <WordOfTheDay dictionaryData={dictionaryData} />
         )}
-      </PageHeader>
-
-      <div className="flex w-full">
-        <SubNavDesktop navItems={dictionarySubNavItems} />
-        <Outlet context={{ dictionaryData } satisfies ContextType} />
       </div>
-
-      {dictionaryData?.length > 0 && (
-        <WordOfTheDay dictionaryData={dictionaryData} />
-      )}
-    </div>
+    </SearchProvider>
   );
 }
 

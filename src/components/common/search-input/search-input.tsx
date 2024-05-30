@@ -21,7 +21,7 @@ export function SearchInput(props: Readonly<SearchInputProps>) {
   }, [searchContext]);
 
   const getResults = (rawSearchQuery: string) => {
-    if (rawSearchQuery.length >= 1 && l1Search && l2Search && searchContext) {
+    if (l1Search && l2Search && searchContext) {
       // @ts-ignore
       // Search Results in target language
       const l1Results = l1Search.search(rawSearchQuery);
@@ -54,19 +54,29 @@ export function SearchInput(props: Readonly<SearchInputProps>) {
     setSearchValue(event?.target?.value);
   };
 
+  const clearSearch = () => {
+    setSearchValue('');
+    if (searchContext) searchContext.updateAllResults([]);
+  };
+
+  const submitSearch = (query: string) => {
+    if (query?.length > 0) {
+      getResults(query);
+    } else {
+      clearSearch();
+    }
+  };
+
   const onKeyUp = (event: any) => {
-    if (event.keyCode === 13 || event.key === 'Enter') {
-      getResults(event?.target?.value);
+    if (event?.keyCode === 13 || event?.key === 'Enter') {
+      submitSearch(event?.target?.value);
     }
   };
 
   const clickSearch = () => {
-    getResults(searchValue);
+    submitSearch(searchValue);
   };
-  const onClear = () => {
-    setSearchValue('');
-    getResults('');
-  };
+
   return (
     <div className="flex items-center w-full max-w-md group relative">
       <input
@@ -77,7 +87,7 @@ export function SearchInput(props: Readonly<SearchInputProps>) {
         className="p-2 rounded-l-lg h-7 border border-gray-400 w-full shadow-inner"
       />
       <button
-        onClick={onClear}
+        onClick={clearSearch}
         className="opacity-0 group-hover:opacity-100 absolute right-12 top-1/2 transform -translate-y-1/2 text-xs cursor-pointer transition-opacity duration-200 ease-in-out"
       >
         <i className="fv-close text-gray-500" />

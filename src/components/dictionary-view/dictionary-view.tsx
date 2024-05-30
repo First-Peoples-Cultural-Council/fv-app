@@ -88,10 +88,14 @@ export function DictionaryView(props: DictionaryViewProps) {
   }, [selected, dataUnfiltered]);
 
   useEffect(() => {
-    if (searchContext?.allResults && searchContext.allResults.length > 0) {
-      setDataUnfiltered(searchContext.allResults);
+    if (searchContext?.allResults) {
+      if (searchContext.allResults.length > 0) {
+        setDataUnfiltered(searchContext.allResults);
+      } else {
+        setDataUnfiltered(dictionaryData);
+      }
     }
-  }, [searchContext?.allResults]);
+  }, [searchContext?.allResults, dictionaryData]);
 
   return (
     <div>

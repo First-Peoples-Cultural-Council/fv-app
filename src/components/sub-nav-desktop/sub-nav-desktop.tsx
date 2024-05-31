@@ -10,25 +10,30 @@ export function SubNavDesktop({ navItems }: Readonly<SubNavDesktopProps>) {
   const location = useLocation();
 
   return (
-    <nav className="hidden md:flex flex-col sidebar w-[100px] mr-2">
+    <nav className="hidden md:flex flex-col h-screen sidebar text-fv-charcoal shadow-lg">
       {navItems.map((item) => {
         return (
           <Link
             key={item.id}
             to={item.path}
             className={classNames(
-              'w-[100px] h-[100px] flex flex-col justify-center text-center items-center cursor-pointer border-r-4 border-r-solid border-transparent',
-              {
-                [`${item.colors.activeText} ${item.colors.border}`]:
-                  matchRoutes(
-                    [...(item?.activePathMatches ?? []), { path: item.path }],
-                    location
-                  ),
-              },
-              item.colors.hoverText
+              'w-24 h-24 flex flex-col justify-center text-center items-center cursor-pointer'
             )}
           >
-            <i className={classNames(item.icon, item.iconSize)} />
+            <i
+              className={classNames(
+                item.icon,
+                item.iconSize,
+                {
+                  [`${item.colors.activeText} ${item.colors.border}`]:
+                    matchRoutes(
+                      [...(item?.activePathMatches ?? []), { path: item.path }],
+                      location
+                    ),
+                },
+                item.colors.hoverText
+              )}
+            />
             <div className="uppercase text-xs">{item.title}</div>
           </Link>
         );

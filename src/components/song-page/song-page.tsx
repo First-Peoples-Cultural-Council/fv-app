@@ -15,7 +15,7 @@ export function SongPage({ songsData }: Readonly<SongPageProps>) {
   const songData: FVSong | undefined = songsData.find((song) => song.id === id);
 
   return (
-    <div data-testid="song-page" className="max-w-5xl w-full mx-auto">
+    <div data-testid="song-page" className="max-w-3xl w-full mx-auto">
       <div className="p-2 md:p-3">
         <BackButton />
       </div>

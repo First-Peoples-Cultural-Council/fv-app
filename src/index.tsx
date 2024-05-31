@@ -21,6 +21,7 @@ import CategoryView from './components/category-view/category-view';
 import CategoriesView from './components/categories-view/categories-view';
 import Dictionary from './components/dictionary-page/dictionary-page';
 import DictionaryView from './components/dictionary-view/dictionary-view';
+import DictionaryEntryView from './components/dictionary-entry-view/dictionary-entry-view';
 import ErrorPage from './components/error-page/error-page';
 import FlashcardsView from './components/flashcards-view/flashcards-view';
 import Learn from './components/learn/learn';
@@ -39,6 +40,7 @@ export const router = createBrowserRouter(
         <Route path="categories" element={<CategoriesView />} />
         <Route path="categories/:id" element={<CategoryView />} />
         <Route path="dictionary" element={<DictionaryView />} />
+        <Route path="dictionary/:id" element={<DictionaryEntryView />} />
         <Route path="randomized" element={<RandomizedView />} />
         <Route index element={<DictionaryView />} />
       </Route>

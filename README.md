@@ -8,6 +8,17 @@
 $ npm install
 $ npm run build
 ```
+npm run build
+```
+
+or
+
+```
+yarn build
+```
+
+to bundle your application
+
 
 4. Start the application.
 ```bash

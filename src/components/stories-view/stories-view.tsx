@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import classNames from 'classnames';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // FPCC
 import { FVStory } from '../common/data/types';
@@ -12,22 +12,6 @@ export interface StoriesViewProps {
 }
 
 export function StoriesView({ storiesData }: Readonly<StoriesViewProps>) {
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  // Redirect bookmark-hash url to standard url
-  useEffect(() => {
-    const goToStoryUrl = (id: string) => {
-      navigate(`/learn/stories/${id}`, { replace: true });
-    };
-
-    const storyId = location.hash.slice(1).split('?')[0];
-    const story = storiesData.find((story) => story.id === storyId);
-    if (story) {
-      goToStoryUrl(storyId);
-    }
-  }, [storiesData, location, navigate]);
-
   return (
     <div className="grid grid-cols-1 w-full">
       <div className="flex flex-col overflow-y-auto max-h-calc-185 md:max-h-calc-125">

@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useMemo } from 'react';
 
 // FPCC
 import WordCardMobile from './word-card-mobile';
@@ -17,17 +17,13 @@ export function DictionaryView(props: DictionaryViewProps) {
   const [dataUnfiltered, setDataUnfiltered] = useState<FvWord[] | []>(
     dictionaryData
   );
-  const [dataToDisplay, setDataToDisplay] = useState<FvWord[]>([]);
   const [visibleItems, setVisibleItems] = useState(250);
-
   const searchContext = useContext(SearchContext);
 
   const handleScroll = () => {
     const windowHeight = window.innerHeight;
     const container = document.getElementById('wordList');
-
     if (!container) return;
-
     const containerHeight = container.clientHeight;
     const documentHeight = container.scrollHeight;
     const scrollTop = container.scrollTop;
@@ -37,56 +33,48 @@ export function DictionaryView(props: DictionaryViewProps) {
     }
   };
 
-  const resetScroll = () => {
-    const container = document.getElementById('wordList');
-    if (container) {
-      container.scrollTop = 0;
-    }
-  };
-
   useEffect(() => {
     const container = document.getElementById('wordList');
     if (!container) return;
-
     container.addEventListener('scroll', handleScroll);
-
     return () => {
       container.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
-  useEffect(() => {
+  // Filter data to display by selected TYPE
+  const dataToDisplay: FvWord[] = useMemo(() => {
     setVisibleItems(250);
+    const container = document.getElementById('wordList');
+    if (container) {
+      container.scrollTop = 0;
+    }
+    const filterByType = (type?: string) => {
+      return type
+        ? [
+            ...dataUnfiltered.filter(
+              (entry) =>
+                (isFvWordLocationCombo(entry)
+                  ? entry.entry.source
+                  : entry.source) === type
+            ),
+          ]
+        : [...dataUnfiltered];
+    };
     switch (selected) {
       case DictionaryType.Words: {
-        setDataToDisplay(
-          dataUnfiltered.filter(
-            (entry) =>
-              (isFvWordLocationCombo(entry)
-                ? entry.entry.source
-                : entry.source) === 'words'
-          )
-        );
-        break;
+        return filterByType('words');
       }
       case DictionaryType.Phrases: {
-        setDataToDisplay(
-          dataUnfiltered.filter(
-            (entry) =>
-              (isFvWordLocationCombo(entry)
-                ? entry.entry.source
-                : entry.source) === 'phrases'
-          )
-        );
-        break;
+        return filterByType('phrases');
       }
       default: {
-        setDataToDisplay(dataUnfiltered);
-        break;
+        return filterByType();
       }
     }
   }, [selected, dataUnfiltered]);
 
+  // Checking for searchResults
   useEffect(() => {
     if (searchContext?.allResults) {
       if (searchContext.allResults.length > 0) {
@@ -107,7 +95,6 @@ export function DictionaryView(props: DictionaryViewProps) {
           { name: 'BOTH', icon: null },
         ]}
         onToggle={(index: number) => {
-          resetScroll();
           setSelected(index);
         }}
       />

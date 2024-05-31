@@ -5,6 +5,7 @@ import {
   useLocation,
   useOutletContext,
 } from 'react-router-dom';
+import { DictionaryEntryExportFormat } from '@mothertongues/search';
 
 // FPCC
 import styles from './dictionary-page.module.css';
@@ -25,20 +26,40 @@ export interface DictionaryProps {}
 
 type ContextType = {
   dictionaryData: FvWord[] | [];
+  dictionaryHash: {
+    [key: string]: DictionaryEntryExportFormat;
+  };
 };
 
 export function Dictionary(props: DictionaryProps) {
   const [dictionaryData, setDictionaryData] = useState<FvWord[] | []>([]);
+  const [dictionaryHash, setDictionaryHash] = useState<{
+    [key: string]: DictionaryEntryExportFormat;
+  }>({});
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
   const { isApiCallInProgress } = useContext(ApiContext);
 
+  const getDictionaryHash = (dictionaryData: FvWord[] | []) => {
+    // The endpoint just returns a list
+    // But to quickly fetch items in the local data, we create a hash
+    // with the entry IDs. Not sure if you'll want to create the hash here
+    // or somewhere else, but I'll just leave it here for now.
+    const entriesHash: { [key: string]: DictionaryEntryExportFormat } = {};
+    dictionaryData.forEach((entry) => {
+      entriesHash[entry.entryID] = entry;
+    });
+    return entriesHash;
+  };
+
   useEffect(() => {
     const fetchDataAsync = async () => {
       try {
         const result = await fetchWordsData(isApiCallInProgress);
+        const dictionaryHash = getDictionaryHash(result.data);
         setDictionaryData(result.data);
+        setDictionaryHash(dictionaryHash);
         setLoading(false);
       } catch (error) {
         // Handle error scenarios
@@ -70,13 +91,15 @@ export function Dictionary(props: DictionaryProps) {
           }}
         >
           {!!matchRoutes([{ path: '' }, { path: 'dictionary' }], location) && (
-            <SearchInput />
+            <SearchInput dictionaryHash={dictionaryHash} />
           )}
         </PageHeader>
 
         <div className="flex w-full">
           <SubNavDesktop navItems={dictionarySubNavItems} />
-          <Outlet context={{ dictionaryData } satisfies ContextType} />
+          <Outlet
+            context={{ dictionaryData, dictionaryHash } satisfies ContextType}
+          />
         </div>
 
         {dictionaryData?.length > 0 && (

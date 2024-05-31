@@ -1,13 +1,22 @@
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
-import { sortResults, Result, MTDSearch } from '@mothertongues/search';
+import {
+  sortResults,
+  Result,
+  MTDSearch,
+  DictionaryEntryExportFormat,
+} from '@mothertongues/search';
 
 // FPCC
 import { SearchContext } from '../../search-provider';
 
 /* eslint-disable-next-line */
-export interface SearchInputProps {}
+export interface SearchInputProps {
+  dictionaryHash: {
+    [key: string]: DictionaryEntryExportFormat;
+  };
+}
 
-export function SearchInput(props: Readonly<SearchInputProps>) {
+export function SearchInput({ dictionaryHash }: Readonly<SearchInputProps>) {
   const [searchValue, setSearchValue] = useState<string>('');
   const [l1Search, setL1Search] = useState<MTDSearch>();
   const [l2Search, setL2Search] = useState<MTDSearch>();
@@ -41,7 +50,7 @@ export function SearchInput(props: Readonly<SearchInputProps>) {
 
       const entries = allResults.map((result: Result) => {
         return {
-          entry: searchContext.entriesHash[result[1]],
+          entry: dictionaryHash?.[result[1]],
           locations: result[2],
         };
       });

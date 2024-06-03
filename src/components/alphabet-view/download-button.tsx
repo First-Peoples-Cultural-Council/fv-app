@@ -60,10 +60,13 @@ export function DownloadButton({
         />
       )}
       {showDownloadProgress && (
-        <Modal closeOnOutsideClick={false}
-          title="Download Progress"
+        <Modal
+          closeOnOutsideClick={false}
           onClose={() => setShowDownloadProgress(false)}
         >
+          <div className="w-full text-center text-3xl mb-5">
+            Download Progress
+          </div>
           <div className="grid place-items-center">
             <div className={`rounded-md bg-gray-300 w-[400px] h-2 ml-10 mr-10`}>
               <div

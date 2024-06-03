@@ -1,35 +1,30 @@
 import React, { useRef, useContext, useEffect, useState } from 'react';
-import { DictionaryEntryExportFormat } from '@mothertongues/search';
 
 // FPCC
 import classNames from 'classnames';
 import styles from './alphabet-view.module.css';
 import { useIsMobile } from '../../util/useMediaQuery';
-import { FvLetter, FvWordLocationCombo } from '../common/data';
+import { FvLetter } from '../common/data';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
-import fetchWordsData from '../../services/wordsApiService';
 import fetchCharactersData from '../../services/charactersApiService';
 import { Keyboard } from './keyboard';
 import { SelectedLetterDisplay } from './selected-letter-display';
 import { ApiContext } from '../contexts/apiContext';
 import { WordExampleList } from './word-example-list';
 import { WordStartsWithList } from './word-starts-with-list';
+import { useDictionaryData } from '../dictionary-page/dictionary-page';
 
 /* eslint-disable-next-line */
 export interface AlphabetViewProps {}
 
 export function AlphabetView(this: any, props: AlphabetViewProps) {
+  const { dictionaryData } = useDictionaryData();
   const { isApiCallInProgress } = useContext(ApiContext);
   const wordListRef = useRef<HTMLDivElement | null>(null);
   const isMobile = useIsMobile();
-
-  const [dataDictionary, setDataDictionary] = useState<
-    (DictionaryEntryExportFormat | FvWordLocationCombo)[]
-  >([]);
   const [dataAlphabet, setDataAlphabet] = useState<FvLetter[]>([]);
   const [selected, setSelected] = useState<FvLetter | null>(null);
   const [loadingAlphabet, setLoadingAlphabet] = useState(true);
-  const [loadingDictionary, setLoadingDictionary] = useState(true);
 
   if (!isMobile && selected === null && dataAlphabet.length !== 0) {
     setSelected(dataAlphabet[0]);
@@ -47,20 +42,8 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
       setLoadingAlphabet(false);
     };
 
-    const fetchDataDictAsync = async () => {
-      try {
-        const result = await fetchWordsData(isApiCallInProgress);
-        setDataDictionary(result.data);
-      } catch (error) {
-        // Handle error scenarios
-        console.error('Error occurred:', error);
-      }
-      setLoadingDictionary(false);
-    };
-
     if (dataAlphabet.length === 0) {
       fetchDataAlphabetAsync();
-      fetchDataDictAsync();
     }
   }, [isApiCallInProgress, dataAlphabet]);
 
@@ -103,7 +86,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
             {selected && (
               <SelectedLetterDisplay
                 selected={selected}
-                dataDictionary={dataDictionary}
+                dictionaryData={dictionaryData}
               />
             )}
 
@@ -126,15 +109,13 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
               {selected?.relatedDictionaryEntries.length > 0 && (
                 <WordExampleList
                   selected={selected}
-                  dataDictionary={dataDictionary}
-                  loading={loadingDictionary}
+                  dictionaryData={dictionaryData}
                 />
               )}
               {selected?.note?.length > 0 && note()}
               <WordStartsWithList
                 selected={selected}
-                dataDictionary={dataDictionary}
-                loading={loadingDictionary}
+                dictionaryData={dictionaryData}
               />
             </div>
           )}
@@ -146,20 +127,18 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
           <div>
             <SelectedLetterDisplay
               selected={selected}
-              dataDictionary={dataDictionary}
+              dictionaryData={dictionaryData}
             />
             {selected?.relatedDictionaryEntries.length > 0 && (
               <WordExampleList
                 selected={selected}
-                dataDictionary={dataDictionary}
-                loading={loadingDictionary}
+                dictionaryData={dictionaryData}
               />
             )}
             {selected?.note?.length > 0 && note()}
             <WordStartsWithList
               selected={selected}
-              dataDictionary={dataDictionary}
-              loading={loadingDictionary}
+              dictionaryData={dictionaryData}
             />
           </div>
         </FullScreenModal>

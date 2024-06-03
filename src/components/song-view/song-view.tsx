@@ -20,13 +20,13 @@ export function SongView({ song }: Readonly<SongViewProps>) {
       definition: song?.titleTranslation ?? '',
       name: song.title,
       hasAudio: song.relatedAudio?.length !== 0,
-      url: `${window.location.pathname}#${song.id}`,
+      url: `/learn/songs/${song.id}`,
       timestamp: new Date(),
     };
   }, [song]);
 
   return (
-    <div className="border border-gray-300 shadow-lg p-5 rounded w-full">
+    <div className="flex w-full justify-center p-5 mx-auto">
       <div className="flex flex-col h-full space-y-5">
         <div className="h-3/5 flex-1">
           {song?.relatedImages.length !== 0 && (

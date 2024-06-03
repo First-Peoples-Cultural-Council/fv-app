@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import { useState } from 'react';
 
-/* eslint-disable-next-line */
 export interface MultiSwitchProps {
   selected: number;
   items: {
@@ -15,7 +14,7 @@ export function MultiSwitch({
   selected: initialSelected,
   items,
   onToggle,
-}: MultiSwitchProps) {
+}: Readonly<MultiSwitchProps>) {
   const [selected, setSelected] = useState<number>(initialSelected);
 
   return (
@@ -26,11 +25,11 @@ export function MultiSwitch({
             <button
               key={item.name}
               className={classNames(
-                'py-2 px-4 border-solid border-gray-300 border-2 shadow-md text-center',
+                'py-2 px-3 border-solid border-gray-300 border shadow-lg text-center space-x-1',
                 {
-                  'bg-cyan-900 text-white hover:bg-cyan-700':
+                  'bg-primary text-white hover:bg-primary-light border-primary':
                     selected === index,
-                  'bg-gray-200 hover:bg-gray-300': selected !== index,
+                  'bg-white hover:bg-gray-100': selected !== index,
                   'rounded-l-lg': index === 0,
                   'rounded-r-lg': index === items.length - 1,
                 }
@@ -40,7 +39,8 @@ export function MultiSwitch({
                 onToggle(index);
               }}
             >
-              <i className={item.icon ?? ''}>{item.name}</i>
+              {item.icon && <i className={item.icon} />}
+              <span>{item.name}</span>
             </button>
           );
         })}

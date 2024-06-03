@@ -1,28 +1,27 @@
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { Link, useParams } from 'react-router-dom';
+
+// FPCC
 import styles from './category-view.module.css';
 import fetchCategoryData from '../../services/categoriesApiService';
-import { Fragment, useContext, useEffect, useState } from 'react';
 import WordCardDesktop from '../dictionary-view/word-card-desktop';
 import WordCardMobile from '../dictionary-view/word-card-mobile';
 import { DictionaryType, FvCategory, FvWord } from '../common/data';
 import MultiSwitch from '../common/multi-switch/multi-switch';
-import fetchWordsData from '../../services/wordsApiService';
 import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
-import { ApiContext } from '../contexts/apiContext';
+import { useDictionaryData } from '../dictionary-page/dictionary-page';
 
 /* eslint-disable-next-line */
 export interface CategoryViewProps {}
 
 export function CategoryView(props: CategoryViewProps) {
   const { id } = useParams();
+  const { dictionaryData } = useDictionaryData();
 
   const [selected, setSelected] = useState<number>(DictionaryType.Both);
-  const [dataDict, setDataDict] = useState<FvWord[]>([]);
-  const [data, setData] = useState<FvWord[]>([]);
+  const [entriesToDisplay, setEntriesToDisplay] = useState<FvWord[]>([]);
   const [dataCategories, setDataCategories] = useState<FvCategory[]>([]);
-
-  const { isApiCallInProgress } = useContext(ApiContext);
 
   useEffect(() => {
     fetchCategoryData().then((result) => {
@@ -84,33 +83,24 @@ export function CategoryView(props: CategoryViewProps) {
     findPrimaryCategoryById(dataCategories, id ?? '') ?? currentCategory;
 
   useEffect(() => {
-    const fetchDataAsync = async () => {
-      try {
-        const result = await fetchWordsData(isApiCallInProgress);
-        setDataDict(result.data);
-      } catch (error) {
-        // Handle error scenarios
-      }
-    };
-
-    fetchDataAsync();
-  }, [isApiCallInProgress]);
-
-  useEffect(() => {
     switch (selected) {
       case DictionaryType.Words: {
-        setData(dataDict.filter((entry) => entry.source === 'words'));
+        setEntriesToDisplay(
+          dictionaryData.filter((entry) => entry.source === 'words')
+        );
         break;
       }
       case DictionaryType.Phrases: {
-        setData(dataDict.filter((entry) => entry.source === 'phrases'));
+        setEntriesToDisplay(
+          dictionaryData.filter((entry) => entry.source === 'phrases')
+        );
         break;
       }
       default:
-        setData(dataDict);
+        setEntriesToDisplay(dictionaryData);
         break;
     }
-  }, [selected, dataDict]);
+  }, [selected, dictionaryData]);
 
   return (
     <>
@@ -127,8 +117,8 @@ export function CategoryView(props: CategoryViewProps) {
               styles['scrollable-div']
             )}
           >
-            {data.length === 0 && <LoadingSpinner />}
-            {data
+            {entriesToDisplay.length === 0 && <LoadingSpinner />}
+            {entriesToDisplay
               .filter((term) => {
                 if (currentCategory.id === primaryCategory.id) {
                   return term.theme === primaryCategory.title;
@@ -201,8 +191,8 @@ export function CategoryView(props: CategoryViewProps) {
                   styles['wordsPhrasesContainer']
                 )}
               >
-                {data.length === 0 && <LoadingSpinner />}
-                {data
+                {entriesToDisplay.length === 0 && <LoadingSpinner />}
+                {entriesToDisplay
                   .filter((term) => {
                     if (currentCategory === primaryCategory) {
                       return term.theme === primaryCategory.title;

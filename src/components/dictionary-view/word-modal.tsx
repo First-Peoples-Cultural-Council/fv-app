@@ -21,7 +21,7 @@ function WordModal({ term, onClose }: Readonly<WordModalProps>) {
       definition: term.definition,
       name: term.word,
       hasAudio: term.audio?.length !== 0,
-      url: `${window.location.pathname}#${term.source}-${term.entryID}`,
+      url: `/dictionary/${term.entryID}`,
       timestamp: new Date(),
     };
   }, [term]);

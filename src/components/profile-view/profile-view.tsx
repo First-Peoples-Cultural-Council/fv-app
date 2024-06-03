@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import classNames from 'classnames';
+
+// FPCC
 import { Bookmark, DeleteListType } from '../common/data';
 import DeletableList from '../common/deletable-list/deletable-list';
 import styles from './profile-view.module.css';
-import { useNavigate } from 'react-router-dom';
-import classNames from 'classnames';
 import IndexedDBService from '../../services/indexedDbService';
-import SearchHeader from '../common/search-header/search-header';
-import {
-  SearchResultsProvider,
-  SearchResultsType,
-} from '../search-results-provider';
+import PageHeader from '../common/page-header/page-header';
 
 /* eslint-disable-next-line */
 export interface ProfileViewProps {}
@@ -17,10 +15,6 @@ export interface ProfileViewProps {}
 export function ProfileView() {
   const [db, setDb] = useState<IndexedDBService>();
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
-  const [searchResults, setSearchResults] = useState<{
-    rawSearchQuery: string;
-    entries: SearchResultsType;
-  } | null>(null);
 
   useEffect(() => {
     setDb(new IndexedDBService('firstVoicesIndexedDb'));
@@ -127,47 +121,36 @@ export function ProfileView() {
 
   return (
     <div className={styles['container']}>
-      <SearchHeader
-        searchMatchRef={null}
+      <PageHeader
         title="Bookmarks"
         backgroundColors={{
           to: 'to-color-profile-light',
           from: 'from-color-profile-dark',
         }}
-        setSearchEntries={setSearchResults}
       />
-      <SearchResultsProvider
-        results={
-          searchResults as {
-            rawSearchQuery: string;
-            entries: SearchResultsType;
+      <DeletableList
+        header="Your Bookmarks"
+        confirmMessage="Remove selected bookmarks?"
+        removeButtonText="Edit bookmarks"
+        removeSelectedButtonText="Remove selected"
+        items={list}
+        onDelete={function (ids: string[]) {
+          for (let id of ids) {
+            db?.removeBookmark(id);
           }
-        }
-      >
-        <DeletableList
-          header="Your Bookmarks"
-          confirmMessage="Remove selected bookmarks?"
-          removeButtonText="Edit bookmarks"
-          removeSelectedButtonText="Remove selected"
-          items={list}
-          onDelete={function (ids: string[]) {
-            for (let id of ids) {
-              db?.removeBookmark(id);
-            }
-            setBookmarks(
-              bookmarks.filter((bookmark) => !ids.includes(bookmark.url))
-            );
-          }}
-          onClick={function (id: string): void {
-            const foundBookmark = bookmarks.find(
-              (bookmark) => bookmark.url === id
-            );
-            if (foundBookmark) {
-              handleBookmarkClick(foundBookmark.url);
-            }
-          }}
-        />
-      </SearchResultsProvider>
+          setBookmarks(
+            bookmarks.filter((bookmark) => !ids.includes(bookmark.url))
+          );
+        }}
+        onClick={function (id: string): void {
+          const foundBookmark = bookmarks.find(
+            (bookmark) => bookmark.url === id
+          );
+          if (foundBookmark) {
+            handleBookmarkClick(foundBookmark.url);
+          }
+        }}
+      />
     </div>
   );
 }

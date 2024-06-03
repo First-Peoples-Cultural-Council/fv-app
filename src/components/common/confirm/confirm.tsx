@@ -12,11 +12,11 @@ type ConfirmDialogProps = {
 export function ConfirmDialog({
   title,
   message,
-  confirmLabel = "Confirm",
-  cancelLabel = "Cancel",
+  confirmLabel = 'Confirm',
+  cancelLabel = 'Cancel',
   onConfirm,
   onCancel,
-}: ConfirmDialogProps) {
+}: Readonly<ConfirmDialogProps>) {
   const closeModal = () => {
     onCancel();
   };
@@ -27,7 +27,12 @@ export function ConfirmDialog({
   };
 
   return (
-    <Modal title={title} onClose={closeModal} showCloseButton={false} closeOnOutsideClick={false}>
+    <Modal
+      onClose={closeModal}
+      showCloseButton={false}
+      closeOnOutsideClick={false}
+    >
+      <div className="w-full text-center text-3xl mb-5">{title}</div>
       <div className="p-4">{message}</div>
       <div className="flex justify-end">
         <div className="p-4">

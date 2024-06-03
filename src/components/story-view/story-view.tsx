@@ -73,11 +73,11 @@ export function StoryView({ storiesData }: Readonly<StoryViewProps>) {
   };
 
   return (
-    <div data-testid="story-view" className="max-w-5xl w-full mx-auto">
+    <div data-testid="story-view" className="max-w-3xl w-full mx-auto">
       <div className="p-2 md:p-3">
         <BackButton />
       </div>
-      <div className="w-full md:w-[85vw] mx-auto p-2 md:p-4 mb-4 md:border border-gray-300 rounded-lg md:shadow-lg bg-white">
+      <div className="w-full mx-auto p-2 md:p-4 mb-4 md:border border-gray-300 rounded-lg md:shadow-lg bg-white">
         {story === undefined ? (
           <PageNotFound />
         ) : (

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import classNames from 'classnames';
 
-import { useButtonStyle } from '../common/hooks';
 import { Flashcard, FvAudio } from '../common/data';
 import { FlipButton } from './flip-button';
 
@@ -17,8 +16,6 @@ export function FlashcardView({
   flashcardIndex,
 }: Readonly<FlashcardViewProps>) {
   const [flipped, setFlipped] = useState(false);
-
-  const secondaryButtonStyle = useButtonStyle('secondary', 'button');
 
   async function playAudio(fileName: string) {
     const audio = new Audio(fileName);
@@ -70,7 +67,7 @@ export function FlashcardView({
             flashcardData?.audio?.map((fvAudio: FvAudio) => (
               <button
                 key={fvAudio.filename}
-                className={secondaryButtonStyle}
+                className="btn-contained bg-secondary"
                 onClick={(e) => {
                   e.stopPropagation();
                   playAudio(fvAudio.filename).catch((err: any) => {
@@ -78,7 +75,8 @@ export function FlashcardView({
                   });
                 }}
               >
-                <i className="fv-play">{fvAudio.description}</i>
+                <i className="fv-volume-up text-3xl" />
+                {fvAudio.description && <div>{fvAudio.description}</div>}
               </button>
             ))}
 

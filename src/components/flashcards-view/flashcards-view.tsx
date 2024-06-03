@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import { useButtonStyle } from '../common/hooks';
 import { useContext, useEffect, useRef, useState } from 'react';
 import useOnClickOutside from '../../util/clickOutside';
 import { Bookmark, Flashcard, FvCategory, FvWord } from '../common/data';
@@ -9,6 +8,7 @@ import fetchWordsData from '../../services/wordsApiService';
 import IndexedDBService from '../../services/indexedDbService';
 import { ApiContext } from '../contexts/apiContext';
 import { FlashcardView } from './flashcard-view';
+import Modal from '../common/modal/modal';
 
 /* eslint-disable-next-line */
 export interface FlashcardsViewProps {}
@@ -24,7 +24,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
     useState('');
   const [db, setDb] = useState<IndexedDBService>();
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
-  const [dictionaryData, setDataDict] = useState<FvWord[]>([]);
+  const [dataDict, setDataDict] = useState<FvWord[]>([]);
   const [data, setData] = useState<FvWord[]>([]);
   const [initialFilteredData, setInitialFilteredData] = useState<FvWord[]>([]);
   const [dataForFlashcardGroup, setDataForFlashcardGroup] = useState<any>();
@@ -33,8 +33,6 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   const [dataCategories, setDataCategories] = useState<any>([]);
 
   const { isApiCallInProgress } = useContext(ApiContext);
-
-  const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 
   const SelectModalRef = useRef<HTMLDivElement>(null);
   const CategoryModalRef = useRef<HTMLDivElement>(null);
@@ -98,7 +96,9 @@ export function FlashcardsView(props: FlashcardsViewProps) {
       let filteredData = initialFilteredData;
 
       if (selectedFlashcardDisplayType === 'a2e') {
-        filteredData = initialFilteredData.filter((entry) => entry.audio && entry.audio.length > 0);
+        filteredData = initialFilteredData.filter(
+          (entry) => entry.audio && entry.audio.length > 0
+        );
         saveDataForFlashcards(filteredData);
       }
 
@@ -123,12 +123,12 @@ export function FlashcardsView(props: FlashcardsViewProps) {
         <div className="flex flex-wrap justify-center">
           {flashCardType('Words', 'fv-wordsfc', () => {
             handleFlashcardTypeSelection(
-              dictionaryData.filter((entry) => entry.source === 'words')
+              dataDict.filter((entry) => entry.source === 'words')
             );
           })}
           {flashCardType('Phrases', 'fv-phrasesfc', () => {
             handleFlashcardTypeSelection(
-              dictionaryData.filter((entry) => entry.source === 'phrases')
+              dataDict.filter((entry) => entry.source === 'phrases')
             );
           })}
           {flashCardType('Category', 'fv-categories', () => {
@@ -137,7 +137,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
           })}
           {flashCardType('Bookmarks', 'fv-bookmark', () => {
             handleFlashcardTypeSelection(
-              dictionaryData.filter((entry) =>
+              dataDict.filter((entry) =>
                 bookmarks.some(
                   (bookmark) =>
                     bookmark.id === entry.entryID &&
@@ -150,24 +150,18 @@ export function FlashcardsView(props: FlashcardsViewProps) {
       </div>
 
       {showSelectModal && (
-        <div
-          style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
-          className="fixed inset-0 w-full h-full backdrop"
+        <Modal
+          closeOnOutsideClick={false}
+          onClose={() => setShowSelectModal(false)}
         >
-          <div className="grid h-screen place-items-center outline-none focus:outline-none">
-            <div ref={SelectModalRef} className="p-4 grid bg-white">
-              <div className="pb-4">
-                <div className="float-left uppercase text-green-600 text-2xl">
-                  {selectedFlashcardType}
-                </div>
-                <button
-                  className="p-1 ml-auto bg-transparent border-0 text-black float-right text-1xl leading-none font-semibold outline-none focus:outline-none"
-                  onClick={() => setShowSelectModal(false)}
-                >
-                  <i className="fv-close"></i>
-                </button>
-              </div>
-
+          <div
+            ref={SelectModalRef}
+            className="bg-white rounded-lg overflow-y-auto"
+          >
+            <div className="w-full text-center uppercase text-primary text-2xl">
+              {selectedFlashcardType}
+            </div>
+            <div className="max-w-sm mx-auto grid grid-cols-1 gap-2 p-6">
               {menuItem(
                 'English to Language',
                 'fv-refresh-counter-clockwise',
@@ -186,32 +180,27 @@ export function FlashcardsView(props: FlashcardsViewProps) {
               })}
             </div>
           </div>
-        </div>
+        </Modal>
       )}
 
       {showCategoryModal && (
-        <div
-          style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
-          className="fixed inset-0 w-full h-full backdrop"
+        <Modal
+          closeOnOutsideClick={false}
+          onClose={() => setShowCategoryModal(false)}
         >
-          <div className="grid h-screen place-items-center overflow-y-auto outline-none focus:outline-none">
-            <div ref={CategoryModalRef} className="p-4 grid bg-white">
-              <div className="pb-4">
-                <div className="float-left uppercase text-green-600 text-2xl">
-                  {selectedFlashcardType}
-                </div>
-                <button
-                  className="p-1 ml-auto bg-transparent border-0 text-black float-right text-1xl leading-none font-semibold outline-none focus:outline-none"
-                  onClick={() => setShowCategoryModal(false)}
-                >
-                  <i className="fv-close"></i>
-                </button>
-              </div>
+          <div
+            ref={CategoryModalRef}
+            className="bg-white rounded-lg overflow-y-auto"
+          >
+            <div className="w-full text-center uppercase text-primary text-2xl">
+              {selectedFlashcardType}
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 p-4">
               {dataCategories.map((category: FvCategory) => {
                 return (
                   <div key={category.id}>
                     {menuItem(category.title, 'fv-categories', () => {
-                      const categoryData = dictionaryData.filter((term) => {
+                      const categoryData = dataDict.filter((term) => {
                         return (
                           term.theme === category.title ||
                           term.secondary_theme === category.title
@@ -226,7 +215,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
               })}
             </div>
           </div>
-        </div>
+        </Modal>
       )}
       {showFlashcardModal && (
         <div
@@ -259,29 +248,26 @@ export function FlashcardsView(props: FlashcardsViewProps) {
       )}
 
       {showDonePromptModal && (
-        <div
-          style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
-          className="fixed inset-0 w-full h-full backdrop"
+        <Modal
+          closeOnOutsideClick={false}
+          onClose={() => setShowDonePromptModal(false)}
         >
-          <div className="grid h-screen place-items-center overflow-y-auto outline-none focus:outline-none">
-            <div ref={CategoryModalRef} className="p-4 grid bg-white">
-              <div className="pb-4">
-                <button
-                  className="p-1 ml-auto bg-transparent border-0 text-black float-right text-1xl leading-none font-semibold outline-none focus:outline-none"
-                  onClick={() => setShowDonePromptModal(false)}
-                >
-                  <i className="fv-close"></i>
-                </button>
-                <div className="w-full text-center pl-7 text-xl bold">
-                  Congratulations!
-                </div>
-                <div className="w-full text-center text-xl">Set complete!</div>
-                {data.length === 0 && (
-                  <div className="text-center text-slate-700 pt-4">
-                    You’ve gone through all the cards for this category.
-                  </div>
-                )}
+          <div
+            ref={CategoryModalRef}
+            className="w-full overflow-y-auto bg-white text-fv-charcoal rounded-lg"
+          >
+            <div>
+              <div className="w-full text-center text-2xl bold">
+                Congratulations!
               </div>
+              <div className="w-full text-center text-xl">Set complete.</div>
+              {data.length === 0 && (
+                <div className="text-center text-fv-charcoal-light pt-4">
+                  You’ve gone through all the cards for this category.
+                </div>
+              )}
+            </div>
+            <div className="max-w-sm mx-auto grid grid-cols-1 gap-2 p-6">
               {menuItem('Restart Set', 'fv-ccw', () => {
                 setDataForFlashcard(0);
                 setShowDonePromptModal(false);
@@ -297,7 +283,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
               })}
             </div>
           </div>
-        </div>
+        </Modal>
       )}
     </div>
   );
@@ -328,10 +314,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
           getTypeData();
           setSelectedFlashcardType(name);
         }}
-        className={classNames(
-          'w-[175px] h-[175px] md:w-[300px] md:h-[150px] m-2 content-center grid grid-cols-1 md:grid-cols-2 cursor-pointer justify-center',
-          tertiaryButtonStyle
-        )}
+        className="w-44 h-44 md:w-80 md:h-40 m-2 content-center grid grid-cols-1 md:grid-cols-2 cursor-pointer justify-center text-white bg-tertiaryB py-2 px-4 rounded-lg shadow text-center"
       >
         <i className={classNames(icon, 'text-6xl ')} />
 
@@ -342,14 +325,14 @@ export function FlashcardsView(props: FlashcardsViewProps) {
 
   function menuItem(name: string, icon: string, onClick: Function) {
     return (
-      <div
-        className="border-2 border-solid border-slate-500 rounded-lg bg-slate-100 flex p-4 space-x-6 mb-2 cursor-pointer"
-        onClick={() => onClick()}
-      >
-        <div className={classNames('text-7xl text-slate-700', icon)}></div>
-        <div className="text-slate-700 font-bold text-2xl self-center">
-          {name}
-        </div>
+      <div className="col-span-1">
+        <button
+          className="btn-outlined border-2 h-full w-full justify-start text-left"
+          onClick={() => onClick()}
+        >
+          <div className={classNames('text-3xl text-primary', icon)}></div>
+          <div className="text-xl">{name}</div>
+        </button>
       </div>
     );
   }

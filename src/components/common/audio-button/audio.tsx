@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import Alert from '../alert/alert';
 import { FvAudio } from '../data';
-import { useButtonStyle } from '../hooks';
 import classNames from 'classnames';
 import IndexedDBService from '../../../services/indexedDbService';
 import { useDetectOnlineStatus } from '../hooks/useDetectOnlineStatus';
@@ -11,14 +10,11 @@ export interface AudioButtonProps {
   fvAudio: FvAudio;
 }
 
-export function AudioButton({ fvAudio }: AudioButtonProps) {
+export function AudioButton({ fvAudio }: Readonly<AudioButtonProps>) {
   const { addAudio, removeAudio } = useAudio();
   const db = new IndexedDBService('firstVoicesIndexedDb');
   const [audio, setAudio] = useState<HTMLAudioElement>();
   const [audioPlaying, setAudioPlaying] = useState(false);
-
-  const secondaryButtonStyle = useButtonStyle('secondary', 'button');
-  const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
 
   const [showAlert, setShowAlert] = useState(false);
   const [hasFile, setHasFile] = useState(false);
@@ -31,15 +27,14 @@ export function AudioButton({ fvAudio }: AudioButtonProps) {
     setAudio(audioElement);
 
     db.hasMediaFile(fvAudio.filename).then((hasFile) => {
-      if(!hasFile){
+      if (!hasFile) {
         // try fetching the file if it isn't cached yet
-        fetch(fvAudio.filename, { mode: "cors" })
+        fetch(fvAudio.filename, { mode: 'cors' })
           .then((response) => db.hasMediaFile(fvAudio.filename))
           .then((hasFile) => {
             setHasFile(hasFile);
           });
-      }
-      else {
+      } else {
         setHasFile(hasFile);
       }
     });
@@ -77,7 +72,9 @@ export function AudioButton({ fvAudio }: AudioButtonProps) {
         <button
           key={audio.id}
           className={classNames(
-            hasFile || isOnline ? secondaryButtonStyle : tertiaryButtonStyle,
+            hasFile || isOnline
+              ? 'btn-contained bg-secondary'
+              : 'btn-contained bg-tertiaryB',
             hasFile || isOnline ? '' : 'opacity-30'
           )}
           onClick={() => {

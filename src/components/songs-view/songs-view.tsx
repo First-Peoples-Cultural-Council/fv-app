@@ -11,7 +11,7 @@ export interface SongsViewProps {
   songsData: FVSong[];
 }
 
-export function SongsView({ songsData }: SongsViewProps) {
+export function SongsView({ songsData }: Readonly<SongsViewProps>) {
   const navigate = useNavigate();
   const [selectedSong, setSelectedSong] = useState<FVSong | null>(null);
 

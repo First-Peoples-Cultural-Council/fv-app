@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import fetchCategoryData from '../../services/categoriesApiService';
-import { useButtonStyle } from '../common/hooks';
 import styles from './categories-view.module.css';
 import { useEffect, useState } from 'react';
 import { FvCategory } from '../common/data';
@@ -11,7 +10,6 @@ import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 export interface CategoriesViewProps {}
 
 export function CategoriesView(props: CategoriesViewProps) {
-  const tertiaryButtonStyle = useButtonStyle('tertiary', 'button');
   const [dataCategories, setDataCategories] = useState<FvCategory[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -38,10 +36,7 @@ export function CategoriesView(props: CategoriesViewProps) {
               <Link
                 key={category.id}
                 to={`/categories/${category.id}`}
-                className={classNames(
-                  'w-[150px] h-[150px] m-2 content-center grid grid-cols-1 cursor-pointer',
-                  tertiaryButtonStyle
-                )}
+                className="w-40 h-40 m-2 content-center grid grid-cols-1 cursor-pointer bg-tertiaryB text-white py-2 px-4 rounded shadow text-center"
               >
                 <i className={classNames('fv-categories', 'text-4xl')} />
 

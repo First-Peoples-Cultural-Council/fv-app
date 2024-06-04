@@ -5,20 +5,18 @@ import Modal from '../modal/modal';
 import fpccLogo from '../../../assets/images/fpccLogoColorWhite.svg'
 import fpcfLogo from '../../../assets/images/fpcfLogoWhite.svg'
 import { useModal } from '../use-modal/use-modal';
+import useSiteTitleFromManifest from '../../common/hooks/useSiteTitleFromManifest';
 
-type InstallPromptProps = {
-  siteTitle: string;
-  siteURL: string;
-  logoURL: string;
-};
 
-export function InstallPrompt({
-  siteTitle,
-  siteURL,
-  logoURL,
-}: InstallPromptProps) {
+export function InstallPrompt() {
   const { setShowModal, showModal, closeModal } = useModal();
   const noop = () => {};
+  const hostnameParts = window.location.hostname.split('.');
+  const subdomain = hostnameParts.length > 2 ? hostnameParts[0] : 'default';
+  const manifestUrl = `${process.env.PUBLIC_URL}/manifest.${subdomain}.json`;
+  const siteTitle = useSiteTitleFromManifest(manifestUrl);
+  const siteURL= `${"https://www.firstvoices.com/" + subdomain + "/"}`
+  const logoURL = `${process.env.PUBLIC_URL}/${subdomain}/logo192.png`;
 
   return (
     <Modal onClose={() => closeModal()} title={siteTitle + " App"} showCloseButton={false} closeOnOutsideClick={false}>

@@ -12,7 +12,6 @@ import {
   SearchResultsType,
 } from '../search-results-provider';
 import { dictionarySubNavItems } from '../../constants/navigation';
-import InstallPrompt from '../common/install-prompt/install-prompt';
 
 /* eslint-disable-next-line */
 export interface DictionaryProps {}
@@ -64,7 +63,6 @@ export function Dictionary(props: DictionaryProps) {
           <Outlet context={{ setSearchMatchRef }} />
         </div>
       </SearchResultsProvider>
-      <InstallPrompt />
     </div>
   );
 }

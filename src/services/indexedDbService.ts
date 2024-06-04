@@ -12,7 +12,8 @@ interface FVDB extends DBSchema {
     value: {
       downloadedAt: string;
       lastAccessedAt: string;
-      file: Blob;
+      buffer: ArrayBuffer;
+      type: string;
     };
   };
   data: {
@@ -100,10 +101,14 @@ class IndexedDBService {
 
   async addMediaFile(url: string, file: Blob) {
     const store = await this.getMediaStore();
+    const fileBuffer = await file.arrayBuffer();
+    const type = file.type;
+
     const mediaFile = {
       downloadedAt: new Date().toISOString(),
       lastAccessedAt: new Date().toISOString(),
-      file,
+      buffer: fileBuffer,
+      type
     };
     await store.add(mediaFile,url);
   }
@@ -117,10 +122,14 @@ class IndexedDBService {
     | undefined
   > {
     const store = await this.getMediaStore();
+
+    // Files are stored as ArrayBuffers instead of Blobs to work around webkit/ios bugs.
+    // See: https://stackoverflow.com/questions/68386273/error-loading-blob-to-img-in-safari-webkitblobresource-error-1
     const mediaFile = (await store.get(url)) as {
       downloadedAt: string;
       lastAccessedAt: string;
-      file: Blob;
+      buffer: ArrayBuffer;
+      type: string;
     };
 
     if(mediaFile) {
@@ -132,7 +141,14 @@ class IndexedDBService {
         url
       );
     }
-    return mediaFile;
+
+    // Files are returned as Blobs for ease of use
+    const blob = new Blob([mediaFile.buffer], { type: mediaFile.type });
+    return {
+      downloadedAt: mediaFile.downloadedAt,
+      lastAccessedAt: mediaFile.lastAccessedAt,
+      file: blob
+    };
   }
 
   async getMediaCount(): Promise<number> {

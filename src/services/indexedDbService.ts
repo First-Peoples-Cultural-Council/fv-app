@@ -80,18 +80,22 @@ class IndexedDBService {
     return bookmarks;
   }
 
-  async hasMediaFile(url: string): Promise<boolean> {
-    const db = await this.database;
-    const transaction = db.transaction(['mediaFiles'], 'readonly');
-    const store = transaction.objectStore('mediaFiles');
-    const mediaFile = await store.get(url);
-    return mediaFile !== undefined;
-  }
-
   async getMediaStore() {
     const db = await this.database;
     const transaction = db.transaction('mediaFiles', 'readwrite');
     return transaction.objectStore('mediaFiles');
+  }
+
+  async getReadOnlyMediaStore(){
+    const db = await this.database;
+    const transaction = db.transaction('mediaFiles', 'readonly');
+    return transaction.objectStore('mediaFiles');
+  }
+  
+  async hasMediaFile(url: string): Promise<boolean> {
+    const store = await this.getReadOnlyMediaStore();
+    const mediaFile = await store.get(url);
+    return mediaFile !== undefined;
   }
 
   async addMediaFile(url: string, file: Blob) {
@@ -132,7 +136,7 @@ class IndexedDBService {
   }
 
   async getMediaCount(): Promise<number> {
-    const store = await this.getMediaStore();
+    const store = await this.getReadOnlyMediaStore();
     return store.count();
   }
 

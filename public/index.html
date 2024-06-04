@@ -30,7 +30,7 @@
     -->
     <script>
       const hostnameParts = window.location.hostname.split('.');
-      const subdomain = hostnameParts.length > 2 ? hostnameParts[0] : 'default';
+      const subdomain = hostnameParts[0];
       const manifestUrl = `%PUBLIC_URL%/manifest.${subdomain}.json`;
 
       // link the manifest

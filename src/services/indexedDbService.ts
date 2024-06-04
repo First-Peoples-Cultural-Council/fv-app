@@ -140,15 +140,17 @@ class IndexedDBService {
         },
         url
       );
+
+      // Files are returned as Blobs for ease of use
+      const blob = new Blob([mediaFile.buffer], { type: mediaFile.type });
+      return {
+        downloadedAt: mediaFile.downloadedAt,
+        lastAccessedAt: mediaFile.lastAccessedAt,
+        file: blob
+      };
     }
 
-    // Files are returned as Blobs for ease of use
-    const blob = new Blob([mediaFile.buffer], { type: mediaFile.type });
-    return {
-      downloadedAt: mediaFile.downloadedAt,
-      lastAccessedAt: mediaFile.lastAccessedAt,
-      file: blob
-    };
+    return mediaFile;
   }
 
   async getMediaCount(): Promise<number> {

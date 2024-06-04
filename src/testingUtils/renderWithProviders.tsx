@@ -6,7 +6,6 @@ import {
   ReactFragment,
   ReactPortal,
 } from 'react';
-import SearchProvider from '../components/search-provider';
 import { AudioProvider } from '../components/contexts/audioContext';
 
 const customRender = (
@@ -22,15 +21,13 @@ const customRender = (
   options = {}
 ) => {
   return render(
-    <SearchProvider>
-      <AudioProvider>
-        <Router initialEntries={['/initial']}>
-          <Routes>
-            <Route path="/initial" element={ui} />
-          </Routes>
-        </Router>
-      </AudioProvider>
-    </SearchProvider>,
+    <AudioProvider>
+      <Router initialEntries={['/initial']}>
+        <Routes>
+          <Route path="/initial" element={ui} />
+        </Routes>
+      </Router>
+    </AudioProvider>,
     options
   );
 };

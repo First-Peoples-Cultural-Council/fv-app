@@ -19,13 +19,19 @@ export function InstallPrompt() {
   const logoURL = `${process.env.PUBLIC_URL}/${subdomain}/logo192.png`;
 
   return (
-    <Modal onClose={() => closeModal()} title={siteTitle + " App"} showCloseButton={false} closeOnOutsideClick={false}>
+    <Modal onClose={() => closeModal()} showCloseButton={false} closeOnOutsideClick={false}>
       <div className="p-6 text-center">
+        <div className="w-full text-center text-3xl mb-5">
+          {siteTitle + " App"}
+        </div>
         <div className="mb-4">
           <img src={logoURL} alt="App logo" className="w-24 h-24 mx-auto" />
         </div>
-        <p className="mb-4 text-lg">Browse words and phrases in the dictionary, practice with flashcards, bookmark content and more.</p>
-        <p className="mb-6 text-sm">Powered by the <a href={siteURL} className="text-blue-500 underline">{siteTitle}  FirstVoices language site.</a></p>
+        <p className="mb-4 text-lg">Browse words and phrases in the dictionary, practice with flashcards, bookmark
+          content and more.</p>
+        <p className="mb-6 text-sm">Powered by the <a href={siteURL}
+                                                      className="text-blue-500 underline">{siteTitle} FirstVoices
+          language site.</a></p>
         <button onClick={noop} className="bg-blue-500 text-white px-6 py-2 rounded-lg">Install App</button>
         <p className="mt-4 text-sm">Compatible with iPhone, iPad, Android, Chromebook, Windows, and more.</p>
       </div>

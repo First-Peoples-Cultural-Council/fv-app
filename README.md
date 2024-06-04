@@ -14,6 +14,13 @@ $ npm run build
 $ npm start
 ```
 
+5. Access the application at `[sitename].localhost:3000`
+
+    a. If you are switching between different sites locally, you may need to clear your local data in between depending on your browser.
+
+    b. If you want custom icons and site titles locally, you need to add the required `manifest.[sitename].json` file in the `public` folder, as well as a `[sitename]` subfolder containing the required icons. (See [Adding new dialects/languages](#adding-new-dialectslanguages) below for file specs.)
+
+
 ## Running the tests
 
 ```bash

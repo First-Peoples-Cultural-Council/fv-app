@@ -14,7 +14,6 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { ApiProvider } from './components/contexts/apiContext';
 import { AudioProvider } from './components/contexts/audioContext';
-import SearchProvider from './components/search-provider';
 // Components
 import AboutView from './components/about-view/about-view';
 import AlphabetView from './components/alphabet-view/alphabet-view';
@@ -22,6 +21,7 @@ import CategoryView from './components/category-view/category-view';
 import CategoriesView from './components/categories-view/categories-view';
 import Dictionary from './components/dictionary-page/dictionary-page';
 import DictionaryView from './components/dictionary-view/dictionary-view';
+import DictionaryEntryView from './components/dictionary-entry-view/dictionary-entry-view';
 import ErrorPage from './components/error-page/error-page';
 import FlashcardsView from './components/flashcards-view/flashcards-view';
 import Learn from './components/learn/learn';
@@ -29,7 +29,7 @@ import PageNotFound from './components/page-not-found/page-not-found';
 import ProfileView from './components/profile-view/profile-view';
 import RandomizedView from './components/randomized-view/randomized-view';
 import SettingsView from './components/settings-view/settings-view';
-import SongsView from './components/songs-view/songs-view';
+import SongsPage from './components/songs-page/songs-page';
 import StoriesPage from './components/stories-page/stories-page';
 
 export const router = createBrowserRouter(
@@ -40,12 +40,13 @@ export const router = createBrowserRouter(
         <Route path="categories" element={<CategoriesView />} />
         <Route path="categories/:id" element={<CategoryView />} />
         <Route path="dictionary" element={<DictionaryView />} />
+        <Route path="dictionary/:id" element={<DictionaryEntryView />} />
         <Route path="randomized" element={<RandomizedView />} />
         <Route index element={<DictionaryView />} />
       </Route>
       <Route path="learn" element={<Learn />} errorElement={<ErrorPage />}>
         <Route path="stories/*" element={<StoriesPage />} />
-        <Route path="songs" element={<SongsView />} />
+        <Route path="songs/*" element={<SongsPage />} />
         <Route path="flashcards" element={<FlashcardsView />} />
         <Route index element={<StoriesPage />} />
       </Route>
@@ -63,11 +64,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <StrictMode>
     <ApiProvider>
-      <SearchProvider>
-        <AudioProvider>
-          <RouterProvider router={router} />
-        </AudioProvider>
-      </SearchProvider>
+      <AudioProvider>
+        <RouterProvider router={router} />
+      </AudioProvider>
     </ApiProvider>
   </StrictMode>
 );

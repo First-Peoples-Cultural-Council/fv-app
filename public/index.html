@@ -30,8 +30,8 @@
     -->
     <script>
       const hostnameParts = window.location.hostname.split('.');
-      const subdomain = hostnameParts[0];
-      const manifestUrl = `%PUBLIC_URL%/manifest.${subdomain}.json`;
+      const subdomain = hostnameParts[0] === "localhost" ? "default" : hostnameParts[0]; 
+      const manifestUrl = `assets/manifest.${subdomain}.json`;
 
       // link the manifest
       const linkElement = document.createElement('link');
@@ -42,11 +42,11 @@
       // Link the logos
       const faviconLink = document.createElement('link');
       faviconLink.rel = 'icon';
-      faviconLink.href = `%PUBLIC_URL%/${subdomain}/favicon.ico`;
+      faviconLink.href = `assets/${subdomain}/favicon.ico`;
       document.head.appendChild(faviconLink);
       const logoLink = document.createElement('link');
       logoLink.rel = 'apple-touch-icon';
-      logoLink.href = `%PUBLIC_URL%/${subdomain}/logo192.png`;
+      logoLink.href = `assets/${subdomain}/logo192.png`;
       document.head.appendChild(logoLink);
 
       // customize the title for this language
@@ -68,7 +68,7 @@
     -->
 
     <!-- This is required for the MTD Levenstein search (https://aclanthology.org/W17-0119.pdf) AKA offline fuzzy search -->
-    <script src="%PUBLIC_URL%/mtd-ui.min.js"></script>
+    <script src="assets/mtd-ui.min.js"></script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

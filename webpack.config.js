@@ -5,16 +5,34 @@ const dotenv = require('dotenv');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 dotenv.config();
 
+const buildPath = path.join(__dirname, 'build');
+const isDev = process.env.NODE_ENV !== 'production';
+
 module.exports = {
-  entry: ['./src/index.tsx'],
-  output: {
-    filename: '[name].js',
-    path: path.join(__dirname, 'build'),
-    publicPath: '/',
+  mode: isDev ? 'development' : 'production',
+  devtool: isDev ? 'source-map' : false,
+  watchOptions: {
+    poll: 1000,
+    aggregateTimeout: 1000,
+    ignored: ['**/node_modules'],
   },
+
+  entry: './src/index.tsx',
+  output: {
+    path: buildPath,
+    filename: 'assets/js/[name].min.js',
+    sourceMapFilename: '[file].map',
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss', '.sass', '.css'],
+    modules: ['node_modules'],
+  },
+
   module: {
     rules: [
       {
@@ -41,25 +59,18 @@ module.exports = {
       {
         test: /\.s?[ac]ss$/i,
         use: [
-          // isProductionBuild ? MiniCssExtractPlugin.loader : "style-loader",
-          'style-loader',
+          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
-            options: { esModule: false, importLoaders: 2, sourceMap: true },
+            options: { esModule: false, sourceMap: isDev },
           },
           {
             loader: 'postcss-loader',
             options: {
-              sourceMap: true,
+              sourceMap: isDev,
               postcssOptions: {
                 plugins: [require('tailwindcss')],
               },
-            },
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true,
             },
           },
         ],
@@ -78,9 +89,7 @@ module.exports = {
       },
     ],
   },
-  resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
-  },
+
   plugins: [
     new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
@@ -98,10 +107,25 @@ module.exports = {
         collapseWhitespace: true,
       },
     }),
+    new MiniCssExtractPlugin({
+      filename: `assets/css/[name].min.css`,
+    }),
   ],
+
+  optimization: {
+    minimizer: [
+      new CssMinimizerPlugin({
+        parallel: true,
+        minimizerOptions: {
+          preset: ['default', { discardComments: { removeAll: true } }],
+        },
+      }),
+    ],
+  },
+
   devServer: {
     static: path.join(__dirname, 'public/'),
     port: 3000,
-    open: true, // Open the default web browser when the server starts
+    compress: true,
   },
 };

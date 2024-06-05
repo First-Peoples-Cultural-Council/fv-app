@@ -110,6 +110,8 @@ class IndexedDBService {
       buffer: fileBuffer,
       type
     };
+
+    console.log("addMediaFile adding ", url, mediaFile, " from ", file);
     await store.add(mediaFile,url);
   }
 
@@ -143,13 +145,16 @@ class IndexedDBService {
 
       // Files are returned as Blobs for ease of use
       const blob = new Blob([mediaFile.buffer], { type: mediaFile.type });
-      return {
+      const formattedFile = {
         downloadedAt: mediaFile.downloadedAt,
         lastAccessedAt: mediaFile.lastAccessedAt,
         file: blob
       };
+      console.log("getMediaFile returning: ", formattedFile, " from: ", mediaFile)
+      return formattedFile;
     }
 
+    console.log("getMediaFile returning: ", mediaFile);
     return mediaFile;
   }
 

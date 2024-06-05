@@ -4,7 +4,7 @@ import { Audio1, DictionaryEntryExportFormat } from '@mothertongues/search';
 
 // FPCC
 import Alert from '../common/alert/alert';
-import { useDetectOnlineStatus } from '../common/hooks/useDetectOnlineStatus';
+import { useDetectOnlineStatus } from '../../util/useDetectOnlineStatus';
 import ConfirmDialog from '../common/confirm/confirm';
 import Modal from '../common/modal/modal';
 import {

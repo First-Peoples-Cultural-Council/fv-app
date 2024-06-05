@@ -113,6 +113,7 @@ class IndexedDBService {
 
     console.log("addMediaFile adding ", url, mediaFile, " from ", file);
     await store.add(mediaFile,url);
+    console.log("addMediaFile success: ", url, mediaFile);
   }
 
   async getMediaFile(url: string): Promise<
@@ -150,11 +151,11 @@ class IndexedDBService {
         lastAccessedAt: mediaFile.lastAccessedAt,
         file: blob
       };
-      console.log("getMediaFile returning: ", formattedFile, " from: ", mediaFile)
+      console.log("getMediaFile returning file: ", formattedFile, " from: ", mediaFile)
       return formattedFile;
     }
 
-    console.log("getMediaFile returning: ", mediaFile);
+    console.log("getMediaFile returning nothing: ", url, mediaFile);
     return mediaFile;
   }
 

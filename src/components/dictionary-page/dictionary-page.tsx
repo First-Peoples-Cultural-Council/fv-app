@@ -101,6 +101,7 @@ export function Dictionary(props: DictionaryProps) {
             context={{ dictionaryData, dictionaryHash } satisfies ContextType}
           />
         </div>
+
         {dictionaryData?.length > 0 && (
           <WordOfTheDay dictionaryData={dictionaryData} />
         )}

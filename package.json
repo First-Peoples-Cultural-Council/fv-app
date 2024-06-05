@@ -47,9 +47,10 @@
     "workbox-streams": "^6.5.4"
   },
   "scripts": {
-    "startDev": "webpack serve --mode=development",
+    "start": "webpack serve --mode=development",
+    "build": "NODE_ENV=production webpack",
+    
     "prebuild": "node ./generateManifestFileArray.js",
-    "build": "react-scripts build",
     "test": "react-scripts test",
     "test:e2e": "npx playwright test",
     "eject": "react-scripts eject",
@@ -99,6 +100,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^7.1.2",
+    "css-minimizer-webpack-plugin": "^7.0.0",
     "dotenv": "^16.4.5",
     "eslint-plugin-storybook": "^0.6.12",
     "glob": "^10.3.10",
@@ -108,7 +110,6 @@
     "prop-types": "^15.8.1",
     "react-app-rewired": "^2.2.1",
     "react-refresh": "0.11.0",
-    "sass-loader": "^14.2.1",
     "serve": "^14.2.1",
     "storybook": "^7.0.20",
     "style-loader": "^4.0.0",

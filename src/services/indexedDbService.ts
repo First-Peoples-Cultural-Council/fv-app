@@ -151,11 +151,11 @@ class IndexedDBService {
         lastAccessedAt: mediaFile.lastAccessedAt,
         file: blob
       };
-      console.log("getMediaFile returning: ", formattedFile, " from: ", mediaFile)
+      console.log("getMediaFile returning file: ", formattedFile, " from: ", mediaFile)
       return formattedFile;
     }
 
-    console.log("getMediaFile returning: ", url, mediaFile);
+    console.log("getMediaFile returning nothing: ", url, mediaFile);
     return mediaFile;
   }
 

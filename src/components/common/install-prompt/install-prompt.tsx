@@ -8,7 +8,7 @@ import useSiteTitleFromManifest from '../../common/hooks/useSiteTitleFromManifes
 
 export function InstallPrompt() {
   const [showInstallPrompt, setShowInstallPrompt] = useState(false);
-  const [deferredPrompt, setDeferredPrompt] = useState<Event | null>(null);
+  const [deferredPrompt, setDeferredPrompt] = useState<any | null>(null);
 
   // Site information from manifest and hostname
   const hostnameParts = window.location.hostname.split('.');
@@ -38,7 +38,7 @@ export function InstallPrompt() {
     }
     if (deferredPrompt) {
       setShowInstallPrompt(false);
-      (deferredPrompt as any).prompt();
+      deferredPrompt.prompt();
       setDeferredPrompt(null);
     }
   };
@@ -59,7 +59,7 @@ export function InstallPrompt() {
             </p>
             <p className="mb-6 text-sm">
               Powered by the
-              <a href={siteURL} className="text-blue-500 underline"> {siteTitle} FirstVoices language site.</a>
+              <a href={siteURL} className="mb-6 text-blue-500 underline"> {siteTitle} FirstVoices language site.</a>
             </p>
             <button onClick={handleInstallPrompt} className="bg-blue-500 text-white px-6 py-2 rounded-lg">
               Install App

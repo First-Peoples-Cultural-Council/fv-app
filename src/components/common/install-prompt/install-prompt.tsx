@@ -61,14 +61,14 @@ export function InstallPrompt() {
               Powered by the {' '}
               <a href={siteURL} className="text-blue-500 underline">{siteTitle} FirstVoices language site.</a>
             </p>
-            <button onClick={handleInstallPrompt} className="bg-blue-500 text-white px-6 py-2 rounded-lg">
+            <button onClick={handleInstallPrompt} className="bg-blue-500 text-white px-8 py-3 rounded-lg text-lg">
               Install App
             </button>
             <p className="mt-4 text-sm">Compatible with iPhone, iPad, Android, Chromebook, Windows, and more.</p>
           </div>
-          <div className="bg-fv-charcoal py-4 mt-6">
+          <div className="bg-fv-charcoal py-4 mt-6 rounded-lg">
             <p className="text-white text-center text-sm">An initiative of:</p>
-            <div className="flex justify-center mt-2">
+            <div className="flex justify-center mt-2 flex-wrap">
               <a href="https://www.fpcc.ca/" target="_blank" rel="noreferrer">
                 <img
                   className="h-14 inline mr-5 mb-2 md:mb-0"
@@ -79,7 +79,7 @@ export function InstallPrompt() {
               </a>
               <a href="https://www.fpcf.ca/" target="_blank" rel="noreferrer">
                 <img
-                  className="h-16 inline"
+                  className="h-14 inline mb-2"
                   src={fpcfLogo}
                   alt="First People's Cultural Foundation Logo"
                   loading="lazy"

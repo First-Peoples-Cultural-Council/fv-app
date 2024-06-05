@@ -112,7 +112,7 @@ class IndexedDBService {
     };
 
     console.log("addMediaFile adding ", url, mediaFile, " from ", file);
-    await store.add(mediaFile,url);
+    await store.add(mediaFile,url).catch((reason) => console.log("Error adding media file to cache: ", url, reason));
     console.log("addMediaFile success: ", url, mediaFile);
   }
 

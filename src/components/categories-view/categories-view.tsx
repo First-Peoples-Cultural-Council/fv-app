@@ -36,7 +36,7 @@ export function CategoriesView(props: CategoriesViewProps) {
               <Link
                 key={category.id}
                 to={`/categories/${category.id}`}
-                className="w-40 h-40 m-2 content-center grid grid-cols-1 cursor-pointer bg-tertiaryB-600 text-white py-2 px-4 rounded shadow text-center"
+                className="w-40 h-40 m-2 content-center grid grid-cols-1 cursor-pointer bg-tertiaryB-500 text-white py-2 px-4 rounded shadow text-center"
               >
                 <i className={classNames('fv-categories', 'text-4xl')} />
 
@@ -67,28 +67,28 @@ export function CategoriesView(props: CategoriesViewProps) {
                   <i
                     className={classNames(
                       'fv-categories',
-                      'text-3xl hover:opacity-75'
+                      'text-3xl hover:opacity-75 text-tertiaryB-500'
                     )}
                   />
                   <div className="pt-2 inline-flex ml-3 text-lg font-medium">
                     {category.title}
                   </div>
                 </Link>
-                {category.children?.map((subCategory) => {
-                  return (
-                    <Link
-                      key={subCategory.id}
-                      to={`/categories/${subCategory.id}`}
-                      className={classNames(
-                        'flex items-center cursor-pointer mb-6'
-                      )}
-                    >
-                      <div className="pt-2 text-md pl-8 text-gray-600">
+                <div className="space-y-2 ml-6">
+                  {category.children?.map((subCategory) => {
+                    return (
+                      <Link
+                        key={subCategory.id}
+                        to={`/categories/${subCategory.id}`}
+                        className={classNames(
+                          'flex items-center cursor-pointer p-3 text-md text-charcoal-400'
+                        )}
+                      >
                         {subCategory.title}
-                      </div>
-                    </Link>
-                  );
-                })}
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
             );
           })}

@@ -29,7 +29,8 @@ export function MultiSwitch({
                 {
                   'bg-primary-500 text-white hover:bg-primary-400 border-primary':
                     selected === index,
-                  'bg-white hover:bg-gray-100': selected !== index,
+                  'bg-white text-primary-500 hover:bg-gray-100':
+                    selected !== index,
                   'rounded-l-lg': index === 0,
                   'rounded-r-lg': index === items.length - 1,
                 }
@@ -39,7 +40,9 @@ export function MultiSwitch({
                 onToggle(index);
               }}
             >
-              {item.icon && <i className={item.icon} />}
+              {item.icon && (
+                <i className={classNames(item.icon, 'text-primary-500')} />
+              )}
               <span>{item.name}</span>
             </button>
           );

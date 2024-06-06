@@ -314,7 +314,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
           getTypeData();
           setSelectedFlashcardType(name);
         }}
-        className="w-44 h-44 md:w-80 md:h-40 m-2 content-center grid grid-cols-1 md:grid-cols-2 cursor-pointer justify-center text-white bg-tertiaryB-600 py-2 px-4 rounded-lg shadow text-center"
+        className="w-44 h-44 md:w-80 md:h-40 m-2 content-center grid grid-cols-1 md:grid-cols-2 cursor-pointer justify-center text-white bg-tertiaryB-500 py-2 px-4 rounded-lg shadow text-center"
       >
         <i className={classNames(icon, 'text-6xl ')} />
 

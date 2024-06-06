@@ -8,11 +8,11 @@ export function AboutView(props: AboutViewProps) {
       <br />
       <h1 className="text-xl">
         This app is called{' '}
-        <span className="text-secondary">
+        <span className="text-secondary-500">
           {process.env.REACT_APP_ABOUT_APP_NAME}
         </span>{' '}
         and is provided by{' '}
-        <span className="text-secondary">
+        <span className="text-secondary-500">
           {process.env.REACT_APP_ABOUT_ORG_NAME}
         </span>
       </h1>

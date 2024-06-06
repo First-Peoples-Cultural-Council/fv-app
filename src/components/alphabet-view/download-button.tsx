@@ -4,7 +4,7 @@ import { Audio1, DictionaryEntryExportFormat } from '@mothertongues/search';
 
 // FPCC
 import Alert from '../common/alert/alert';
-import { useDetectOnlineStatus } from '../common/hooks/useDetectOnlineStatus';
+import { useDetectOnlineStatus } from '../../util/useDetectOnlineStatus';
 import ConfirmDialog from '../common/confirm/confirm';
 import Modal from '../common/modal/modal';
 import {
@@ -37,7 +37,7 @@ export function DownloadButton({
             isOnline ? promptForDownload() : setShowAlertNotOnline(true)
           }
         >
-          <span className="fv-cloud-arrow-down-regular text-4xl justify-self-end cursor-pointer" />
+          <span className="fv-cloud-arrow-down-regular text-3xl justify-self-end cursor-pointer" />
         </button>
         <Alert
           type={'warning'}

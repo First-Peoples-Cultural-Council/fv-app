@@ -3,7 +3,7 @@ import Alert from '../alert/alert';
 import { FvAudio } from '../data';
 import classNames from 'classnames';
 import IndexedDBService from '../../../services/indexedDbService';
-import { useDetectOnlineStatus } from '../hooks/useDetectOnlineStatus';
+import { useDetectOnlineStatus } from '../../../util/useDetectOnlineStatus';
 import { useAudio } from '../../contexts/audioContext';
 
 export interface AudioButtonProps {

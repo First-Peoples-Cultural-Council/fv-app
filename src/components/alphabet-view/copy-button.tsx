@@ -16,7 +16,7 @@ export function CopyButton({ selected }: Readonly<CopyButtonProps>) {
             });
         }}
       >
-        <span className="fv-copy text-4xl cursor-pointer" />
+        <span className="fv-copy text-3xl cursor-pointer" />
       </button>
     </div>
   );

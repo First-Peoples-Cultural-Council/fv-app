@@ -1,52 +1,38 @@
 import React from 'react';
 import WordAlphabetRowCard from './word-row-card';
-import {
-  FvLetter,
-  FvWordLocationCombo,
-  isFvWord,
-  isFvWordLocationCombo,
-} from '../common/data';
-import { DictionaryEntryExportFormat } from '@mothertongues/search';
+import { FvLetter, FvWord } from '../common/data';
+import { useDictionaryData } from '../dictionary-page/dictionary-page';
 
-/* eslint-disable-next-line */
 export interface WordExampleListProps {
-  dictionaryData: (DictionaryEntryExportFormat | FvWordLocationCombo)[];
   selected: FvLetter;
 }
 
-export function WordExampleList({
-  dictionaryData,
-  selected,
-}: Readonly<WordExampleListProps>) {
+export function WordExampleList({ selected }: Readonly<WordExampleListProps>) {
+  const { dictionaryHash } = useDictionaryData();
+
   return (
     <div className="w-full">
-      <div className="p-5">
+      <div className="p-3">
         <span className="text-xl pr-2">EXAMPLE WORDS WITH</span>
-        <span className="text-5xl bold">{selected?.title}</span>
+        <span className="text-4xl bold">{selected?.title}</span>
       </div>
-      {selected?.relatedDictionaryEntries.map((example) => {
-        let term;
-        term = dictionaryData.find((item) => {
-          if (isFvWord(item)) {
-            return item.entryID === example.id;
+      <div className="space-y-2 md:px-2">
+        {selected?.relatedDictionaryEntries.map((example) => {
+          const term: FvWord | undefined = dictionaryHash?.[example.id];
+          if (term === undefined) {
+            return null;
           }
-          if (isFvWordLocationCombo(item)) {
-            return item.entry.entryID === example.id;
-          }
-          return false;
-        });
-        if (term === undefined) {
-          return null;
-        }
-        return (
-          <div
-            key={`${example.type}-${example.id}-example`}
-            id={`${example.type}-${example.id}`}
-          >
-            <WordAlphabetRowCard term={term} />
-          </div>
-        );
-      })}
+          return (
+            <div
+              key={`${example.type}-${example.id}-example`}
+              id={`${example.type}-${example.id}`}
+              className="flex w-full col-span-1"
+            >
+              <WordAlphabetRowCard term={term} />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

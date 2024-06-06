@@ -103,6 +103,9 @@ module.exports = {
           DEFAULT: '#2D5B72',
         },
         word: {
+          100: '#d4ebe9',
+          200: '#aad8d2',
+          300: '#7fc4bc',
           light: '#6ABAB1',
           DEFAULT: '#2A9D8F',
           dark: '#1D6E64',

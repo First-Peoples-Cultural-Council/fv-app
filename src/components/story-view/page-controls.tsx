@@ -42,24 +42,21 @@ export function PageControls({
       <button
         onClick={backClick}
         type="button"
-        className="btn-contained bg-color-alphabet-light w-32 md:w-48"
+        className="btn-contained bg-song-500 w-32 md:w-48"
       >
         {backLabel}
       </button>
 
       <div className="flex items-center justify-center flex-grow">
-        <div className="italic text-fv-charcoal-light mx-2">{currentLabel}</div>
+        <div className="italic text-charcoal-400 mx-2">{currentLabel}</div>
       </div>
 
       <button
         onClick={nextClick}
         type="button"
-        className={classNames(
-          'btn-contained bg-color-alphabet-light w-32 md:w-48',
-          {
-            'bg-primary': isLastPage,
-          }
-        )}
+        className={classNames('btn-contained bg-song-500 w-32 md:w-48', {
+          'bg-primary': isLastPage,
+        })}
       >
         {nextLabel}
       </button>

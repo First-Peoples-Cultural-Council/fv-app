@@ -64,7 +64,7 @@ function WordCategories({
         {primaryCategory !== undefined && (
           <Link
             to={`/categories/${primaryCategory.id}`}
-            className="btn-contained bg-tertiaryB mr-1 whitespace-nowrap"
+            className="btn-contained bg-tertiaryB-600 mr-1 whitespace-nowrap"
             onClick={categoryPressed}
           >
             {primaryCategory?.title}
@@ -73,7 +73,7 @@ function WordCategories({
         {secondaryCategory !== undefined && (
           <Link
             to={`/categories/${secondaryCategory.id}`}
-            className="btn-contained bg-tertiaryB mr-1 whitespace-nowrap"
+            className="btn-contained bg-tertiaryB-600 mr-1 whitespace-nowrap"
             onClick={categoryPressed}
           >
             {secondaryCategory?.title}

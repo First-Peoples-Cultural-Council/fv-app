@@ -37,13 +37,13 @@ export function ConfirmDialog({
       <div className="flex justify-end">
         <div className="p-4">
           <button
-            className="btn-contained bg-secondary mr-2"
+            className="btn-contained bg-secondary-500 mr-2"
             onClick={handleConfirm}
           >
             {confirmLabel}
           </button>
           <button
-            className="btn-contained bg-primary mr-2"
+            className="btn-contained bg-primary-500 mr-2"
             onClick={closeModal}
           >
             {cancelLabel}

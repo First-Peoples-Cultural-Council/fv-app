@@ -53,7 +53,7 @@ export function SongView({ song }: Readonly<SongViewProps>) {
               <AudioControl audio={audio} />
               {audio?.description && <div>{audio?.description}</div>}
               {audio?.acknowledgement && (
-                <div className="italic text-fv-charcoal-light">
+                <div className="italic text-charcoal-400">
                   {audio?.acknowledgement}
                 </div>
               )}
@@ -66,7 +66,7 @@ export function SongView({ song }: Readonly<SongViewProps>) {
             <div className="text-lg font-bold">INTRODUCTION</div>
             <div key="introduction">
               <div>{convertJsonToComponent(song?.introduction ?? '{}')}</div>
-              <div className="italic text-fv-charcoal-light">
+              <div className="italic text-charcoal-400">
                 {convertJsonToComponent(song?.introductionTranslation ?? '{}')}
               </div>
             </div>
@@ -79,7 +79,7 @@ export function SongView({ song }: Readonly<SongViewProps>) {
               return (
                 <div key={lyrics.id}>
                   <div>{lyrics.text}</div>
-                  <div className="italic text-fv-charcoal-light">
+                  <div className="italic text-charcoal-400">
                     {lyrics.translation}
                   </div>
                 </div>

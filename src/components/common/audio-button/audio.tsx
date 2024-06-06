@@ -74,7 +74,7 @@ export function AudioButton({ fvAudio }: Readonly<AudioButtonProps>) {
           className={classNames(
             hasFile || isOnline
               ? 'btn-contained bg-secondary'
-              : 'btn-contained bg-tertiaryB',
+              : 'btn-contained bg-tertiaryB-600',
             hasFile || isOnline ? '' : 'opacity-30'
           )}
           onClick={() => {

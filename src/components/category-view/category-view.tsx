@@ -228,7 +228,7 @@ export function CategoryView(props: CategoryViewProps) {
       <Link
         to={`/categories/${primaryCategory.id}`}
         className={classNames(
-          'transition duration-500 ease-in-out rounded-lg pr-4 flex items-center cursor-pointer text-tertiaryB bg-gray-300 p-2 mt-2 hover:opacity-75'
+          'transition duration-500 ease-in-out rounded-lg pr-4 flex items-center cursor-pointer text-tertiaryB-600 bg-gray-300 p-2 mt-2 hover:opacity-75'
         )}
       >
         <i

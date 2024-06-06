@@ -19,7 +19,7 @@ export function MobileNav({
     <>
       {/* Mobile Nav Spacer */}
       <div className="w-full block md:hidden h-[56px]"></div>
-      <nav className="fixed bottom-0 left-0 w-full bg-color-main-header flex-auto p-4 justify-between items-center md:hidden">
+      <nav className="fixed bottom-0 left-0 w-full bg-charcoal-500 flex-auto p-4 justify-between items-center md:hidden">
         <ul className="flex justify-around w-full">
           {navItems?.map((item) => (
             <li key={item.id}>
@@ -29,7 +29,7 @@ export function MobileNav({
                   'flex items-center text-white cursor-pointer text-3xl',
                   {
                     'ml-2': !!item.icon,
-                    'text-word': location.pathname.includes(item.id),
+                    'text-word-500': location.pathname.includes(item.id),
                   }
                 )}
               >
@@ -55,7 +55,7 @@ export function MobileNav({
                     'flex items-center text-white cursor-pointer text-3xl',
                     {
                       'ml-2': !!item.icon,
-                      'text-word': location.pathname.includes(item.id),
+                      'text-word-500': location.pathname.includes(item.id),
                     }
                   )}
                 >

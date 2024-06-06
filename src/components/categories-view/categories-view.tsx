@@ -36,7 +36,7 @@ export function CategoriesView(props: CategoriesViewProps) {
               <Link
                 key={category.id}
                 to={`/categories/${category.id}`}
-                className="w-40 h-40 m-2 content-center grid grid-cols-1 cursor-pointer bg-tertiaryB text-white py-2 px-4 rounded shadow text-center"
+                className="w-40 h-40 m-2 content-center grid grid-cols-1 cursor-pointer bg-tertiaryB-600 text-white py-2 px-4 rounded shadow text-center"
               >
                 <i className={classNames('fv-categories', 'text-4xl')} />
 
@@ -83,7 +83,7 @@ export function CategoriesView(props: CategoriesViewProps) {
                         'flex items-center cursor-pointer mb-6'
                       )}
                     >
-                      <div className="pt-2 text-md pl-8 text-slate-600">
+                      <div className="pt-2 text-md pl-8 text-gray-600">
                         {subCategory.title}
                       </div>
                     </Link>

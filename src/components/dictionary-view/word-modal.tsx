@@ -14,10 +14,13 @@ export interface WordModalProps {
 }
 
 function WordModal({ term, onClose }: Readonly<WordModalProps>) {
+  console.log(term);
   const bookmark: Bookmark = useMemo(() => {
     return {
       id: term.entryID,
-      type: term.source,
+      type: term.source
+        ? term.source.substring(0, term.source.length - 1)
+        : 'unknown', // Remove 's' from 'words' and 'phrases'
       definition: term.definition,
       name: term.word,
       hasAudio: term.audio?.length !== 0,

@@ -33,7 +33,7 @@ export function SongsView({ songsData }: Readonly<SongsViewProps>) {
                 className={classNames(
                   'w-full border border-gray-200 md:rounded-lg bg-white p-4 shadow-lg hover:bg-gray-100 cursor-pointer',
                   {
-                    'md:border-color-songs-light md:border-2 hover:bg-white':
+                    'md:border-song-500 md:border-2 hover:bg-white':
                       song.id === selectedSong?.id,
                   }
                 )}

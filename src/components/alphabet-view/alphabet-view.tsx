@@ -1,18 +1,16 @@
 import React, { useRef, useContext, useEffect, useState } from 'react';
 
 // FPCC
-import classNames from 'classnames';
-import styles from './alphabet-view.module.css';
 import { useIsMobile } from '../../util/useMediaQuery';
 import { FvLetter } from '../common/data';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
+import { ApiContext } from '../contexts/apiContext';
 import fetchCharactersData from '../../services/charactersApiService';
+import { useDictionaryData } from '../dictionary-page/dictionary-page';
 import { Keyboard } from './keyboard';
 import { SelectedLetterDisplay } from './selected-letter-display';
-import { ApiContext } from '../contexts/apiContext';
 import { WordExampleList } from './word-example-list';
 import { WordStartsWithList } from './word-starts-with-list';
-import { useDictionaryData } from '../dictionary-page/dictionary-page';
 
 /* eslint-disable-next-line */
 export interface AlphabetViewProps {}
@@ -59,12 +57,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
     <>
       {/* Mobile */}
       <div className="flex md:hidden justify-center w-full">
-        <div
-          className={classNames(
-            'overflow-y-auto col-span-1 w-full',
-            styles['smallContainer']
-          )}
-        >
+        <div className="overflow-y-auto col-span-1 w-full">
           <Keyboard
             selected={selected}
             setSelected={setSelected}
@@ -77,12 +70,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
       {/* Tablet */}
       <div className="hidden md:block w-full">
         <div className="grid grid-cols-3">
-          <div
-            className={classNames(
-              'overflow-y-auto col-span-1',
-              styles['largeContainer']
-            )}
-          >
+          <div className="overflow-y-auto col-span-1 w-full space-y-4">
             {selected && (
               <SelectedLetterDisplay
                 selected={selected}
@@ -101,22 +89,13 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
           {selected && (
             <div
               ref={wordListRef}
-              className={classNames(
-                'overflow-y-auto col-span-2',
-                styles['largeContainer']
-              )}
+              className="overflow-y-auto col-span-2 w-full"
             >
               {selected?.relatedDictionaryEntries.length > 0 && (
-                <WordExampleList
-                  selected={selected}
-                  dictionaryData={dictionaryData}
-                />
+                <WordExampleList selected={selected} />
               )}
               {selected?.note?.length > 0 && note()}
-              <WordStartsWithList
-                selected={selected}
-                dictionaryData={dictionaryData}
-              />
+              <WordStartsWithList selected={selected} />
             </div>
           )}
         </div>
@@ -130,16 +109,10 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
               dictionaryData={dictionaryData}
             />
             {selected?.relatedDictionaryEntries.length > 0 && (
-              <WordExampleList
-                selected={selected}
-                dictionaryData={dictionaryData}
-              />
+              <WordExampleList selected={selected} />
             )}
             {selected?.note?.length > 0 && note()}
-            <WordStartsWithList
-              selected={selected}
-              dictionaryData={dictionaryData}
-            />
+            <WordStartsWithList selected={selected} />
           </div>
         </FullScreenModal>
       )}

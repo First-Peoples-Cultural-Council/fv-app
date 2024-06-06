@@ -1,14 +1,13 @@
 import React from 'react';
-import { DictionaryEntryExportFormat } from '@mothertongues/search';
 
 // FPCC
 import { CopyButton } from './copy-button';
 import { DownloadButton } from './download-button';
 import { AudioButton } from './audio-button';
-import { FvLetter, FVMedia, FvWordLocationCombo } from '../common/data';
+import { FvLetter, FVMedia, FvWord } from '../common/data';
 
 export interface SelectedLetterDisplayProps {
-  dictionaryData: (DictionaryEntryExportFormat | FvWordLocationCombo)[];
+  dictionaryData: FvWord[] | [];
   selected: FvLetter;
 }
 
@@ -20,7 +19,7 @@ export function SelectedLetterDisplay({
 
   return (
     <>
-      <div className="flex text-8xl justify-center pb-6">{selected?.title}</div>
+      <div className="flex text-8xl justify-center">{selected?.title}</div>
       {audioCount === 0 && (
         <div className="flex w-full justify-center">
           <CopyButton selected={selected} />

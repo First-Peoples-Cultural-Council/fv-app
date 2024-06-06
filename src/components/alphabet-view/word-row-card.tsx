@@ -24,7 +24,7 @@ function WordAlphabetRowCard({ term }: Readonly<WordAlphabetRowCardProps>) {
   return (
     <>
       <button
-        className="w-full rounded-lg bg-white p-4 mx-1 shadow-lg hover:bg-gray-100 cursor-pointer"
+        className="w-full  bg-white p-4 rounded-lg shadow-md border border-gray-200 hover:bg-gray-100 cursor-pointer"
         onClick={() => setShowModal(true)}
       >
         <div className="grid grid-cols-10 gap-4">

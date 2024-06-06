@@ -43,26 +43,22 @@ export function ProfileView() {
   };
 
   const list: DeleteListType[] = bookmarks.map((bookmark) => {
-    let color = 'slate-700';
+    let color = '-charcoal-500';
     switch (bookmark.type?.toLowerCase()) {
-      case 'words':
-        color = 'word';
+      case 'word':
+        color = '-word-500';
         break;
-
-      case 'phrases':
-        color = 'phrase';
+      case 'phrase':
+        color = '-phrase-500';
         break;
-
       case 'story':
-        color = 'story-dark';
+        color = '-story-500';
         break;
-
       case 'song':
-        color = 'song';
+        color = '-song-500';
         break;
-
       case 'letter':
-        color = 'tertiaryA';
+        color = '-tertiaryA-500';
         break;
     }
     return {
@@ -75,7 +71,7 @@ export function ProfileView() {
                 <div
                   className={classNames(
                     'px-2 inline-flex text-xs leading-5 font-medium rounded-full capitalize text-white',
-                    `bg-${color}`
+                    `bg${color}`
                   )}
                 >
                   {bookmark.type}
@@ -99,7 +95,7 @@ export function ProfileView() {
           <div
             className={classNames(
               'flex md:hidden w-full',
-              `border-l-[10px] rounded-lg border-${color}`
+              `border-l-[10px] rounded-lg border${color}`
             )}
           >
             <div className="grid grid-cols-10 w-full p-2">
@@ -124,8 +120,8 @@ export function ProfileView() {
       <PageHeader
         title="Bookmarks"
         backgroundColors={{
-          to: 'to-color-profile-light',
-          from: 'from-color-profile-dark',
+          to: 'to-tertiaryA-500',
+          from: 'from-tertiaryA-600',
         }}
       />
       <DeletableList

@@ -7,7 +7,7 @@ export interface FlipButtonProps {
 export function FlipButton({ handleClick }: Readonly<FlipButtonProps>) {
   return (
     <button
-      className="absolute bottom-2 text-center w-1/3 rounded-md italic text-white bg-tertiaryB"
+      className="absolute bottom-2 text-center w-1/3 rounded-md italic text-white bg-tertiaryB-500"
       onClick={handleClick}
       onKeyDown={handleClick}
     >

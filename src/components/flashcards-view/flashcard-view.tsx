@@ -99,7 +99,7 @@ export function FlashcardView({
         </div>
       </div>
       {/* Back */}
-      <div className="absolute insert-0 h-full w-full rounded-xl bg-black p-2 text-slate-200 flex items-center justify-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
+      <div className="absolute insert-0 h-full w-full rounded-xl bg-black p-2 text-gray-200 flex items-center justify-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
         {flashcardData && (
           <div
             className={classNames('text-4xl text-center break-words w-full', {

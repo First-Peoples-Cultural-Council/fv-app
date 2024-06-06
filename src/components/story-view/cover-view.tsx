@@ -57,7 +57,7 @@ export function CoverView({ story, startReading }: Readonly<CoverViewProps>) {
         <button
           onClick={() => startReading()}
           type="button"
-          className={classNames('w-full btn-contained bg-color-alphabet-light')}
+          className={classNames('w-full btn-contained bg-song-500')}
         >
           Start Reading
         </button>

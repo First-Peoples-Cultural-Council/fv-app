@@ -110,7 +110,10 @@ class IndexedDBService {
       buffer: fileBuffer,
       type
     };
-    await store.add(mediaFile,url);
+
+    console.log("addMediaFile adding ", url, mediaFile, " from ", file);
+    await store.add(mediaFile,url).catch((reason) => console.log("Error adding media file to cache: ", url, reason));
+    console.log("addMediaFile success: ", url, mediaFile);
   }
 
   async getMediaFile(url: string): Promise<
@@ -143,13 +146,16 @@ class IndexedDBService {
 
       // Files are returned as Blobs for ease of use
       const blob = new Blob([mediaFile.buffer], { type: mediaFile.type });
-      return {
+      const formattedFile = {
         downloadedAt: mediaFile.downloadedAt,
         lastAccessedAt: mediaFile.lastAccessedAt,
         file: blob
       };
+      console.log("getMediaFile returning file: ", formattedFile, " from: ", mediaFile)
+      return formattedFile;
     }
 
+    console.log("getMediaFile returning nothing: ", url, mediaFile);
     return mediaFile;
   }
 

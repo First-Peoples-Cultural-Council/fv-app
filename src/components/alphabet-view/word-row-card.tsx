@@ -1,45 +1,30 @@
-import { useLocation } from 'react-router-dom';
+import React from 'react';
 import WordModal from '../dictionary-view/word-modal';
-import {
-  FvWord,
-  FvWordLocationCombo,
-  isFvWordLocationCombo,
-} from '../common/data';
+import { FvWord, FvWordLocation } from '../common/data';
+
+// FPCC
 import Modal from '../common/modal/modal';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import { useModal } from '../common/use-modal/use-modal';
-import { useEffect } from 'react';
+
 import { useAudio } from '../contexts/audioContext';
 import { applyHighlighting } from '../../util/applyHighlighting';
 
-function WordAlphabetRowCard(
-  props: Readonly<{ term: FvWord | FvWordLocationCombo }>
-) {
-  const { term } = props;
-  const location = useLocation();
-  const { setShowModal, showModal, closeModal } = useModal();
-  const entry = (term.entry ? term.entry : term) as FvWord;
-  let wordLocations = null;
-  if (isFvWordLocationCombo(term)) {
-    wordLocations = term.locations;
-  }
-  const { word, definition } = entry;
-  const { stopAll } = useAudio();
+export interface WordAlphabetRowCardProps {
+  term: FvWord;
+}
 
-  useEffect(() => {
-    if (
-      location.hash === `#${entry.source}-${entry.entryID}` ||
-      location.hash === `#${entry.source}-${entry.entryID}?source=/bookmarks`
-    ) {
-      setShowModal(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location]);
+function WordAlphabetRowCard({ term }: Readonly<WordAlphabetRowCardProps>) {
+  const { setShowModal, showModal, closeModal } = useModal();
+  const wordLocations: FvWordLocation[] | null = term?.locations ?? null;
+
+  const { word, definition } = term;
+  const { stopAll } = useAudio();
 
   return (
     <>
-      <div
-        className="rounded-lg bg-white p-6 m-2 shadow-lg hover:bg-slate-100 cursor-pointer"
+      <button
+        className="w-full rounded-lg bg-white p-4 mx-1 shadow-lg hover:bg-gray-100 cursor-pointer"
         onClick={() => setShowModal(true)}
       >
         <div className="grid grid-cols-10 gap-4">
@@ -61,11 +46,11 @@ function WordAlphabetRowCard(
             <i className="fv-right-open" />
           </div>
         </div>
-      </div>
+      </button>
       {window.matchMedia('(min-width: 768px').matches && showModal && (
         <Modal onClose={() => closeModal()}>
           <WordModal
-            term={entry}
+            term={term}
             onClose={() => {
               closeModal();
               stopAll();
@@ -76,7 +61,7 @@ function WordAlphabetRowCard(
       {!window.matchMedia('(min-width: 768px').matches && showModal && (
         <FullScreenModal onClose={() => closeModal()}>
           <WordModal
-            term={entry}
+            term={term}
             onClose={() => {
               closeModal();
               stopAll();

@@ -67,7 +67,10 @@ export type FvWordLocationCombo = {
   locations: FvWordLocation[];
 };
 
-export type FvWord = DictionaryEntryExportFormat;
+export type FvWord = DictionaryEntryExportFormat & {
+  locations?: FvWordLocation[];
+  key?: string;
+};
 
 export type FvWordLocation = [type: string, index: number];
 

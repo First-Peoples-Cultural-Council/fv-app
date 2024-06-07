@@ -7,20 +7,16 @@ import Alert from '../common/alert/alert';
 import { useDetectOnlineStatus } from '../../util/useDetectOnlineStatus';
 import ConfirmDialog from '../common/confirm/confirm';
 import Modal from '../common/modal/modal';
-import {
-  FvLetter,
-  FvWordLocationCombo,
-  isFvWord,
-  isFvWordLocationCombo,
-} from '../common/data';
+import { FvCharacter, FvWord } from '../common/data';
+import { useStartsWithChar } from '../../util/useStartsWithChar';
 
 export interface DownloadButtonProps {
-  dataDictionary: (DictionaryEntryExportFormat | FvWordLocationCombo)[];
-  selected: FvLetter;
+  dictionaryData: DictionaryEntryExportFormat[];
+  selected: FvCharacter;
 }
 
 export function DownloadButton({
-  dataDictionary,
+  dictionaryData,
   selected,
 }: Readonly<DownloadButtonProps>) {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
@@ -29,6 +25,7 @@ export function DownloadButton({
   const [currentlyDownloading, setCurrentlyDownloading] = useState(false);
   const { isOnline } = useDetectOnlineStatus();
   const [showAlertNotOnline, setShowAlertNotOnline] = useState(false);
+  const { entriesStartingWith } = useStartsWithChar(dictionaryData, selected);
   return (
     <>
       <div className="flex justify-center items-center">
@@ -99,38 +96,16 @@ export function DownloadButton({
 
     // Get a list of the assets associated with the words/phrases
     // that start with the selected letter.
-    dataDictionary
-      .filter((term) => {
-        if (isFvWord(term)) {
-          return term.word.startsWith(selected?.title ?? '');
-        }
-        if (isFvWordLocationCombo(term)) {
-          return term.entry.word.startsWith(selected?.title ?? '');
-        }
-        return false;
-      })
-      .forEach((term) => {
-        if (isFvWord(term)) {
-          // Get the image associated with the word/phrase.
-          if (term.img) {
-            mediaList.add(term.img);
-          }
-          // Get all of the audio files associated with the word/phrase.
-          term.audio?.forEach((audio: Audio1) => {
-            mediaList.add(audio.filename);
-          });
-        }
-        if (isFvWordLocationCombo(term)) {
-          // Get the image associated with the word/phrase.
-          if (term.entry.img) {
-            mediaList.add(term.entry.img);
-          }
-          // Get all of the audio files associated with the word/phrase.
-          term.entry.audio?.forEach((audio: Audio1) => {
-            mediaList.add(audio.filename);
-          });
-        }
+    entriesStartingWith.forEach((term: FvWord) => {
+      // Get the image associated with the word/phrase.
+      if (term.img) {
+        mediaList.add(term.img);
+      }
+      // Get all of the audio files associated with the word/phrase.
+      term.audio?.forEach((audio: Audio1) => {
+        mediaList.add(audio.filename);
       });
+    });
 
     // If there is media to download get it and update the percentage.
     if (mediaList.size > 0) {

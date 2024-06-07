@@ -2,20 +2,19 @@ import React from 'react';
 
 // FPCC
 import WordAlphabetRowCard from './word-row-card';
-import { FvLetter, FvWord } from '../common/data';
+import { FvCharacter, FvWord } from '../common/data';
 import { useDictionaryData } from '../dictionary-page/dictionary-page';
+import { useStartsWithChar } from '../../util/useStartsWithChar';
 
 export interface WordStartsWithListProps {
-  selected: FvLetter;
+  selected: FvCharacter;
 }
 
 export function WordStartsWithList({
   selected,
 }: Readonly<WordStartsWithListProps>) {
   const { dictionaryData } = useDictionaryData();
-  const wordsStartingWith = [...dictionaryData].filter((term) => {
-    return term?.word?.startsWith(selected?.title ?? '');
-  });
+  const { entriesStartingWith } = useStartsWithChar(dictionaryData, selected);
 
   return (
     <div className="w-full">
@@ -24,13 +23,13 @@ export function WordStartsWithList({
         <span className="text-4xl bold">{selected?.title}</span>
       </div>
       <div className="space-y-2 md:px-2">
-        {wordsStartingWith.map((term: FvWord) => {
+        {entriesStartingWith?.map((entry: FvWord) => {
           return (
             <div
-              key={`${term.source}-${term.entryID}`}
+              key={`${entry.source}-${entry.entryID}`}
               className="flex w-full col-span-1"
             >
-              <WordAlphabetRowCard term={term} />
+              <WordAlphabetRowCard term={entry} />
             </div>
           );
         })}

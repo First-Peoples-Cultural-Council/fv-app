@@ -32,7 +32,11 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
     const fetchDataAlphabetAsync = async () => {
       try {
         const result = await fetchCharactersData();
-        setDataAlphabet(result);
+        // Add character sort_form number for getting "starts with" entries
+        const alphabetWithIndex = result.map((char, index) => {
+          return { ...char, sortingFormNum: index + 1 };
+        });
+        setDataAlphabet(alphabetWithIndex);
       } catch (error) {
         // Handle error scenarios
         console.error('Error occurred:', error);

@@ -130,6 +130,7 @@ export type FvLetter = {
   relatedDictionaryEntries: FvWord2[];
   note: string;
   sortOrder: number;
+  sortingFormNum?: number; // added after fetch
   approximateForm: string;
   variants: any[];
 };

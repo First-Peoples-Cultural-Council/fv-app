@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 // FPCC
 import WordAlphabetRowCard from './word-row-card';
@@ -13,9 +13,16 @@ export function WordStartsWithList({
   selected,
 }: Readonly<WordStartsWithListProps>) {
   const { dictionaryData } = useDictionaryData();
-  const wordsStartingWith = [...dictionaryData].filter((term) => {
-    return term?.word?.startsWith(selected?.title ?? '');
-  });
+  const [entriesStartingWith, setEntriesStartingWith] = useState<FvWord[]>([]);
+
+  useEffect(() => {
+    if (dictionaryData && selected.sortingFormNum !== undefined) {
+      const entries = [...dictionaryData].filter((entry) => {
+        return entry.sorting_form[0] === selected.sortingFormNum;
+      });
+      setEntriesStartingWith(entries);
+    }
+  }, [dictionaryData, selected.sortingFormNum]);
 
   return (
     <div className="w-full">
@@ -24,7 +31,7 @@ export function WordStartsWithList({
         <span className="text-4xl bold">{selected?.title}</span>
       </div>
       <div className="space-y-2 md:px-2">
-        {wordsStartingWith.map((term: FvWord) => {
+        {entriesStartingWith?.map((term: FvWord) => {
           return (
             <div
               key={`${term.source}-${term.entryID}`}

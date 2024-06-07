@@ -23,13 +23,13 @@ export function SelectedLetterDisplay({
       {audioCount === 0 && (
         <div className="flex w-full justify-center">
           <CopyButton selected={selected} />
-          <DownloadButton selected={selected} dataDictionary={dictionaryData} />
+          <DownloadButton selected={selected} dictionaryData={dictionaryData} />
         </div>
       )}
       {audioCount === 1 && (
         <div className="grid grid-cols-3">
           <CopyButton selected={selected} />
-          <DownloadButton selected={selected} dataDictionary={dictionaryData} />
+          <DownloadButton selected={selected} dictionaryData={dictionaryData} />
           {selected?.relatedAudio.map((fvAudio: FVMedia) => {
             return <AudioButton key={fvAudio.id} fvAudio={fvAudio} />;
           })}
@@ -43,7 +43,7 @@ export function SelectedLetterDisplay({
           <div className="flex w-full justify-center">
             <DownloadButton
               selected={selected}
-              dataDictionary={dictionaryData}
+              dictionaryData={dictionaryData}
             />
           </div>
           <div className="flex justify-evenly mt-5">

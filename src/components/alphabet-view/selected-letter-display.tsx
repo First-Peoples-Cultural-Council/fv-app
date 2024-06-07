@@ -19,7 +19,10 @@ export function SelectedLetterDisplay({
 
   return (
     <>
-      <div className="flex text-8xl justify-center">{selected?.title}</div>
+      <div className="flex text-8xl justify-center pb-8 md:pb-4">
+        {/* NB Bottom padding necessary to preserve space for characters with tails and underscores */}
+        {selected?.title}
+      </div>
       {audioCount === 0 && (
         <div className="flex w-full justify-center">
           <CopyButton selected={selected} />

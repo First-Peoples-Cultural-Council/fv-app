@@ -1,13 +1,13 @@
 import React from 'react';
-import { FvLetter } from '../common/data';
+import { FvCharacter } from '../common/data';
 import classNames from 'classnames';
 import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 
 export interface KeyboardProps {
-  selected: FvLetter | null;
-  setSelected: (letter: FvLetter | null) => void;
+  selected: FvCharacter | null;
+  setSelected: (letter: FvCharacter | null) => void;
   loading: boolean;
-  dataAlphabet: FvLetter[];
+  dataAlphabet: FvCharacter[];
   wordListRef: React.RefObject<HTMLDivElement>;
 }
 
@@ -24,7 +24,7 @@ export function Keyboard({
     }
   };
 
-  const onCharacterClick = (character: FvLetter) => {
+  const onCharacterClick = (character: FvCharacter) => {
     scrollToTop();
     setSelected(character);
   };

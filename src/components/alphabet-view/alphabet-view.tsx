@@ -2,7 +2,7 @@ import React, { useRef, useContext, useEffect, useState } from 'react';
 
 // FPCC
 import { useIsMobile } from '../../util/useMediaQuery';
-import { FvLetter } from '../common/data';
+import { FvCharacter } from '../common/data';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import { ApiContext } from '../contexts/apiContext';
 import fetchCharactersData from '../../services/charactersApiService';
@@ -20,8 +20,8 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
   const { isApiCallInProgress } = useContext(ApiContext);
   const wordListRef = useRef<HTMLDivElement | null>(null);
   const isMobile = useIsMobile();
-  const [dataAlphabet, setDataAlphabet] = useState<FvLetter[]>([]);
-  const [selected, setSelected] = useState<FvLetter | null>(null);
+  const [dataAlphabet, setDataAlphabet] = useState<FvCharacter[]>([]);
+  const [selected, setSelected] = useState<FvCharacter | null>(null);
   const [loadingAlphabet, setLoadingAlphabet] = useState(true);
 
   if (!isMobile && selected === null && dataAlphabet.length !== 0) {

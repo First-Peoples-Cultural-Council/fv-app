@@ -1,10 +1,10 @@
 import React from 'react';
 import WordAlphabetRowCard from './word-row-card';
-import { FvLetter, FvWord } from '../common/data';
+import { FvCharacter, FvWord } from '../common/data';
 import { useDictionaryData } from '../dictionary-page/dictionary-page';
 
 export interface WordExampleListProps {
-  selected: FvLetter;
+  selected: FvCharacter;
 }
 
 export function WordExampleList({ selected }: Readonly<WordExampleListProps>) {

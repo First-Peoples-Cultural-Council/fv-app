@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 
 // FPCC
 import WordAlphabetRowCard from './word-row-card';
-import { FvLetter, FvWord } from '../common/data';
+import { FvCharacter, FvWord } from '../common/data';
 import { useDictionaryData } from '../dictionary-page/dictionary-page';
 
 export interface WordStartsWithListProps {
-  selected: FvLetter;
+  selected: FvCharacter;
 }
 
 export function WordStartsWithList({

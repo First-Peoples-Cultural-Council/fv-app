@@ -4,11 +4,11 @@ import React from 'react';
 import { CopyButton } from './copy-button';
 import { DownloadButton } from './download-button';
 import { AudioButton } from './audio-button';
-import { FvLetter, FVMedia, FvWord } from '../common/data';
+import { FvCharacter, FVMedia, FvWord } from '../common/data';
 
 export interface SelectedLetterDisplayProps {
   dictionaryData: FvWord[] | [];
-  selected: FvLetter;
+  selected: FvCharacter;
 }
 
 export function SelectedLetterDisplay({

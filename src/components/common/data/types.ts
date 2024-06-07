@@ -115,7 +115,7 @@ export type FvCategory = {
   children?: FvCategory[];
 };
 
-export type FvLetter = {
+export type FvCharacter = {
   id: string;
   created: string;
   createdBy: string;

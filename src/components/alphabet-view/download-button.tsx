@@ -8,7 +8,7 @@ import { useDetectOnlineStatus } from '../../util/useDetectOnlineStatus';
 import ConfirmDialog from '../common/confirm/confirm';
 import Modal from '../common/modal/modal';
 import {
-  FvLetter,
+  FvCharacter,
   FvWordLocationCombo,
   isFvWord,
   isFvWordLocationCombo,
@@ -16,7 +16,7 @@ import {
 
 export interface DownloadButtonProps {
   dataDictionary: (DictionaryEntryExportFormat | FvWordLocationCombo)[];
-  selected: FvLetter;
+  selected: FvCharacter;
 }
 
 export function DownloadButton({

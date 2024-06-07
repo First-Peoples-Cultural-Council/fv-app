@@ -100,8 +100,8 @@ class IndexedDBService {
   }
 
   async addMediaFile(url: string, file: Blob) {
-    const store = await this.getMediaStore();
     const fileBuffer = await file.arrayBuffer();
+    const store = await this.getMediaStore();
     const type = file.type;
 
     const mediaFile = {
@@ -111,9 +111,16 @@ class IndexedDBService {
       type
     };
 
-    console.log("addMediaFile adding ", url, mediaFile, " from ", file);
-    await store.add(mediaFile,url).catch((reason) => console.log("Error adding media file to cache: ", url, reason));
-    console.log("addMediaFile success: ", url, mediaFile);
+    try {
+      const request = store.add(mediaFile,url);
+      request.catch((result)=> {
+        // this is generally not a problem; mostly due to duplicate requests
+      });
+      await request;
+    }
+    catch(err){
+      console.error("Error caching media: ", err, url);
+    }
   }
 
   async getMediaFile(url: string): Promise<
@@ -146,16 +153,13 @@ class IndexedDBService {
 
       // Files are returned as Blobs for ease of use
       const blob = new Blob([mediaFile.buffer], { type: mediaFile.type });
-      const formattedFile = {
+      return {
         downloadedAt: mediaFile.downloadedAt,
         lastAccessedAt: mediaFile.lastAccessedAt,
         file: blob
       };
-      console.log("getMediaFile returning file: ", formattedFile, " from: ", mediaFile)
-      return formattedFile;
     }
 
-    console.log("getMediaFile returning nothing: ", url, mediaFile);
     return mediaFile;
   }
 
@@ -172,7 +176,7 @@ class IndexedDBService {
       await store.put(data, key);
       await transaction.commit();
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Could not cache data:', key, error);
       transaction.abort();
     }
   }

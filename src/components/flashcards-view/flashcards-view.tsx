@@ -158,7 +158,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
             ref={SelectModalRef}
             className="bg-white rounded-lg overflow-y-auto"
           >
-            <div className="w-full text-center uppercase text-primary text-2xl">
+            <div className="w-full text-center uppercase text-primary-500 text-2xl">
               {selectedFlashcardType}
             </div>
             <div className="max-w-sm mx-auto grid grid-cols-1 gap-2 p-6">
@@ -192,7 +192,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
             ref={CategoryModalRef}
             className="bg-white rounded-lg overflow-y-auto"
           >
-            <div className="w-full text-center uppercase text-primary text-2xl">
+            <div className="w-full text-center uppercase text-primary-500 text-2xl">
               {selectedFlashcardType}
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2 p-4">
@@ -254,7 +254,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
         >
           <div
             ref={CategoryModalRef}
-            className="w-full overflow-y-auto bg-white text-fv-charcoal rounded-lg"
+            className="w-full overflow-y-auto bg-white text-charcoal-500 rounded-lg"
           >
             <div>
               <div className="w-full text-center text-2xl bold">
@@ -262,7 +262,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
               </div>
               <div className="w-full text-center text-xl">Set complete.</div>
               {data.length === 0 && (
-                <div className="text-center text-fv-charcoal-light pt-4">
+                <div className="text-center text-charcoal-400 pt-4">
                   You’ve gone through all the cards for this category.
                 </div>
               )}
@@ -314,7 +314,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
           getTypeData();
           setSelectedFlashcardType(name);
         }}
-        className="w-44 h-44 md:w-80 md:h-40 m-2 content-center grid grid-cols-1 md:grid-cols-2 cursor-pointer justify-center text-white bg-tertiaryB py-2 px-4 rounded-lg shadow text-center"
+        className="w-44 h-44 md:w-80 md:h-40 m-2 content-center grid grid-cols-1 md:grid-cols-2 cursor-pointer justify-center text-white bg-tertiaryB-500 py-2 px-4 rounded-lg shadow text-center"
       >
         <i className={classNames(icon, 'text-6xl ')} />
 

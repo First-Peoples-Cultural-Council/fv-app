@@ -3,7 +3,7 @@ import Alert from '../alert/alert';
 import { FvAudio } from '../data';
 import classNames from 'classnames';
 import IndexedDBService from '../../../services/indexedDbService';
-import { useDetectOnlineStatus } from '../hooks/useDetectOnlineStatus';
+import { useDetectOnlineStatus } from '../../../util/useDetectOnlineStatus';
 import { useAudio } from '../../contexts/audioContext';
 
 export interface AudioButtonProps {
@@ -74,7 +74,7 @@ export function AudioButton({ fvAudio }: Readonly<AudioButtonProps>) {
           className={classNames(
             hasFile || isOnline
               ? 'btn-contained bg-secondary'
-              : 'btn-contained bg-tertiaryB',
+              : 'btn-contained bg-tertiaryB-500',
             hasFile || isOnline ? '' : 'opacity-30'
           )}
           onClick={() => {

@@ -100,8 +100,8 @@ class IndexedDBService {
   }
 
   async addMediaFile(url: string, file: Blob) {
-    const store = await this.getMediaStore();
     const fileBuffer = await file.arrayBuffer();
+    const store = await this.getMediaStore();
     const type = file.type;
 
     const mediaFile = {
@@ -110,7 +110,17 @@ class IndexedDBService {
       buffer: fileBuffer,
       type
     };
-    await store.add(mediaFile,url);
+
+    try {
+      const request = store.add(mediaFile,url);
+      request.catch((result)=> {
+        // this is generally not a problem; mostly due to duplicate requests
+      });
+      await request;
+    }
+    catch(err){
+      console.error("Error caching media: ", err, url);
+    }
   }
 
   async getMediaFile(url: string): Promise<
@@ -166,7 +176,7 @@ class IndexedDBService {
       await store.put(data, key);
       await transaction.commit();
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Could not cache data:', key, error);
       transaction.abort();
     }
   }

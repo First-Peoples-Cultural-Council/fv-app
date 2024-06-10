@@ -1,47 +1,39 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+
+// FPCC
 import WordAlphabetRowCard from './word-row-card';
-import {
-  FvLetter,
-  FvWordLocationCombo,
-  isFvWordLocationCombo,
-} from '../common/data';
-import { DictionaryEntryExportFormat } from '@mothertongues/search';
+import { FvCharacter, FvWord } from '../common/data';
+import { useDictionaryData } from '../dictionary-page/dictionary-page';
+import { useStartsWithChar } from '../../util/useStartsWithChar';
 
 export interface WordStartsWithListProps {
-  dictionaryData: (DictionaryEntryExportFormat | FvWordLocationCombo)[];
-  selected: FvLetter;
+  selected: FvCharacter;
 }
 
 export function WordStartsWithList({
-  dictionaryData,
   selected,
 }: Readonly<WordStartsWithListProps>) {
-  const wordsStartingWith = [...dictionaryData].filter((term) => {
-    if (isFvWordLocationCombo(term)) {
-      return term?.entry?.word?.startsWith(selected?.title ?? '');
-    }
-    return term?.word?.startsWith(selected?.title ?? '');
-  });
+  const { dictionaryData } = useDictionaryData();
+  const { entriesStartingWith } = useStartsWithChar(dictionaryData, selected);
 
   return (
     <div className="w-full">
-      <div className="p-5">
+      <div className="p-3">
         <span className="text-xl pr-2">WORDS STARTING WITH</span>
-        <span className="text-5xl bold">{selected?.title}</span>
+        <span className="text-4xl bold">{selected?.title}</span>
       </div>
-      {wordsStartingWith.map((term) => {
-        return (
-          <Fragment
-            key={
-              isFvWordLocationCombo(term)
-                ? `${term.entry.source}-${term.entry.entryID}`
-                : `${term.source}-${term.entryID}`
-            }
-          >
-            <WordAlphabetRowCard term={term} />
-          </Fragment>
-        );
-      })}
+      <div className="space-y-2 md:px-2">
+        {entriesStartingWith?.map((entry: FvWord) => {
+          return (
+            <div
+              key={`${entry.source}-${entry.entryID}`}
+              className="flex w-full col-span-1"
+            >
+              <WordAlphabetRowCard term={entry} />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

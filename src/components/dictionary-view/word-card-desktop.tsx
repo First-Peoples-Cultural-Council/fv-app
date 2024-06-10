@@ -1,68 +1,38 @@
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React from 'react';
 import classNames from 'classnames';
+import { Audio1 } from '@mothertongues/search';
 
 // FPCC
-import {
-  FvWord,
-  FvWordLocationCombo,
-  isFvWord,
-  isFvWordLocationCombo,
-} from '../common/data';
+import { FvWord, FvWordLocation } from '../common/data';
 import Modal from '../common/modal/modal';
 import { useModal } from '../common/use-modal/use-modal';
-import { Audio1 } from '@mothertongues/search';
 import { useAudio } from '../contexts/audioContext';
 import { applyHighlighting } from '../../util/applyHighlighting';
 import WordModal from './word-modal';
 
-function WordCardDesktop(
-  props: Readonly<{
-    item: FvWord | FvWordLocationCombo;
-    wordWidthClass?: string;
-  }>
-) {
-  const { item, wordWidthClass } = props;
-  let term: any = {};
-  if (isFvWord(item)) {
-    term = item;
-  }
-  let wordLocations = null;
-  if (isFvWordLocationCombo(item)) {
-    term = item.entry;
-    wordLocations = item.locations;
-  }
-  const { word, definition, audio } = term;
-  const location = useLocation();
+export interface WordCardDesktopProps {
+  item: FvWord;
+  wordWidthClass?: string;
+}
+
+function WordCardDesktop({
+  item,
+  wordWidthClass,
+}: Readonly<WordCardDesktopProps>) {
+  const wordLocations: FvWordLocation[] | null = item?.locations ?? null;
+  const { word, definition, audio } = item;
   const { setShowModal, showModal, closeModal } = useModal();
   const { stopAll } = useAudio();
-
-  useEffect(() => {
-    const locationHash = `#${term.source}-${term.entryID}`;
-    if (
-      (location.hash === locationHash ||
-        location.hash === `${locationHash}?source=/bookmarks`) &&
-      window.matchMedia('(min-width: 768px').matches
-    ) {
-      setShowModal(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location]);
 
   return (
     <>
       <button
-        className="hidden md:block rounded-lg bg-white p-6 m-1 shadow-lg hover:bg-slate-100 cursor-pointer w-full mx-2"
+        className="hidden md:block rounded-lg bg-white p-6 m-1 shadow-lg hover:bg-gray-100 cursor-pointer w-full mx-2"
         onClick={() => setShowModal(true)}
       >
         <div className="grid grid-flow-col auto-cols-[minmax(0,_2fr)]">
           <div className="flex grid-flow-col items-center col-span-4">
-            <div
-              className={classNames(
-                'flex flex-wrap font-bold text-left',
-                wordWidthClass
-              )}
-            >
+            <div className={classNames('text-left', wordWidthClass)}>
               {wordLocations
                 ? applyHighlighting(word, wordLocations, 'word')
                 : word}
@@ -88,7 +58,7 @@ function WordCardDesktop(
       {showModal && (
         <Modal onClose={() => closeModal()}>
           <WordModal
-            term={term}
+            term={item}
             onClose={() => {
               closeModal();
               stopAll();

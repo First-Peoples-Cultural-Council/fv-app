@@ -10,7 +10,7 @@ export function SubNavDesktop({ navItems }: Readonly<SubNavDesktopProps>) {
   const location = useLocation();
 
   return (
-    <nav className="hidden md:flex flex-col h-screen sidebar text-fv-charcoal shadow-lg">
+    <nav className="hidden md:flex flex-col h-screen sidebar text-charcoal-500 shadow-lg">
       {navItems.map((item) => {
         return (
           <Link

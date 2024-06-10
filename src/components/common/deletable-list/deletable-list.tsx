@@ -73,8 +73,8 @@ export function DeletableList({
                 onClick={() => {
                   setShowConfirm(true);
                 }}
-                className={classNames('btn-contained bg-secondary mr-2', {
-                  'hover:bg-secondary-dark': selectedItems.length > 0,
+                className={classNames('btn-contained bg-secondary-500 mr-2', {
+                  'hover:bg-secondary-700': selectedItems.length > 0,
                   'opacity-50': selectedItems.length <= 0,
                 })}
               >
@@ -101,7 +101,7 @@ export function DeletableList({
                 <button
                   key={item.id}
                   type="button"
-                  className="bg-secondary-100 flex w-full items-center rounded-lg shadow-md cursor-pointer outline outline-secondary outline-2"
+                  className="bg-secondary-100 flex w-full items-center rounded-lg shadow-md cursor-pointer outline outline-secondary-500 outline-2"
                   onClick={() => handleItemSelect(item.id)}
                 >
                   {item.display}
@@ -113,10 +113,10 @@ export function DeletableList({
                   key={item.id}
                   type="button"
                   className={classNames(
-                    'flex w-full items-center rounded-lg bg-white shadow-md cursor-pointer outline outline-1 outline-slate-200',
+                    'flex w-full items-center rounded-lg bg-white shadow-md cursor-pointer outline outline-1 outline-gray-200',
                     showDelete
                       ? 'hover:bg-secondary-100 hover:outline-secondary-200'
-                      : 'hover:bg-slate-100'
+                      : 'hover:bg-gray-100'
                   )}
                   onClick={() => {
                     if (showDelete) {
@@ -156,7 +156,7 @@ export function DeletableList({
                 </button>
                 <button
                   onClick={handleDeleteSelected}
-                  className="btn-contained bg-secondary w-20"
+                  className="btn-contained bg-secondary-500 w-20"
                 >
                   <span>Ok</span>
                 </button>

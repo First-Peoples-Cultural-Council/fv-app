@@ -22,18 +22,14 @@ export const applyHighlighting = (
   if (!firstLocation) {
     return str;
   }
-
-  const word = str.split(' ').slice(firstLocation[1]);
-  const before = str.split(' ').slice(0, firstLocation[1]).join(' ');
-  const after = str
-    .split(' ')
-    .slice(firstLocation[1] + 1)
-    .join(' ');
+  const wordArray = str.split(' ');
+  const word = wordArray[firstLocation[1]];
+  const before = wordArray.slice(0, firstLocation[1]).join(' ');
+  const after = wordArray.slice(firstLocation[1] + 1).join(' ');
 
   return (
     <>
-      {before}
-      <span className="text-highlight">{word}</span>
+      {before} <span className="font-bold px-1 bg-word-200">{word}</span>{' '}
       {after}
     </>
   );

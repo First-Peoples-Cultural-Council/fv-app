@@ -197,6 +197,7 @@ async function getFileFromResponse(response: Response, filename: string): Promis
   const blob = await response.blob();
 
   if(blob) {
+    console.log("Making blob into file: ", filename, blob.type, blob, response);
     return new File([blob], filename);
   }
 

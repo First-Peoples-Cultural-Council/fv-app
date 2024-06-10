@@ -62,12 +62,10 @@ export type Language = {
   dialects?: Dialect[];
 };
 
-export type FvWordLocationCombo = {
-  entry: FvWord;
-  locations: FvWordLocation[];
+export type FvWord = DictionaryEntryExportFormat & {
+  locations?: FvWordLocation[];
+  key?: string;
 };
-
-export type FvWord = DictionaryEntryExportFormat;
 
 export type FvWordLocation = [type: string, index: number];
 
@@ -112,7 +110,7 @@ export type FvCategory = {
   children?: FvCategory[];
 };
 
-export type FvLetter = {
+export type FvCharacter = {
   id: string;
   created: string;
   createdBy: string;
@@ -127,6 +125,7 @@ export type FvLetter = {
   relatedDictionaryEntries: FvWord2[];
   note: string;
   sortOrder: number;
+  sortingFormNum?: number; // added after fetch
   approximateForm: string;
   variants: any[];
 };

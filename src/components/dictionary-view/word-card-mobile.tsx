@@ -1,62 +1,34 @@
-import { Key, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Key } from 'react';
 
 // FPCC
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import WordModal from './word-modal';
-import {
-  FvWord,
-  FvWordLocationCombo,
-  isFvWord,
-  isFvWordLocationCombo,
-} from '../common/data';
+import { FvWord, FvWordLocation } from '../common/data';
 import { useModal } from '../common/use-modal/use-modal';
 import { useAudio } from '../contexts/audioContext';
 import { applyHighlighting } from '../../util/applyHighlighting';
 
 export interface WordCardMobileProps {
-  item: FvWord | FvWordLocationCombo;
+  item: FvWord;
 }
 
 function WordCardMobile({ item }: Readonly<WordCardMobileProps>) {
-  let term: any = {};
-  if (isFvWord(item)) {
-    term = item;
-  }
-
-  let wordLocations = null;
-  if (isFvWordLocationCombo(item)) {
-    term = item.entry;
-    wordLocations = item.locations;
-  }
-  const location = useLocation();
+  const wordLocations: FvWordLocation[] | null = item?.locations ?? null;
   const { setShowModal, showModal, closeModal } = useModal();
-  const { word, definition, audio } = term;
+  const { word, definition, audio } = item;
   const { stopAll } = useAudio();
-
-  useEffect(() => {
-    if (
-      (location.hash === `#${term.source}-${term.entryID}` ||
-        location.hash ===
-          `#${term.source}-${term.entryID}?source=/bookmarks`) &&
-      !window.matchMedia('(min-width: 768px').matches
-    ) {
-      setShowModal(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location]);
 
   return (
     <>
       <button
         data-testid="word-card-mobile"
         type="button"
-        className="flex md:hidden w-full bg-white p-5 m-2 rounded-lg shadow-lg hover:bg-slate-100 cursor-pointer"
+        className="flex md:hidden w-full bg-white p-5 m-2 rounded-lg shadow-lg hover:bg-gray-100 cursor-pointer"
         onClick={() => setShowModal(true)}
       >
         <div className="grid grid-cols-10 gap-2 text-left w-full">
           <div className="col-span-8">
-            <div className="font-bold">
+            <div>
               {wordLocations
                 ? applyHighlighting(word, wordLocations, 'word')
                 : word}
@@ -80,7 +52,7 @@ function WordCardMobile({ item }: Readonly<WordCardMobileProps>) {
       {showModal && (
         <FullScreenModal onClose={() => closeModal()}>
           <WordModal
-            term={term}
+            term={item}
             onClose={() => {
               closeModal();
               stopAll();

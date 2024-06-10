@@ -105,7 +105,7 @@ export function CategoryView(props: CategoryViewProps) {
   return (
     <>
       <div className="block md:hidden w-full">
-        <div className="flex flex-auto w-[100vw] overflow-x-auto">
+        <div className="flex flex-auto w-screen overflow-x-auto">
           {selectedCategory()}
           {subcategories()}
         </div>
@@ -173,7 +173,7 @@ export function CategoryView(props: CategoryViewProps) {
                         <i
                           className={classNames(
                             'fv-categories',
-                            'text-3xl hover:opacity-75'
+                            'text-3xl hover:opacity-75 text-tertiaryB-500'
                           )}
                         />
                         <div className="pt-2 text-lg">{category.title}</div>
@@ -228,11 +228,14 @@ export function CategoryView(props: CategoryViewProps) {
       <Link
         to={`/categories/${primaryCategory.id}`}
         className={classNames(
-          'transition duration-500 ease-in-out rounded-lg pr-4 flex items-center cursor-pointer text-tertiaryB bg-gray-300 p-2 mt-2 hover:opacity-75'
+          'transition duration-500 ease-in-out rounded-lg pr-4 flex items-center cursor-pointer bg-gray-300 p-2 mt-2 hover:opacity-75'
         )}
       >
         <i
-          className={classNames('fv-categories', 'text-3xl hover:opacity-75')}
+          className={classNames(
+            'fv-categories',
+            'text-3xl hover:opacity-75 text-tertiaryB-500'
+          )}
         />
         <div className="inline-flex text-lg font-medium">
           {primaryCategory.title}

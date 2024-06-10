@@ -47,8 +47,8 @@ export function InstallPrompt() {
     <>
       {showInstallPrompt && (
         <Modal onClose={() => setShowInstallPrompt(false)} showCloseButton={true} closeOnOutsideClick={false}>
-          <div className="p-6 text-center">
-            <div className="w-full text-center text-3xl mb-5">
+          <div className="p-4 sm:p-6 md:p-6 lg:p-8 text-center">
+            <div className="w-full text-center text-3xl mb-4">
               {siteTitle + ' App'}
             </div>
             <div className="mb-4">
@@ -57,16 +57,17 @@ export function InstallPrompt() {
             <p className="mb-4 text-lg">
               Browse words and phrases in the dictionary, practice with flashcards, bookmark content and more.
             </p>
-            <p className="mb-6 text-sm">
-              Powered by the {' '}
-              <a href={siteURL} className="text-blue-500 underline">{siteTitle} FirstVoices language site.</a>
-            </p>
-            <button onClick={handleInstallPrompt} className="bg-blue-500 text-white px-8 py-3 rounded-lg text-lg">
+            <button onClick={handleInstallPrompt} className="bg-blue-500 text-white px-8 py-3 rounded-lg text-lg mb-4">
               Install App
             </button>
-            <p className="mt-4 text-sm">Compatible with iPhone, iPad, Android, Chromebook, Windows, and more.</p>
+            <p className="mb-1 text-sm">
+              Powered by the{' '}
+              <a href={siteURL} className="text-blue-500 underline">{siteTitle} FirstVoices language site.</a>
+            </p>
+
+            <p className="mt-2 text-sm">Compatible with iPhone, iPad, Android, Chromebook, Windows, and more.</p>
           </div>
-          <div className="bg-fv-charcoal py-4 mt-6 rounded-lg">
+          <div className="bg-charcoal-500 py-4 mt-4 rounded-b-lg">
             <p className="text-white text-center text-sm">An initiative of:</p>
             <div className="flex justify-center mt-2 flex-wrap">
               <a href="https://www.fpcc.ca/" target="_blank" rel="noreferrer">

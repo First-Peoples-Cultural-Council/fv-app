@@ -5,7 +5,11 @@ import {
   useLocation,
   useOutletContext,
 } from 'react-router-dom';
-import { DictionaryEntryExportFormat } from '@mothertongues/search';
+import {
+  constructSearchers,
+  DictionaryEntryExportFormat,
+  MTDSearch,
+} from '@mothertongues/search';
 
 // FPCC
 import styles from './dictionary-page.module.css';
@@ -19,7 +23,7 @@ import { FvWord } from '../common/data';
 import { ApiContext } from '../contexts/apiContext';
 import fetchWordsData from '../../services/wordsApiService';
 import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
-import SearchProvider from '../search-provider';
+import SearchProvider from '../contexts/searchContext';
 
 /* eslint-disable-next-line */
 export interface DictionaryProps {}
@@ -36,6 +40,7 @@ export function Dictionary(props: DictionaryProps) {
   const [dictionaryHash, setDictionaryHash] = useState<{
     [key: string]: DictionaryEntryExportFormat;
   }>({});
+  const [searchers, setSearchers] = useState<MTDSearch[]>();
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
@@ -58,11 +63,13 @@ export function Dictionary(props: DictionaryProps) {
       try {
         const result = await fetchWordsData(isApiCallInProgress);
         const dictionaryHash = getDictionaryHash(result.data);
+        const searchers = constructSearchers(result);
         setDictionaryData(result.data);
         setDictionaryHash(dictionaryHash);
+        setSearchers(searchers);
         setLoading(false);
       } catch (error) {
-        // Handle error scenarios
+        console.info(error);
       }
     };
 
@@ -77,10 +84,10 @@ export function Dictionary(props: DictionaryProps) {
       )
     ) ?? dictionarySubNavItems[0];
 
-  return loading ? (
+  return !searchers || loading ? (
     <LoadingSpinner />
   ) : (
-    <SearchProvider>
+    <SearchProvider dictionaryHash={dictionaryHash} searchers={searchers}>
       <div className={styles['container']}>
         <SubNavMobile navItems={dictionarySubNavItems} />
         <PageHeader
@@ -91,7 +98,7 @@ export function Dictionary(props: DictionaryProps) {
           }}
         >
           {!!matchRoutes([{ path: '' }, { path: 'dictionary' }], location) && (
-            <SearchInput dictionaryHash={dictionaryHash} />
+            <SearchInput />
           )}
         </PageHeader>
 

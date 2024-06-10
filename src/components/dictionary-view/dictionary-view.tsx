@@ -3,10 +3,15 @@ import { useState, useEffect, useContext, useMemo } from 'react';
 // FPCC
 import WordCardMobile from './word-card-mobile';
 import WordCardDesktop from './word-card-desktop';
-import { DictionaryType, FvWord, isFvWordLocationCombo } from '../common/data';
+import {
+  DictionaryType,
+  FvWord,
+  FvWordLocationCombo,
+  isFvWordLocationCombo,
+} from '../common/data';
 import MultiSwitch from '../common/multi-switch/multi-switch';
 import { useDictionaryData } from '../dictionary-page/dictionary-page';
-import { SearchContext } from '../search-provider';
+import { SearchContext } from '../contexts/searchContext';
 
 /* eslint-disable-next-line */
 export interface DictionaryViewProps {}
@@ -14,9 +19,7 @@ export interface DictionaryViewProps {}
 export function DictionaryView(props: DictionaryViewProps) {
   const { dictionaryData } = useDictionaryData();
   const [selected, setSelected] = useState<number>(DictionaryType.Both);
-  const [dataUnfiltered, setDataUnfiltered] = useState<FvWord[] | []>(
-    dictionaryData
-  );
+  const [dataUnfiltered, setDataUnfiltered] = useState<any>(dictionaryData);
   const [visibleItems, setVisibleItems] = useState(250);
   const searchContext = useContext(SearchContext);
 
@@ -42,51 +45,56 @@ export function DictionaryView(props: DictionaryViewProps) {
     };
   }, []);
 
+  const isEntryOfType = (entry: FvWord | FvWordLocationCombo, type: string) => {
+    const entryType = isFvWordLocationCombo(entry)
+      ? entry.entry.source
+      : entry.source;
+    return entryType === type;
+  };
+
   // Filter data to display by selected TYPE
   const dataToDisplay: FvWord[] = useMemo(() => {
+    switch (selected) {
+      case DictionaryType.Words: {
+        return [
+          ...dataUnfiltered.filter((entry: FvWord | FvWordLocationCombo) =>
+            isEntryOfType(entry, 'words')
+          ),
+        ];
+      }
+      case DictionaryType.Phrases: {
+        return [
+          ...dataUnfiltered.filter((entry: FvWord | FvWordLocationCombo) =>
+            isEntryOfType(entry, 'phrases')
+          ),
+        ];
+      }
+      default: {
+        return [...dataUnfiltered];
+      }
+    }
+  }, [selected, dataUnfiltered]);
+
+  const onTypeToggle = (typeNumber: number) => {
     setVisibleItems(250);
     const container = document.getElementById('wordList');
     if (container) {
       container.scrollTop = 0;
     }
-    const filterByType = (type?: string) => {
-      return type
-        ? [
-            ...dataUnfiltered.filter(
-              (entry) =>
-                (isFvWordLocationCombo(entry)
-                  ? entry.entry.source
-                  : entry.source) === type
-            ),
-          ]
-        : [...dataUnfiltered];
-    };
-    switch (selected) {
-      case DictionaryType.Words: {
-        return filterByType('words');
-      }
-      case DictionaryType.Phrases: {
-        return filterByType('phrases');
-      }
-      default: {
-        return filterByType();
-      }
-    }
-  }, [selected, dataUnfiltered]);
+    setSelected(typeNumber);
+  };
 
   // Checking for searchResults
   useEffect(() => {
-    if (searchContext?.allResults) {
-      if (searchContext.allResults.length > 0) {
-        setDataUnfiltered(searchContext.allResults);
-      } else {
-        setDataUnfiltered(dictionaryData);
-      }
+    if (!searchContext?.searchResults) {
+      setDataUnfiltered(dictionaryData);
+    } else if (searchContext.searchResults) {
+      setDataUnfiltered(searchContext.searchResults);
     }
-  }, [searchContext?.allResults, dictionaryData]);
+  }, [searchContext?.searchResults, dictionaryData]);
 
   return (
-    <div>
+    <div className="w-full">
       <MultiSwitch
         selected={selected}
         items={[
@@ -95,7 +103,7 @@ export function DictionaryView(props: DictionaryViewProps) {
           { name: 'BOTH', icon: null },
         ]}
         onToggle={(index: number) => {
-          setSelected(index);
+          onTypeToggle(index);
         }}
       />
       <div
@@ -115,6 +123,12 @@ export function DictionaryView(props: DictionaryViewProps) {
             </div>
           );
         })}
+        {dataToDisplay?.length === 0 && (
+          <div className="w-full text-center py-5 max-w-md mx-auto">
+            There are no matching results for your search. Please try a
+            different search.
+          </div>
+        )}
       </div>
     </div>
   );

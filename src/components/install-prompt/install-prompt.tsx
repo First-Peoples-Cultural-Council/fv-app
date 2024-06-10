@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 // FPCC
-import Modal from '../modal/modal';
-import fpccLogo from '../../../assets/images/fpccLogoColorWhite.svg';
-import fpcfLogo from '../../../assets/images/fpcfLogoWhite.svg';
-import useSiteTitleFromManifest from '../../common/hooks/useSiteTitleFromManifest';
+import Modal from '../common/modal/modal';
+import fpccLogo from '../../assets/images/fpccLogoColorWhite.svg';
+import fpcfLogo from '../../assets/images/fpcfLogoWhite.svg';
+import useSiteTitleFromManifest from '../../util/useSiteTitleFromManifest';
 
 export function InstallPrompt() {
   const [showInstallPrompt, setShowInstallPrompt] = useState(false);

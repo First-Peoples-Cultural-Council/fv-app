@@ -48,8 +48,8 @@
   },
   "scripts": {
     "start": "webpack serve --mode=development",
+    "start:sw": "SERVICE_WORKERS=True webpack serve --mode=development",
     "build": "NODE_ENV=production webpack",
-    
     "prebuild": "node ./generateManifestFileArray.js",
     "test": "react-scripts test",
     "test:e2e": "npx playwright test",
@@ -119,6 +119,7 @@
     "uuid": "^9.0.1",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.0.4"
+    "webpack-dev-server": "^5.0.4",
+    "workbox-webpack-plugin": "^7.1.0"
   }
 }

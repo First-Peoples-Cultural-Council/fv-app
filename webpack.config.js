@@ -16,14 +16,14 @@ const isDev = process.env.NODE_ENV !== 'production';
 
 const srcPath = path.join(__dirname, 'src');
 const buildPath = path.join(__dirname, 'build');
-const publicPath = path.join(__dirname, 'public/'); // todo: try removing the /
+const publicPath = path.join(__dirname, 'public');
 
 const appSrc = path.resolve(srcPath, 'index.tsx');
 const swSrc = path.resolve(srcPath, 'service-worker.ts');
 
 module.exports = {
   mode: isDev ? 'development' : 'production',
-  target: ['browserslist'], // todo: Verify what browsers we want to support
+  target: ['browserslist'],
   stats: 'errors-warnings',
   bail: !isDev,
   devtool: isDev ? 'cheap-module-source-map' : false,

@@ -14,7 +14,7 @@ $ npm run build
 $ npm start
 ```
 
-5. Access the application at `[sitename].localhost:3000`
+5. Access the application at `https://[sitename].localhost:3000`
 
     a. If you are switching between different sites locally, you may need to clear your local data in between depending on your browser.
 

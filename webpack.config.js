@@ -5,55 +5,27 @@ const dotenv = require('dotenv');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { InjectManifest } = require('workbox-webpack-plugin');
 
 dotenv.config();
 
-const swSrc = './src/service-worker.ts'
-
-const buildPath = path.join(__dirname, 'build');
-const publicPath = path.join(__dirname, 'public/');
-
 const isDev = process.env.NODE_ENV !== 'production';
-const serviceWorkers = process.env.SERVICE_WORKERS;
-let startSw = false;
 
-const workboxPlugin = new InjectManifest({
-  swSrc,
-  swDest: 'serviceWorker.js',
-  dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
-  exclude: [
-    /\.map$/, 
-    /manifest$/,
-    /\.htaccess$/,
-    /service-worker\.js$/,
-    /asset-manifest\.json$/, 
-    /LICENSE/
-  ],
-  maximumFileSizeToCacheInBytes: 5 *  1024 * 1024,
-})
-if (isDev) {
-  Object.defineProperty(workboxPlugin, "alreadyCalled", {
-    get() {
-      return false
-    },
-    set() {
-    },
-  })
-}
+const srcPath = path.join(__dirname, 'src');
+const buildPath = path.join(__dirname, 'build');
+const publicPath = path.join(__dirname, 'public/'); // todo: try removing the /
 
-if (isDev && serviceWorkers) {
-  startSw = true
-} else if (!isDev) {
-  startSw = true
-}
-console.log("startSw", startSw)
+const appSrc = path.resolve(srcPath, 'index.tsx');
+const swSrc = path.resolve(srcPath, 'service-worker.ts');
 
 module.exports = {
   mode: isDev ? 'development' : 'production',
-  // devtool: isDev ? 'eval-source-map' : false,
+  target: ['browserslist'], // todo: Verify what browsers we want to support
+  stats: 'errors-warnings',
+  bail: !isDev,
   devtool: isDev ? 'cheap-module-source-map' : false,
   watchOptions: {
     poll: 1000,
@@ -61,24 +33,42 @@ module.exports = {
     ignored: ['**/node_modules'],
   },
 
-  entry: './src/index.tsx',
+  entry: appSrc,
   output: {
     path: buildPath,
-    pathinfo: isDev, // Add filenames for reference in dev
-    // Add chunking with ref to react-scripts file
-    filename: 'assets/js/[name].js',
-    sourceMapFilename: 'assets/js/maps/[file].js.map',
+    pathinfo: isDev,
+    filename: isDev
+      ? 'assets/js/bundle.js'
+      : 'assets/js/[name].[contenthash:8].js',
+    chunkFilename: isDev
+      ? 'assets/js/[name].chunk.js'
+      : 'assets/js/[name].[contenthash:8].chunk.js',
   },
-  // Checkout webpack caching
-  // Checkout webpack optimization
+  optimization: {
+    minimize: !isDev,
+  },
+  infrastructureLogging: {
+    level: 'none', // can be changed to verbose or other levels as required
+  },
+  // Default cache is memory-based in dev mode, and disabled in prod mode
+  // but can be configured further if required
+
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss', '.sass', '.css'],
     modules: ['node_modules'],
+    extensions: [
+      '.ts',
+      '.tsx',
+      '.js',
+      '.jsx',
+      '.json',
+      '.scss',
+      '.sass',
+      '.css',
+    ],
   },
 
   module: {
     rules: [
-      // todo: Add paths to these js/ts loaders
       {
         test: /\.(ts|tsx)$/i,
         exclude: /node_modules/,
@@ -113,6 +103,8 @@ module.exports = {
             options: {
               sourceMap: isDev,
               postcssOptions: {
+                ident: 'postcss',
+                config: false,
                 plugins: [require('tailwindcss')],
               },
             },
@@ -120,10 +112,30 @@ module.exports = {
         ],
       },
       {
-        test: /\.(ico|png|svg|jpg|jpeg|gif)$/i,
+        // maxSize to these media assets can be enforced on webpack level
+        test: /\.(ico|png|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
       },
-      // Checkout react-scripts way of handling svgs
+      {
+        test: /\.svg$/i,
+        use: [
+          {
+            loader: require.resolve('@svgr/webpack'),
+            options: {
+              prettier: false,
+              svgo: false,
+              svgoConfig: {
+                plugins: [{ removeViewBox: false }],
+              },
+              titleProp: true,
+              ref: true,
+            },
+          },
+          {
+            loader: require.resolve('file-loader'),
+          },
+        ],
+      },
       {
         test: /\.(ttf|eot|woff|woff2)$/,
         type: 'asset/resource',
@@ -141,45 +153,85 @@ module.exports = {
       'process.env': JSON.stringify(process.env),
     }),
     new webpack.ProvidePlugin({
-      React: 'react', 
+      React: 'react',
     }),
     new CopyPlugin({
       patterns: [
-        { 
-          from: 'public', 
+        {
+          from: 'public',
           to: 'assets',
           globOptions: {
-            ignore: ["**/index.html",],
-          } 
-        }],
+            ignore: ['**/index.html'],
+          },
+        },
+      ],
     }),
     new HtmlWebpackPlugin({
+      inject: true,
       template: './public/index.html',
-      minify: {
-        collapseWhitespace: true,
-      },
-    }),
-    new MiniCssExtractPlugin({
-      filename: `assets/css/[name].min.css`,
-    }),
-    // Log a ticket to consider using a genericSw with some configuration
-    startSw && workboxPlugin,
-  ].filter(Boolean),
-
-  optimization: {
-    minimizer: [
-      new CssMinimizerPlugin({
-        parallel: true,
-        minimizerOptions: {
-          preset: ['default', { discardComments: { removeAll: true } }],
+      ...(!isDev && {
+        minify: {
+          removeComments: true,
+          collapseWhitespace: true,
+          removeRedundantAttributes: true,
+          useShortDoctype: true,
+          removeEmptyAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          keepClosingSlash: true,
+          minifyJS: true,
+          minifyCSS: true,
+          minifyURLs: true,
         },
       }),
-    ],
-  },
+    }),
+    isDev && new ReactRefreshWebpackPlugin({
+      overlay: false
+    }),
+    isDev && new CaseSensitivePathsPlugin(),
+    !isDev && new MiniCssExtractPlugin({
+      filename: `assets/css/[name].[contenthash:8].css`,
+      chunkFilename: 'assets/css/[name].[contenthash:8].chunk.css',
+    }),
+    !isDev &&
+      new InjectManifest({
+        swSrc,
+        swDest: 'serviceWorker.js',
+        dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
+        exclude: [
+          /\.map$/,
+          /manifest$/,
+          /\.htaccess$/,
+          /service-worker\.js$/,
+          /asset-manifest\.json$/,
+          /LICENSE/,
+        ],
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+      }),
+      // can also add ESLint plugin here
+  ].filter(Boolean),
 
   devServer: {
-    static: publicPath,
-    port: 3000,
     compress: true,
+    server: 'https',
+    port: 3000,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': '*',
+      'Access-Control-Allow-Headers': '*',
+    },
+
+    static: {
+      publicPath,
+      watch: {
+        ignored: path.resolve(srcPath, 'serviceWorkerRegistration.ts'),
+      },
+    },
+
+    client: {
+      overlay: {
+        errors: true,
+        warnings: false,
+      },
+    },
   },
 };

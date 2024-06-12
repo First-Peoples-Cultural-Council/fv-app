@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 // FPCC
 import { FvCharacter, FvWord } from '../components/common/data';
+import sortByCustomOrder from './sortByCustomOrder';
 
 export const useStartsWithChar = (
   dictionaryData: FvWord[],
@@ -13,13 +14,7 @@ export const useStartsWithChar = (
       const entries = [...dictionaryData].filter((entry) => {
         return entry.sorting_form[0] === character.sortingFormNum;
       }).sort((a, b) => {
-        const len = Math.min(a.sorting_form.length, b.sorting_form.length);
-        for (let i = 0; i < len; i++) {
-          if (a.sorting_form[i] !== b.sorting_form[i]) {
-            return a.sorting_form[i] - b.sorting_form[i];
-          }
-        }
-        return a.sorting_form.length - b.sorting_form.length;
+        return sortByCustomOrder(a, b);
       });
       setEntriesStartingWith(entries);
     }

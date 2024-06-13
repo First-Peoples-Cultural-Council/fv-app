@@ -27,6 +27,7 @@ export function AudioButton({ fvAudio }: Readonly<AudioButtonProps>) {
     setAudio(audioElement);
 
     db.hasMediaFile(fvAudio.filename).then((hasFile) => {
+      console.log("audio useEffect ", {isOnline, hasFile});
       setHasFile(hasFile);
     });
     return () => {

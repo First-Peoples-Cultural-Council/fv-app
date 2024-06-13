@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 // FPCC
 import WordModal from '../dictionary-view/word-modal';
@@ -8,6 +8,7 @@ import { FvWord } from '../common/data';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
 import { useAudio } from '../contexts/audioContext';
+import { InstallPromptContext } from '../contexts/installPromptContext';
 
 export interface WordOfTheDayProps {
   dictionaryData: FvWord[];
@@ -16,19 +17,20 @@ export interface WordOfTheDayProps {
 function WordOfTheDay({ dictionaryData }: Readonly<WordOfTheDayProps>) {
   const today = new Date();
   const { stopAll } = useAudio();
+  const { showInstallPrompt } = useContext(InstallPromptContext);
 
   const [showModal, setShowModal] = React.useState(false);
   const [data, setData] = useState<any>(null);
 
   useEffect(() => {
     if (
-      today.toDateString() !== (localStorage.getItem('lastWOTDSeenOn') ?? '')
+      today.toDateString() !== (localStorage.getItem('lastWOTDSeenOn') ?? '') && !showInstallPrompt
     ) {
       setShowModal(true);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [showInstallPrompt]);
 
   useEffect(() => {
     if (showModal) {

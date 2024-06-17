@@ -7,6 +7,7 @@ import { DictionaryType, FvWord } from '../common/data';
 import MultiSwitch from '../common/multi-switch/multi-switch';
 import { useDictionaryData } from '../dictionary-page/dictionary-page';
 import { SearchContext } from '../contexts/searchContext';
+import sortByCustomOrder from '../../util/sortByCustomOrder';
 
 /* eslint-disable-next-line */
 export interface DictionaryViewProps {}
@@ -74,7 +75,9 @@ export function DictionaryView(props: DictionaryViewProps) {
   // Checking for searchResults
   useEffect(() => {
     if (!searchContext?.searchResults) {
-      setDataUnfiltered(dictionaryData);
+      setDataUnfiltered(dictionaryData.sort((a, b) => {
+        return sortByCustomOrder(a, b);
+      }));
     } else if (searchContext.searchResults) {
       setDataUnfiltered(searchContext.searchResults);
     }

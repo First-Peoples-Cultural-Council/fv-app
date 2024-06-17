@@ -1,7 +1,9 @@
 import {
   ReactNode,
   createContext,
+  useCallback,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 
@@ -39,7 +41,7 @@ export const InstallPromptProvider = ({ children }: InstallPromptProviderProps) 
     };
   }, []);
 
-  const handleInstallPrompt = async () => {
+  const handleInstallPrompt = useCallback(async () => {
     if (window.matchMedia('(display-mode: standalone)').matches) {
       return;
     }
@@ -48,14 +50,22 @@ export const InstallPromptProvider = ({ children }: InstallPromptProviderProps) 
       deferredPrompt.prompt();
       setDeferredPrompt(null);
     }
-  };
+  }, [deferredPrompt]);
+
+  const installPromptContext = useMemo(() => {
+    return {
+      showInstallPrompt,
+      setShowInstallPrompt,
+      handleInstallPrompt,
+    };
+  }, [showInstallPrompt, setShowInstallPrompt, handleInstallPrompt]);
+
 
   return (
-    <InstallPromptContext.Provider value={{ showInstallPrompt, setShowInstallPrompt, handleInstallPrompt }}>
+    <InstallPromptContext.Provider value={installPromptContext as unknown as InstallPromptContextType}>
       {children}
     </InstallPromptContext.Provider>
   );
 };
-
 
 

@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import { useContext } from 'react';
 
 // FPCC
 import Modal from '../common/modal/modal';
 import fpccLogo from '../../assets/images/fpccLogoColorWhite.svg';
 import fpcfLogo from '../../assets/images/fpcfLogoWhite.svg';
 import useSiteTitleFromManifest from '../../util/useSiteTitleFromManifest';
+import { InstallPromptContext } from '../contexts/installPromptContext';
 
 export function InstallPrompt() {
-  const [showInstallPrompt, setShowInstallPrompt] = useState(false);
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const { showInstallPrompt, handleInstallPrompt, setShowInstallPrompt } = useContext(InstallPromptContext);
 
   // Site information from manifest and hostname
   const hostnameParts = window.location.hostname.split('.');
@@ -17,31 +17,6 @@ export function InstallPrompt() {
   const siteTitle = useSiteTitleFromManifest(manifestUrl);
   const siteURL = `https://www.firstvoices.com/${subdomain}/`;
   const logoURL = `${process.env.PUBLIC_URL}/${subdomain}/logo192.png`;
-
-  useEffect(() => {
-    const handleBeforeInstallPrompt = (e: Event) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-      setShowInstallPrompt(true);
-    };
-
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-
-    return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    };
-  }, []);
-
-  const handleInstallPrompt = async () => {
-    if (window.matchMedia('(display-mode: standalone)').matches) {
-      return;
-    }
-    if (deferredPrompt) {
-      setShowInstallPrompt(false);
-      deferredPrompt.prompt();
-      setDeferredPrompt(null);
-    }
-  };
 
   return (
     <>
@@ -57,7 +32,7 @@ export function InstallPrompt() {
             <p className="mb-4 text-lg">
               Browse words and phrases in the dictionary, practice with flashcards, bookmark content and more.
             </p>
-            <button onClick={handleInstallPrompt} className="bg-blue-500 text-white px-8 py-3 rounded-lg text-lg mb-4">
+            <button onClick={handleInstallPrompt} className="bg-secondary-500 text-white px-8 py-3 rounded-lg text-lg mb-4">
               Install App
             </button>
             <p className="mb-1 text-sm">

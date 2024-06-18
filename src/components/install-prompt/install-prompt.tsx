@@ -13,10 +13,10 @@ export function InstallPrompt() {
   // Site information from manifest and hostname
   const hostnameParts = window.location.hostname.split('.');
   const subdomain = hostnameParts[0];
-  const manifestUrl = `${process.env.PUBLIC_URL}/manifest.${subdomain}.json`;
+  const manifestUrl = `assets/manifest.${subdomain}.json`;
   const siteTitle = useSiteTitleFromManifest(manifestUrl);
   const siteURL = `https://www.firstvoices.com/${subdomain}/`;
-  const logoURL = `${process.env.PUBLIC_URL}/${subdomain}/logo192.png`;
+  const logoURL = `assets/${subdomain}/logo192.png`;
 
   useEffect(() => {
     const handleBeforeInstallPrompt = (e: Event) => {

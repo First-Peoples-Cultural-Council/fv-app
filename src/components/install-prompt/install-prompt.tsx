@@ -12,7 +12,10 @@ export function InstallPrompt() {
 
   // Site information from manifest and hostname
   const hostnameParts = window.location.hostname.split('.');
-  const subdomain = hostnameParts[0];
+  let subdomain = hostnameParts[0];
+  if (window.location.hostname.includes("localhost")) {
+    subdomain = "default" 
+  }
   const manifestUrl = `assets/manifest.${subdomain}.json`;
   const siteTitle = useSiteTitleFromManifest(manifestUrl);
   const siteURL = `https://www.firstvoices.com/${subdomain}/`;

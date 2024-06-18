@@ -31,6 +31,9 @@
     <script>
       const hostnameParts = window.location.hostname.split('.');
       let subdomain = hostnameParts[0]
+      if (window.location.hostname.includes("localhost")) {
+        subdomain = "default" 
+      }
       const manifestUrl = `assets/manifest.${subdomain}.json`;
 
       // link the manifest

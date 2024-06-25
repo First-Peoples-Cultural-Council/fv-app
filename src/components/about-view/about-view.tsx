@@ -9,7 +9,7 @@ export interface AboutViewProps {
   children?: ReactNode;
 }
 
-export function AboutView({ children }: AboutViewProps) {
+export function AboutView({ children }: Readonly<AboutViewProps>) {
   // Site information from manifest and hostname
   const hostnameParts = window.location.hostname.split('.');
   const subdomain = hostnameParts[0];

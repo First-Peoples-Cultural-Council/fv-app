@@ -7,14 +7,17 @@ import MobileNav from './components/common/mobile-nav/mobile-nav';
 import { LoadingSpinner } from './components/common/loading-spinner/loading-spinner';
 import { navItems, extraNavItems } from './constants/navigation';
 import InstallPrompt from './components/install-prompt/install-prompt';
+import { InstallPromptProvider } from './components/contexts/installPromptContext';
 
 export function App() {
   return (
     <Suspense fallback={<LoadingSpinner />}>
-      <Header navItems={navItems} extraNavItems={extraNavItems} />
-      <Outlet />
-      <InstallPrompt />
-      <MobileNav navItems={navItems} extraNavItems={extraNavItems} />
+      <InstallPromptProvider>
+        <Header navItems={navItems} extraNavItems={extraNavItems} />
+        <Outlet />
+        <InstallPrompt />
+        <MobileNav navItems={navItems} extraNavItems={extraNavItems} />
+      </InstallPromptProvider>
     </Suspense>
   );
 }

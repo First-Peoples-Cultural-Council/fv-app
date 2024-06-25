@@ -55,7 +55,7 @@ export function Header({
               </button>
             </div>
             {showExtraNav && (
-              <div className="absolute top-14 right-0 w-48 p-2 space-y-2 transform lg:-translate-x-0 bg-charcoal-500 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <div className="absolute z-40 top-14 right-0 w-48 p-2 space-y-2 transform lg:-translate-x-0 bg-charcoal-500 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 {extraNavItems?.map((item) => (
                   <button
                     key={`${item.id}`}

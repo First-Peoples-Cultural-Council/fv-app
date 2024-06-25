@@ -27,16 +27,8 @@ export function AudioButton({ fvAudio }: Readonly<AudioButtonProps>) {
     setAudio(audioElement);
 
     db.hasMediaFile(fvAudio.filename).then((hasFile) => {
-      if (!hasFile) {
-        // try fetching the file if it isn't cached yet
-        fetch(fvAudio.filename, { mode: 'cors' })
-          .then((response) => db.hasMediaFile(fvAudio.filename))
-          .then((hasFile) => {
-            setHasFile(hasFile);
-          });
-      } else {
-        setHasFile(hasFile);
-      }
+      console.log("audio useEffect ", {isOnline, hasFile});
+      setHasFile(hasFile);
     });
     return () => {
       if (audio) {
@@ -44,7 +36,7 @@ export function AudioButton({ fvAudio }: Readonly<AudioButtonProps>) {
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isOnline]);
 
   useEffect(() => {
     if (audio) {

@@ -14,7 +14,6 @@ export interface WordModalProps {
 }
 
 function WordModal({ term, onClose }: Readonly<WordModalProps>) {
-  console.log(term);
   const bookmark: Bookmark = useMemo(() => {
     return {
       id: term.entryID,

@@ -67,7 +67,7 @@ export function FlashcardView({
             flashcardData?.audio?.map((fvAudio: FvAudio) => (
               <button
                 key={fvAudio.filename}
-                className="btn-contained bg-secondary"
+                className="btn-contained bg-secondary-500"
                 onClick={(e) => {
                   e.stopPropagation();
                   playAudio(fvAudio.filename).catch((err: any) => {

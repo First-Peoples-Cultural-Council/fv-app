@@ -61,11 +61,11 @@ export function AudioButton({ fvAudio }: Readonly<AudioButtonProps>) {
     return (
       <>
         <button
-          data-testid={audio.id}
-          key={audio.id}
+          data-testid={`audio-btn-${fvAudio.filename}`}
+          key={fvAudio.filename}
           className={classNames(
             hasFile || isOnline
-              ? 'btn-contained bg-secondary'
+              ? 'btn-contained bg-secondary-500'
               : 'btn-contained bg-tertiaryB-500',
             hasFile || isOnline ? '' : 'opacity-30'
           )}

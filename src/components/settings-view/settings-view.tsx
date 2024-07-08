@@ -39,7 +39,7 @@ export function SettingsView(props: SettingsViewProps) {
 
           <p>
             <button
-              className="btn-contained bg-secondary"
+              className="btn-contained bg-secondary-500"
               onClick={() => setShowConfirmDialog(true)}
             >
               Clear Media Cache

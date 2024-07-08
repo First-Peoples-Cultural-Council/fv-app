@@ -1,6 +1,6 @@
 import React, { useRef, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-import { useAudio } from '../../contexts/audioContext';
+import { useAudioContext } from '../../contexts/audioContext';
 import useOnClickOutside from '../../../util/clickOutside';
 
 export interface ModalProps {
@@ -16,7 +16,7 @@ export function Modal({
   showCloseButton = true,
   closeOnOutsideClick = true,
 }: ModalProps) {
-  const { stopAll } = useAudio();
+  const { stopAll } = useAudioContext();
   const modalContentRef = useRef<HTMLDivElement>(null);
 
   const onCloseClick = () => {

@@ -7,7 +7,7 @@ import Modal from '../common/modal/modal';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import { useModal } from '../common/use-modal/use-modal';
 
-import { useAudio } from '../contexts/audioContext';
+import { useAudioContext } from '../contexts/audioContext';
 import { applyHighlighting } from '../../util/applyHighlighting';
 
 export interface WordAlphabetRowCardProps {
@@ -19,7 +19,7 @@ function WordAlphabetRowCard({ term }: Readonly<WordAlphabetRowCardProps>) {
   const wordLocations: FvWordLocation[] | null = term?.locations ?? null;
 
   const { word, definition } = term;
-  const { stopAll } = useAudio();
+  const { stopAll } = useAudioContext();
 
   return (
     <>

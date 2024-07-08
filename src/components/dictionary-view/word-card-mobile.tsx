@@ -5,7 +5,7 @@ import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import WordModal from './word-modal';
 import { FvWord, FvWordLocation } from '../common/data';
 import { useModal } from '../common/use-modal/use-modal';
-import { useAudio } from '../contexts/audioContext';
+import { useAudioContext } from '../contexts/audioContext';
 import { applyHighlighting } from '../../util/applyHighlighting';
 
 export interface WordCardMobileProps {
@@ -16,7 +16,7 @@ function WordCardMobile({ item }: Readonly<WordCardMobileProps>) {
   const wordLocations: FvWordLocation[] | null = item?.locations ?? null;
   const { setShowModal, showModal, closeModal } = useModal();
   const { word, definition, audio } = item;
-  const { stopAll } = useAudio();
+  const { stopAll } = useAudioContext();
 
   return (
     <>

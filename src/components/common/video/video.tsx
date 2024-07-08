@@ -11,12 +11,13 @@ export function FvVideo({
   className,
   disabledClassName,
   src,
-}: FvVideoProps) {
+}: Readonly<FvVideoProps>) {
   const [showAlt, setShowAlt] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  console.log({ src });
 
   const handleVideoError = (event: SyntheticEvent) => {
-    console.error("Error loading video: ", event);
+    console.error('Error loading video: ', event);
     setShowAlt(true);
   };
 
@@ -27,23 +28,20 @@ export function FvVideo({
   return (
     <>
       {showAlt ? (
-        <div
+        <button
+          type="button"
           className={`fv-video text-20xl text-gray-500/25 ${disabledClassName}`}
           onClick={handleClick}
-        ></div>
+        />
       ) : (
-        <video
-          className={className}
-          controls
-          onError={handleVideoError}
-        >
+        <video className={className} controls onError={handleVideoError}>
           <source src={src} type="video/mp4" />
         </video>
       )}
 
       <Alert
         type={'warning'}
-        message="Content not downloaded.  Please access when you have access to internet in order to download content."
+        message="This video content has not been downloaded.  Please access when you have access to internet in order to download content."
         showDismissButton={true}
         showAlert={showAlert}
         dismissAlert={function (): void {

@@ -13,7 +13,7 @@ export function AudioControl({
   className,
   disabledClassName,
   audio,
-}: AudioControlProps) {
+}: Readonly<AudioControlProps>) {
   const db = new IndexedDBService('firstVoicesIndexedDb');
 
   const [showAlert, setShowAlert] = useState(false);
@@ -52,15 +52,16 @@ export function AudioControl({
           ></source>
         </audio>
       ) : (
-        <div
+        <button
+          type="button"
           className={`fv-songs text-20xl text-gray-500/25 ${disabledClassName}`}
           onClick={handleClick}
-        ></div>
+        />
       )}
 
       <Alert
         type={'warning'}
-        message="Content not downloaded.  Please access when you have access to internet in order to download content."
+        message="This audio content has not been downloaded.  Please access when you have access to internet in order to download content."
         showDismissButton={true}
         showAlert={showAlert}
         dismissAlert={function (): void {

@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { Bookmark, FvWord, FvAudio } from '../common/data';
 import WordCategories from './word-categories';
 import { FvImage } from '../common/image/image';
-import { AudioButton } from '../common/audio-button/audio';
+import AudioButton from '../common/audio-button/audio-button';
 import CopyButton from '../common/copy-button/copy-button';
 import BookmarkButton from '../common/bookmark-button/bookmark-button';
 

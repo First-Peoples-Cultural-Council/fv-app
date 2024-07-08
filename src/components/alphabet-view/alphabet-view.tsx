@@ -58,7 +58,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
   }, [selected, isMobile]);
 
   return (
-    <>
+    <div data-testid="alphabet-view" className="w-full">
       {/* Mobile */}
       <div className="flex md:hidden justify-center w-full">
         <div className="overflow-y-auto col-span-1 w-full">
@@ -120,7 +120,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
           </div>
         </FullScreenModal>
       )}
-    </>
+    </div>
   );
 
   function note() {

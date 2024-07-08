@@ -26,7 +26,10 @@ export function SongView({ song }: Readonly<SongViewProps>) {
   }, [song]);
 
   return (
-    <div className="flex w-full justify-center p-5 mx-auto">
+    <div
+      data-testid="song-view"
+      className="flex w-full justify-center p-5 mx-auto"
+    >
       <div className="flex flex-col h-full space-y-5">
         <div className="h-3/5 flex-1">
           {song?.relatedImages.length !== 0 && (

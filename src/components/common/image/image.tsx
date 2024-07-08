@@ -9,7 +9,13 @@ export interface FvImageProps {
   onClick?: () => void;
 }
 
-export function FvImage({ className, disabledClassName, src, alt, onClick }: FvImageProps) {
+export function FvImage({
+  className,
+  disabledClassName,
+  src,
+  alt,
+  onClick,
+}: Readonly<FvImageProps>) {
   const [showAlt, setShowAlt] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
@@ -24,10 +30,11 @@ export function FvImage({ className, disabledClassName, src, alt, onClick }: FvI
   return (
     <>
       {showAlt ? (
-        <div
+        <button
+          type="button"
           className={`fv-picture text-20xl text-gray-500/25 ${disabledClassName}`}
           onClick={handleClick}
-        ></div>
+        />
       ) : (
         <img
           className={className}
@@ -40,7 +47,7 @@ export function FvImage({ className, disabledClassName, src, alt, onClick }: FvI
 
       <Alert
         type={'warning'}
-        message="Content not downloaded.  Please access when you have access to internet in order to download content."
+        message="This image content has not been downloaded.  Please access when you have access to internet in order to download content."
         showDismissButton={true}
         showAlert={showAlert}
         dismissAlert={function (): void {

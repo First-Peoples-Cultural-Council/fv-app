@@ -8,11 +8,11 @@ async function playAudio(fileName: string) {
   });
 }
 
-export interface AudioButtonProps {
+export interface FvAudioButtonProps {
   fvAudio: FVMedia;
 }
 
-export function AudioButton({ fvAudio }: Readonly<AudioButtonProps>) {
+export function FvAudioButton({ fvAudio }: Readonly<FvAudioButtonProps>) {
   return (
     <div
       data-testid={`alphabet-view-audio-${fvAudio.id}`}

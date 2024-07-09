@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 import { Flashcard, FvAudio } from '../common/data';
 import { FlipButton } from './flip-button';
+import AudioButton from '../common/audio-button/audio-button';
 
 export interface FlashcardViewProps {
   flashcardData: Flashcard | undefined;
@@ -16,13 +17,6 @@ export function FlashcardView({
   flashcardIndex,
 }: Readonly<FlashcardViewProps>) {
   const [flipped, setFlipped] = useState(false);
-
-  async function playAudio(fileName: string) {
-    const audio = new Audio(fileName);
-    audio.play().catch((err: any) => {
-      console.error(err);
-    });
-  }
 
   return (
     <div
@@ -65,19 +59,7 @@ export function FlashcardView({
           )}
           {flashcardData?.type === 'audio' &&
             flashcardData?.audio?.map((fvAudio: FvAudio) => (
-              <button
-                key={fvAudio.filename}
-                className="btn-contained bg-secondary-500"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  playAudio(fvAudio.filename).catch((err: any) => {
-                    console.error(err);
-                  });
-                }}
-              >
-                <i className="fv-volume-up text-3xl" />
-                {fvAudio.description && <div>{fvAudio.description}</div>}
-              </button>
+              <AudioButton key={fvAudio.filename} fvAudio={fvAudio} />
             ))}
 
           <FlipButton handleClick={() => setFlipped(!flipped)} />

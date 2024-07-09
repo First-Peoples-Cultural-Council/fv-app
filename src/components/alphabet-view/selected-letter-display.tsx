@@ -3,7 +3,7 @@ import React from 'react';
 // FPCC
 import { CopyButton } from './copy-button';
 import { DownloadButton } from './download-button';
-import { FvAudioButton } from './fvaudio-button';
+import { AudioButton } from '../common/audio-button/audio-button';
 import { FvCharacter, FVMedia, FvWord } from '../common/data';
 
 export interface SelectedLetterDisplayProps {
@@ -34,7 +34,13 @@ export function SelectedLetterDisplay({
           <CopyButton selected={selected} />
           <DownloadButton selected={selected} dictionaryData={dictionaryData} />
           {selected?.relatedAudio.map((fvAudio: FVMedia) => {
-            return <FvAudioButton key={fvAudio.id} fvAudio={fvAudio} />;
+            return (
+              <AudioButton
+                key={fvAudio.id}
+                audioSrc={fvAudio.original.path}
+                isMinimal
+              />
+            );
           })}
         </div>
       )}
@@ -51,7 +57,13 @@ export function SelectedLetterDisplay({
           </div>
           <div className="flex justify-evenly mt-5">
             {selected?.relatedAudio.map((fvAudio: FVMedia) => {
-              return <FvAudioButton key={fvAudio.id} fvAudio={fvAudio} />;
+              return (
+                <AudioButton
+                  key={fvAudio.id}
+                  audioSrc={fvAudio.original.path}
+                  isMinimal
+                />
+              );
             })}
           </div>
         </>

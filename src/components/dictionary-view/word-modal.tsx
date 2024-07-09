@@ -49,9 +49,15 @@ function WordModal({ term, onClose }: Readonly<WordModalProps>) {
       </div>
       <div className="space-y-5">
         <p>{term.definition}</p>
-        {term.audio?.map((fvAudio: FvAudio) => (
-          <AudioButton key={fvAudio.filename} fvAudio={fvAudio} />
-        ))}
+        {term?.audio && term.audio.length > 0 && (
+          <div className="space-y-2">
+            {term.audio?.map((fvAudio: FvAudio) => (
+              <div key={fvAudio.filename} className="inline-flex mr-2">
+                <AudioButton fvAudio={fvAudio} />
+              </div>
+            ))}
+          </div>
+        )}
         {term.img && (
           <FvImage
             className="object-contain w-full md:max-h-[45dvh] md:mx-auto"

@@ -39,8 +39,8 @@ function WordCardDesktop({
             </div>
           </div>
           <div className="col-span-1">
-            {audio?.map((fvAudio: Audio1) => (
-              <i key={fvAudio.filename} className="fv-volume-up" />
+            {audio?.map((mtAudio: Audio1) => (
+              <i key={mtAudio.filename} className="fv-volume-up" />
             ))}
           </div>
           <div className="col-span-7 text-left">

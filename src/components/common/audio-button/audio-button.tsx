@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import Alert from '../alert/alert';
-import { FvAudio } from '../data';
+import { Audio1 } from '@mothertongues/search';
 import classNames from 'classnames';
 import IndexedDBService from '../../../services/indexedDbService';
 import { useDetectOnlineStatus } from '../../../util/useDetectOnlineStatus';
 import { useAudioContext } from '../../contexts/audioContext';
 
 export interface AudioButtonProps {
-  fvAudio: FvAudio;
+  mtAudio: Audio1;
 }
 
-export function AudioButton({ fvAudio }: Readonly<AudioButtonProps>) {
+export function AudioButton({ mtAudio }: Readonly<AudioButtonProps>) {
   const { addAudio, removeAudio } = useAudioContext();
   const db = new IndexedDBService('firstVoicesIndexedDb');
   const [audio, setAudio] = useState<HTMLAudioElement>();
@@ -22,11 +22,11 @@ export function AudioButton({ fvAudio }: Readonly<AudioButtonProps>) {
   const { isOnline } = useDetectOnlineStatus();
 
   useEffect(() => {
-    const audioElement = new Audio(fvAudio.filename);
+    const audioElement = new Audio(mtAudio.filename);
     addAudio(audioElement);
     setAudio(audioElement);
 
-    db.hasMediaFile(fvAudio.filename).then((hasFile) => {
+    db.hasMediaFile(mtAudio.filename).then((hasFile) => {
       setHasFile(hasFile);
     });
     return () => {
@@ -63,8 +63,8 @@ export function AudioButton({ fvAudio }: Readonly<AudioButtonProps>) {
     return (
       <>
         <button
-          data-testid={`audio-btn-${fvAudio.filename}`}
-          key={fvAudio.filename}
+          data-testid={`audio-btn-${mtAudio.filename}`}
+          key={mtAudio.filename}
           className={classNames({
             'btn-contained bg-secondary-500': audioAvailable,
             'opacity-30 btn-contained bg-gray-500': !audioAvailable,
@@ -78,7 +78,7 @@ export function AudioButton({ fvAudio }: Readonly<AudioButtonProps>) {
           ) : (
             <i className="fv-play" />
           )}
-          {fvAudio.description && <div>{fvAudio.description}</div>}
+          {mtAudio.description && <div>{mtAudio.description}</div>}
         </button>
 
         <Alert

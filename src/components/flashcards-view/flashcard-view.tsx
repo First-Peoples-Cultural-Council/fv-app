@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import classNames from 'classnames';
+import { Audio1 } from '@mothertongues/search';
 
-import { Flashcard, FvAudio } from '../common/data';
+// FPCC
+import { Flashcard } from '../common/data';
 import { FlipButton } from './flip-button';
 import AudioButton from '../common/audio-button/audio-button';
 
@@ -58,8 +60,8 @@ export function FlashcardView({
             </div>
           )}
           {flashcardData?.type === 'audio' &&
-            flashcardData?.audio?.map((fvAudio: FvAudio) => (
-              <AudioButton key={fvAudio.filename} fvAudio={fvAudio} />
+            flashcardData?.audio?.map((mtAudio: Audio1) => (
+              <AudioButton key={mtAudio.filename} mtAudio={mtAudio} />
             ))}
 
           <FlipButton handleClick={() => setFlipped(!flipped)} />

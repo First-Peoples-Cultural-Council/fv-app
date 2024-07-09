@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
+import { Audio1 } from '@mothertongues/search';
 
 // FPCC
-import { Bookmark, FvWord, FvAudio } from '../common/data';
+import { Bookmark, FvWord } from '../common/data';
 import WordCategories from './word-categories';
 import { FvImage } from '../common/image/image';
 import AudioButton from '../common/audio-button/audio-button';
@@ -51,9 +52,9 @@ function WordModal({ term, onClose }: Readonly<WordModalProps>) {
         <p>{term.definition}</p>
         {term?.audio && term.audio.length > 0 && (
           <div className="space-y-2">
-            {term.audio?.map((fvAudio: FvAudio) => (
-              <div key={fvAudio.filename} className="inline-flex mr-2">
-                <AudioButton fvAudio={fvAudio} />
+            {term.audio?.map((mtAudio: Audio1) => (
+              <div key={mtAudio.filename} className="inline-flex mr-2">
+                <AudioButton mtAudio={mtAudio} />
               </div>
             ))}
           </div>

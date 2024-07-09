@@ -1,5 +1,3 @@
-import { Key } from 'react';
-
 // FPCC
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import WordModal from './word-modal';
@@ -7,6 +5,7 @@ import { FvWord, FvWordLocation } from '../common/data';
 import { useModal } from '../common/use-modal/use-modal';
 import { useAudioContext } from '../contexts/audioContext';
 import { applyHighlighting } from '../../util/applyHighlighting';
+import { Audio1 } from '@mothertongues/search';
 
 export interface WordCardMobileProps {
   item: FvWord;
@@ -40,8 +39,8 @@ function WordCardMobile({ item }: Readonly<WordCardMobileProps>) {
             </p>
           </div>
           <div className="col-span-1 self-center">
-            {audio?.map((fvAudio: { filename: Key | null | undefined }) => (
-              <i key={fvAudio.filename} className="fv-volume-up" />
+            {audio?.map((mtAudio: Audio1) => (
+              <i key={mtAudio.filename} className="fv-volume-up" />
             ))}
           </div>
           <div className="col-span-1 place-self-end self-center">

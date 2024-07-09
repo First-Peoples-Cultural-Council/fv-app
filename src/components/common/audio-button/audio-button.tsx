@@ -1,34 +1,49 @@
 import { useState } from 'react';
 import Alert from '../alert/alert';
-import { Audio1 } from '@mothertongues/search';
+import { Description } from '@mothertongues/search';
 import classNames from 'classnames';
 import { useAudio } from '../../../util/useAudio';
 
 export interface AudioButtonProps {
-  mtAudio: Audio1;
+  audioSrc: string;
+  description?: Description | string;
+  isMinimal?: boolean;
 }
 
-export function AudioButton({ mtAudio }: Readonly<AudioButtonProps>) {
+export function AudioButton({
+  audioSrc,
+  description,
+  isMinimal,
+}: Readonly<AudioButtonProps>) {
   const [showAlert, setShowAlert] = useState(false);
-  const { audio, audioAvailable, audioPlaying, toggleAudio } = useAudio(
-    mtAudio.filename
-  );
+  const { audio, audioAvailable, audioPlaying, toggleAudio } =
+    useAudio(audioSrc);
 
   return audio ? (
     <>
       <button
-        data-testid={`audio-btn-${mtAudio.filename}`}
-        key={mtAudio.filename}
+        data-testid={`audio-btn-${audioSrc}`}
+        key={audioSrc}
         className={classNames({
-          'btn-contained bg-secondary-500': audioAvailable,
-          'opacity-30 btn-contained bg-gray-500': !audioAvailable,
+          'btn-contained bg-secondary-500': !isMinimal,
+          'opacity-30': !audioAvailable,
         })}
         onClick={() => {
           audioAvailable ? toggleAudio() : setShowAlert(true);
         }}
       >
-        {audioPlaying ? <i className="fv-pause" /> : <i className="fv-play" />}
-        {mtAudio.description && <div>{mtAudio.description}</div>}
+        {isMinimal ? (
+          <i className="fv-volume-up text-3xl" />
+        ) : (
+          <>
+            {audioPlaying ? (
+              <i className="fv-pause" />
+            ) : (
+              <i className="fv-play" />
+            )}
+            {description && <div>{description}</div>}
+          </>
+        )}
       </button>
 
       <Alert

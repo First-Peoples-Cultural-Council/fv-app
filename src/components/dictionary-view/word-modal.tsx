@@ -54,7 +54,10 @@ function WordModal({ term, onClose }: Readonly<WordModalProps>) {
           <div className="space-y-2">
             {term.audio?.map((mtAudio: Audio1) => (
               <div key={mtAudio.filename} className="inline-flex mr-2">
-                <AudioButton mtAudio={mtAudio} />
+                <AudioButton
+                  audioSrc={mtAudio.filename}
+                  description={mtAudio.description}
+                />
               </div>
             ))}
           </div>

@@ -61,7 +61,11 @@ export function FlashcardView({
           )}
           {flashcardData?.type === 'audio' &&
             flashcardData?.audio?.map((mtAudio: Audio1) => (
-              <AudioButton key={mtAudio.filename} mtAudio={mtAudio} />
+              <AudioButton
+                key={mtAudio.filename}
+                audioSrc={mtAudio.filename}
+                description={mtAudio.description}
+              />
             ))}
 
           <FlipButton handleClick={() => setFlipped(!flipped)} />

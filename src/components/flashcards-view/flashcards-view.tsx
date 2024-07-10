@@ -1,5 +1,7 @@
-import classNames from 'classnames';
 import { useContext, useEffect, useRef, useState } from 'react';
+import classNames from 'classnames';
+
+// FPCC
 import useOnClickOutside from '../../util/clickOutside';
 import { Bookmark, Flashcard, FvCategory, FvWord } from '../common/data';
 import shuffle from '../../util/shuffle';
@@ -9,6 +11,7 @@ import IndexedDBService from '../../services/indexedDbService';
 import { ApiContext } from '../contexts/apiContext';
 import { FlashcardView } from './flashcard-view';
 import Modal from '../common/modal/modal';
+import { useAudioContext } from '../contexts/audioContext';
 
 /* eslint-disable-next-line */
 export interface FlashcardsViewProps {}
@@ -33,6 +36,7 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   const [dataCategories, setDataCategories] = useState<any>([]);
 
   const { isApiCallInProgress } = useContext(ApiContext);
+  const { stopAll } = useAudioContext();
 
   const SelectModalRef = useRef<HTMLDivElement>(null);
   const CategoryModalRef = useRef<HTMLDivElement>(null);
@@ -338,6 +342,8 @@ export function FlashcardsView(props: FlashcardsViewProps) {
   }
 
   function setDataForFlashcard(fcIndex: number) {
+    // Stop all audio when flashcard changes
+    stopAll();
     if (fcIndex === dataForFlashcardGroup.length) {
       setShowFlashcardModal(false);
       setShowDonePromptModal(true);

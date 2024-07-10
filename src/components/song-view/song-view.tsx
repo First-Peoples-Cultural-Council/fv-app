@@ -28,7 +28,7 @@ export function SongView({ song }: Readonly<SongViewProps>) {
   return (
     <div
       data-testid="song-view"
-      className="flex w-full justify-center p-5 mx-auto"
+      className="flex w-full justify-start p-5 mx-auto"
     >
       <div className="flex flex-col h-full space-y-5">
         <div className="h-3/5 flex-1">
@@ -53,7 +53,7 @@ export function SongView({ song }: Readonly<SongViewProps>) {
           return (
             <div key={audio.original.path} className="space-y-1">
               {audio?.title && <div className="font-bold">{audio?.title}</div>}
-              <AudioControl audio={audio} />
+              <AudioControl audioSrc={audio.original.path} styleType="native" />
               {audio?.description && <div>{audio?.description}</div>}
               {audio?.acknowledgement && (
                 <div className="italic text-charcoal-400">
@@ -63,8 +63,7 @@ export function SongView({ song }: Readonly<SongViewProps>) {
             </div>
           );
         })}
-        {(song?.introduction !== null ||
-          song.introductionTranslation !== null) && (
+        {(song?.introduction !== '' || song.introductionTranslation !== '') && (
           <div className="space-y-2">
             <div className="text-lg font-bold">INTRODUCTION</div>
             <div key="introduction">
@@ -90,9 +89,8 @@ export function SongView({ song }: Readonly<SongViewProps>) {
             })}
           </div>
         )}
-        {(song?.relatedVideos?.length !== 0 ||
-          (song?.relatedImages?.length !== undefined &&
-            song?.relatedImages?.length > 1)) && (
+        {(song?.relatedVideos?.length > 0 ||
+          song?.relatedImages?.length > 1) && (
           <div className="space-y-2">
             <div className="text-lg font-bold">MEDIA</div>
             {song?.relatedVideos?.map((video) => {

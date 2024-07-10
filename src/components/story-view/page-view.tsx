@@ -63,9 +63,9 @@ function PageView({
         {page?.relatedAudio?.map((audio) => {
           return (
             <AudioControl
-              className="inline-flex"
               key={audio.id}
-              audio={audio}
+              audioSrc={audio.original.path}
+              styleType="native"
             />
           );
         })}

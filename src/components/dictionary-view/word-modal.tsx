@@ -5,7 +5,7 @@ import { Audio1 } from '@mothertongues/search';
 import { Bookmark, FvWord } from '../common/data';
 import WordCategories from './word-categories';
 import { FvImage } from '../common/image/image';
-import AudioButton from '../common/audio-button/audio-button';
+import AudioControl from '../common/audio-control/audio-control';
 import CopyButton from '../common/copy-button/copy-button';
 import BookmarkButton from '../common/bookmark-button/bookmark-button';
 
@@ -54,9 +54,10 @@ function WordModal({ term, onClose }: Readonly<WordModalProps>) {
           <div className="space-y-2">
             {term.audio?.map((mtAudio: Audio1) => (
               <div key={mtAudio.filename} className="inline-flex mr-2">
-                <AudioButton
+                <AudioControl
                   audioSrc={mtAudio.filename}
                   description={mtAudio.description}
+                  styleType="button"
                 />
               </div>
             ))}

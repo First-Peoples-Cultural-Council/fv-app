@@ -5,7 +5,7 @@ import { Audio1 } from '@mothertongues/search';
 // FPCC
 import { Flashcard } from '../common/data';
 import { FlipButton } from './flip-button';
-import AudioButton from '../common/audio-button/audio-button';
+import AudioControl from '../common/audio-control/audio-control';
 
 export interface FlashcardViewProps {
   flashcardData: Flashcard | undefined;
@@ -61,10 +61,11 @@ export function FlashcardView({
           )}
           {flashcardData?.type === 'audio' &&
             flashcardData?.audio?.map((mtAudio: Audio1) => (
-              <AudioButton
+              <AudioControl
                 key={mtAudio.filename}
                 audioSrc={mtAudio.filename}
                 description={mtAudio.description}
+                styleType="button"
               />
             ))}
 

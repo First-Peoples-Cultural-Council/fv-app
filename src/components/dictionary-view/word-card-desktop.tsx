@@ -6,7 +6,7 @@ import { Audio1 } from '@mothertongues/search';
 import { FvWord, FvWordLocation } from '../common/data';
 import Modal from '../common/modal/modal';
 import { useModal } from '../common/use-modal/use-modal';
-import { useAudio } from '../contexts/audioContext';
+import { useAudioContext } from '../contexts/audioContext';
 import { applyHighlighting } from '../../util/applyHighlighting';
 import WordModal from './word-modal';
 
@@ -22,7 +22,7 @@ function WordCardDesktop({
   const wordLocations: FvWordLocation[] | null = item?.locations ?? null;
   const { word, definition, audio } = item;
   const { setShowModal, showModal, closeModal } = useModal();
-  const { stopAll } = useAudio();
+  const { stopAll } = useAudioContext();
 
   return (
     <>
@@ -39,8 +39,8 @@ function WordCardDesktop({
             </div>
           </div>
           <div className="col-span-1">
-            {audio?.map((fvAudio: Audio1) => (
-              <i key={fvAudio.filename} className="fv-volume-up" />
+            {audio?.map((mtAudio: Audio1) => (
+              <i key={mtAudio.filename} className="fv-volume-up" />
             ))}
           </div>
           <div className="col-span-7 text-left">

@@ -1,66 +1,79 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { Description } from '@mothertongues/search';
+import classNames from 'classnames';
+
+// FPCC
 import Alert from '../alert/alert';
-import { FVMedia } from '../data';
-import IndexedDBService from '../../../services/indexedDbService';
+import { useAudio } from '../../../util/useAudio';
 
 export interface AudioControlProps {
-  className?: string;
-  disabledClassName?: string;
-  audio: FVMedia;
+  audioSrc: string;
+  description?: Description | string;
+  styleType: 'icon' | 'button' | 'native';
 }
 
 export function AudioControl({
-  className,
-  disabledClassName,
-  audio,
-}: AudioControlProps) {
-  const db = new IndexedDBService('firstVoicesIndexedDb');
-
+  audioSrc,
+  description,
+  styleType,
+}: Readonly<AudioControlProps>) {
   const [showAlert, setShowAlert] = useState(false);
-  const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine);
-  const [hasFile, setHasFile] = useState(false);
-
-  useEffect(() => {
-    const handleOnline = () => setIsOnline(true);
-    const handleOffline = () => setIsOnline(false);
-
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-
-    db.hasMediaFile(audio.original.path).then((response) => {
-      setHasFile(response);
-    });
-
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleClick = () => {
-    setShowAlert(true);
-  };
+  const { audioAvailable, audioPlaying, toggleAudio } = useAudio(audioSrc);
 
   return (
     <>
-      {isOnline || hasFile ? (
-        <audio controls className={className}>
-          <source
-            src={audio.original.path}
-            type={audio.original.mimetype}
-          ></source>
-        </audio>
-      ) : (
-        <div
-          className={`fv-songs text-20xl text-gray-500/25 ${disabledClassName}`}
-          onClick={handleClick}
-        ></div>
+      {styleType === 'icon' && (
+        <button
+          data-testid={`audio-btn-${audioSrc}`}
+          type="button"
+          className={classNames({
+            'opacity-30': !audioAvailable,
+          })}
+          onClick={() => {
+            audioAvailable ? toggleAudio() : setShowAlert(true);
+          }}
+        >
+          <i className="fv-volume-up text-3xl" />
+        </button>
+      )}
+
+      {styleType === 'button' && (
+        <button
+          data-testid={`audio-btn-${audioSrc}`}
+          type="button"
+          className={classNames('btn-contained bg-secondary-500', {
+            'opacity-30 bg-gray-500': !audioAvailable,
+          })}
+          onClick={() => {
+            audioAvailable ? toggleAudio() : setShowAlert(true);
+          }}
+        >
+          {audioPlaying ? (
+            <i className="fv-pause" />
+          ) : (
+            <i className="fv-play" />
+          )}
+          {description && <div>{description}</div>}
+        </button>
+      )}
+
+      {styleType === 'native' && (
+        <>
+          {audioAvailable ? (
+            <audio src={audioSrc} controls />
+          ) : (
+            <button
+              type="button"
+              className="fv-songs text-3xl text-gray-400"
+              onClick={() => setShowAlert(true)}
+            />
+          )}
+        </>
       )}
 
       <Alert
         type={'warning'}
-        message="Content not downloaded.  Please access when you have access to internet in order to download content."
+        message="Audio file not downloaded.  Please access when you have access to internet in order to download content."
         showDismissButton={true}
         showAlert={showAlert}
         dismissAlert={function (): void {

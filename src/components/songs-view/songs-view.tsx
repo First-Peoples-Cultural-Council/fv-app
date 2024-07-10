@@ -23,12 +23,13 @@ export function SongsView({ songsData }: Readonly<SongsViewProps>) {
   };
 
   return (
-    <div className="w-full">
+    <div data-testid="songs-view" className="w-full">
       <div className="grid grid-cols-2 w-full h-full max-h-calc-185 md:max-h-calc-125">
         <div className="col-span-2 md:col-span-1 overflow-y-auto md:space-y-2 md:p-2">
           {songsData?.map((song: FVSong) => {
             return (
               <button
+                data-testid={`song-btn-${song.id}`}
                 key={song.id}
                 className={classNames(
                   'w-full border border-gray-200 md:rounded-lg bg-white p-4 shadow-lg hover:bg-gray-100 cursor-pointer',

@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import classNames from 'classnames';
+import { Audio1 } from '@mothertongues/search';
 
-import { Flashcard, FvAudio } from '../common/data';
+// FPCC
+import { Flashcard } from '../common/data';
 import { FlipButton } from './flip-button';
+import AudioControl from '../common/audio-control/audio-control';
 
 export interface FlashcardViewProps {
   flashcardData: Flashcard | undefined;
@@ -16,13 +19,6 @@ export function FlashcardView({
   flashcardIndex,
 }: Readonly<FlashcardViewProps>) {
   const [flipped, setFlipped] = useState(false);
-
-  async function playAudio(fileName: string) {
-    const audio = new Audio(fileName);
-    audio.play().catch((err: any) => {
-      console.error(err);
-    });
-  }
 
   return (
     <div
@@ -64,20 +60,13 @@ export function FlashcardView({
             </div>
           )}
           {flashcardData?.type === 'audio' &&
-            flashcardData?.audio?.map((fvAudio: FvAudio) => (
-              <button
-                key={fvAudio.filename}
-                className="btn-contained bg-secondary"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  playAudio(fvAudio.filename).catch((err: any) => {
-                    console.error(err);
-                  });
-                }}
-              >
-                <i className="fv-volume-up text-3xl" />
-                {fvAudio.description && <div>{fvAudio.description}</div>}
-              </button>
+            flashcardData?.audio?.map((mtAudio: Audio1) => (
+              <AudioControl
+                key={mtAudio.filename}
+                audioSrc={mtAudio.filename}
+                description={mtAudio.description}
+                styleType="button"
+              />
             ))}
 
           <FlipButton handleClick={() => setFlipped(!flipped)} />

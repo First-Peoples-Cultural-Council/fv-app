@@ -7,7 +7,7 @@ import fetchWordOfDayData from '../../services/wordOfTheDayApiService';
 import { FvWord } from '../common/data';
 import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
 import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
-import { useAudio } from '../contexts/audioContext';
+import { useAudioContext } from '../contexts/audioContext';
 import { InstallPromptContext } from '../contexts/installPromptContext';
 
 export interface WordOfTheDayProps {
@@ -16,7 +16,7 @@ export interface WordOfTheDayProps {
 
 function WordOfTheDay({ dictionaryData }: Readonly<WordOfTheDayProps>) {
   const today = new Date();
-  const { stopAll } = useAudio();
+  const { stopAll } = useAudioContext();
   const { showInstallPrompt } = useContext(InstallPromptContext);
 
   const [showModal, setShowModal] = React.useState(false);
@@ -24,7 +24,8 @@ function WordOfTheDay({ dictionaryData }: Readonly<WordOfTheDayProps>) {
 
   useEffect(() => {
     if (
-      today.toDateString() !== (localStorage.getItem('lastWOTDSeenOn') ?? '') && !showInstallPrompt
+      today.toDateString() !== (localStorage.getItem('lastWOTDSeenOn') ?? '') &&
+      !showInstallPrompt
     ) {
       setShowModal(true);
     }

@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 
 import WordModal from '../dictionary-view/word-modal';
 import { FvWord, isFvWord } from '../common/data';
-import { useAudio } from '../contexts/audioContext';
+import { useAudioContext } from '../contexts/audioContext';
 import PageNotFound from '../page-not-found/page-not-found';
 import BackButton from '../common/back-button/back-button';
 import { useDictionaryData } from '../dictionary-page/dictionary-page';
@@ -15,7 +15,7 @@ export interface DictionaryEntryViewProps {}
 
 function DictionaryEntryView(props: Readonly<DictionaryEntryViewProps>) {
   const { id } = useParams();
-  const { stopAll } = useAudio();
+  const { stopAll } = useAudioContext();
   const { dictionaryHash } = useDictionaryData();
 
   const [dictionaryEntry, setDictionaryEntry] = useState<

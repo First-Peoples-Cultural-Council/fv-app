@@ -1,7 +1,7 @@
 import { ButtonTypeEnum, StandardButtonButtonTypeEnum } from './enums';
 import { ReactNode } from 'react';
 
-import { DictionaryEntryExportFormat, Audio1 } from '@mothertongues/search';
+import { Audio1, DictionaryEntryExportFormat } from '@mothertongues/search';
 export type SelectOption = {
   id: string;
   label: string;
@@ -69,7 +69,6 @@ export type FvWord = DictionaryEntryExportFormat & {
 
 export type FvWordLocation = [type: string, index: number];
 
-export type FvAudio = Audio1;
 export type FvWord2 = {
   id: string;
   url: string;
@@ -141,7 +140,7 @@ export type Flashcard = {
   type: string;
   frontWord: string;
   backWord: string;
-  audio: FvAudio[] | null;
+  audio: Audio1[] | null;
 };
 
 export type Bookmark = {

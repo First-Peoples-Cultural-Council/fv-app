@@ -3,7 +3,6 @@ import {
   ReactNode,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from 'react';
@@ -40,15 +39,6 @@ export const AudioProvider = ({ children }: AudioProviderProps) => {
     });
   }, [audios]);
 
-  useEffect(() => {
-    return () => {
-      audios.forEach((audio) => {
-        audio.pause();
-        audio.currentTime = 0;
-      });
-    };
-  }, [audios]);
-
   const value = useMemo(
     () => ({
       audios,
@@ -64,4 +54,4 @@ export const AudioProvider = ({ children }: AudioProviderProps) => {
   );
 };
 
-export const useAudio = () => useContext(AudioContext);
+export const useAudioContext = () => useContext(AudioContext);

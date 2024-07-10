@@ -14,7 +14,6 @@ export function FvVideo({
 }: Readonly<FvVideoProps>) {
   const [showAlt, setShowAlt] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  console.log({ src });
 
   const handleVideoError = (event: SyntheticEvent) => {
     console.error('Error loading video: ', event);

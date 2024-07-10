@@ -7,33 +7,39 @@ import { useAudioContext } from '../components/contexts/audioContext';
 
 export function useAudio(audioSrc: string) {
   const { addAudio, removeAudio, stopAll } = useAudioContext();
-  const db = new IndexedDBService('firstVoicesIndexedDb');
-  const [audio, setAudio] = useState<HTMLAudioElement>();
-  const [audioPlaying, setAudioPlaying] = useState(false);
-
-  const [hasFile, setHasFile] = useState(false);
-
   const { isOnline } = useDetectOnlineStatus();
 
-  useEffect(() => {
-    const audioElement = new Audio(audioSrc);
-    addAudio(audioElement);
-    setAudio(audioElement);
+  const [audio, setAudio] = useState<HTMLAudioElement>();
+  const [audioPlaying, setAudioPlaying] = useState(false);
+  const [hasFile, setHasFile] = useState(false);
 
+  useEffect(() => {
+    if (audioSrc.length > 0) {
+      const audioElement = new Audio(audioSrc);
+      addAudio(audioElement);
+      setAudio(audioElement);
+    }
+    return () => {
+      if (audio) removeAudio(audio);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const db = new IndexedDBService('firstVoicesIndexedDb');
     db.hasMediaFile(audioSrc).then((hasFile) => {
       setHasFile(hasFile);
     });
-    return () => {
-      if (audio) {
-        removeAudio(audio);
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOnline]);
+  }, [isOnline, audioSrc]);
 
   useEffect(() => {
     if (audio) {
       audio.onended = () => {
+        setAudioPlaying(false);
+      };
+    }
+    if (audio) {
+      audio.onpause = () => {
         setAudioPlaying(false);
       };
     }

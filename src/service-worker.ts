@@ -122,16 +122,18 @@ self.addEventListener('fetch', function (event) {
         // Cache file if necessary
 
         if (isMediaFile(url) && isNotFailedResponse(response)) {
-          // Try to save the media file as a new entry in the database.
-          const filename = getFileNameFromUrl(url);
-          const file = await getFileFromResponse(
-            response.clone(),
-            filename
-          ).catch((result) => {
-            /* no action necessary */
-          });
-          if (file && !db.hasMediaFile(url)) {
-            db.addMediaFile(url, file).catch((result) => {});
+          //  Confirm no file exists
+          const alreadyHasFile = await db.hasMediaFile(url.toString());
+          if (!alreadyHasFile) {
+            // Try to save the media file as a new entry in the database.
+            const filename = getFileNameFromUrl(url);
+            const file = await getFileFromResponse(
+              response.clone(),
+              filename
+            ).catch((result) => {
+              /* no action necessary */
+            });
+            if (file) db.addMediaFile(url, file).catch((result) => {});
           }
         }
 

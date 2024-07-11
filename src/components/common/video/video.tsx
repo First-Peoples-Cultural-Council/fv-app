@@ -1,5 +1,9 @@
-import { SyntheticEvent, useState } from 'react';
+import { useEffect, useState } from 'react';
+
+// FPCC
+import IndexedDBService from '../../../services/indexedDbService';
 import Alert from '../alert/alert';
+import { useDetectOnlineStatus } from '../../../util/useDetectOnlineStatus';
 
 export interface FvVideoProps {
   className?: string;
@@ -12,30 +16,27 @@ export function FvVideo({
   disabledClassName,
   src,
 }: Readonly<FvVideoProps>) {
-  const [showAlt, setShowAlt] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [hasFile, setHasFile] = useState(false);
+  const { isOnline } = useDetectOnlineStatus();
 
-  const handleVideoError = (event: SyntheticEvent) => {
-    console.error('Error loading video: ', event);
-    setShowAlt(true);
-  };
-
-  const handleClick = () => {
-    setShowAlert(true);
-  };
+  useEffect(() => {
+    const db = new IndexedDBService('firstVoicesIndexedDb');
+    db.hasMediaFile(src).then((hasFile) => {
+      setHasFile(hasFile);
+    });
+  }, [isOnline, src]);
 
   return (
     <>
-      {showAlt ? (
+      {isOnline || hasFile ? (
+        <video src={src} className={className} controls />
+      ) : (
         <button
           type="button"
           className={`fv-video text-20xl text-gray-500/25 ${disabledClassName}`}
-          onClick={handleClick}
+          onClick={() => setShowAlert(true)}
         />
-      ) : (
-        <video className={className} controls onError={handleVideoError}>
-          <source src={src} type="video/mp4" />
-        </video>
       )}
 
       <Alert

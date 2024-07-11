@@ -10,7 +10,6 @@ export interface FvImageProps {
   disabledClassName?: string;
   src: string;
   alt: string;
-  onClick?: () => void;
 }
 
 export function FvImage({
@@ -18,7 +17,6 @@ export function FvImage({
   disabledClassName,
   src,
   alt,
-  onClick,
 }: Readonly<FvImageProps>) {
   const [showAlert, setShowAlert] = useState(false);
   const [hasFile, setHasFile] = useState(false);
@@ -31,19 +29,15 @@ export function FvImage({
     });
   }, [isOnline, src]);
 
-  const handleClick = () => {
-    setShowAlert(true);
-  };
-
   return (
     <>
       {isOnline || hasFile ? (
-        <img className={className} src={src} alt={alt} onClick={onClick} />
+        <img className={className} src={src} alt={alt} />
       ) : (
         <button
           type="button"
           className={`fv-picture text-20xl text-gray-500/25 ${disabledClassName}`}
-          onClick={handleClick}
+          onClick={() => setShowAlert(true)}
         />
       )}
 

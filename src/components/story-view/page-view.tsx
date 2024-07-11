@@ -37,13 +37,14 @@ function PageView({
           return (
             <button
               type="button"
+              data-testid="image-modal-btn"
+              key={img.id}
               onClick={() => {
                 setPictureUrl(img.original.path);
                 setShowPictureModal(true);
               }}
             >
               <FvImage
-                key={img.id}
                 className="h-80 p-2"
                 src={img.original.path}
                 alt={img.title}

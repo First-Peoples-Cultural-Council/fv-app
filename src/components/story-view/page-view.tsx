@@ -35,16 +35,21 @@ function PageView({
       <div className="flex flex-wrap w-full justify-center">
         {page.relatedImages?.map((img) => {
           return (
-            <FvImage
+            <button
+              type="button"
+              data-testid="image-modal-btn"
               key={img.id}
-              className="h-80 p-2"
-              src={img.original.path}
-              alt={img.title}
               onClick={() => {
                 setPictureUrl(img.original.path);
                 setShowPictureModal(true);
               }}
-            />
+            >
+              <FvImage
+                className="h-80 p-2"
+                src={img.original.path}
+                alt={img.title}
+              />
+            </button>
           );
         })}
       </div>

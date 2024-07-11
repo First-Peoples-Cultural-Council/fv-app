@@ -1,5 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+// FPCC
+import IndexedDBService from '../../../services/indexedDbService';
 import Alert from '../alert/alert';
+import { useDetectOnlineStatus } from '../../../util/useDetectOnlineStatus';
 
 export interface FvImageProps {
   className?: string;
@@ -16,12 +20,16 @@ export function FvImage({
   alt,
   onClick,
 }: Readonly<FvImageProps>) {
-  const [showAlt, setShowAlt] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [hasFile, setHasFile] = useState(false);
+  const { isOnline } = useDetectOnlineStatus();
 
-  const handleImageError = () => {
-    setShowAlt(true);
-  };
+  useEffect(() => {
+    const db = new IndexedDBService('firstVoicesIndexedDb');
+    db.hasMediaFile(src).then((hasFile) => {
+      setHasFile(hasFile);
+    });
+  }, [isOnline, src]);
 
   const handleClick = () => {
     setShowAlert(true);
@@ -29,19 +37,13 @@ export function FvImage({
 
   return (
     <>
-      {showAlt ? (
+      {isOnline || hasFile ? (
+        <img className={className} src={src} alt={alt} onClick={onClick} />
+      ) : (
         <button
           type="button"
           className={`fv-picture text-20xl text-gray-500/25 ${disabledClassName}`}
           onClick={handleClick}
-        />
-      ) : (
-        <img
-          className={className}
-          src={src}
-          alt={alt}
-          onError={handleImageError}
-          onClick={onClick}
         />
       )}
 

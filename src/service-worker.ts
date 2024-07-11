@@ -93,50 +93,56 @@ self.addEventListener('message', (event) => {
 
 // Any other custom service worker logic can go here.
 self.addEventListener('fetch', function (event) {
-  event.preventDefault()
+  event.preventDefault();
   const url = event.request.url;
 
   event.respondWith(
     (async function () {
-        // Check to see if the request can be served from the cache
-        if (isMediaFile(url)) {
-          try {
-            const file: File|null = await getMediaFile(url);
-  
-            if (file) {
-              return new Response(file, { status: 200 });
-            } 
-          }
-          catch(err) {
-            console.error("service-worker: error getting media file from db: ", url, err);
-          }
-        }
-
-        // Request new file if necessary
+      // Check to see if the request can be served from the cache
+      if (isMediaFile(url)) {
         try {
-          const response = await fetch(event.request, { mode:  'cors' });
+          const file: File | null = await getMediaFile(url);
 
-          // Cache file if necessary
-
-          if (isMediaFile(url) && isNotFailedResponse(response)) {
-            // Try to save the media file as a new entry in the database.
-            const filename = getFileNameFromUrl(url);
-            const file = await getFileFromResponse(response.clone(), filename).catch((result) => { /* no action necessary */ });
-            if(file) {
-              db.addMediaFile(url, file).catch((result) => {  });
-            }
+          if (file) {
+            return new Response(file, { status: 200 });
           }
-
-          return response;
-
+        } catch (err) {
+          console.error(
+            'service-worker: error getting media file from db: ',
+            url,
+            err
+          );
         }
-        catch (error) {       
-          // Return a custom offline response
-          return new Response('Offline', {
-            status: 503,
-            statusText: 'Service Unavailable',
+      }
+
+      // Request new file if necessary
+      try {
+        const response = await fetch(event.request, { mode: 'cors' });
+
+        // Cache file if necessary
+
+        if (isMediaFile(url) && isNotFailedResponse(response)) {
+          // Try to save the media file as a new entry in the database.
+          const filename = getFileNameFromUrl(url);
+          const file = await getFileFromResponse(
+            response.clone(),
+            filename
+          ).catch((result) => {
+            /* no action necessary */
           });
+          if (file && !db.hasMediaFile(url)) {
+            db.addMediaFile(url, file).catch((result) => {});
+          }
         }
+
+        return response;
+      } catch (error) {
+        // Return a custom offline response
+        return new Response('Offline', {
+          status: 503,
+          statusText: 'Service Unavailable',
+        });
+      }
     })()
   );
 });
@@ -168,7 +174,7 @@ function isMediaFile(url: string) {
   ]);
 }
 
-async function getMediaFile(urlPath: string): Promise<File|null> {
+async function getMediaFile(urlPath: string): Promise<File | null> {
   const url = new URL(urlPath);
   url.search = '';
   const result = await db.getMediaFile(url.toString());
@@ -193,10 +199,13 @@ function endsWithAny(text: string, endings: string[]): boolean {
   return false;
 }
 
-async function getFileFromResponse(response: Response, filename: string): Promise<File|null> {
+async function getFileFromResponse(
+  response: Response,
+  filename: string
+): Promise<File | null> {
   const blob = await response.blob();
 
-  if(blob) {
+  if (blob) {
     return new File([blob], filename);
   }
 
@@ -209,8 +218,8 @@ function getFileNameFromUrl(url: string): string {
   return parts[parts.length - 1];
 }
 
-function isNotFailedResponse(response:Response): boolean {
+function isNotFailedResponse(response: Response): boolean {
   // Rather than checking for a 2xx or "ok", we check for not having an error or redirect status.
   // This accounts for requests that are served from the browser cache, which have no status or status 0 in some browsers.
-  return response.status < 300
+  return response.status < 300;
 }

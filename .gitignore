@@ -6,6 +6,12 @@
 /tmp
 /out-tsc
 
+# Config files
+public/lilwat/
+public/manifest.lilwat.json
+public/smalgyax/
+public/manifest.smalgyax.json
+
 # dependencies
 node_modules
 

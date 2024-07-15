@@ -161,7 +161,7 @@ self.addEventListener('install', (event) => {
 });
 
 function isMediaFile(url: string) {
-  return endsWithAny(url, [
+  return endsWithOneOf(url, [
     '.jpeg',
     '.jpg',
     '.gif',
@@ -192,7 +192,7 @@ async function getMediaFile(urlPath: string): Promise<File | null> {
   });
 }
 
-function endsWithAny(text: string, endings: string[]): boolean {
+function endsWithOneOf(text: string, endings: string[]): boolean {
   for (const ending of endings) {
     if (text.toLocaleLowerCase().endsWith(ending)) {
       return true;

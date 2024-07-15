@@ -30,7 +30,9 @@ export function FvVideo({
   return (
     <>
       {isOnline || hasFile ? (
-        <video src={src} className={className} controls />
+        <video src={src} className={className} controls>
+          <p>Your browser cannot play the provided video file.</p>
+        </video>
       ) : (
         <button
           type="button"

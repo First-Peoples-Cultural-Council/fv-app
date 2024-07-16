@@ -1,26 +1,24 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: GPTBot
 User-agent: ChatGPT-User
-User-agent: AdsBot-Google
-User-agent: AdsBot-Google-Mobile
-User-agent: AdsBot-Google-Mobile-Apps
-User-agent: Google Favicon
-User-agent: Googlebot-News
-User-agent: Googlebot-Video
-User-agent: Mediapartners-Google
-User-agent: APIs-Google
-User-agent: DuplexWeb-Google
+User-agent: Applebot-Extended
+User-agent: Bytespider
+User-agent: CCBot
+User-agent: ClaudeBot
+User-agent: Diffbot
+User-agent: FacebookBot
+User-agent: Google-Extended
+User-agent: omgili
+User-agent: 008
+User-agent: Dataprovider.com
+User-agent: dcrawl
+User-agent: HTTrack
+User-agent: HTTrack 3.0
+User-agent: MetaInspector
+User-agent: newspaper
+User-agent: Nutch
+User-agent: Offline Explorer
+User-agent: OpenindexSpider
+User-agent: Scrapy
 User-agent: Slurp
-User-agent: DuckDuckBot
-User-agent: Baiduspider
-User-agent: AhrefsBot
-User-agent: rogerbot
-User-agent: DotBot
-User-agent: Twitterbot
-User-agent: BingPreview
-User-agent: LinkedInBot
-User-agent: facebot
-User-agent: facebookexternalhit
-User-agent: MSNBot
-User-agent: MSNBot-Media
 Disallow: /

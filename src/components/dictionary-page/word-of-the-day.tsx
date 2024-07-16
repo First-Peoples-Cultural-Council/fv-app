@@ -83,7 +83,6 @@ function WordOfTheDay({ dictionaryData }: Readonly<WordOfTheDayProps>) {
   if (data) {
     if (showModal) {
       if (window.matchMedia('(min-width: 768px').matches) {
-        console.info('larger than 768px');
         return (
           <Modal onClose={() => wordOfTheDaySeen()}>
             <div className="w-full text-center text-3xl mb-5">
@@ -99,7 +98,6 @@ function WordOfTheDay({ dictionaryData }: Readonly<WordOfTheDayProps>) {
           </Modal>
         );
       } else if (!window.matchMedia('(min-width: 768px').matches) {
-        console.info('smaller than 768px');
         return (
           <FullScreenModal onClose={() => wordOfTheDaySeen()}>
             <div className="flex w-full text-center text-3xl mb-5">

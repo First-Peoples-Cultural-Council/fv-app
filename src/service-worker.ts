@@ -221,7 +221,5 @@ function getFileNameFromUrl(url: string): string {
 }
 
 function isNotFailedResponse(response: Response): boolean {
-  // Rather than checking for a 2xx or "ok", we check for not having an error or redirect status.
-  // This accounts for requests that are served from the browser cache, which have no status or status 0 in some browsers.
-  return response.status < 300;
+  return response.status === 200;
 }

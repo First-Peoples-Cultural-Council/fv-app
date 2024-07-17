@@ -46,6 +46,7 @@ export function SearchInput(props: Readonly<SearchInputProps>) {
         onKeyUp={onKeyUp}
         placeholder="Search"
         className="p-2 rounded-l-lg h-7 border border-gray-400 w-full shadow-inner"
+        id="search-input"
       />
       <button
         onClick={clearSearch}

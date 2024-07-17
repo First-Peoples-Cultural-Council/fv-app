@@ -21,6 +21,11 @@ export function DictionaryView(props: DictionaryViewProps) {
   const searchContext = useContext(SearchContext);
 
   const handleScroll = () => {
+    // see fw-6019 to remove this bespoke scroll handling
+    const currentFocus = document.activeElement; // returns an Element
+    const searchInput = document.getElementById("search-input"); // returns an HTMLElement with a focus() method
+    const isSearchFocussed = currentFocus && (currentFocus?.id === searchInput?.id)
+
     const windowHeight = window.innerHeight;
     const container = document.getElementById('wordList');
     if (!container) return;
@@ -30,6 +35,11 @@ export function DictionaryView(props: DictionaryViewProps) {
 
     if (windowHeight + scrollTop >= documentHeight - containerHeight - 20) {
       setVisibleItems((prevVisibleItems) => prevVisibleItems + 20);
+    }
+
+    if(isSearchFocussed){
+      // refocus the search box which is necessary for some browsers, see fw-5874
+      searchInput?.focus();
     }
   };
 

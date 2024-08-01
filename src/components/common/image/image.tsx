@@ -43,7 +43,7 @@ export function FvImage({
 
       <Alert
         type={'warning'}
-        message="This image content has not been downloaded.  Please access when you have access to internet in order to download content."
+        message="Images are not available offline. Please go online to access this image."
         showDismissButton={true}
         showAlert={showAlert}
         dismissAlert={function (): void {

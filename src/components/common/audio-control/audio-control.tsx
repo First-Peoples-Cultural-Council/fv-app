@@ -73,7 +73,7 @@ export function AudioControl({
 
       <Alert
         type={'warning'}
-        message="Audio file not downloaded.  Please access when you have access to internet in order to download content."
+        message="Audio files are not available offline. Please go online to listen to this audio."
         showDismissButton={true}
         showAlert={showAlert}
         dismissAlert={function (): void {

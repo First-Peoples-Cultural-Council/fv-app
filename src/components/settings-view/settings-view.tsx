@@ -27,10 +27,8 @@ export function SettingsView(props: SettingsViewProps) {
       <div className={styles['container']}>
         <div className="m-4">
           <p className="mb-3">
-            Media files are stored in a local cache, so they are available when
-            you are offline. You can clear this cache to free up space on your
-            device, but the files will stop being available offline until you
-            download them again.
+            We store media files to assist with app performance. You can clear
+            this cache to free up space on your device.
           </p>
           <p className="mb-6">
             Currently you have <span id="localMediaCount">{mediaCount}</span>{' '}
@@ -43,7 +41,6 @@ export function SettingsView(props: SettingsViewProps) {
               onClick={() => setShowConfirmDialog(true)}
             >
               Clear Media Cache
-              {/* <i className=""></i> */}
             </button>
           </p>
         </div>

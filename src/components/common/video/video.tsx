@@ -43,7 +43,7 @@ export function FvVideo({
 
       <Alert
         type={'warning'}
-        message="This video content has not been downloaded.  Please access when you have access to internet in order to download content."
+        message="Videos are not available offline. Please go online to access this video."
         showDismissButton={true}
         showAlert={showAlert}
         dismissAlert={function (): void {

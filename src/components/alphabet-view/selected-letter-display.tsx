@@ -2,7 +2,7 @@ import React from 'react';
 
 // FPCC
 import { CopyButton } from './copy-button';
-import { DownloadButton } from './download-button';
+// import { DownloadButton } from './download-button';
 import AudioControl from '../common/audio-control/audio-control';
 import { FvCharacter, FVMedia, FvWord } from '../common/data';
 
@@ -26,13 +26,13 @@ export function SelectedLetterDisplay({
       {audioCount === 0 && (
         <div className="flex w-full justify-center">
           <CopyButton selected={selected} />
-          <DownloadButton selected={selected} dictionaryData={dictionaryData} />
+          {/* <DownloadButton selected={selected} dictionaryData={dictionaryData} /> */}
         </div>
       )}
       {audioCount === 1 && (
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-2">
           <CopyButton selected={selected} />
-          <DownloadButton selected={selected} dictionaryData={dictionaryData} />
+          {/* <DownloadButton selected={selected} dictionaryData={dictionaryData} /> */}
           {selected?.relatedAudio.map((fvAudio: FVMedia) => {
             return (
               <AudioControl
@@ -49,12 +49,12 @@ export function SelectedLetterDisplay({
           <div className="flex w-full justify-center">
             <CopyButton selected={selected} />
           </div>
-          <div className="flex w-full justify-center">
+          {/* <div className="flex w-full justify-center">
             <DownloadButton
               selected={selected}
               dictionaryData={dictionaryData}
             />
-          </div>
+          </div> */}
           <div className="flex justify-evenly mt-5">
             {selected?.relatedAudio.map((fvAudio: FVMedia) => {
               return (

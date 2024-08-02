@@ -20,15 +20,9 @@ export function FlashcardView({
 }: Readonly<FlashcardViewProps>) {
   const [flipped, setFlipped] = useState(false);
 
-  return (
-    <div
-      className={classNames(
-        'relative h-full w-full transition-all duration-500 [transform-style:preserve-3d] ',
-        { '[transform:rotateY(180deg)]': flipped }
-      )}
-    >
-      {/* Front */}
-      <div className="absolute inset-0 bg-gray-50 p-1 flex justify-between items-center h-full w-full rounded-xl shadow-xl ">
+  const frontContents = () => {
+    return (
+      <div className="flex justify-between items-center h-full w-full">
         <div>
           <button
             id="previous-btn"
@@ -87,8 +81,12 @@ export function FlashcardView({
           </button>
         </div>
       </div>
-      {/* Back */}
-      <div className="absolute insert-0 h-full w-full rounded-xl bg-black p-2 text-gray-200 flex items-center justify-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
+    );
+  };
+
+  const backContents = () => {
+    return (
+      <div className="h-full w-full text-gray-200 flex items-center justify-center">
         {flashcardData && (
           <div
             className={classNames('text-4xl text-center break-words w-full', {
@@ -99,6 +97,26 @@ export function FlashcardView({
           </div>
         )}
         <FlipButton handleClick={() => setFlipped(!flipped)} />
+      </div>
+    );
+  };
+
+  return (
+    <div className="[perspective:1000px]">
+      <div
+        className={classNames(
+          'relative h-[65vh] w-full transition-all duration-500 [transformStyle:preserve-3d] ',
+          { 'rotate-y-180': flipped }
+        )}
+      >
+        {/* Front */}
+        <div className="absolute backface-hidden bg-gray-50 p-1 h-full w-full rounded-xl shadow-xl">
+          {frontContents()}
+        </div>
+        {/* Back */}
+        <div className="absolute rotate-y-180 backface-hidden bg-black p-1 h-full w-full rounded-xl shadow-xl">
+          {backContents()}
+        </div>
       </div>
     </div>
   );

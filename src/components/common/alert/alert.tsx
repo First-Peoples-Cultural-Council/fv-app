@@ -1,6 +1,7 @@
 import styles from './alert.module.css';
 import classNames from 'classnames';
-import { ReactNode } from 'react';
+import { ReactNode, useRef } from 'react';
+import useOnClickOutside from '../../../util/clickOutside';
 
 export interface AlertProps {
   type: 'success' | 'error' | 'warning' | 'info';
@@ -23,11 +24,18 @@ export function Alert({
   showDismissButton,
   makeBlocking,
 }: AlertProps) {
+  const alertContentRef = useRef<HTMLDivElement>(null);
+
+  useOnClickOutside(alertContentRef, () => {
+    dismissAlert();
+  });
+
   if (showAlert) {
     return (
       <div className={classNames(styles['container'], {})}>
         <div
-          className={classNames('rounded-md p-4', styles['alert'], {
+          ref={alertContentRef}
+          className={classNames('rounded-md py-3 px-4', styles['alert'], {
             'bg-yellow-50': type === 'warning',
             'bg-green-50': type === 'success',
             'bg-red-50': type === 'error',
@@ -124,21 +132,21 @@ export function Alert({
                 <div>{rightContent}</div>
               </div>
               {showDismissButton && (
-                <div className="mt-4">
-                  <div className="-mx-2 -my-1.5 flex">
+                <div className="mt-3">
+                  <div className="flex">
                     <button
                       onClick={dismissAlert}
                       type="button"
                       className={classNames(
-                        'ml-3 rounded-md px-2 py-1.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2',
+                        'ml-3 rounded-md border px-2 py-1.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2',
                         {
-                          'text-green-800 bg-green-50 hover:bg-green-100 focus:ring-green-600 focus:ring-offset-green-50':
+                          'text-green-800 bg-green-50 border-green-800 focus:ring-green-600 focus:ring-offset-green-50':
                             type === 'success',
-                          'text-yellow-800 bg-yellow-50 hover:bg-yellow-100 focus:ring-yellow-600 focus:ring-offset-yellow-50':
+                          'text-yellow-800 bg-yellow-50 border-yellow-800 focus:ring-yellow-600 focus:ring-offset-yellow-50':
                             type === 'warning',
-                          'text-red-800 bg-red-50 hover:bg-red-100 focus:ring-red-600 focus:ring-offset-red-50':
+                          'text-red-800 bg-red-50 border-red-800 focus:ring-red-600 focus:ring-offset-red-50':
                             type === 'error',
-                          'text-blue-800 bg-blue-50 hover:bg-blue-100 focus:ring-blue-600 focus:ring-offset-blue-50':
+                          'text-blue-800 bg-blue-50 border-blue-800 focus:ring-blue-600 focus:ring-offset-blue-50':
                             type === 'info',
                         }
                       )}

@@ -29,3 +29,13 @@ For example over-ride the colour of the btn-contained backgound using bg-seconda
     @apply fill-current h-5 w-5;
   }
 }
+
+@layer utilities {
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden; /* Necessary to work on certain versions of iOS prior to 17 */
+  }
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+}

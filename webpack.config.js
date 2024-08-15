@@ -214,12 +214,7 @@ module.exports = {
     compress: true,
     server: 'https',
     port: 3000,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': '*',
-      'Access-Control-Allow-Headers': '*',
-    },
-
+    headers: {},
     static: {
       publicPath,
       watch: {

@@ -11,7 +11,7 @@ export function ErrorPage() {
 
   if (isRouteErrorResponse(error)) {
     // error is type `ErrorResponse`
-    errorMessage = error.error?.message ?? error.statusText;
+    errorMessage = error?.statusText;
     errorStatus = String(error?.status);
   } else if (error instanceof Error) {
     errorMessage = error.message;

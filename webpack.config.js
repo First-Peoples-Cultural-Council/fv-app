@@ -30,7 +30,10 @@ module.exports = {
   watchOptions: {
     poll: 1000,
     aggregateTimeout: 1000,
-    ignored: ['**/node_modules'],
+    ignored: [
+      '**/node_modules', 
+      path.resolve(srcPath, 'serviceWorkerRegistration.ts'),
+    ],
   },
 
   entry: appSrc,
@@ -140,10 +143,6 @@ module.exports = {
         test: /\.(ttf|eot|woff|woff2)$/,
         type: 'asset/resource',
       },
-      {
-        test: /\.(json)$/i,
-        type: 'asset/resource',
-      },
     ],
   },
 
@@ -192,7 +191,6 @@ module.exports = {
       filename: `assets/css/[name].[contenthash:8].css`,
       chunkFilename: 'assets/css/[name].[contenthash:8].chunk.css',
     }),
-    !isDev &&
       new InjectManifest({
         swSrc,
         swDest: 'serviceWorker.js',
@@ -212,14 +210,11 @@ module.exports = {
 
   devServer: {
     compress: true,
-    server: 'https',
+    server: 'http',
     port: 3000,
     headers: {},
     static: {
       publicPath,
-      watch: {
-        ignored: path.resolve(srcPath, 'serviceWorkerRegistration.ts'),
-      },
     },
 
     client: {

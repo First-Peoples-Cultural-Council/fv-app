@@ -29,9 +29,10 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <script>
+      const origin = window.origin;
       const hostnameParts = window.location.hostname.split('.');
       let subdomain = hostnameParts[0]
-      const manifestUrl = `./assets/manifest.${subdomain}.json`;
+      const manifestUrl = `${origin}/assets/manifest.${subdomain}.json`;
 
       // link the manifest
       const linkElement = document.createElement('link');
@@ -42,11 +43,11 @@
       // Link the logos
       const faviconLink = document.createElement('link');
       faviconLink.rel = 'icon';
-      faviconLink.href = `./assets/${subdomain}/favicon.ico`;
+      faviconLink.href = `${origin}/assets/${subdomain}/favicon.ico`;
       document.head.appendChild(faviconLink);
       const logoLink = document.createElement('link');
       logoLink.rel = 'apple-touch-icon';
-      logoLink.href = `./assets/${subdomain}/logo192.png`;
+      logoLink.href = `${origin}/assets/${subdomain}/logo192.png`;
       document.head.appendChild(logoLink);
 
       // customize the title for this language

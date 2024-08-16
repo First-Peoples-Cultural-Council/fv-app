@@ -11,12 +11,13 @@ export interface AboutViewProps {
 
 export function AboutView({ children }: Readonly<AboutViewProps>) {
   // Site information from manifest and hostname
+  const origin = window.origin;
   const hostnameParts = window.location.hostname.split('.');
   const subdomain = hostnameParts[0];
-  const manifestUrl = `./assets/manifest.${subdomain}.json`;
+  const manifestUrl = `${origin}/assets/manifest.${subdomain}.json`;
   const siteTitle = useSiteTitleFromManifest(manifestUrl);
   const siteURL = `https://www.firstvoices.com/${subdomain}/`;
-  const logoURL = `./assets/${subdomain}/logo192.png`;
+  const logoURL = `${origin}/assets/${subdomain}/logo192.png`;
 
   return (
     <div data-testid="AboutView" className="max-w-3xl mx-auto">

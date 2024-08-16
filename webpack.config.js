@@ -7,6 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { InjectManifest } = require('workbox-webpack-plugin');
 
@@ -191,21 +192,25 @@ module.exports = {
       filename: `assets/css/[name].[contenthash:8].css`,
       chunkFilename: 'assets/css/[name].[contenthash:8].chunk.css',
     }),
-      new InjectManifest({
-        swSrc,
-        swDest: 'serviceWorker.js',
-        dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
-        exclude: [
-          /\.map$/,
-          /manifest$/,
-          /\.htaccess$/,
-          /service-worker\.js$/,
-          /asset-manifest\.json$/,
-          /LICENSE/,
-        ],
-        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
-      }),
-      // can also add ESLint plugin here
+    new WebpackManifestPlugin({
+      fileName: 'asset-manifest.json',
+      publicPath: publicPath,
+    }),
+    new InjectManifest({
+      swSrc,
+      swDest: 'serviceWorker.js',
+      dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
+      exclude: [
+        /\.map$/,
+        /manifest$/,
+        /\.htaccess$/,
+        /service-worker\.js$/,
+        /asset-manifest\.json$/,
+        /LICENSE/,
+      ],
+      maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+    }),
+    // can also add ESLint plugin here
   ].filter(Boolean),
 
   devServer: {

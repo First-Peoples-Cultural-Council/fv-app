@@ -56,15 +56,12 @@
     "buildnserve": "npm run build && serve -s build",
     "serve": "serve -s build",
     "icons:generate": "npx fontello-cli install --config fontello.config.json --css ./src/assets/fonts/css --font ./src/assets/fonts/font",
-    "icons:open": "npx fontello-cli open --config fontello.config.json",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "icons:open": "npx fontello-cli open --config fontello.config.json"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest",
-      "plugin:storybook/recommended"
+      "react-app/jest"
     ]
   },
   "browserslist": {
@@ -86,13 +83,6 @@
     "@babel/preset-typescript": "^7.24.6",
     "@playwright/test": "^1.33.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
-    "@storybook/addon-essentials": "^7.0.20",
-    "@storybook/addon-interactions": "^7.0.20",
-    "@storybook/addon-links": "^7.0.20",
-    "@storybook/preset-create-react-app": "^7.0.20",
-    "@storybook/react": "^7.0.20",
-    "@storybook/react-webpack5": "^7.0.20",
-    "@storybook/testing-library": "^0.0.14-next.2",
     "@svgr/webpack": "^8.1.0",
     "@types/uuid": "^9.0.8",
     "babel-core": "^7.0.0-bridge.0",
@@ -113,7 +103,6 @@
     "react-app-rewired": "^2.2.1",
     "react-refresh": "^0.11.0",
     "serve": "^14.2.1",
-    "storybook": "^7.0.20",
     "style-loader": "^4.0.0",
     "tailwindcss": "^3.3.1",
     "ts-jest": "^29.1.2",

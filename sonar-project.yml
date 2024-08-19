@@ -1,2 +1,2 @@
 # Exclude from source scope
-sonar.exclusions=playwright.config.ts,src/assets/fonts/**
+sonar.exclusions=src/assets/fonts/**

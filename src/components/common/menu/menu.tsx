@@ -1,11 +1,18 @@
-import styles from './menu.module.css';
-
 import ClickAwayListener from 'react-click-away-listener';
 import classNames from 'classnames';
 import { usePopper } from 'react-popper';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AnchorMenuItem, ButtonButtonMenuItem, ButtonMenuItem, ButtonTypeEnum, LinkMenuItem, MenuSection, StandardButtonButtonTypeEnum, SubmitButtonMenuItem } from '../data';
+import {
+  AnchorMenuItem,
+  ButtonButtonMenuItem,
+  ButtonMenuItem,
+  ButtonTypeEnum,
+  LinkMenuItem,
+  MenuSection,
+  StandardButtonButtonTypeEnum,
+  SubmitButtonMenuItem,
+} from '../data';
 
 export interface MenuProps {
   className?: string;
@@ -19,7 +26,7 @@ export function Menu({
   closeMenu,
   className,
   referenceElement,
-}: MenuProps) {
+}: Readonly<MenuProps>) {
   const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(
     null
   );
@@ -83,7 +90,7 @@ export function Menu({
         {menuData.map((section) => (
           <div
             key={section.id}
-            className={classNames('py-1', styles['section'])}
+            className="py-1"
             role="none"
             onClick={closeMenu}
           >

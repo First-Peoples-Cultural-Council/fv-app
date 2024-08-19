@@ -5,7 +5,6 @@ import classNames from 'classnames';
 // FPCC
 import { Bookmark, DeleteListType } from '../common/data';
 import DeletableList from '../common/deletable-list/deletable-list';
-import styles from './profile-view.module.css';
 import IndexedDBService from '../../services/indexedDbService';
 import PageHeader from '../common/page-header/page-header';
 
@@ -116,7 +115,7 @@ export function ProfileView() {
   });
 
   return (
-    <div className={styles['container']}>
+    <div>
       <PageHeader
         title="Bookmarks"
         backgroundColors={{

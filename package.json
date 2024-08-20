@@ -48,9 +48,9 @@
   },
   "scripts": {
     "start": "webpack serve --mode=development",
-    "start:sw": "SERVICE_WORKERS=True webpack serve --mode=development",
+    "start:sw": "SERVICE_WORKERS=true webpack serve --mode=development",
     "build": "NODE_ENV=production webpack",
-    "prebuild": "node ./generateManifestFileArray.js",
+    "prebuild": "",
     "test": "react-scripts test",
     "test:e2e": "npx playwright test",
     "eject": "react-scripts eject",

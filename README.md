@@ -11,10 +11,17 @@ $ npm run build
 
 4. Start the application.
 ```bash
-$ npm start
+$ npm run start
 ```
+Optionally if you want to enable service-workers for local testing,
+```bash
+$ npm run start:sw
+```
+**This is an experimental feature**. Ideally, service workers are only enabled on servers, but can be tested locally with this command.  
+To eable the service workers, you will also need to add the url to the *unsafely-treat-insecure-origin-as-secure* setting. This can be done by going to the url:`Chrome://flags`, and looking for #unsafely-treat-insecure-origin-as-secure flag. Enable the flag, and then paste the site you are trying to access in the input box, e.g. `http://localhost:3000,http://smalgyax.localhost:3000,http://default.localhost:3000`.
 
-5. Access the application at `https://[sitename].localhost:3000`
+
+5. Access the application on at `http://[sitename].localhost:3000`
 
     a. If you are switching between different sites locally, you may need to clear your local data in between depending on your browser.
 

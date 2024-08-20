@@ -7,12 +7,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { InjectManifest } = require('workbox-webpack-plugin');
 
 dotenv.config();
 
 const isDev = process.env.NODE_ENV !== 'production';
+const serviceWorkersEnabled = !isDev || process.env.SERVICE_WORKERS === "true";
 
 const srcPath = path.join(__dirname, 'src');
 const buildPath = path.join(__dirname, 'build');
@@ -160,8 +162,12 @@ module.exports = {
           from: 'public',
           to: 'assets',
           globOptions: {
-            ignore: ['**/index.html'],
+            ignore: ['**/index.html', '**/robots.txt'],
           },
+        },
+        {
+          from: 'public/robots.txt',
+          to: '.',
         },
       ],
     }),
@@ -191,21 +197,24 @@ module.exports = {
       filename: `assets/css/[name].[contenthash:8].css`,
       chunkFilename: 'assets/css/[name].[contenthash:8].chunk.css',
     }),
-      new InjectManifest({
-        swSrc,
-        swDest: 'serviceWorker.js',
-        dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
-        exclude: [
-          /\.map$/,
-          /manifest$/,
-          /\.htaccess$/,
-          /service-worker\.js$/,
-          /asset-manifest\.json$/,
-          /LICENSE/,
-        ],
-        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
-      }),
-      // can also add ESLint plugin here
+    serviceWorkersEnabled && new WebpackManifestPlugin({
+      fileName: 'asset-manifest.json',
+      publicPath: publicPath,
+    }),
+    serviceWorkersEnabled && new InjectManifest({
+      swSrc,
+      swDest: 'service-worker.js',
+      dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
+      exclude: [
+        /\.map$/,
+        /manifest$/,
+        /\.htaccess$/,
+        /asset-manifest\.json$/,
+        /LICENSE/,
+      ],
+      maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+    }),
+    // can also add ESLint plugin here
   ].filter(Boolean),
 
   devServer: {

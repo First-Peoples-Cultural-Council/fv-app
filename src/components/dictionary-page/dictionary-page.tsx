@@ -12,7 +12,6 @@ import {
 } from '@mothertongues/search';
 
 // FPCC
-import styles from './dictionary-page.module.css';
 import SubNavDesktop from '../sub-nav-desktop/sub-nav-desktop';
 import SubNavMobile from '../sub-nav-mobile/sub-nav-mobile';
 import WordOfTheDay from './word-of-the-day';
@@ -88,7 +87,7 @@ export function Dictionary(props: DictionaryProps) {
     <LoadingSpinner />
   ) : (
     <SearchProvider dictionaryHash={dictionaryHash} searchers={searchers}>
-      <div className={styles['container']}>
+      <div>
         <SubNavMobile navItems={dictionarySubNavItems} />
         <PageHeader
           title={currentNavItem.title}

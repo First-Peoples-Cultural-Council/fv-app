@@ -1,4 +1,3 @@
-import styles from './settings-view.module.css';
 import IndexedDBService from '../../services/indexedDbService';
 import { useEffect, useState } from 'react';
 import ConfirmDialog from '../common/confirm/confirm';
@@ -24,7 +23,7 @@ export function SettingsView(props: SettingsViewProps) {
 
   return (
     <>
-      <div className={styles['container']}>
+      <div>
         <div className="m-4">
           <p className="mb-3">
             We store media files to assist with app performance. You can clear

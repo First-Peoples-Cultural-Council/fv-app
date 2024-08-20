@@ -1,11 +1,15 @@
-import { render } from "@testing-library/react";
+/**
+ * @jest-environment jsdom
+ */
 
-import IconMenu from "./icon-menu";
+import { render } from '@testing-library/react';
 
-describe("IconMenu", () => {
-  it("should render successfully", () => {
+import IconMenu from './icon-menu';
+
+describe('IconMenu', () => {
+  it('should render successfully', () => {
     const { baseElement } = render(
-      <IconMenu menuData={[]} srOnlyLabel={""} icon={undefined} />
+      <IconMenu menuData={[]} srOnlyLabel={''} icon={undefined} />
     );
     expect(baseElement).toBeTruthy();
   });

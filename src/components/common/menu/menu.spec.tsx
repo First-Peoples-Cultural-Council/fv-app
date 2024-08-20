@@ -1,14 +1,18 @@
-import { render } from "@testing-library/react";
+/**
+ * @jest-environment jsdom
+ */
 
-import Menu from "./menu";
+import { render } from '@testing-library/react';
 
-describe("Menu", () => {
-  it("should render successfully", () => {
+import Menu from './menu';
+
+describe('Menu', () => {
+  it('should render successfully', () => {
     const { baseElement } = render(
       <Menu
         menuData={[]}
         closeMenu={function (): void {
-          throw new Error("Function not implemented.");
+          throw new Error('Function not implemented.');
         }}
         referenceElement={null}
       />

@@ -1,19 +1,23 @@
-import { render } from "@testing-library/react";
+/**
+ * @jest-environment jsdom
+ */
 
-import Select from "./select";
+import { render } from '@testing-library/react';
 
-describe("Select", () => {
-  it("should render successfully", () => {
+import Select from './select';
+
+describe('Select', () => {
+  it('should render successfully', () => {
     const { baseElement } = render(
       <Select
         options={[]}
         onChange={function (value: {
           target: { type: string; name: string; id: string; value: string };
         }): void {
-          throw new Error("Function not implemented.");
+          throw new Error('Function not implemented.');
         }}
-        selected={""}
-        name={""}
+        selected={''}
+        name={''}
       />
     );
     expect(baseElement).toBeTruthy();

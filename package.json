@@ -15,7 +15,7 @@
     "lintStaged": "lint-staged",
     "lint": "eslint ./ --ignore-path .gitignore",
     "lint:fix": "npm run lint -- --fix",
-    "format": "prettier --ignore-path .gitignore \"**/*.+(js|ts|tsx|json)\"",
+    "format": "prettier --write --ignore-path .gitignore \"**/*.+(js|ts|tsx|json)\"",
     "prepare": "husky install"
   },
   "jest": {
@@ -56,6 +56,7 @@
     "axios": "^1.7.4",
     "classnames": "^2.5.1",
     "core-js": "^3.38.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
     "react": "^18.3.1",
     "react-click-away-listener": "^2.2.3",
     "react-dom": "^18.3.1",
@@ -81,6 +82,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@babel/eslint-parser": "^7.25.1",
+    "@babel/eslint-plugin": "^7.25.1",
     "@babel/preset-env": "^7.25.3",
     "@babel/preset-react": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",

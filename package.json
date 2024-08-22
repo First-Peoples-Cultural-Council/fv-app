@@ -13,7 +13,7 @@
     "icons:generate": "npx fontello-cli install --config fontello.config.json --css ./src/assets/fonts/css --font ./src/assets/fonts/font",
     "icons:open": "npx fontello-cli open --config fontello.config.json",
     "lintStaged": "lint-staged",
-    "lint": "eslint ./ --ignore-path .gitignore",
+    "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier --write --ignore-path .gitignore \"**/*.+(js|ts|tsx|json)\"",
     "prepare": "husky install"
@@ -87,6 +87,7 @@
     "@babel/preset-env": "^7.25.3",
     "@babel/preset-react": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",
+    "@eslint/compat": "^1.1.1",
     "@eslint/js": "^9.9.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
     "@svgr/webpack": "^8.1.0",

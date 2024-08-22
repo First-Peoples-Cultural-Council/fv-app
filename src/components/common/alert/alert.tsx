@@ -11,7 +11,6 @@ export interface AlertProps {
   showDismissButton: boolean
   showAlert: boolean
   dismissAlert: () => void
-  makeBlocking?: boolean
 }
 
 export function Alert({
@@ -22,7 +21,7 @@ export function Alert({
   showAlert,
   dismissAlert,
   showDismissButton,
-}: AlertProps) {
+}: Readonly<AlertProps>) {
   const alertContentRef = useRef<HTMLDivElement>(null)
 
   useOnClickOutside(alertContentRef, () => {

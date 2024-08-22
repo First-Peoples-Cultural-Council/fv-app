@@ -16,7 +16,7 @@ export interface SelectProps {
   menuClassName?: string
 }
 
-export function Select({ label, options, className, menuClassName, onChange, selected, name }: SelectProps) {
+export function Select({ label, options, className, menuClassName, onChange, selected, name }: Readonly<SelectProps>) {
   const [isOpen, setIsOpen] = useState(false)
   const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(null)
   const [popperElement, setPopperElement] = useState<HTMLElement | null>(null)

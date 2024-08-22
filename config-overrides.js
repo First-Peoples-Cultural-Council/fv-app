@@ -1,5 +1,5 @@
-const { pathsToModuleNameMapper } = require('ts-jest/utils');
-const { compilerOptions } = require('./tsconfig');
+const { pathsToModuleNameMapper } = require('ts-jest/utils')
+const { compilerOptions } = require('./tsconfig')
 
 module.exports = function override(config, env) {
   // Add your Jest configuration here
@@ -13,7 +13,7 @@ module.exports = function override(config, env) {
       prefix: '<rootDir>/',
     }),
     transformIgnorePatterns: ['node_modules/(?!(axios)/)'],
-  };
+  }
 
-  return config;
-};
+  return config
+}

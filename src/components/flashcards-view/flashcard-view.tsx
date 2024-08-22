@@ -1,24 +1,20 @@
-import { useState } from 'react';
-import classNames from 'classnames';
-import { Audio1 } from '@mothertongues/search';
+import { useState } from 'react'
+import classNames from 'classnames'
+import { Audio1 } from '@mothertongues/search'
 
 // FPCC
-import { Flashcard } from '../common/data';
-import { FlipButton } from './flip-button';
-import AudioControl from '../common/audio-control/audio-control';
+import { Flashcard } from '../common/data'
+import { FlipButton } from './flip-button'
+import AudioControl from '../common/audio-control/audio-control'
 
 export interface FlashcardViewProps {
-  flashcardData: Flashcard | undefined;
-  setFlashcard: any;
-  flashcardIndex: number;
+  flashcardData: Flashcard | undefined
+  setFlashcard: any
+  flashcardIndex: number
 }
 
-export function FlashcardView({
-  flashcardData,
-  setFlashcard,
-  flashcardIndex,
-}: Readonly<FlashcardViewProps>) {
-  const [flipped, setFlipped] = useState(false);
+export function FlashcardView({ flashcardData, setFlashcard, flashcardIndex }: Readonly<FlashcardViewProps>) {
+  const [flipped, setFlipped] = useState(false)
 
   const frontContents = () => {
     return (
@@ -32,9 +28,9 @@ export function FlashcardView({
             )}
             onClick={() => {
               if (flashcardIndex <= 0) {
-                return;
+                return
               }
-              setFlashcard(flashcardIndex - 1);
+              setFlashcard(flashcardIndex - 1)
             }}
           >
             <label htmlFor="previous-btn" className="sr-only">
@@ -71,7 +67,7 @@ export function FlashcardView({
             id="next-btn"
             className="flex flex-col items-center justify-center h-12 w-12 bg-gray-300 rounded-full outline-none focus:outline-none"
             onClick={() => {
-              setFlashcard(flashcardIndex + 1);
+              setFlashcard(flashcardIndex + 1)
             }}
           >
             <label htmlFor="previous-btn" className="sr-only">
@@ -81,8 +77,8 @@ export function FlashcardView({
           </button>
         </div>
       </div>
-    );
-  };
+    )
+  }
 
   const backContents = () => {
     return (
@@ -98,16 +94,15 @@ export function FlashcardView({
         )}
         <FlipButton handleClick={() => setFlipped(!flipped)} />
       </div>
-    );
-  };
+    )
+  }
 
   return (
     <div className="[perspective:1000px]">
       <div
-        className={classNames(
-          'relative h-[65vh] w-full transition-all duration-500 [transformStyle:preserve-3d] ',
-          { 'rotate-y-180': flipped }
-        )}
+        className={classNames('relative h-[65vh] w-full transition-all duration-500 [transformStyle:preserve-3d] ', {
+          'rotate-y-180': flipped,
+        })}
       >
         {/* Front */}
         <div className="absolute backface-hidden bg-gray-50 p-1 h-full w-full rounded-xl shadow-xl">
@@ -119,5 +114,5 @@ export function FlashcardView({
         </div>
       </div>
     </div>
-  );
+  )
 }

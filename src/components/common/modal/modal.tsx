@@ -1,40 +1,32 @@
-import React, { useRef, ReactNode } from 'react';
-import { createPortal } from 'react-dom';
-import { useAudioContext } from '../../contexts/audioContext';
-import useOnClickOutside from '../../../util/clickOutside';
+import { useRef, ReactNode } from 'react'
+import { createPortal } from 'react-dom'
+import { useAudioContext } from '../../contexts/audioContext'
+import useOnClickOutside from '../../../util/clickOutside'
 
 export interface ModalProps {
-  onClose: () => void;
-  children: ReactNode;
-  showCloseButton?: boolean;
-  closeOnOutsideClick?: boolean;
+  onClose: () => void
+  children: ReactNode
+  showCloseButton?: boolean
+  closeOnOutsideClick?: boolean
 }
 
-export function Modal({
-  onClose,
-  children,
-  showCloseButton = true,
-  closeOnOutsideClick = true,
-}: ModalProps) {
-  const { stopAll } = useAudioContext();
-  const modalContentRef = useRef<HTMLDivElement>(null);
+export function Modal({ onClose, children, showCloseButton = true, closeOnOutsideClick = true }: ModalProps) {
+  const { stopAll } = useAudioContext()
+  const modalContentRef = useRef<HTMLDivElement>(null)
 
   const onCloseClick = () => {
-    onClose();
-    stopAll();
-  };
+    onClose()
+    stopAll()
+  }
 
   useOnClickOutside(modalContentRef, () => {
     if (closeOnOutsideClick) {
-      onCloseClick();
+      onCloseClick()
     }
-  });
+  })
 
   return createPortal(
-    <div
-      style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
-      className="fixed inset-0 w-full h-full backdrop"
-    >
+    <div style={{ backgroundColor: 'rgba(0,0,0,0.5)' }} className="fixed inset-0 w-full h-full backdrop">
       <div className="justify-center items-center w-full overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
         <div className="relative w-auto my-6 mx-auto max-w-3xl">
           <div
@@ -43,10 +35,7 @@ export function Modal({
           >
             <div className="flex w-full justify-end rounded-t">
               {showCloseButton && (
-                <button
-                  className="p-4 text-black text-1xl leading-none"
-                  onClick={onCloseClick}
-                >
+                <button className="p-4 text-black text-1xl leading-none" onClick={onCloseClick}>
                   <i className="fv-close"></i>
                 </button>
               )}
@@ -57,7 +46,7 @@ export function Modal({
       </div>
     </div>,
     document.body
-  );
+  )
 }
 
-export default Modal;
+export default Modal

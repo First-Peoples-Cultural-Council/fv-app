@@ -1,14 +1,12 @@
-import React from 'react';
-import classNames from 'classnames';
-import { Link } from 'react-router-dom';
+import classNames from 'classnames'
+import { Link } from 'react-router-dom'
 
 // FPCC
-import { FVStory } from '../common/data/types';
-import FvImage from '../common/image/image';
+import { FVStory } from '../common/data/types'
+import FvImage from '../common/image/image'
 
-/* eslint-disable-next-line */
 export interface StoriesViewProps {
-  storiesData: FVStory[];
+  storiesData: FVStory[]
 }
 
 export function StoriesView({ storiesData }: Readonly<StoriesViewProps>) {
@@ -52,10 +50,10 @@ export function StoriesView({ storiesData }: Readonly<StoriesViewProps>) {
                 </div>
               </div>
             </Link>
-          );
+          )
         })}
       </div>
     </div>
-  );
+  )
 }
-export default StoriesView;
+export default StoriesView

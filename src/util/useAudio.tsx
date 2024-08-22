@@ -1,71 +1,70 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
 // FPCC
-import IndexedDBService from '../services/indexedDbService';
-import { useDetectOnlineStatus } from './useDetectOnlineStatus';
-import { useAudioContext } from '../components/contexts/audioContext';
+import IndexedDBService from '../services/indexedDbService'
+import { useDetectOnlineStatus } from './useDetectOnlineStatus'
+import { useAudioContext } from '../components/contexts/audioContext'
 
 export function useAudio(audioSrc: string) {
-  const { addAudio, removeAudio, stopAll } = useAudioContext();
-  const { isOnline } = useDetectOnlineStatus();
+  const { addAudio, removeAudio, stopAll } = useAudioContext()
+  const { isOnline } = useDetectOnlineStatus()
 
-  const [audio, setAudio] = useState<HTMLAudioElement>();
-  const [audioPlaying, setAudioPlaying] = useState(false);
-  const [hasFile, setHasFile] = useState(false);
+  const [audio, setAudio] = useState<HTMLAudioElement>()
+  const [audioPlaying, setAudioPlaying] = useState(false)
+  const [hasFile, setHasFile] = useState(false)
 
   useEffect(() => {
     if (audioSrc.length > 0) {
-      const audioElement = new Audio(audioSrc);
-      addAudio(audioElement);
-      setAudio(audioElement);
+      const audioElement = new Audio(audioSrc)
+      addAudio(audioElement)
+      setAudio(audioElement)
     }
     return () => {
-      if (audio) removeAudio(audio);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      if (audio) removeAudio(audio)
+    }
+  }, [])
 
   useEffect(() => {
-    const db = new IndexedDBService('firstVoicesIndexedDb');
+    const db = new IndexedDBService('firstVoicesIndexedDb')
     db.hasMediaFile(audioSrc).then((hasFile) => {
-      setHasFile(hasFile);
-    });
-  }, [isOnline, audioSrc]);
+      setHasFile(hasFile)
+    })
+  }, [isOnline, audioSrc])
 
   useEffect(() => {
     if (audio) {
       audio.onended = () => {
-        setAudioPlaying(false);
-      };
+        setAudioPlaying(false)
+      }
     }
     if (audio) {
       audio.onpause = () => {
-        setAudioPlaying(false);
-      };
+        setAudioPlaying(false)
+      }
     }
-  }, [audio]);
+  }, [audio])
 
   function toggleAudio(audio: HTMLAudioElement) {
     if (audioPlaying) {
-      setAudioPlaying(false);
-      audio.pause();
+      setAudioPlaying(false)
+      audio.pause()
     } else {
-      stopAll();
-      setAudioPlaying(true);
+      stopAll()
+      setAudioPlaying(true)
       audio.play().catch((err: any) => {
-        console.error(err);
-      });
+        console.error(err)
+      })
     }
   }
 
-  const audioAvailable = hasFile || isOnline;
+  const audioAvailable = hasFile || isOnline
 
   return {
     audio,
     audioAvailable,
     audioPlaying,
     toggleAudio: () => audio && toggleAudio(audio),
-  };
+  }
 }
 
-export default useAudio;
+export default useAudio

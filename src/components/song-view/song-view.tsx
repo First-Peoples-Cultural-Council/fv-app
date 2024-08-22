@@ -1,16 +1,16 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react'
 
 // FPCC
-import { Bookmark, FVSong } from '../common/data/types';
-import FvImage from '../common/image/image';
-import FvVideo from '../common/video/video';
-import AudioControl from '../common/audio-control/audio-control';
-import { convertJsonToComponent } from '../common/convert-json/convert-json';
-import CopyButton from '../common/copy-button/copy-button';
-import BookmarkButton from '../common/bookmark-button/bookmark-button';
+import { Bookmark, FVSong } from '../common/data/types'
+import FvImage from '../common/image/image'
+import FvVideo from '../common/video/video'
+import AudioControl from '../common/audio-control/audio-control'
+import { convertJsonToComponent } from '../common/convert-json/convert-json'
+import CopyButton from '../common/copy-button/copy-button'
+import BookmarkButton from '../common/bookmark-button/bookmark-button'
 
 export interface SongViewProps {
-  song: FVSong;
+  song: FVSong
 }
 export function SongView({ song }: Readonly<SongViewProps>) {
   const bookmark: Bookmark = useMemo(() => {
@@ -22,21 +22,15 @@ export function SongView({ song }: Readonly<SongViewProps>) {
       hasAudio: song.relatedAudio?.length !== 0,
       url: `/learn/songs/${song.id}`,
       timestamp: new Date(),
-    };
-  }, [song]);
+    }
+  }, [song])
 
   return (
-    <div
-      data-testid="song-view"
-      className="flex w-full justify-start p-5 mx-auto"
-    >
+    <div data-testid="song-view" className="flex w-full justify-start p-5 mx-auto">
       <div className="flex flex-col h-full space-y-5">
         <div className="h-3/5 flex-1">
           {song?.relatedImages.length !== 0 && (
-            <FvImage
-              src={song?.relatedImages[0].original.path}
-              alt={song?.relatedImages[0].title}
-            />
+            <FvImage src={song?.relatedImages[0].original.path} alt={song?.relatedImages[0].title} />
           )}
         </div>
         <div className="space-y-1">
@@ -55,13 +49,9 @@ export function SongView({ song }: Readonly<SongViewProps>) {
               {audio?.title && <div className="font-bold">{audio?.title}</div>}
               <AudioControl audioSrc={audio.original.path} styleType="native" />
               {audio?.description && <div>{audio?.description}</div>}
-              {audio?.acknowledgement && (
-                <div className="italic text-charcoal-400">
-                  {audio?.acknowledgement}
-                </div>
-              )}
+              {audio?.acknowledgement && <div className="italic text-charcoal-400">{audio?.acknowledgement}</div>}
             </div>
-          );
+          )
         })}
         {(song?.introduction !== '' || song.introductionTranslation !== '') && (
           <div className="space-y-2">
@@ -81,35 +71,26 @@ export function SongView({ song }: Readonly<SongViewProps>) {
               return (
                 <div key={lyrics.id}>
                   <div>{lyrics.text}</div>
-                  <div className="italic text-charcoal-400">
-                    {lyrics.translation}
-                  </div>
+                  <div className="italic text-charcoal-400">{lyrics.translation}</div>
                 </div>
-              );
+              )
             })}
           </div>
         )}
-        {(song?.relatedVideos?.length > 0 ||
-          song?.relatedImages?.length > 1) && (
+        {(song?.relatedVideos?.length > 0 || song?.relatedImages?.length > 1) && (
           <div className="space-y-2">
             <div className="text-lg font-bold">MEDIA</div>
             {song?.relatedVideos?.map((video) => {
-              return <FvVideo key={video.id} src={video.original.path} />;
+              return <FvVideo key={video.id} src={video.original.path} />
             })}
             {song?.relatedImages?.slice(1).map((image) => {
-              return (
-                <FvImage
-                  key={image.id}
-                  src={image.original.path}
-                  alt={image.title}
-                />
-              );
+              return <FvImage key={image.id} src={image.original.path} alt={image.title} />
             })}
           </div>
         )}
       </div>
     </div>
-  );
+  )
 }
 
-export default SongView;
+export default SongView

@@ -1,14 +1,13 @@
-import React from 'react';
-import WordAlphabetRowCard from './word-row-card';
-import { FvCharacter, FvWord } from '../common/data';
-import { useDictionaryData } from '../dictionary-page/dictionary-page';
+import WordAlphabetRowCard from './word-row-card'
+import { FvCharacter, FvWord } from '../common/data'
+import { useDictionaryData } from '../dictionary-page/dictionary-page'
 
 export interface WordExampleListProps {
-  selected: FvCharacter;
+  selected: FvCharacter
 }
 
 export function WordExampleList({ selected }: Readonly<WordExampleListProps>) {
-  const { dictionaryHash } = useDictionaryData();
+  const { dictionaryHash } = useDictionaryData()
 
   return (
     <div className="w-full">
@@ -18,9 +17,9 @@ export function WordExampleList({ selected }: Readonly<WordExampleListProps>) {
       </div>
       <div className="space-y-2 md:px-2">
         {selected?.relatedDictionaryEntries.map((example) => {
-          const term: FvWord | undefined = dictionaryHash?.[example.id];
+          const term: FvWord | undefined = dictionaryHash?.[example.id]
           if (term === undefined) {
-            return null;
+            return null
           }
           return (
             <div
@@ -30,11 +29,11 @@ export function WordExampleList({ selected }: Readonly<WordExampleListProps>) {
             >
               <WordAlphabetRowCard term={term} />
             </div>
-          );
+          )
         })}
       </div>
     </div>
-  );
+  )
 }
 
-export default WordExampleList;
+export default WordExampleList

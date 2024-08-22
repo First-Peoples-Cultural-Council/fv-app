@@ -1,9 +1,7 @@
-import React from 'react';
-
 export interface ShareButtonProps {
-  title: string;
-  text: string;
-  url: string;
+  title: string
+  text: string
+  url: string
 }
 
 export function ShareButton(shareData: Readonly<ShareButtonProps>) {
@@ -14,19 +12,19 @@ export function ShareButton(shareData: Readonly<ShareButtonProps>) {
       onClick={() => {
         if (navigator.share && navigator.canShare(shareData)) {
           navigator.share(shareData).catch((err: any) => {
-            console.error(err);
-          });
+            console.error(err)
+          })
         } else {
           navigator.clipboard.writeText(shareData.url).catch((err: any) => {
-            console.error(err);
-          });
+            console.error(err)
+          })
         }
       }}
     >
       <i className="fv-share pr-2 text-xl" />
       <span className="text-lg">SHARE</span>
     </button>
-  );
+  )
 }
 
-export default ShareButton;
+export default ShareButton

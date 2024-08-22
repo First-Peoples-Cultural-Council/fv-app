@@ -25,5 +25,5 @@ export enum AccessLevelEnum {
 export enum DictionaryType {
   Words = 0,
   Phrases = 1,
-  Both = 2
+  Both = 2,
 }

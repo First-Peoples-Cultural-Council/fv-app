@@ -1,21 +1,17 @@
-import React, { useState } from 'react';
-import classNames from 'classnames';
-import FVLogo from '../../../assets/images/FVlogo.svg';
-import { NavigationItem } from '../data';
-import { Link } from 'react-router-dom';
+import { useState } from 'react'
+import classNames from 'classnames'
+import FVLogo from '../../../assets/images/FVlogo.svg'
+import { NavigationItem } from '../data'
+import { Link } from 'react-router-dom'
 
 export interface HeaderProps {
-  className?: string;
-  navItems?: NavigationItem[];
-  extraNavItems?: NavigationItem[];
+  className?: string
+  navItems?: NavigationItem[]
+  extraNavItems?: NavigationItem[]
 }
 
-export function Header({
-  className,
-  navItems,
-  extraNavItems,
-}: Readonly<HeaderProps>) {
-  const [showExtraNav, setShowExtraNav] = useState(false);
+export function Header({ className, navItems, extraNavItems }: Readonly<HeaderProps>) {
+  const [showExtraNav, setShowExtraNav] = useState(false)
 
   return (
     <header
@@ -38,10 +34,7 @@ export function Header({
               <Link
                 to={item.to}
                 onClick={() => setShowExtraNav(false)}
-                className={classNames(
-                  'flex items-center text-white cursor-pointer',
-                  { 'ml-2': !!item.icon }
-                )}
+                className={classNames('flex items-center text-white cursor-pointer', { 'ml-2': !!item.icon })}
               >
                 <div className="mr-2">{item.icon}</div>
                 {item.label}
@@ -57,17 +50,10 @@ export function Header({
             {showExtraNav && (
               <div className="absolute z-40 top-14 right-0 w-48 p-2 space-y-2 transform lg:-translate-x-0 bg-charcoal-500 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 {extraNavItems?.map((item) => (
-                  <button
-                    key={`${item.id}`}
-                    onClick={() => setShowExtraNav(false)}
-                    className="block"
-                  >
+                  <button key={`${item.id}`} onClick={() => setShowExtraNav(false)} className="block">
                     <Link
                       to={item.to}
-                      className={classNames(
-                        'flex items-center text-white cursor-pointer',
-                        { 'ml-2': !!item.icon }
-                      )}
+                      className={classNames('flex items-center text-white cursor-pointer', { 'ml-2': !!item.icon })}
                     >
                       <div className="mr-2">{item.icon}</div>
                       {item.label}
@@ -80,7 +66,7 @@ export function Header({
         </ul>
       </nav>
     </header>
-  );
+  )
 }
 
-export default Header;
+export default Header

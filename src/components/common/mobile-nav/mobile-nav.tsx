@@ -1,19 +1,16 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import classNames from 'classnames';
-import { NavigationItem } from '../data';
+import { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import classNames from 'classnames'
+import { NavigationItem } from '../data'
 
 export interface MobileNavProps {
-  navItems?: NavigationItem[];
-  extraNavItems?: NavigationItem[];
+  navItems?: NavigationItem[]
+  extraNavItems?: NavigationItem[]
 }
 
-export function MobileNav({
-  navItems,
-  extraNavItems,
-}: Readonly<MobileNavProps>) {
-  const [showExtraNav, setShowExtraNav] = useState(false);
-  const location = useLocation();
+export function MobileNav({ navItems, extraNavItems }: Readonly<MobileNavProps>) {
+  const [showExtraNav, setShowExtraNav] = useState(false)
+  const location = useLocation()
 
   return (
     <>
@@ -25,13 +22,10 @@ export function MobileNav({
             <li key={item.id}>
               <Link
                 to={item.to}
-                className={classNames(
-                  'flex items-center text-white cursor-pointer text-3xl',
-                  {
-                    'ml-2': !!item.icon,
-                    'text-word-500': location.pathname.includes(item.id),
-                  }
-                )}
+                className={classNames('flex items-center text-white cursor-pointer text-3xl', {
+                  'ml-2': !!item.icon,
+                  'text-word-500': location.pathname.includes(item.id),
+                })}
               >
                 {item.icon}
               </Link>
@@ -51,13 +45,10 @@ export function MobileNav({
               <li key={item.id}>
                 <Link
                   to={item.to}
-                  className={classNames(
-                    'flex items-center text-white cursor-pointer text-3xl',
-                    {
-                      'ml-2': !!item.icon,
-                      'text-word-500': location.pathname.includes(item.id),
-                    }
-                  )}
+                  className={classNames('flex items-center text-white cursor-pointer text-3xl', {
+                    'ml-2': !!item.icon,
+                    'text-word-500': location.pathname.includes(item.id),
+                  })}
                 >
                   {item.icon}
                 </Link>
@@ -74,7 +65,7 @@ export function MobileNav({
         )}
       </nav>
     </>
-  );
+  )
 }
 
-export default MobileNav;
+export default MobileNav

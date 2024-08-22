@@ -1,14 +1,13 @@
-import { Link, useLocation, matchRoutes } from 'react-router-dom';
-import classNames from 'classnames';
-import { SubNavItem } from '../common/data';
+import { Link, useLocation, matchRoutes } from 'react-router-dom'
+import classNames from 'classnames'
+import { SubNavItem } from '../common/data'
 
-/* eslint-disable-next-line */
 export interface SubNavMobileProps {
-  navItems: SubNavItem[];
+  navItems: SubNavItem[]
 }
 
 export function SubNavMobile({ navItems }: Readonly<SubNavMobileProps>) {
-  const location = useLocation();
+  const location = useLocation()
 
   return (
     <div className="md:hidden flex justify-around bg-white font-bold">
@@ -30,10 +29,10 @@ export function SubNavMobile({ navItems }: Readonly<SubNavMobileProps>) {
           >
             <div className="uppercase text-xs">{item.title}</div>
           </Link>
-        );
+        )
       })}
     </div>
-  );
+  )
 }
 
-export default SubNavMobile;
+export default SubNavMobile

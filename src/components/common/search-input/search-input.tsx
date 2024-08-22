@@ -1,42 +1,39 @@
-import { ChangeEvent, useContext, useState } from 'react';
-import classNames from 'classnames';
+import { ChangeEvent, useContext, useState } from 'react'
+import classNames from 'classnames'
 
 // FPCC
-import { SearchContext } from '../../contexts/searchContext';
+import { SearchContext } from '../../contexts/searchContext'
 
-/* eslint-disable-next-line */
-export interface SearchInputProps {}
-
-export function SearchInput(props: Readonly<SearchInputProps>) {
-  const [searchValue, setSearchValue] = useState<string>('');
-  const searchContext = useContext(SearchContext);
+export function SearchInput() {
+  const [searchValue, setSearchValue] = useState<string>('')
+  const searchContext = useContext(SearchContext)
 
   const onSearchInputChange = (event: ChangeEvent<any>) => {
-    setSearchValue(event?.target?.value);
-  };
+    setSearchValue(event?.target?.value)
+  }
 
   const clearSearch = () => {
-    setSearchValue('');
-    if (searchContext) searchContext.clearSearch();
-  };
+    setSearchValue('')
+    if (searchContext) searchContext.clearSearch()
+  }
 
   const submitSearch = (query: string) => {
     if (query?.length > 0 && searchContext) {
-      searchContext.submitSearch(query);
+      searchContext.submitSearch(query)
     } else {
-      clearSearch();
+      clearSearch()
     }
-  };
+  }
 
   const onKeyUp = (event: any) => {
     if (event?.keyCode === 13 || event?.key === 'Enter') {
-      submitSearch(event?.target?.value);
+      submitSearch(event?.target?.value)
     }
-  };
+  }
 
   const clickSearch = () => {
-    submitSearch(searchValue);
-  };
+    submitSearch(searchValue)
+  }
 
   return (
     <div className="group relative flex items-center w-full max-w-md">
@@ -50,10 +47,9 @@ export function SearchInput(props: Readonly<SearchInputProps>) {
       />
       <button
         onClick={clearSearch}
-        className={classNames(
-          'opacity-0 absolute right-12 top-1/4 text-xs cursor-pointer',
-          { 'opacity-100': searchValue }
-        )}
+        className={classNames('opacity-0 absolute right-12 top-1/4 text-xs cursor-pointer', {
+          'opacity-100': searchValue,
+        })}
       >
         <i className="fv-close text-gray-500" />
       </button>
@@ -64,7 +60,7 @@ export function SearchInput(props: Readonly<SearchInputProps>) {
         <i className="fv-search text-text-gray" />
       </button>
     </div>
-  );
+  )
 }
 
-export default SearchInput;
+export default SearchInput

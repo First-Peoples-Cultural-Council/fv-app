@@ -1,15 +1,15 @@
-import { useMemo } from 'react';
-import classNames from 'classnames';
+import { useMemo } from 'react'
+import classNames from 'classnames'
 
 // FPCC
-import { Bookmark, FVStory } from '../common/data/types';
-import FvImage from '../common/image/image';
-import CopyButton from '../common/copy-button/copy-button';
-import BookmarkButton from '../common/bookmark-button/bookmark-button';
+import { Bookmark, FVStory } from '../common/data/types'
+import FvImage from '../common/image/image'
+import CopyButton from '../common/copy-button/copy-button'
+import BookmarkButton from '../common/bookmark-button/bookmark-button'
 
 export interface CoverViewProps {
-  story: FVStory;
-  startReading: () => any;
+  story: FVStory
+  startReading: () => any
 }
 
 export function CoverView({ story, startReading }: Readonly<CoverViewProps>) {
@@ -22,8 +22,8 @@ export function CoverView({ story, startReading }: Readonly<CoverViewProps>) {
       hasAudio: story.relatedAudio?.length !== 0,
       url: `/learn/stories/${story.id}`,
       timestamp: new Date(),
-    };
-  }, [story]);
+    }
+  }, [story])
 
   return (
     <div data-testid="cover-page-view">
@@ -39,12 +39,8 @@ export function CoverView({ story, startReading }: Readonly<CoverViewProps>) {
         </div>
         <div className="flex w-full justify-center">
           <div className="space-y-1">
-            <div className="text-lg md:text-2xl font-bold text-center">
-              {story?.title}
-            </div>
-            <div className="text-sm md:text-base text-center">
-              {story?.titleTranslation}
-            </div>
+            <div className="text-lg md:text-2xl font-bold text-center">{story?.title}</div>
+            <div className="text-sm md:text-base text-center">{story?.titleTranslation}</div>
           </div>
         </div>
         <div className="flex w-full justify-center">
@@ -54,15 +50,11 @@ export function CoverView({ story, startReading }: Readonly<CoverViewProps>) {
             <BookmarkButton bookmark={bookmark} />
           </div>
         </div>
-        <button
-          onClick={() => startReading()}
-          type="button"
-          className={classNames('w-full btn-contained bg-song-500')}
-        >
+        <button onClick={() => startReading()} type="button" className={classNames('w-full btn-contained bg-song-500')}>
           Start Reading
         </button>
       </div>
     </div>
-  );
+  )
 }
-export default CoverView;
+export default CoverView

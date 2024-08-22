@@ -1,97 +1,89 @@
-import { useState, useEffect, useContext, useMemo } from 'react';
+import { useState, useEffect, useContext, useMemo } from 'react'
 
 // FPCC
-import WordCardMobile from './word-card-mobile';
-import WordCardDesktop from './word-card-desktop';
-import { DictionaryType, FvWord } from '../common/data';
-import MultiSwitch from '../common/multi-switch/multi-switch';
-import { useDictionaryData } from '../dictionary-page/dictionary-page';
-import { SearchContext } from '../contexts/searchContext';
-import sortByCustomOrder from '../../util/sortByCustomOrder';
+import WordCardMobile from './word-card-mobile'
+import WordCardDesktop from './word-card-desktop'
+import { DictionaryType, FvWord } from '../common/data'
+import MultiSwitch from '../common/multi-switch/multi-switch'
+import { useDictionaryData } from '../dictionary-page/dictionary-page'
+import { SearchContext } from '../contexts/searchContext'
+import sortByCustomOrder from '../../util/sortByCustomOrder'
 
-/* eslint-disable-next-line */
-export interface DictionaryViewProps {}
-
-export function DictionaryView(props: DictionaryViewProps) {
-  const { dictionaryData } = useDictionaryData();
-  const [selected, setSelected] = useState<number>(DictionaryType.Both);
-  const [dataUnfiltered, setDataUnfiltered] =
-    useState<FvWord[]>(dictionaryData);
-  const [visibleItems, setVisibleItems] = useState(250);
-  const searchContext = useContext(SearchContext);
+export function DictionaryView() {
+  const { dictionaryData } = useDictionaryData()
+  const [selected, setSelected] = useState<number>(DictionaryType.Both)
+  const [dataUnfiltered, setDataUnfiltered] = useState<FvWord[]>(dictionaryData)
+  const [visibleItems, setVisibleItems] = useState(250)
+  const searchContext = useContext(SearchContext)
 
   const handleScroll = () => {
     // see fw-6019 to remove this bespoke scroll handling
-    const currentFocus = document.activeElement; // returns an Element
-    const searchInput = document.getElementById("search-input"); // returns an HTMLElement with a focus() method
-    const isSearchFocussed = currentFocus && (currentFocus?.id === searchInput?.id)
+    const currentFocus = document.activeElement // returns an Element
+    const searchInput = document.getElementById('search-input') // returns an HTMLElement with a focus() method
+    const isSearchFocussed = currentFocus && currentFocus?.id === searchInput?.id
 
-    const windowHeight = window.innerHeight;
-    const container = document.getElementById('wordList');
-    if (!container) return;
-    const containerHeight = container.clientHeight;
-    const documentHeight = container.scrollHeight;
-    const scrollTop = container.scrollTop;
+    const windowHeight = window.innerHeight
+    const container = document.getElementById('wordList')
+    if (!container) return
+    const containerHeight = container.clientHeight
+    const documentHeight = container.scrollHeight
+    const scrollTop = container.scrollTop
 
     if (windowHeight + scrollTop >= documentHeight - containerHeight - 20) {
-      setVisibleItems((prevVisibleItems) => prevVisibleItems + 20);
+      setVisibleItems((prevVisibleItems) => prevVisibleItems + 20)
     }
 
-    if(isSearchFocussed){
+    if (isSearchFocussed) {
       // refocus the search box which is necessary for some browsers, see fw-5874
-      searchInput?.focus();
+      searchInput?.focus()
     }
-  };
+  }
 
   useEffect(() => {
-    const container = document.getElementById('wordList');
-    if (!container) return;
-    container.addEventListener('scroll', handleScroll);
+    const container = document.getElementById('wordList')
+    if (!container) return
+    container.addEventListener('scroll', handleScroll)
     return () => {
-      container.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+      container.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   // Filter data to display by selected TYPE
   const dataToDisplay: FvWord[] = useMemo(() => {
     switch (selected) {
       case DictionaryType.Words: {
-        return [
-          ...dataUnfiltered.filter((entry: FvWord) => entry.source === 'words'),
-        ];
+        return [...dataUnfiltered.filter((entry: FvWord) => entry.source === 'words')]
       }
       case DictionaryType.Phrases: {
-        return [
-          ...dataUnfiltered.filter(
-            (entry: FvWord) => entry.source === 'phrases'
-          ),
-        ];
+        return [...dataUnfiltered.filter((entry: FvWord) => entry.source === 'phrases')]
       }
       default: {
-        return [...dataUnfiltered];
+        return [...dataUnfiltered]
       }
     }
-  }, [selected, dataUnfiltered]);
+  }, [selected, dataUnfiltered])
 
   const onTypeToggle = (typeNumber: number) => {
-    setVisibleItems(250);
-    const container = document.getElementById('wordList');
+    setVisibleItems(250)
+    const container = document.getElementById('wordList')
     if (container) {
-      container.scrollTop = 0;
+      container.scrollTop = 0
     }
-    setSelected(typeNumber);
-  };
+    setSelected(typeNumber)
+  }
 
   // Checking for searchResults
   useEffect(() => {
     if (!searchContext?.searchResults) {
-      setDataUnfiltered(dictionaryData.sort((a, b) => {
-        return sortByCustomOrder(a, b);
-      }));
+      setDataUnfiltered(
+        dictionaryData.sort((a, b) => {
+          return sortByCustomOrder(a, b)
+        })
+      )
     } else if (searchContext.searchResults) {
-      setDataUnfiltered(searchContext.searchResults);
+      setDataUnfiltered(searchContext.searchResults)
     }
-  }, [searchContext?.searchResults, dictionaryData]);
+  }, [searchContext?.searchResults, dictionaryData])
 
   return (
     <div className="w-full">
@@ -103,32 +95,28 @@ export function DictionaryView(props: DictionaryViewProps) {
           { name: 'BOTH', icon: null },
         ]}
         onToggle={(index: number) => {
-          onTypeToggle(index);
+          onTypeToggle(index)
         }}
       />
-      <div
-        id="wordList"
-        className="overflow-y-auto max-h-calc-245 md:max-h-calc-195"
-      >
+      <div id="wordList" className="overflow-y-auto max-h-calc-245 md:max-h-calc-195">
         {dataToDisplay?.slice(0, visibleItems).map((item) => {
           // If `searchResult` use unique key generated by `searchContext`
-          const uniqueKey = item.key ?? item.entryID;
+          const uniqueKey = item.key ?? item.entryID
           return (
             <div key={uniqueKey} id={uniqueKey} className="flex w-full">
               <WordCardMobile item={item} />
               <WordCardDesktop item={item} wordWidthClass="w-80" />
             </div>
-          );
+          )
         })}
         {dataToDisplay?.length === 0 && (
           <div className="w-full text-center py-5 max-w-md mx-auto">
-            There are no matching results for your search. Please try a
-            different search.
+            There are no matching results for your search. Please try a different search.
           </div>
         )}
       </div>
     </div>
-  );
+  )
 }
 
-export default DictionaryView;
+export default DictionaryView

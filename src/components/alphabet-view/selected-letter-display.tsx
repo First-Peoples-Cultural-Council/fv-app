@@ -1,21 +1,16 @@
-import React from 'react';
-
 // FPCC
-import { CopyButton } from './copy-button';
+import { CopyButton } from './copy-button'
 // import { DownloadButton } from './download-button';
-import AudioControl from '../common/audio-control/audio-control';
-import { FvCharacter, FVMedia, FvWord } from '../common/data';
+import AudioControl from '../common/audio-control/audio-control'
+import { FvCharacter, FVMedia, FvWord } from '../common/data'
 
 export interface SelectedLetterDisplayProps {
-  dictionaryData: FvWord[] | [];
-  selected: FvCharacter;
+  dictionaryData: FvWord[] | []
+  selected: FvCharacter
 }
 
-export function SelectedLetterDisplay({
-  selected,
-  dictionaryData,
-}: Readonly<SelectedLetterDisplayProps>) {
-  const audioCount = selected?.relatedAudio.length ?? 0;
+export function SelectedLetterDisplay({ selected, dictionaryData }: Readonly<SelectedLetterDisplayProps>) {
+  const audioCount = selected?.relatedAudio.length ?? 0
 
   return (
     <>
@@ -34,13 +29,7 @@ export function SelectedLetterDisplay({
           <CopyButton selected={selected} />
           {/* <DownloadButton selected={selected} dictionaryData={dictionaryData} /> */}
           {selected?.relatedAudio.map((fvAudio: FVMedia) => {
-            return (
-              <AudioControl
-                key={fvAudio.id}
-                audioSrc={fvAudio.original.path}
-                styleType="icon"
-              />
-            );
+            return <AudioControl key={fvAudio.id} audioSrc={fvAudio.original.path} styleType="icon" />
           })}
         </div>
       )}
@@ -57,17 +46,11 @@ export function SelectedLetterDisplay({
           </div> */}
           <div className="flex justify-evenly mt-5">
             {selected?.relatedAudio.map((fvAudio: FVMedia) => {
-              return (
-                <AudioControl
-                  key={fvAudio.id}
-                  audioSrc={fvAudio.original.path}
-                  styleType="icon"
-                />
-              );
+              return <AudioControl key={fvAudio.id} audioSrc={fvAudio.original.path} styleType="icon" />
             })}
           </div>
         </>
       )}
     </>
-  );
+  )
 }

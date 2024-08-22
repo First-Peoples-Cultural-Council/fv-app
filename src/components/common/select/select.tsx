@@ -1,55 +1,36 @@
-import { useState } from 'react';
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
-import classNames from 'classnames';
-import ClickAwayListener from 'react-click-away-listener';
-import styles from './select.module.css';
-import { usePopper } from 'react-popper';
-import { SelectOption } from '../data';
+import { useState } from 'react'
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import classNames from 'classnames'
+import ClickAwayListener from 'react-click-away-listener'
+import styles from './select.module.css'
+import { usePopper } from 'react-popper'
+import { SelectOption } from '../data'
 
 export interface SelectProps {
-  label?: string;
-  options: SelectOption[];
-  className?: string;
-  onChange: (value: {
-    target: { type: string; name: string; id: string; value: string };
-  }) => void;
-  selected: string;
-  name: string;
-  menuClassName?: string;
+  label?: string
+  options: SelectOption[]
+  className?: string
+  onChange: (value: { target: { type: string; name: string; id: string; value: string } }) => void
+  selected: string
+  name: string
+  menuClassName?: string
 }
 
-export function Select({
-  label,
-  options,
-  className,
-  menuClassName,
-  onChange,
-  selected,
-  name,
-}: SelectProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(
-    null
-  );
-  const [popperElement, setPopperElement] = useState<HTMLElement | null>(null);
-  const { styles: popperStyles, attributes } = usePopper(
-    referenceElement,
-    popperElement,
-    {
-      modifiers: [{ name: 'arrow' }],
-    }
-  );
+export function Select({ label, options, className, menuClassName, onChange, selected, name }: SelectProps) {
+  const [isOpen, setIsOpen] = useState(false)
+  const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(null)
+  const [popperElement, setPopperElement] = useState<HTMLElement | null>(null)
+  const { styles: popperStyles, attributes } = usePopper(referenceElement, popperElement, {
+    modifiers: [{ name: 'arrow' }],
+  })
 
-  const selectedOption = options.find((option) => option.id === selected);
+  const selectedOption = options.find((option) => option.id === selected)
 
   return (
     <ClickAwayListener onClickAway={() => setIsOpen(false)}>
       <div className={className}>
         {!!label && (
-          <label
-            id="listbox-label"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label id="listbox-label" className="block text-sm font-medium text-gray-700">
             {label}
           </label>
         )}
@@ -106,8 +87,8 @@ export function Select({
                         id: name,
                         value: option.id,
                       },
-                    });
-                    setIsOpen(false);
+                    })
+                    setIsOpen(false)
                   }}
                 >
                   <span
@@ -121,10 +102,7 @@ export function Select({
 
                   {selected === option.id && (
                     <span
-                      className={classNames(
-                        'absolute inset-y-0 right-0 flex items-center pr-4',
-                        styles['checkmark']
-                      )}
+                      className={classNames('absolute inset-y-0 right-0 flex items-center pr-4', styles['checkmark'])}
                     >
                       <CheckIcon className="h-5 w-5" />
                     </span>
@@ -136,7 +114,7 @@ export function Select({
         </div>
       </div>
     </ClickAwayListener>
-  );
+  )
 }
 
-export default Select;
+export default Select

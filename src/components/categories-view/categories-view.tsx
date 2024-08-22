@@ -1,34 +1,26 @@
-import classNames from 'classnames';
-import { Link } from 'react-router-dom';
-import fetchCategoryData from '../../services/categoriesApiService';
-import styles from './categories-view.module.css';
-import { useEffect, useState } from 'react';
-import { FvCategory } from '../common/data';
-import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
+import classNames from 'classnames'
+import { Link } from 'react-router-dom'
+import fetchCategoryData from '../../services/categoriesApiService'
+import styles from './categories-view.module.css'
+import { useEffect, useState } from 'react'
+import { FvCategory } from '../common/data'
+import { LoadingSpinner } from '../common/loading-spinner/loading-spinner'
 
-/* eslint-disable-next-line */
-export interface CategoriesViewProps {}
-
-export function CategoriesView(props: CategoriesViewProps) {
-  const [dataCategories, setDataCategories] = useState<FvCategory[]>([]);
-  const [loading, setLoading] = useState(true);
+export function CategoriesView() {
+  const [dataCategories, setDataCategories] = useState<FvCategory[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetchCategoryData().then((result) => {
-      setDataCategories(result);
-      setLoading(false);
-    });
-  }, []);
+      setDataCategories(result)
+      setLoading(false)
+    })
+  }, [])
 
   return (
     <div className="w-full">
       {loading && <LoadingSpinner />}
-      <div
-        className={classNames(
-          'md:hidden flex justify-center flex-wrap overflow-y-auto',
-          styles['scrollable-div']
-        )}
-      >
+      <div className={classNames('md:hidden flex justify-center flex-wrap overflow-y-auto', styles['scrollable-div'])}>
         {dataCategories
           .filter((category) => category.children)
           .map((category) => {
@@ -42,7 +34,7 @@ export function CategoriesView(props: CategoriesViewProps) {
 
                 <div className="pt-2 text-sm">{category.title}</div>
               </Link>
-            );
+            )
           })}
       </div>
       <div className="hidden md:block">
@@ -60,19 +52,10 @@ export function CategoriesView(props: CategoriesViewProps) {
               >
                 <Link
                   to={`/categories/${category.id}`}
-                  className={classNames(
-                    'w-full rounded-lg inline-flex items-center hover:opacity-75'
-                  )}
+                  className={classNames('w-full rounded-lg inline-flex items-center hover:opacity-75')}
                 >
-                  <i
-                    className={classNames(
-                      'fv-categories',
-                      'text-3xl hover:opacity-75 text-tertiaryB-500'
-                    )}
-                  />
-                  <div className="pt-2 inline-flex ml-3 text-lg font-medium">
-                    {category.title}
-                  </div>
+                  <i className={classNames('fv-categories', 'text-3xl hover:opacity-75 text-tertiaryB-500')} />
+                  <div className="pt-2 inline-flex ml-3 text-lg font-medium">{category.title}</div>
                 </Link>
                 <div className="space-y-2 ml-6">
                   {category.children?.map((subCategory) => {
@@ -80,22 +63,20 @@ export function CategoriesView(props: CategoriesViewProps) {
                       <Link
                         key={subCategory.id}
                         to={`/categories/${subCategory.id}`}
-                        className={classNames(
-                          'flex items-center cursor-pointer p-3 text-md text-charcoal-400'
-                        )}
+                        className={classNames('flex items-center cursor-pointer p-3 text-md text-charcoal-400')}
                       >
                         {subCategory.title}
                       </Link>
-                    );
+                    )
                   })}
                 </div>
               </div>
-            );
+            )
           })}
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default CategoriesView;
+export default CategoriesView

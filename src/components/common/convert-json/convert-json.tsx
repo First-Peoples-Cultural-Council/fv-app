@@ -1,30 +1,26 @@
 export function convertJsonToComponent(jsonString: string) {
   if (jsonString === '') {
-    return <></>;
+    return <></>
   }
 
   try {
-    const json = JSON.parse(jsonString);
+    const json = JSON.parse(jsonString)
 
     return (
       <>
         {json.blocks.map(
           (
             block: {
-              inlineStyleRanges: any[];
-              text: string;
-              key: string;
+              inlineStyleRanges: any[]
+              text: string
+              key: string
             },
             index: string
           ) => (
             <p
               key={block.key + index}
               style={{
-                fontWeight: block.inlineStyleRanges.some(
-                  (range) => range.style === 'BOLD'
-                )
-                  ? 'bold'
-                  : 'normal',
+                fontWeight: block.inlineStyleRanges.some((range) => range.style === 'BOLD') ? 'bold' : 'normal',
               }}
             >
               {block.text}
@@ -32,9 +28,9 @@ export function convertJsonToComponent(jsonString: string) {
           )
         )}
       </>
-    );
+    )
   } catch (error) {
-    console.error(error);
-    return <></>;
+    console.error(error)
+    return <></>
   }
 }

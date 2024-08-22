@@ -1,16 +1,12 @@
-import { ReactNode } from 'react';
+import { ReactNode } from 'react'
 
 export interface PageHeaderProps {
-  title: string;
-  backgroundColors: { to: string; from: string };
-  children?: ReactNode;
+  title: string
+  backgroundColors: { to: string; from: string }
+  children?: ReactNode
 }
 
-export function PageHeader({
-  title,
-  backgroundColors,
-  children,
-}: Readonly<PageHeaderProps>) {
+export function PageHeader({ title, backgroundColors, children }: Readonly<PageHeaderProps>) {
   return (
     <header
       role="banner"
@@ -19,7 +15,7 @@ export function PageHeader({
       <div className="text-white uppercase mr-2">{title}</div>
       {children}
     </header>
-  );
+  )
 }
 
-export default PageHeader;
+export default PageHeader

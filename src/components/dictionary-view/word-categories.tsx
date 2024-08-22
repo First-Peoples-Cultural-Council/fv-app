@@ -1,61 +1,44 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 // FPCC
-import { FvCategory, FvWord } from '../common/data';
-import fetchCategoryData from '../../services/categoriesApiService';
+import { FvCategory, FvWord } from '../common/data'
+import fetchCategoryData from '../../services/categoriesApiService'
 
 export interface WordCategoriesProps {
-  term: FvWord;
-  categoryPressed: () => void;
+  term: FvWord
+  categoryPressed: () => void
 }
 
-function WordCategories({
-  term,
-  categoryPressed,
-}: Readonly<WordCategoriesProps>) {
-  const [dataCategories, setDataCategories] = useState<FvCategory[] | null>(
-    null
-  );
+function WordCategories({ term, categoryPressed }: Readonly<WordCategoriesProps>) {
+  const [dataCategories, setDataCategories] = useState<FvCategory[] | null>(null)
 
   useEffect(() => {
     fetchCategoryData().then((result) => {
-      setDataCategories(result);
-    });
-  }, []);
+      setDataCategories(result)
+    })
+  }, [])
 
-  const findCategoryByTitle = (
-    list: FvCategory[] | null,
-    title: string
-  ): FvCategory | undefined => {
-    if (!list) return undefined;
+  const findCategoryByTitle = (list: FvCategory[] | null, title: string): FvCategory | undefined => {
+    if (!list) return undefined
 
     for (const category of list) {
       if (category.title === title) {
-        return category;
+        return category
       }
 
-      const nestedCategory = findCategoryByTitle(
-        category.children ?? [],
-        title
-      );
+      const nestedCategory = findCategoryByTitle(category.children ?? [], title)
       if (nestedCategory) {
-        return nestedCategory;
+        return nestedCategory
       }
     }
 
-    return undefined;
-  };
+    return undefined
+  }
 
-  const primaryCategory = findCategoryByTitle(
-    dataCategories,
-    term?.theme ?? ''
-  );
+  const primaryCategory = findCategoryByTitle(dataCategories, term?.theme ?? '')
 
-  const secondaryCategory = findCategoryByTitle(
-    dataCategories,
-    term?.secondary_theme ?? ''
-  );
+  const secondaryCategory = findCategoryByTitle(dataCategories, term?.secondary_theme ?? '')
 
   return primaryCategory !== undefined || secondaryCategory !== undefined ? (
     <div data-testid="word-categories">
@@ -83,7 +66,7 @@ function WordCategories({
     </div>
   ) : (
     <></>
-  );
+  )
 }
 
-export default WordCategories;
+export default WordCategories

@@ -1,44 +1,36 @@
-import IndexedDBService from '../../services/indexedDbService';
-import { useEffect, useState } from 'react';
-import ConfirmDialog from '../common/confirm/confirm';
+import IndexedDBService from '../../services/indexedDbService'
+import { useEffect, useState } from 'react'
+import ConfirmDialog from '../common/confirm/confirm'
 
-/* eslint-disable-next-line */
-export interface SettingsViewProps {}
-
-export function SettingsView(props: SettingsViewProps) {
-  const [db, setDb] = useState<IndexedDBService>();
-  const [mediaCount, setMediaCount] = useState(0);
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+export function SettingsView() {
+  const [db, setDb] = useState<IndexedDBService>()
+  const [mediaCount, setMediaCount] = useState(0)
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false)
 
   useEffect(() => {
-    setDb(new IndexedDBService('firstVoicesIndexedDb'));
-  }, []);
+    setDb(new IndexedDBService('firstVoicesIndexedDb'))
+  }, [])
 
   useEffect(() => {
     if (db) {
-      updateMediaCount();
+      updateMediaCount()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [db]);
+  }, [db])
 
   return (
     <>
       <div>
         <div className="m-4">
           <p className="mb-3">
-            We store media files to assist with app performance. You can clear
-            this cache to free up space on your device.
+            We store media files to assist with app performance. You can clear this cache to free up space on your
+            device.
           </p>
           <p className="mb-6">
-            Currently you have <span id="localMediaCount">{mediaCount}</span>{' '}
-            files in your local cache.
+            Currently you have <span id="localMediaCount">{mediaCount}</span> files in your local cache.
           </p>
 
           <p>
-            <button
-              className="btn-contained bg-secondary-500"
-              onClick={() => setShowConfirmDialog(true)}
-            >
+            <button className="btn-contained bg-secondary-500" onClick={() => setShowConfirmDialog(true)}>
               Clear Media Cache
             </button>
           </p>
@@ -53,17 +45,17 @@ export function SettingsView(props: SettingsViewProps) {
         />
       )}
     </>
-  );
+  )
 
   async function updateMediaCount() {
-    const count = await db?.getMediaCount();
-    setMediaCount(count || 0);
+    const count = await db?.getMediaCount()
+    setMediaCount(count || 0)
   }
 
   function handleClearCache() {
-    db?.clearMediaFilesCollection();
-    updateMediaCount();
+    db?.clearMediaFilesCollection()
+    updateMediaCount()
   }
 }
 
-export default SettingsView;
+export default SettingsView

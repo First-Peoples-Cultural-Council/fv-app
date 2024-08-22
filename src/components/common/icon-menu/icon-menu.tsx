@@ -1,24 +1,17 @@
-import { MenuSection } from '../data';
-import Menu from '../menu/menu';
-import { ReactNode, useState } from 'react';
+import { MenuSection } from '../data'
+import Menu from '../menu/menu'
+import { ReactNode, useState } from 'react'
 
 export interface IconMenuProps {
-  className?: string;
-  menuData: MenuSection[];
-  srOnlyLabel: string;
-  icon: ReactNode;
+  className?: string
+  menuData: MenuSection[]
+  srOnlyLabel: string
+  icon: ReactNode
 }
 
-export function IconMenu({
-  menuData,
-  srOnlyLabel,
-  icon,
-  className,
-}: IconMenuProps) {
-  const [showMenu, setShowMenu] = useState<boolean>(false);
-  const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(
-    null
-  );
+export function IconMenu({ menuData, srOnlyLabel, icon, className }: IconMenuProps) {
+  const [showMenu, setShowMenu] = useState<boolean>(false)
+  const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(null)
   return (
     <div className={className}>
       <div>
@@ -47,14 +40,10 @@ export function IconMenu({
       {/*//     To: "transform opacity-0 scale-95"*/}
       {/*// -->*/}
       {showMenu && (
-        <Menu
-          referenceElement={referenceElement}
-          menuData={menuData}
-          closeMenu={() => setShowMenu(false)}
-        />
+        <Menu referenceElement={referenceElement} menuData={menuData} closeMenu={() => setShowMenu(false)} />
       )}
     </div>
-  );
+  )
 }
 
-export default IconMenu;
+export default IconMenu

@@ -1,7 +1,5 @@
-import React from 'react';
-
 // FPCC
-import ErrorView from '../common/error-view/error-view';
+import ErrorView from '../common/error-view/error-view'
 
 export function PageNotFound() {
   return (
@@ -10,7 +8,7 @@ export function PageNotFound() {
       errorMessage="Sorry, we couldn’t find the page you’re looking for."
       errorStatus={404}
     />
-  );
+  )
 }
 
-export default PageNotFound;
+export default PageNotFound

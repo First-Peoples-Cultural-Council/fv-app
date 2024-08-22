@@ -1,27 +1,27 @@
-const path = require('path');
+const path = require('path')
 
-const webpack = require('webpack');
-const dotenv = require('dotenv');
-const CopyPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { InjectManifest } = require('workbox-webpack-plugin');
+const webpack = require('webpack')
+const dotenv = require('dotenv')
+const CopyPlugin = require('copy-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const { InjectManifest } = require('workbox-webpack-plugin')
 
-dotenv.config();
+dotenv.config()
 
-const isDev = process.env.NODE_ENV !== 'production';
-const serviceWorkersEnabled = !isDev || process.env.SERVICE_WORKERS === "true";
+const isDev = process.env.NODE_ENV !== 'production'
+const serviceWorkersEnabled = !isDev || process.env.SERVICE_WORKERS === 'true'
 
-const srcPath = path.join(__dirname, 'src');
-const buildPath = path.join(__dirname, 'build');
-const publicPath = path.join(__dirname, 'public');
+const srcPath = path.join(__dirname, 'src')
+const buildPath = path.join(__dirname, 'build')
+const publicPath = path.join(__dirname, 'public')
 
-const appSrc = path.resolve(srcPath, 'index.tsx');
-const swSrc = path.resolve(srcPath, 'service-worker.ts');
+const appSrc = path.resolve(srcPath, 'index.tsx')
+const swSrc = path.resolve(srcPath, 'service-worker.ts')
 
 module.exports = {
   mode: isDev ? 'development' : 'production',
@@ -32,22 +32,15 @@ module.exports = {
   watchOptions: {
     poll: 1000,
     aggregateTimeout: 1000,
-    ignored: [
-      '**/node_modules', 
-      path.resolve(srcPath, 'serviceWorkerRegistration.ts'),
-    ],
+    ignored: ['**/node_modules', path.resolve(srcPath, 'serviceWorkerRegistration.ts')],
   },
 
   entry: appSrc,
   output: {
     path: buildPath,
     pathinfo: isDev,
-    filename: isDev
-      ? 'assets/js/bundle.js'
-      : 'assets/js/[name].[contenthash:8].js',
-    chunkFilename: isDev
-      ? 'assets/js/[name].chunk.js'
-      : 'assets/js/[name].[contenthash:8].chunk.js',
+    filename: isDev ? 'assets/js/bundle.js' : 'assets/js/[name].[contenthash:8].js',
+    chunkFilename: isDev ? 'assets/js/[name].chunk.js' : 'assets/js/[name].[contenthash:8].chunk.js',
   },
   optimization: {
     minimize: !isDev,
@@ -60,16 +53,7 @@ module.exports = {
 
   resolve: {
     modules: ['node_modules'],
-    extensions: [
-      '.ts',
-      '.tsx',
-      '.js',
-      '.jsx',
-      '.json',
-      '.scss',
-      '.sass',
-      '.css',
-    ],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.scss', '.sass', '.css'],
   },
 
   module: {
@@ -87,11 +71,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [
-              '@babel/preset-env',
-              '@babel/preset-react',
-              '@babel/preset-typescript',
-            ],
+            presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
           },
         },
       },
@@ -189,31 +169,29 @@ module.exports = {
         },
       }),
     }),
-    isDev && new ReactRefreshWebpackPlugin({
-      overlay: false
-    }),
+    isDev &&
+      new ReactRefreshWebpackPlugin({
+        overlay: false,
+      }),
     isDev && new CaseSensitivePathsPlugin(),
-    !isDev && new MiniCssExtractPlugin({
-      filename: `assets/css/[name].[contenthash:8].css`,
-      chunkFilename: 'assets/css/[name].[contenthash:8].chunk.css',
-    }),
-    serviceWorkersEnabled && new WebpackManifestPlugin({
-      fileName: 'asset-manifest.json',
-      publicPath: publicPath,
-    }),
-    serviceWorkersEnabled && new InjectManifest({
-      swSrc,
-      swDest: 'service-worker.js',
-      dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
-      exclude: [
-        /\.map$/,
-        /manifest$/,
-        /\.htaccess$/,
-        /asset-manifest\.json$/,
-        /LICENSE/,
-      ],
-      maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
-    }),
+    !isDev &&
+      new MiniCssExtractPlugin({
+        filename: `assets/css/[name].[contenthash:8].css`,
+        chunkFilename: 'assets/css/[name].[contenthash:8].chunk.css',
+      }),
+    serviceWorkersEnabled &&
+      new WebpackManifestPlugin({
+        fileName: 'asset-manifest.json',
+        publicPath: publicPath,
+      }),
+    serviceWorkersEnabled &&
+      new InjectManifest({
+        swSrc,
+        swDest: 'service-worker.js',
+        dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
+        exclude: [/\.map$/, /manifest$/, /\.htaccess$/, /asset-manifest\.json$/, /LICENSE/],
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+      }),
     // can also add ESLint plugin here
   ].filter(Boolean),
 
@@ -233,4 +211,4 @@ module.exports = {
       },
     },
   },
-};
+}

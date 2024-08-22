@@ -1,50 +1,47 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 
 // FPCC
-import WordCardMobile from '../dictionary-view/word-card-mobile';
-import WordCardDesktop from '../dictionary-view/word-card-desktop';
-import { DictionaryType } from '../common/data/enums';
-import MultiSwitch from '../common/multi-switch/multi-switch';
-import { FvWord } from '../common/data';
-import generateUniqueRandomItems from '../../util/randomSet';
-import { useDictionaryData } from '../dictionary-page/dictionary-page';
+import WordCardMobile from '../dictionary-view/word-card-mobile'
+import WordCardDesktop from '../dictionary-view/word-card-desktop'
+import { DictionaryType } from '../common/data/enums'
+import MultiSwitch from '../common/multi-switch/multi-switch'
+import { FvWord } from '../common/data'
+import generateUniqueRandomItems from '../../util/randomSet'
+import { useDictionaryData } from '../dictionary-page/dictionary-page'
 
-/* eslint-disable-next-line */
-export interface WordsViewProps {}
-
-export function RandomizedView(props: WordsViewProps) {
-  const { dictionaryData } = useDictionaryData();
-  const [selected, setSelected] = useState<number>(DictionaryType.Both);
-  const [data, setData] = useState<FvWord[]>([]);
-  const [subset, setSubset] = useState<FvWord[]>([]);
+export function RandomizedView() {
+  const { dictionaryData } = useDictionaryData()
+  const [selected, setSelected] = useState<number>(DictionaryType.Both)
+  const [data, setData] = useState<FvWord[]>([])
+  const [subset, setSubset] = useState<FvWord[]>([])
 
   const resetScroll = () => {
-    const container = document.getElementById('wordList');
+    const container = document.getElementById('wordList')
     if (container) {
-      container.scrollTop = 0;
+      container.scrollTop = 0
     }
-  };
+  }
 
   useEffect(() => {
     switch (selected) {
       case DictionaryType.Words: {
-        setData(dictionaryData.filter((entry) => entry.source === 'words'));
-        break;
+        setData(dictionaryData.filter((entry) => entry.source === 'words'))
+        break
       }
       case DictionaryType.Phrases: {
-        setData(dictionaryData.filter((entry) => entry.source === 'phrases'));
-        break;
+        setData(dictionaryData.filter((entry) => entry.source === 'phrases'))
+        break
       }
       default: {
-        setData(dictionaryData);
-        break;
+        setData(dictionaryData)
+        break
       }
     }
-  }, [selected, dictionaryData]);
+  }, [selected, dictionaryData])
 
   useEffect(() => {
-    setSubset(generateUniqueRandomItems(data, 10));
-  }, [data]);
+    setSubset(generateUniqueRandomItems(data, 10))
+  }, [data])
 
   return (
     <div className="w-full">
@@ -57,38 +54,31 @@ export function RandomizedView(props: WordsViewProps) {
             { name: 'BOTH', icon: null },
           ]}
           onToggle={(index: number) => {
-            resetScroll();
-            setSelected(index);
+            resetScroll()
+            setSelected(index)
           }}
         />
         <button
           onClick={() => {
-            setSubset(generateUniqueRandomItems(data, 10));
+            setSubset(generateUniqueRandomItems(data, 10))
           }}
           className="ml-4"
         >
           <i className="fv-arrows-cw text-lg" />
         </button>
       </div>
-      <div
-        id="wordList"
-        className="overflow-y-auto max-h-calc-245 md:max-h-calc-195"
-      >
+      <div id="wordList" className="overflow-y-auto max-h-calc-245 md:max-h-calc-195">
         {subset?.map((term) => {
           return (
-            <div
-              key={`${term.source}-${term.entryID}`}
-              id={`${term.source}-${term.entryID}`}
-              className="flex w-full"
-            >
+            <div key={`${term.source}-${term.entryID}`} id={`${term.source}-${term.entryID}`} className="flex w-full">
               <WordCardMobile item={term} />
               <WordCardDesktop item={term} wordWidthClass="w-80" />
             </div>
-          );
+          )
         })}
       </div>
     </div>
-  );
+  )
 }
 
-export default RandomizedView;
+export default RandomizedView

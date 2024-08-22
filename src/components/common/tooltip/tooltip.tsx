@@ -1,40 +1,40 @@
-import { cloneElement, ReactElement, useEffect, useState } from 'react';
-import { usePopper } from 'react-popper';
+import { cloneElement, ReactElement, useEffect, useState } from 'react'
+import { usePopper } from 'react-popper'
 
 export interface TooltipProps {
-  children: ReactElement;
-  label: string;
+  children: ReactElement
+  label: string
 }
 
 export function Tooltip({ children, label }: TooltipProps) {
-  const [ref, setRef] = useState<HTMLDivElement | null>(null);
-  const [popperElement, setPopperElement] = useState<HTMLElement | null>(null);
+  const [ref, setRef] = useState<HTMLDivElement | null>(null)
+  const [popperElement, setPopperElement] = useState<HTMLElement | null>(null)
   const { styles: popperStyles, attributes } = usePopper(ref, popperElement, {
     placement: 'top-end',
-  });
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  })
+  const [isOpen, setIsOpen] = useState<boolean>(false)
 
   useEffect(() => {
     const handleMouseEnter = () => {
-      setIsOpen(true);
-    };
+      setIsOpen(true)
+    }
 
     const handleMouseLeave = () => {
-      setIsOpen(false);
-    };
+      setIsOpen(false)
+    }
 
     if (ref) {
-      ref.addEventListener('mouseenter', handleMouseEnter);
-      ref.addEventListener('mouseleave', handleMouseLeave);
+      ref.addEventListener('mouseenter', handleMouseEnter)
+      ref.addEventListener('mouseleave', handleMouseLeave)
     }
 
     return () => {
       if (ref) {
-        ref.removeEventListener('mouseenter', handleMouseEnter);
-        ref.removeEventListener('mouseleave', handleMouseLeave);
+        ref.removeEventListener('mouseenter', handleMouseEnter)
+        ref.removeEventListener('mouseleave', handleMouseLeave)
       }
-    };
-  }, [ref]);
+    }
+  }, [ref])
 
   return (
     <>
@@ -50,7 +50,7 @@ export function Tooltip({ children, label }: TooltipProps) {
         </div>
       )}
     </>
-  );
+  )
 }
 
-export default Tooltip;
+export default Tooltip

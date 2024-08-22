@@ -1,12 +1,7 @@
-import { render } from '@testing-library/react';
-import { MemoryRouter as Router, Route, Routes } from 'react-router-dom';
-import {
-  ReactElement,
-  JSXElementConstructor,
-  ReactFragment,
-  ReactPortal,
-} from 'react';
-import { AudioProvider } from '../components/contexts/audioContext';
+import { render } from '@testing-library/react'
+import { MemoryRouter as Router, Route, Routes } from 'react-router-dom'
+import { ReactElement, JSXElementConstructor, ReactFragment, ReactPortal } from 'react'
+import { AudioProvider } from '../components/contexts/audioContext'
 
 const customRender = (
   ui:
@@ -29,7 +24,7 @@ const customRender = (
       </Router>
     </AudioProvider>,
     options
-  );
-};
+  )
+}
 
-export default customRender;
+export default customRender

@@ -1,59 +1,43 @@
-import {
-  ReactNode,
-  createContext,
-  useCallback,
-  useMemo,
-  useState,
-} from 'react';
-import {
-  DictionaryEntryExportFormat,
-  sortResults,
-  Result,
-  MTDSearch,
-} from '@mothertongues/search';
+import { ReactNode, createContext, useCallback, useMemo, useState } from 'react'
+import { DictionaryEntryExportFormat, sortResults, Result, MTDSearch } from '@mothertongues/search'
 
 // FPCC
-import { FvWord } from '../common/data';
+import { FvWord } from '../common/data'
 
 type SearchContextType = {
-  searchResults: FvWord[] | null;
-  submitSearch: (query: string | null) => void;
-  clearSearch: () => void;
-} | null;
+  searchResults: FvWord[] | null
+  submitSearch: (query: string | null) => void
+  clearSearch: () => void
+} | null
 
-export const SearchContext = createContext<SearchContextType>(null);
+export const SearchContext = createContext<SearchContextType>(null)
 
 export interface SearchProviderProps {
   dictionaryHash: {
-    [key: string]: DictionaryEntryExportFormat;
-  };
-  searchers: MTDSearch[];
-  children: ReactNode;
+    [key: string]: DictionaryEntryExportFormat
+  }
+  searchers: MTDSearch[]
+  children: ReactNode
 }
 
-export const SearchProvider = ({
-  dictionaryHash,
-  searchers,
-  children,
-}: SearchProviderProps) => {
-  const [searchResults, setSearchResults] = useState<FvWord[] | null>(null);
+export const SearchProvider = ({ dictionaryHash, searchers, children }: SearchProviderProps) => {
+  const [searchResults, setSearchResults] = useState<FvWord[] | null>(null)
 
-  const l1Search: MTDSearch = searchers[0];
-  const l2Search: MTDSearch = searchers[1];
+  const l1Search: MTDSearch = searchers[0]
+  const l2Search: MTDSearch = searchers[1]
 
   const submitSearch = useCallback(
     (query: string | null) => {
       if (query === '' || query === null) {
-        setSearchResults(null);
+        setSearchResults(null)
       } else if (l1Search && l2Search) {
-        // @ts-ignore
         // Search Results in target language
-        const l1Results = l1Search.search(query);
+        const l1Results = l1Search.search(query)
         // Search Results in English
-        const l2Results = l2Search.search(query, 0);
+        const l2Results = l2Search.search(query, 0)
         // Combine the Results and sort them first by edit distance,
         // then by their Okapi BM25 score
-        const allResults = sortResults(l1Results.concat(l2Results));
+        const allResults = sortResults(l1Results.concat(l2Results))
         // Returns a list of results (Result[]) where each Result contains:
         //  - The edit distance (int)
         //  - The entry ID (UUID)
@@ -73,31 +57,27 @@ export const SearchProvider = ({
             ...dictionaryHash?.[result[1]],
             key: `${result[2][0][0]}-${result[1]}`, // Adding unique key for rendering list in React
             locations: result[2],
-          };
-        });
+          }
+        })
 
         //   No results returns an empty array indicating to consumers of "searchResults" that there are no reults for that search
-        setSearchResults(entries);
+        setSearchResults(entries)
       }
     },
     [dictionaryHash, l1Search, l2Search]
-  );
+  )
 
   const searchContext = useMemo(() => {
     return {
       searchResults,
       submitSearch,
       clearSearch: () => setSearchResults(null),
-    };
-  }, [searchResults, submitSearch]);
+    }
+  }, [searchResults, submitSearch])
 
   return (
-    <SearchContext.Provider
-      value={searchContext as unknown as SearchContextType}
-    >
-      {children}
-    </SearchContext.Provider>
-  );
-};
+    <SearchContext.Provider value={searchContext as unknown as SearchContextType}>{children}</SearchContext.Provider>
+  )
+}
 
-export default SearchProvider;
+export default SearchProvider

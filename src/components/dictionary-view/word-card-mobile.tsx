@@ -1,21 +1,21 @@
 // FPCC
-import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
-import WordModal from './word-modal';
-import { FvWord, FvWordLocation } from '../common/data';
-import { useModal } from '../common/use-modal/use-modal';
-import { useAudioContext } from '../contexts/audioContext';
-import { applyHighlighting } from '../../util/applyHighlighting';
-import { Audio1 } from '@mothertongues/search';
+import FullScreenModal from '../common/full-screen-modal/full-screen-modal'
+import WordModal from './word-modal'
+import { FvWord, FvWordLocation } from '../common/data'
+import { useModal } from '../common/use-modal/use-modal'
+import { useAudioContext } from '../contexts/audioContext'
+import { applyHighlighting } from '../../util/applyHighlighting'
+import { Audio1 } from '@mothertongues/search'
 
 export interface WordCardMobileProps {
-  item: FvWord;
+  item: FvWord
 }
 
 function WordCardMobile({ item }: Readonly<WordCardMobileProps>) {
-  const wordLocations: FvWordLocation[] | null = item?.locations ?? null;
-  const { setShowModal, showModal, closeModal } = useModal();
-  const { word, definition, audio } = item;
-  const { stopAll } = useAudioContext();
+  const wordLocations: FvWordLocation[] | null = item?.locations ?? null
+  const { setShowModal, showModal, closeModal } = useModal()
+  const { word, definition, audio } = item
+  const { stopAll } = useAudioContext()
 
   return (
     <>
@@ -27,21 +27,13 @@ function WordCardMobile({ item }: Readonly<WordCardMobileProps>) {
       >
         <div className="grid grid-cols-10 gap-2 text-left w-full">
           <div className="col-span-8">
-            <div>
-              {wordLocations
-                ? applyHighlighting(word, wordLocations, 'word')
-                : word}
-            </div>
+            <div>{wordLocations ? applyHighlighting(word, wordLocations, 'word') : word}</div>
             <p className="truncate">
-              {wordLocations
-                ? applyHighlighting(definition, wordLocations, 'definition')
-                : definition}
+              {wordLocations ? applyHighlighting(definition, wordLocations, 'definition') : definition}
             </p>
           </div>
           <div className="col-span-1 self-center">
-            {audio?.map((mtAudio: Audio1) => (
-              <i key={mtAudio.filename} className="fv-volume-up" />
-            ))}
+            {audio?.map((mtAudio: Audio1) => <i key={mtAudio.filename} className="fv-volume-up" />)}
           </div>
           <div className="col-span-1 place-self-end self-center">
             <i className="fv-right-open" />
@@ -53,14 +45,14 @@ function WordCardMobile({ item }: Readonly<WordCardMobileProps>) {
           <WordModal
             term={item}
             onClose={() => {
-              closeModal();
-              stopAll();
+              closeModal()
+              stopAll()
             }}
           />
         </FullScreenModal>
       )}
     </>
-  );
+  )
 }
 
-export default WordCardMobile;
+export default WordCardMobile

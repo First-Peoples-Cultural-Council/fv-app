@@ -1,8 +1,6 @@
-import React from 'react';
-
 export interface CopyButtonProps {
-  label?: string;
-  text: string | null | undefined;
+  label?: string
+  text: string | null | undefined
 }
 
 export function CopyButton({ label, text }: Readonly<CopyButtonProps>) {
@@ -12,8 +10,8 @@ export function CopyButton({ label, text }: Readonly<CopyButtonProps>) {
       className="flex items-center"
       onClick={async () => {
         await navigator.clipboard.writeText(text ?? '').catch((err: any) => {
-          console.error(err);
-        });
+          console.error(err)
+        })
       }}
     >
       <i className="fv-copy pr-2 text-xl" />
@@ -21,7 +19,7 @@ export function CopyButton({ label, text }: Readonly<CopyButtonProps>) {
     </button>
   ) : (
     <></>
-  );
+  )
 }
 
-export default CopyButton;
+export default CopyButton

@@ -1,25 +1,24 @@
-import React from 'react';
-import WordModal from '../dictionary-view/word-modal';
-import { FvWord, FvWordLocation } from '../common/data';
+import WordModal from '../dictionary-view/word-modal'
+import { FvWord, FvWordLocation } from '../common/data'
 
 // FPCC
-import Modal from '../common/modal/modal';
-import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
-import { useModal } from '../common/use-modal/use-modal';
+import Modal from '../common/modal/modal'
+import FullScreenModal from '../common/full-screen-modal/full-screen-modal'
+import { useModal } from '../common/use-modal/use-modal'
 
-import { useAudioContext } from '../contexts/audioContext';
-import { applyHighlighting } from '../../util/applyHighlighting';
+import { useAudioContext } from '../contexts/audioContext'
+import { applyHighlighting } from '../../util/applyHighlighting'
 
 export interface WordAlphabetRowCardProps {
-  term: FvWord;
+  term: FvWord
 }
 
 function WordAlphabetRowCard({ term }: Readonly<WordAlphabetRowCardProps>) {
-  const { setShowModal, showModal, closeModal } = useModal();
-  const wordLocations: FvWordLocation[] | null = term?.locations ?? null;
+  const { setShowModal, showModal, closeModal } = useModal()
+  const wordLocations: FvWordLocation[] | null = term?.locations ?? null
 
-  const { word, definition } = term;
-  const { stopAll } = useAudioContext();
+  const { word, definition } = term
+  const { stopAll } = useAudioContext()
 
   return (
     <>
@@ -30,17 +29,9 @@ function WordAlphabetRowCard({ term }: Readonly<WordAlphabetRowCardProps>) {
         <div className="grid grid-cols-10 gap-4">
           <div className="col-span-9">
             <div>
-              <h1 className="font-bold">
-                {wordLocations
-                  ? applyHighlighting(word, wordLocations, 'word')
-                  : word}
-              </h1>
+              <h1 className="font-bold">{wordLocations ? applyHighlighting(word, wordLocations, 'word') : word}</h1>
             </div>
-            <h1>
-              {wordLocations
-                ? applyHighlighting(definition, wordLocations, 'definition')
-                : definition}
-            </h1>
+            <h1>{wordLocations ? applyHighlighting(definition, wordLocations, 'definition') : definition}</h1>
           </div>
           <div className="place-self-end self-center">
             <i className="fv-right-open" />
@@ -52,8 +43,8 @@ function WordAlphabetRowCard({ term }: Readonly<WordAlphabetRowCardProps>) {
           <WordModal
             term={term}
             onClose={() => {
-              closeModal();
-              stopAll();
+              closeModal()
+              stopAll()
             }}
           />
         </Modal>
@@ -63,14 +54,14 @@ function WordAlphabetRowCard({ term }: Readonly<WordAlphabetRowCardProps>) {
           <WordModal
             term={term}
             onClose={() => {
-              closeModal();
-              stopAll();
+              closeModal()
+              stopAll()
             }}
           />
         </FullScreenModal>
       )}
     </>
-  );
+  )
 }
 
-export default WordAlphabetRowCard;
+export default WordAlphabetRowCard

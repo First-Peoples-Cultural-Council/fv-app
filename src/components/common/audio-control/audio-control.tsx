@@ -1,24 +1,20 @@
-import { useState } from 'react';
-import { Description } from '@mothertongues/search';
-import classNames from 'classnames';
+import { useState } from 'react'
+import { Description } from '@mothertongues/search'
+import classNames from 'classnames'
 
 // FPCC
-import Alert from '../alert/alert';
-import { useAudio } from '../../../util/useAudio';
+import Alert from '../alert/alert'
+import { useAudio } from '../../../util/useAudio'
 
 export interface AudioControlProps {
-  audioSrc: string;
-  description?: Description | string;
-  styleType: 'icon' | 'button' | 'native';
+  audioSrc: string
+  description?: Description | string
+  styleType: 'icon' | 'button' | 'native'
 }
 
-export function AudioControl({
-  audioSrc,
-  description,
-  styleType,
-}: Readonly<AudioControlProps>) {
-  const [showAlert, setShowAlert] = useState(false);
-  const { audioAvailable, audioPlaying, toggleAudio } = useAudio(audioSrc);
+export function AudioControl({ audioSrc, description, styleType }: Readonly<AudioControlProps>) {
+  const [showAlert, setShowAlert] = useState(false)
+  const { audioAvailable, audioPlaying, toggleAudio } = useAudio(audioSrc)
 
   return (
     <>
@@ -30,7 +26,8 @@ export function AudioControl({
             'opacity-30': !audioAvailable,
           })}
           onClick={() => {
-            audioAvailable ? toggleAudio() : setShowAlert(true);
+            if (audioAvailable) return toggleAudio()
+            return setShowAlert(true)
           }}
         >
           <i className="fv-volume-up text-3xl" />
@@ -45,14 +42,11 @@ export function AudioControl({
             'opacity-30 bg-gray-500': !audioAvailable,
           })}
           onClick={() => {
-            audioAvailable ? toggleAudio() : setShowAlert(true);
+            if (audioAvailable) return toggleAudio()
+            return setShowAlert(true)
           }}
         >
-          {audioPlaying ? (
-            <i className="fv-pause" />
-          ) : (
-            <i className="fv-play" />
-          )}
+          {audioPlaying ? <i className="fv-pause" /> : <i className="fv-play" />}
           {description && <div>{description}</div>}
         </button>
       )}
@@ -62,11 +56,7 @@ export function AudioControl({
           {audioAvailable ? (
             <audio src={audioSrc} controls />
           ) : (
-            <button
-              type="button"
-              className="fv-songs text-3xl text-gray-400"
-              onClick={() => setShowAlert(true)}
-            />
+            <button type="button" className="fv-songs text-3xl text-gray-400" onClick={() => setShowAlert(true)} />
           )}
         </>
       )}
@@ -77,11 +67,11 @@ export function AudioControl({
         showDismissButton={true}
         showAlert={showAlert}
         dismissAlert={function (): void {
-          setShowAlert(false);
+          setShowAlert(false)
         }}
       />
     </>
-  );
+  )
 }
 
-export default AudioControl;
+export default AudioControl

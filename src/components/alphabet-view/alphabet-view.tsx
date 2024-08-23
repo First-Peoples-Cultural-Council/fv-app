@@ -1,61 +1,58 @@
-import React, { useRef, useContext, useEffect, useState } from 'react';
+import { useRef, useContext, useEffect, useState } from 'react'
 
 // FPCC
-import { useIsMobile } from '../../util/useMediaQuery';
-import { FvCharacter } from '../common/data';
-import FullScreenModal from '../common/full-screen-modal/full-screen-modal';
-import { ApiContext } from '../contexts/apiContext';
-import fetchCharactersData from '../../services/charactersApiService';
-import { useDictionaryData } from '../dictionary-page/dictionary-page';
-import { Keyboard } from './keyboard';
-import { SelectedLetterDisplay } from './selected-letter-display';
-import { WordExampleList } from './word-example-list';
-import { WordStartsWithList } from './word-starts-with-list';
+import { useIsMobile } from '../../util/useMediaQuery'
+import { FvCharacter } from '../common/data'
+import FullScreenModal from '../common/full-screen-modal/full-screen-modal'
+import { ApiContext } from '../contexts/apiContext'
+import fetchCharactersData from '../../services/charactersApiService'
+import { useDictionaryData } from '../dictionary-page/dictionary-page'
+import { Keyboard } from './keyboard'
+import { SelectedLetterDisplay } from './selected-letter-display'
+import { WordExampleList } from './word-example-list'
+import { WordStartsWithList } from './word-starts-with-list'
 
-/* eslint-disable-next-line */
-export interface AlphabetViewProps {}
-
-export function AlphabetView(this: any, props: AlphabetViewProps) {
-  const { dictionaryData } = useDictionaryData();
-  const { isApiCallInProgress } = useContext(ApiContext);
-  const wordListRef = useRef<HTMLDivElement | null>(null);
-  const isMobile = useIsMobile();
-  const [dataAlphabet, setDataAlphabet] = useState<FvCharacter[]>([]);
-  const [selected, setSelected] = useState<FvCharacter | null>(null);
-  const [loadingAlphabet, setLoadingAlphabet] = useState(true);
+export function AlphabetView() {
+  const { dictionaryData } = useDictionaryData()
+  const { isApiCallInProgress } = useContext(ApiContext)
+  const wordListRef = useRef<HTMLDivElement | null>(null)
+  const isMobile = useIsMobile()
+  const [dataAlphabet, setDataAlphabet] = useState<FvCharacter[]>([])
+  const [selected, setSelected] = useState<FvCharacter | null>(null)
+  const [loadingAlphabet, setLoadingAlphabet] = useState(true)
 
   if (!isMobile && selected === null && dataAlphabet.length !== 0) {
-    setSelected(dataAlphabet[0]);
+    setSelected(dataAlphabet[0])
   }
 
   useEffect(() => {
     const fetchDataAlphabetAsync = async () => {
       try {
-        const result = await fetchCharactersData();
+        const result = await fetchCharactersData()
         // Add character sort_form number for getting "starts with" entries
         const alphabetWithIndex = result.map((char, index) => {
-          return { ...char, sortingFormNum: index + 1 };
-        });
-        setDataAlphabet(alphabetWithIndex);
+          return { ...char, sortingFormNum: index + 1 }
+        })
+        setDataAlphabet(alphabetWithIndex)
       } catch (error) {
         // Handle error scenarios
-        console.error('Error occurred:', error);
+        console.error('Error occurred:', error)
       }
-      setLoadingAlphabet(false);
-    };
+      setLoadingAlphabet(false)
+    }
 
     if (dataAlphabet.length === 0) {
-      fetchDataAlphabetAsync();
+      fetchDataAlphabetAsync()
     }
-  }, [isApiCallInProgress, dataAlphabet]);
+  }, [isApiCallInProgress, dataAlphabet])
 
   useEffect(() => {
     if (selected && isMobile) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden'
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = 'unset'
     }
-  }, [selected, isMobile]);
+  }, [selected, isMobile])
 
   return (
     <div data-testid="alphabet-view" className="w-full">
@@ -75,12 +72,7 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
       <div className="hidden md:block w-full">
         <div className="grid grid-cols-3">
           <div className="overflow-y-auto col-span-1 w-full space-y-4">
-            {selected && (
-              <SelectedLetterDisplay
-                selected={selected}
-                dictionaryData={dictionaryData}
-              />
-            )}
+            {selected && <SelectedLetterDisplay selected={selected} dictionaryData={dictionaryData} />}
 
             <Keyboard
               selected={selected}
@@ -91,13 +83,8 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
             />
           </div>
           {selected && (
-            <div
-              ref={wordListRef}
-              className="overflow-y-auto col-span-2 w-full"
-            >
-              {selected?.relatedDictionaryEntries.length > 0 && (
-                <WordExampleList selected={selected} />
-              )}
+            <div ref={wordListRef} className="overflow-y-auto col-span-2 w-full">
+              {selected?.relatedDictionaryEntries.length > 0 && <WordExampleList selected={selected} />}
               {selected?.note?.length > 0 && note()}
               <WordStartsWithList selected={selected} />
             </div>
@@ -108,20 +95,15 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
       {selected && isMobile && (
         <FullScreenModal onClose={() => setSelected(null)}>
           <div>
-            <SelectedLetterDisplay
-              selected={selected}
-              dictionaryData={dictionaryData}
-            />
-            {selected?.relatedDictionaryEntries.length > 0 && (
-              <WordExampleList selected={selected} />
-            )}
+            <SelectedLetterDisplay selected={selected} dictionaryData={dictionaryData} />
+            {selected?.relatedDictionaryEntries.length > 0 && <WordExampleList selected={selected} />}
             {selected?.note?.length > 0 && note()}
             <WordStartsWithList selected={selected} />
           </div>
         </FullScreenModal>
       )}
     </div>
-  );
+  )
 
   function note() {
     return (
@@ -129,8 +111,8 @@ export function AlphabetView(this: any, props: AlphabetViewProps) {
         <div className="text-xl pb-2">NOTES</div>
         <div>{selected?.note}</div>
       </div>
-    );
+    )
   }
 }
 
-export default AlphabetView;
+export default AlphabetView

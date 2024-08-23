@@ -1,11 +1,5 @@
-import { FvWord } from './types';
+import { FvWord } from './types'
 
 export function isFvWord(obj: any): obj is FvWord {
-  return (
-    obj &&
-    typeof obj === 'object' &&
-    'source' in obj &&
-    'entryID' in obj &&
-    'word' in obj
-  );
+  return obj && typeof obj === 'object' && 'source' in obj && 'entryID' in obj && 'word' in obj
 }

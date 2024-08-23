@@ -1,34 +1,32 @@
-import { useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { useEffect, useState } from 'react'
+import { Route, Routes } from 'react-router-dom'
 
 // FPCC
-import { FVStory } from '../common/data/types';
-import fetchStoriesData from '../../services/storiesApiService';
-import { LoadingSpinner } from '../common/loading-spinner/loading-spinner';
+import { FVStory } from '../common/data/types'
+import fetchStoriesData from '../../services/storiesApiService'
+import { LoadingSpinner } from '../common/loading-spinner/loading-spinner'
 
-import StoriesView from '../stories-view/stories-view';
-import StoryView from '../story-view/story-view';
+import StoriesView from '../stories-view/stories-view'
+import StoryView from '../story-view/story-view'
 
-/* eslint-disable-next-line */
-export interface StoriesPageProps {}
-
-export default function StoriesPage(props: StoriesPageProps) {
-  const [storiesData, setStoriesData] = useState<FVStory[]>([]);
-  const [loading, setLoading] = useState(true);
+export default function StoriesPage() {
+  const [storiesData, setStoriesData] = useState<FVStory[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchDataAsync = async () => {
       try {
-        const result = await fetchStoriesData();
-        setStoriesData(result);
-        setLoading(false);
+        const result = await fetchStoriesData()
+        setStoriesData(result)
+        setLoading(false)
       } catch (error) {
         // Handle error scenarios
+        console.error(error)
       }
-    };
+    }
 
-    fetchDataAsync();
-  }, []);
+    fetchDataAsync()
+  }, [])
 
   return loading ? (
     <LoadingSpinner />
@@ -37,5 +35,5 @@ export default function StoriesPage(props: StoriesPageProps) {
       <Route path="" element={<StoriesView storiesData={storiesData} />} />
       <Route path=":id" element={<StoryView storiesData={storiesData} />} />
     </Routes>
-  );
+  )
 }

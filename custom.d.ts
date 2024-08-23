@@ -2,11 +2,11 @@
 // See https://webpack.js.org/guides/typescript/#importing-other-assets
 
 declare module '*.svg' {
-  const content: any;
-  export default content;
+  const content: any
+  export default content
 }
 
 declare module '*.module.css' {
-  const content: Record<string, string>;
-  export default content;
+  const content: Record<string, string>
+  export default content
 }

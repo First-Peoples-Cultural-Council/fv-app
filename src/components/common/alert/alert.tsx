@@ -1,17 +1,16 @@
-import styles from './alert.module.css';
-import classNames from 'classnames';
-import { ReactNode, useRef } from 'react';
-import useOnClickOutside from '../../../util/clickOutside';
+import styles from './alert.module.css'
+import classNames from 'classnames'
+import { ReactNode, useRef } from 'react'
+import useOnClickOutside from '../../../util/clickOutside'
 
 export interface AlertProps {
-  type: 'success' | 'error' | 'warning' | 'info';
-  title?: string;
-  message: ReactNode;
-  rightContent?: ReactNode;
-  showDismissButton: boolean;
-  showAlert: boolean;
-  dismissAlert: () => void;
-  makeBlocking?: boolean;
+  type: 'success' | 'error' | 'warning' | 'info'
+  title?: string
+  message: ReactNode
+  rightContent?: ReactNode
+  showDismissButton: boolean
+  showAlert: boolean
+  dismissAlert: () => void
 }
 
 export function Alert({
@@ -22,13 +21,12 @@ export function Alert({
   showAlert,
   dismissAlert,
   showDismissButton,
-  makeBlocking,
-}: AlertProps) {
-  const alertContentRef = useRef<HTMLDivElement>(null);
+}: Readonly<AlertProps>) {
+  const alertContentRef = useRef<HTMLDivElement>(null)
 
   useOnClickOutside(alertContentRef, () => {
-    dismissAlert();
-  });
+    dismissAlert()
+  })
 
   if (showAlert) {
     return (
@@ -160,9 +158,9 @@ export function Alert({
           </div>
         </div>
       </div>
-    );
+    )
   }
-  return null;
+  return null
 }
 
-export default Alert;
+export default Alert

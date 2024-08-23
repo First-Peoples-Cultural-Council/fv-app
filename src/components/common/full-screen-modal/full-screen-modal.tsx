@@ -1,21 +1,21 @@
-import React, { ReactNode } from 'react';
-import { createPortal } from 'react-dom';
+import { ReactNode } from 'react'
+import { createPortal } from 'react-dom'
 
 // FPCC
-import { useAudioContext } from '../../contexts/audioContext';
+import { useAudioContext } from '../../contexts/audioContext'
 
 export interface FullScreenModalProps {
-  onClose: () => void;
-  children: ReactNode;
+  onClose: () => void
+  children: ReactNode
 }
 
 export function FullScreenModal({ onClose, children }: FullScreenModalProps) {
-  const { stopAll } = useAudioContext();
+  const { stopAll } = useAudioContext()
 
   const onCloseClick = () => {
-    onClose();
-    stopAll();
-  };
+    onClose()
+    stopAll()
+  }
 
   return createPortal(
     <div className="modal fixed w-full h-full top-0 left-0 flex items-center justify-center bg-white">
@@ -34,7 +34,7 @@ export function FullScreenModal({ onClose, children }: FullScreenModalProps) {
       </div>
     </div>,
     document.body
-  );
+  )
 }
 
-export default FullScreenModal;
+export default FullScreenModal

@@ -1,23 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 
 const useSiteTitleFromManifest = (manifestUrl: string) => {
-  const [siteTitle, setSiteTitle] = useState<string>('');
+  const [siteTitle, setSiteTitle] = useState<string>('')
 
   useEffect(() => {
     const fetchManifest = async () => {
       try {
-        const response = await fetch(manifestUrl);
-        const json = await response.json();
-        setSiteTitle(json.name);
+        const response = await fetch(manifestUrl)
+        const json = await response.json()
+        setSiteTitle(json.name)
       } catch (error) {
-        console.error('Error fetching manifest:', error);
+        console.error('Error fetching manifest:', error)
       }
-    };
+    }
 
-    fetchManifest();
-  }, [manifestUrl]);
+    fetchManifest()
+  }, [manifestUrl])
 
-  return siteTitle;
-};
+  return siteTitle
+}
 
-export default useSiteTitleFromManifest;
+export default useSiteTitleFromManifest

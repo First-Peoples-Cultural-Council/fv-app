@@ -1,35 +1,27 @@
-import { useEffect, useState } from 'react';
-import { matchRoutes, Outlet, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react'
+import { matchRoutes, Outlet, useLocation } from 'react-router-dom'
 
 // FPCC
-import SubNavDesktop from '../sub-nav-desktop/sub-nav-desktop';
-import SubNavMobile from '../sub-nav-mobile/sub-nav-mobile';
-import PageHeader from '../common/page-header/page-header';
-import { learnSubNavItems } from '../../constants/navigation';
-import { SubNavItem } from '../common/data';
+import SubNavDesktop from '../sub-nav-desktop/sub-nav-desktop'
+import SubNavMobile from '../sub-nav-mobile/sub-nav-mobile'
+import PageHeader from '../common/page-header/page-header'
+import { learnSubNavItems } from '../../constants/navigation'
+import { SubNavItem } from '../common/data'
 
-/* eslint-disable-next-line */
-export interface LearnViewProps {}
-
-export function LearnView(props: LearnViewProps) {
-  const location = useLocation();
-  const [currentNavItem, setCurrentNavItem] = useState<SubNavItem | null>(
-    learnSubNavItems[0]
-  );
+export function LearnView() {
+  const location = useLocation()
+  const [currentNavItem, setCurrentNavItem] = useState<SubNavItem | null>(learnSubNavItems[0])
 
   useEffect(() => {
     const currentNavItem = learnSubNavItems.find((item) =>
-      matchRoutes(
-        [{ path: item.path }, ...(item?.activePathMatches ?? [])],
-        location
-      )
-    );
+      matchRoutes([{ path: item.path }, ...(item?.activePathMatches ?? [])], location)
+    )
     if (currentNavItem) {
-      setCurrentNavItem(currentNavItem);
+      setCurrentNavItem(currentNavItem)
     } else {
-      setCurrentNavItem(null);
+      setCurrentNavItem(null)
     }
-  }, [location]);
+  }, [location])
 
   return currentNavItem ? (
     <div>
@@ -50,7 +42,7 @@ export function LearnView(props: LearnViewProps) {
     </div>
   ) : (
     <Outlet />
-  );
+  )
 }
 
-export default LearnView;
+export default LearnView

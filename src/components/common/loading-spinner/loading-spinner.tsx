@@ -20,5 +20,5 @@ export const LoadingSpinner = () => {
         <div className="text-center text-xl font-medium">Loading...</div>
       </div>
     </div>
-  );
-};
+  )
+}

@@ -1,33 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
 // FPCC
-import IndexedDBService from '../../../services/indexedDbService';
-import Alert from '../alert/alert';
-import { useDetectOnlineStatus } from '../../../util/useDetectOnlineStatus';
+import IndexedDBService from '../../../services/indexedDbService'
+import Alert from '../alert/alert'
+import { useDetectOnlineStatus } from '../../../util/useDetectOnlineStatus'
 
 export interface FvImageProps {
-  className?: string;
-  disabledClassName?: string;
-  src: string;
-  alt: string;
+  className?: string
+  disabledClassName?: string
+  src: string
+  alt: string
 }
 
-export function FvImage({
-  className,
-  disabledClassName,
-  src,
-  alt,
-}: Readonly<FvImageProps>) {
-  const [showAlert, setShowAlert] = useState(false);
-  const [hasFile, setHasFile] = useState(false);
-  const { isOnline } = useDetectOnlineStatus();
+export function FvImage({ className, disabledClassName, src, alt }: Readonly<FvImageProps>) {
+  const [showAlert, setShowAlert] = useState(false)
+  const [hasFile, setHasFile] = useState(false)
+  const { isOnline } = useDetectOnlineStatus()
 
   useEffect(() => {
-    const db = new IndexedDBService('firstVoicesIndexedDb');
+    const db = new IndexedDBService('firstVoicesIndexedDb')
     db.hasMediaFile(src).then((hasFile) => {
-      setHasFile(hasFile);
-    });
-  }, [isOnline, src]);
+      setHasFile(hasFile)
+    })
+  }, [isOnline, src])
 
   return (
     <>
@@ -47,11 +42,11 @@ export function FvImage({
         showDismissButton={true}
         showAlert={showAlert}
         dismissAlert={function (): void {
-          setShowAlert(false);
+          setShowAlert(false)
         }}
       />
     </>
-  );
+  )
 }
 
-export default FvImage;
+export default FvImage

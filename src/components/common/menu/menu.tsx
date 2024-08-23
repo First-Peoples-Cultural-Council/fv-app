@@ -1,8 +1,8 @@
-import ClickAwayListener from 'react-click-away-listener';
-import classNames from 'classnames';
-import { usePopper } from 'react-popper';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import ClickAwayListener from 'react-click-away-listener'
+import classNames from 'classnames'
+import { usePopper } from 'react-popper'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   AnchorMenuItem,
   ButtonButtonMenuItem,
@@ -12,65 +12,42 @@ import {
   MenuSection,
   StandardButtonButtonTypeEnum,
   SubmitButtonMenuItem,
-} from '../data';
+} from '../data'
 
 export interface MenuProps {
-  className?: string;
-  menuData: MenuSection[];
-  closeMenu: () => void;
-  referenceElement: HTMLElement | null;
+  className?: string
+  menuData: MenuSection[]
+  closeMenu: () => void
+  referenceElement: HTMLElement | null
 }
 
-export function Menu({
-  menuData,
-  closeMenu,
-  className,
-  referenceElement,
-}: Readonly<MenuProps>) {
-  const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(
-    null
-  );
-  const { styles: popperStyles, attributes } = usePopper(
-    referenceElement,
-    popperElement,
-    {
-      modifiers: [{ name: 'arrow' }],
-    }
-  );
-  const isButtonMenu = (
-    variableToCheck: unknown
-  ): variableToCheck is ButtonMenuItem =>
-    (variableToCheck as ButtonMenuItem).type === ButtonTypeEnum.button;
+export function Menu({ menuData, closeMenu, className, referenceElement }: Readonly<MenuProps>) {
+  const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null)
+  const { styles: popperStyles, attributes } = usePopper(referenceElement, popperElement, {
+    modifiers: [{ name: 'arrow' }],
+  })
+  const isButtonMenu = (variableToCheck: unknown): variableToCheck is ButtonMenuItem =>
+    (variableToCheck as ButtonMenuItem).type === ButtonTypeEnum.button
 
-  const isSubmitButtonMenu = (
-    variableToCheck: unknown
-  ): variableToCheck is SubmitButtonMenuItem => {
+  const isSubmitButtonMenu = (variableToCheck: unknown): variableToCheck is SubmitButtonMenuItem => {
     return (
       isButtonMenu(variableToCheck) &&
-      (variableToCheck as SubmitButtonMenuItem).buttonType ===
-        StandardButtonButtonTypeEnum.submit
-    );
-  };
+      (variableToCheck as SubmitButtonMenuItem).buttonType === StandardButtonButtonTypeEnum.submit
+    )
+  }
 
-  const isButtonButtonMenu = (
-    variableToCheck: unknown
-  ): variableToCheck is ButtonButtonMenuItem => {
+  const isButtonButtonMenu = (variableToCheck: unknown): variableToCheck is ButtonButtonMenuItem => {
     return (
       isButtonMenu(variableToCheck) &&
-      (variableToCheck as ButtonButtonMenuItem).buttonType ===
-        StandardButtonButtonTypeEnum.button
-    );
-  };
+      (variableToCheck as ButtonButtonMenuItem).buttonType === StandardButtonButtonTypeEnum.button
+    )
+  }
 
-  const isLinkMenu = (
-    variableToCheck: unknown
-  ): variableToCheck is LinkMenuItem =>
-    (variableToCheck as LinkMenuItem).type === ButtonTypeEnum.Link;
+  const isLinkMenu = (variableToCheck: unknown): variableToCheck is LinkMenuItem =>
+    (variableToCheck as LinkMenuItem).type === ButtonTypeEnum.Link
 
-  const isAnchorMenu = (
-    variableToCheck: unknown
-  ): variableToCheck is AnchorMenuItem =>
-    (variableToCheck as AnchorMenuItem).type === ButtonTypeEnum.a;
+  const isAnchorMenu = (variableToCheck: unknown): variableToCheck is AnchorMenuItem =>
+    (variableToCheck as AnchorMenuItem).type === ButtonTypeEnum.a
 
   return (
     <ClickAwayListener onClickAway={closeMenu}>
@@ -88,12 +65,7 @@ export function Menu({
         tabIndex={-1}
       >
         {menuData.map((section) => (
-          <div
-            key={section.id}
-            className="py-1"
-            role="none"
-            onClick={closeMenu}
-          >
+          <div key={section.id} className="py-1" role="none" onClick={closeMenu}>
             {section.menuItems.map((menuItem) => {
               if (isLinkMenu(menuItem)) {
                 return (
@@ -106,7 +78,7 @@ export function Menu({
                   >
                     {menuItem.label}
                   </Link>
-                );
+                )
               } else if (isButtonMenu(menuItem)) {
                 if (isSubmitButtonMenu(menuItem)) {
                   return (
@@ -119,7 +91,7 @@ export function Menu({
                     >
                       {menuItem.label}
                     </button>
-                  );
+                  )
                 } else if (isButtonButtonMenu(menuItem)) {
                   return (
                     <button
@@ -132,9 +104,9 @@ export function Menu({
                     >
                       {menuItem.label}
                     </button>
-                  );
+                  )
                 }
-                return null;
+                return null
               } else if (isAnchorMenu(menuItem)) {
                 return (
                   <a
@@ -146,15 +118,15 @@ export function Menu({
                   >
                     {menuItem.label}
                   </a>
-                );
+                )
               }
-              return null;
+              return null
             })}
           </div>
         ))}
       </div>
     </ClickAwayListener>
-  );
+  )
 }
 
-export default Menu;
+export default Menu

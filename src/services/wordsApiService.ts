@@ -1,11 +1,11 @@
-import { getCurrentDialect } from '../util/getCurrentDialect';
-import axios from 'axios';
+import { getCurrentDialect } from '../util/getCurrentDialect'
+import axios from 'axios'
 
-import IndexedDBService from './indexedDbService';
-import { MTDExportFormat } from '@mothertongues/search/src/lib/mtd';
-import isDateOlderThen from '../util/isDateOlderThen';
+import IndexedDBService from './indexedDbService'
+import { MTDExportFormat } from '@mothertongues/search/src/lib/mtd'
+import isDateOlderThen from '../util/isDateOlderThen'
 
-const db = new IndexedDBService('firstVoicesIndexedDb');
+const db = new IndexedDBService('firstVoicesIndexedDb')
 
 const noData: MTDExportFormat = {
   data: [],
@@ -47,85 +47,78 @@ const noData: MTDExportFormat = {
   },
   l1_index: {},
   l2_index: {},
-};
+}
 
-export const fetchWordsData = async (
-  isApiCallInProgress: any
-): Promise<MTDExportFormat> => {
+export const fetchWordsData = async (isApiCallInProgress: any): Promise<MTDExportFormat> => {
   try {
     if (isApiCallInProgress.current) {
       return new Promise((resolve) => {
         const interval = setInterval(async () => {
           if (!isApiCallInProgress.current) {
-            clearInterval(interval);
+            clearInterval(interval)
 
             // Check the database to see if there is already data in there.
-            const dbData = await db.getData('words');
+            const dbData = await db.getData('words')
 
             if (dbData) {
-              resolve(dbData.data);
+              resolve(dbData.data)
             } else {
-              resolve(noData);
+              resolve(noData)
             }
           }
-        }, 100); // Check every 100ms for completion
-      });
+        }, 100) // Check every 100ms for completion
+      })
     } else {
-      isApiCallInProgress.current = true;
+      isApiCallInProgress.current = true
 
-      let url: string = `${
-        process.env.REACT_APP_BASE_API_URL
-      }/sites/${getCurrentDialect()}/mtd-data`;
+      const url: string = `${process.env.REACT_APP_BASE_API_URL}/sites/${getCurrentDialect()}/mtd-data`
 
       // Check the database to see if there is already data in there.
-      const dbData = await db.getData('words');
+      const dbData = await db.getData('words')
 
       if (dbData) {
         // Check to see if we need to update the data.
         if (isDateOlderThen(dbData.timestamp, 1)) {
           Promise.resolve().then(async () => {
             // Refresh the data without waiting
-            getData(url);
-          });
+            getData(url)
+          })
         }
 
         // Return the cached data.
-        isApiCallInProgress.current = false;
-        return dbData.data;
+        isApiCallInProgress.current = false
+        return dbData.data
       }
 
-      const data = await getData(url);
-      isApiCallInProgress.current = false;
-      return data;
+      const data = await getData(url)
+      isApiCallInProgress.current = false
+      return data
     }
   } catch (error) {
-    isApiCallInProgress!.current = false;
-    console.error(
-      `Failed to fetch data for the ${'words'} from the API`,
-      error
-    );
+    isApiCallInProgress!.current = false
+    console.error(`Failed to fetch data for the ${'words'} from the API`, error)
   }
 
-  return noData;
-};
+  return noData
+}
 
 async function getData(url: string): Promise<MTDExportFormat> {
   // If not in the database make API call to get it.
-  const response = await axios.get(url);
-  const mtdData: MTDExportFormat = response.data;
+  const response = await axios.get(url)
+  const mtdData: MTDExportFormat = response.data
 
   if (mtdData) {
     // Create the updated data entry for the database.
     const dbEntry = {
       timestamp: new Date().toISOString(),
       data: mtdData,
-    };
+    }
 
     // Store the data from the API call into the database.
-    await db.saveData('words', dbEntry);
+    await db.saveData('words', dbEntry)
   }
 
-  return mtdData;
+  return mtdData
 }
 
-export default fetchWordsData;
+export default fetchWordsData

@@ -1,4 +1,4 @@
-import { NavigationItem, SubNavItem } from '../components/common/data';
+import { NavigationItem, SubNavItem } from '../components/common/data'
 
 export const dictionarySubNavItems: SubNavItem[] = [
   {
@@ -59,7 +59,7 @@ export const dictionarySubNavItems: SubNavItem[] = [
       border: 'border-tertiaryA-600',
     },
   },
-];
+]
 
 export const learnSubNavItems: SubNavItem[] = [
   {
@@ -107,7 +107,7 @@ export const learnSubNavItems: SubNavItem[] = [
     },
     activePathMatches: [{ path: '/learn/flashcards' }],
   },
-];
+]
 
 export const navItems: NavigationItem[] = [
   {
@@ -128,7 +128,7 @@ export const navItems: NavigationItem[] = [
     to: '/bookmarks',
     icon: <i className="fv-bookmark" />,
   },
-];
+]
 
 export const extraNavItems: NavigationItem[] = [
   {
@@ -143,4 +143,4 @@ export const extraNavItems: NavigationItem[] = [
     to: '/about',
     icon: <i className="fv-info" />,
   },
-];
+]

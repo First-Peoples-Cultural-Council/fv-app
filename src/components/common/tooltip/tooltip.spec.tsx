@@ -2,13 +2,17 @@
  * @jest-environment jsdom
  */
 
-import { render } from '@testing-library/react';
+import { render } from '@testing-library/react'
 
-import Tooltip from './tooltip';
+import Tooltip from './tooltip'
 
 describe('Tooltip', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Tooltip children={<></>} label={''} />);
-    expect(baseElement).toBeTruthy();
-  });
-});
+    const { baseElement } = render(
+      <Tooltip label={''}>
+        <></>
+      </Tooltip>
+    )
+    expect(baseElement).toBeTruthy()
+  })
+})

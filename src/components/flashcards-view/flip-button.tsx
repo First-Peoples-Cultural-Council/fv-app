@@ -1,7 +1,5 @@
-import React from 'react';
-
 export interface FlipButtonProps {
-  handleClick: () => void;
+  handleClick: () => void
 }
 
 export function FlipButton({ handleClick }: Readonly<FlipButtonProps>) {
@@ -13,5 +11,5 @@ export function FlipButton({ handleClick }: Readonly<FlipButtonProps>) {
     >
       flip card
     </button>
-  );
+  )
 }

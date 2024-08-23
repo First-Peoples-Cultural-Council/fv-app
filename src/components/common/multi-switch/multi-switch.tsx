@@ -1,21 +1,17 @@
-import classNames from 'classnames';
-import { useState } from 'react';
+import classNames from 'classnames'
+import { useState } from 'react'
 
 export interface MultiSwitchProps {
-  selected: number;
+  selected: number
   items: {
-    name: string;
-    icon: string | null;
-  }[];
-  onToggle: (index: number) => void;
+    name: string
+    icon: string | null
+  }[]
+  onToggle: (index: number) => void
 }
 
-export function MultiSwitch({
-  selected: initialSelected,
-  items,
-  onToggle,
-}: Readonly<MultiSwitchProps>) {
-  const [selected, setSelected] = useState<number>(initialSelected);
+export function MultiSwitch({ selected: initialSelected, items, onToggle }: Readonly<MultiSwitchProps>) {
+  const [selected, setSelected] = useState<number>(initialSelected)
 
   return (
     <div className={'multi-switch p-2'}>
@@ -24,32 +20,25 @@ export function MultiSwitch({
           return (
             <button
               key={item.name}
-              className={classNames(
-                'py-2 px-3 border-solid border-gray-300 border shadow-lg text-center space-x-1',
-                {
-                  'bg-primary-500 text-white hover:bg-primary-400 border-primary':
-                    selected === index,
-                  'bg-white text-primary-500 hover:bg-gray-100':
-                    selected !== index,
-                  'rounded-l-lg': index === 0,
-                  'rounded-r-lg': index === items.length - 1,
-                }
-              )}
+              className={classNames('py-2 px-3 border-solid border-gray-300 border shadow-lg text-center space-x-1', {
+                'bg-primary-500 text-white hover:bg-primary-400 border-primary': selected === index,
+                'bg-white text-primary-500 hover:bg-gray-100': selected !== index,
+                'rounded-l-lg': index === 0,
+                'rounded-r-lg': index === items.length - 1,
+              })}
               onClick={() => {
-                setSelected(index);
-                onToggle(index);
+                setSelected(index)
+                onToggle(index)
               }}
             >
-              {item.icon && (
-                <i className={classNames(item.icon, 'text-primary-500')} />
-              )}
+              {item.icon && <i className={classNames(item.icon, 'text-primary-500')} />}
               <span>{item.name}</span>
             </button>
-          );
+          )
         })}
       </div>
     </div>
-  );
+  )
 }
 
-export default MultiSwitch;
+export default MultiSwitch

@@ -1,7 +1,5 @@
-import React from 'react';
-
 export interface CopyButtonProps {
-  selected: any;
+  selected: any
 }
 
 export function CopyButton({ selected }: Readonly<CopyButtonProps>) {
@@ -9,15 +7,13 @@ export function CopyButton({ selected }: Readonly<CopyButtonProps>) {
     <div className="flex justify-center items-center">
       <button
         onClick={() => {
-          navigator.clipboard
-            .writeText(selected?.title ?? '')
-            .catch((err: any) => {
-              console.error(err);
-            });
+          navigator.clipboard.writeText(selected?.title ?? '').catch((err: any) => {
+            console.error(err)
+          })
         }}
       >
         <span className="fv-copy text-3xl cursor-pointer" />
       </button>
     </div>
-  );
+  )
 }

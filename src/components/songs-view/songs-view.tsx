@@ -1,26 +1,26 @@
-import { useState } from 'react';
-import classNames from 'classnames';
-import { useNavigate } from 'react-router';
+import { useState } from 'react'
+import classNames from 'classnames'
+import { useNavigate } from 'react-router'
 
 // FPCC
-import { FVSong } from '../common/data/types';
-import FvImage from '../common/image/image';
-import SongView from '../song-view/song-view';
+import { FVSong } from '../common/data/types'
+import FvImage from '../common/image/image'
+import SongView from '../song-view/song-view'
 
 export interface SongsViewProps {
-  songsData: FVSong[];
+  songsData: FVSong[]
 }
 
 export function SongsView({ songsData }: Readonly<SongsViewProps>) {
-  const navigate = useNavigate();
-  const [selectedSong, setSelectedSong] = useState<FVSong | null>(null);
+  const navigate = useNavigate()
+  const [selectedSong, setSelectedSong] = useState<FVSong | null>(null)
 
   const onSongClick = (song: FVSong) => {
-    setSelectedSong(song);
+    setSelectedSong(song)
     if (window.matchMedia('(max-width: 768px').matches) {
-      navigate(`/learn/songs/${song?.id}`);
+      navigate(`/learn/songs/${song?.id}`)
     }
-  };
+  }
 
   return (
     <div data-testid="songs-view" className="w-full">
@@ -34,8 +34,7 @@ export function SongsView({ songsData }: Readonly<SongsViewProps>) {
                 className={classNames(
                   'w-full border border-gray-200 md:rounded-lg bg-white p-4 shadow-lg hover:bg-gray-100 cursor-pointer',
                   {
-                    'md:border-song-500 md:border-2 hover:bg-white':
-                      song.id === selectedSong?.id,
+                    'md:border-song-500 md:border-2 hover:bg-white': song.id === selectedSong?.id,
                   }
                 )}
                 onClick={() => onSongClick(song)}
@@ -63,7 +62,7 @@ export function SongsView({ songsData }: Readonly<SongsViewProps>) {
                   </div>
                 </div>
               </button>
-            );
+            )
           })}
         </div>
         <div className="hidden bg-white md:col-span-1 md:block md:overflow-y-auto">
@@ -71,7 +70,7 @@ export function SongsView({ songsData }: Readonly<SongsViewProps>) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default SongsView;
+export default SongsView

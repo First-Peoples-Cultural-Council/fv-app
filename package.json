@@ -64,7 +64,7 @@
     "react-router-dom": "^6.26.1",
     "regenerator-runtime": "0.14.1",
     "ts-node": "^10.9.2",
-    "tslib": "^2.6.3",
+    "tslib": "^2.7.0",
     "typescript": "^5.5.4",
     "webpack-manifest-plugin": "^5.0.0",
     "workbox-background-sync": "^7.1.0",

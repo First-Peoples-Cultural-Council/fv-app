@@ -50,7 +50,7 @@
     "@mothertongues/search": "^0.0.3",
     "@popperjs/core": "^2.11.8",
     "@types/jest": "^29.5.12",
-    "@types/node": "^22.5.0",
+    "@types/node": "^22.5.4",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "axios": "^1.7.7",

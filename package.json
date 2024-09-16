@@ -49,7 +49,7 @@
     "@heroicons/react": "^2.1.5",
     "@mothertongues/search": "^0.0.3",
     "@popperjs/core": "^2.11.8",
-    "@types/jest": "^29.5.12",
+    "@types/jest": "^29.5.13",
     "@types/node": "^22.5.5",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",

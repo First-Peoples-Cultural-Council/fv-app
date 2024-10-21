@@ -10,12 +10,12 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           node-version: 16
       - name: Clone config repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: main
           repository: First-Peoples-Cultural-Council/fv-apps-config

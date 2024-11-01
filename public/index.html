@@ -29,6 +29,11 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <script>
+      window.onload = function() {
+          if (window.location.hostname === "dev.firstvoicesapp.com") {
+              window.location.href = "https://dev.firstvoices.com/apps";
+          }
+      };      
       const origin = window.origin;
       const hostnameParts = window.location.hostname.split('.');
       let subdomain = hostnameParts[0]

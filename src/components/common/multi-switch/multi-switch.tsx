@@ -31,7 +31,14 @@ export function MultiSwitch({ selected: initialSelected, items, onToggle }: Read
                 onToggle(index)
               }}
             >
-              {item.icon && <i className={classNames(item.icon, 'text-primary-500')} />}
+              {item.icon && (
+                <i
+                  className={classNames(item.icon, {
+                    'text-primary-500': selected !== index,
+                    'text-white': selected === index,
+                  })}
+                />
+              )}
               <span>{item.name}</span>
             </button>
           )

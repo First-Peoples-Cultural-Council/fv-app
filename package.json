@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "@bcgov/bc-sans": "^2.1.0",
-    "@heroicons/react": "^2.1.5",
+    "@heroicons/react": "^2.2.0",
     "@mothertongues/search": "^0.0.3",
     "@popperjs/core": "^2.11.8",
     "@types/jest": "^29.5.14",

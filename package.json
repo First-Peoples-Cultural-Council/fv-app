@@ -58,7 +58,7 @@
     "core-js": "^3.39.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "react": "^18.3.1",
-    "react-click-away-listener": "^2.2.3",
+    "react-click-away-listener": "^2.3.0",
     "react-dom": "^18.3.1",
     "react-popper": "^2.3.0",
     "react-router-dom": "^6.27.0",

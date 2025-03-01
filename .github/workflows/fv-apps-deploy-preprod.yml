@@ -58,7 +58,7 @@ jobs:
           mv build uploads/build
       - name: Run Tests
         run: npm test
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: uploads
@@ -71,7 +71,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: hashicorp/setup-terraform@v3
+      - uses: actions/download-artifact@v4
         with:
           name: uploads
           path: downloads/
@@ -106,7 +107,8 @@ jobs:
     needs: inspect_changes
     if: github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: hashicorp/setup-terraform@v3
+      - uses: actions/download-artifact@v4
         with:
           name: uploads
           path: downloads/

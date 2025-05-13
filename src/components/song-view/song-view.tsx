@@ -5,7 +5,7 @@ import { Bookmark, FVSong } from '../common/data/types'
 import FvImage from '../common/image/image'
 import FvVideo from '../common/video/video'
 import AudioControl from '../common/audio-control/audio-control'
-import { convertJsonToComponent } from '../common/convert-json/convert-json'
+import { convertWysiwygToComponent } from '../common/convert-json/convert-json'
 import CopyButton from '../common/copy-button/copy-button'
 import BookmarkButton from '../common/bookmark-button/bookmark-button'
 
@@ -57,9 +57,9 @@ export function SongView({ song }: Readonly<SongViewProps>) {
           <div className="space-y-2">
             <div className="text-lg font-bold">INTRODUCTION</div>
             <div key="introduction">
-              <div>{convertJsonToComponent(song?.introduction ?? '{}')}</div>
+              <div>{convertWysiwygToComponent(song?.introduction ?? '{}')}</div>
               <div className="italic text-charcoal-400">
-                {convertJsonToComponent(song?.introductionTranslation ?? '{}')}
+                {convertWysiwygToComponent(song?.introductionTranslation ?? '{}')}
               </div>
             </div>
           </div>

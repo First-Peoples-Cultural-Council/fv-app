@@ -3,7 +3,7 @@ import { ReactNode, useEffect, useState } from 'react'
 // FPCC
 import { FVPage } from '../common/data'
 import FvImage from '../common/image/image'
-import { convertJsonToComponent } from '../common/convert-json/convert-json'
+import { convertWysiwygToComponent } from '../common/convert-json/convert-json'
 import AudioControl from '../common/audio-control/audio-control'
 import Modal from '../common/modal/modal'
 import PageControls from '../story-view/page-controls'
@@ -46,8 +46,8 @@ function PageView({ page, currentPage, setCurrentPage, isLastPage, children }: R
       {/* To display Introduction header */}
       {children}
       <div className="p-4 divide-y-2">
-        <div className="w-full p-4">{convertJsonToComponent(page?.text ?? '{}')}</div>
-        <div className="w-full p-4">{convertJsonToComponent(page?.translation ?? '{}')}</div>
+        <div className="w-full p-4">{convertWysiwygToComponent(page?.text ?? '{}')}</div>
+        <div className="w-full p-4">{convertWysiwygToComponent(page?.translation ?? '{}')}</div>
       </div>
 
       <div className="flex w-full justify-center my-4 h-10 space-x-1">

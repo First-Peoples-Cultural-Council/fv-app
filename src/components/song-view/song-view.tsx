@@ -57,9 +57,9 @@ export function SongView({ song }: Readonly<SongViewProps>) {
           <div className="space-y-2">
             <div className="text-lg font-bold">INTRODUCTION</div>
             <div key="introduction">
-              <div>{convertWysiwygToComponent(song?.introduction ?? '{}')}</div>
+              <div>{convertWysiwygToComponent(song?.introduction ?? '')}</div>
               <div className="italic text-charcoal-400">
-                {convertWysiwygToComponent(song?.introductionTranslation ?? '{}')}
+                {convertWysiwygToComponent(song?.introductionTranslation ?? '')}
               </div>
             </div>
           </div>

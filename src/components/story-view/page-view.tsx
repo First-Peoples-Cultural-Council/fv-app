@@ -46,8 +46,8 @@ function PageView({ page, currentPage, setCurrentPage, isLastPage, children }: R
       {/* To display Introduction header */}
       {children}
       <div className="p-4 divide-y-2">
-        <div className="w-full p-4">{convertWysiwygToComponent(page?.text ?? '{}')}</div>
-        <div className="w-full p-4">{convertWysiwygToComponent(page?.translation ?? '{}')}</div>
+        <div className="w-full p-4">{convertWysiwygToComponent(page?.text ?? '')}</div>
+        <div className="w-full p-4">{convertWysiwygToComponent(page?.translation ?? '')}</div>
       </div>
 
       <div className="flex w-full justify-center my-4 h-10 space-x-1">

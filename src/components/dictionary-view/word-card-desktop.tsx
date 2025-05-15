@@ -28,7 +28,7 @@ function WordCardDesktop({ item, wordWidthClass }: Readonly<WordCardDesktopProps
       >
         <div className="grid grid-flow-col auto-cols-[minmax(0,_2fr)]">
           <div className="flex grid-flow-col items-center col-span-4">
-            <div className={classNames('text-left', wordWidthClass)}>
+            <div className={classNames('text-left break-words overflow-hidden ', wordWidthClass)}>
               {wordLocations ? applyHighlighting(word, wordLocations, 'word') : word}
             </div>
           </div>

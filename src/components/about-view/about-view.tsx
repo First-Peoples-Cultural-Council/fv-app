@@ -17,7 +17,7 @@ export function AboutView({ children }: Readonly<AboutViewProps>) {
   const manifestUrl = `${origin}/assets/manifest.${subdomain}.json`
   const siteTitle = useSiteTitleFromManifest(manifestUrl)
   const siteURL = `https://www.firstvoices.com/${subdomain}/`
-  const logoURL = `${origin}/assets/${subdomain}/logo192.png`
+  const logoURL = `${origin}/${subdomain}/logo192.png`
 
   return (
     <div data-testid="AboutView" className="max-w-3xl mx-auto">

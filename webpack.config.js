@@ -142,8 +142,17 @@ module.exports = {
           from: 'public',
           to: 'assets',
           globOptions: {
-            ignore: ['**/index.html', '**/robots.txt'],
+            ignore: ['**/index.html', '**/robots.txt', '**/*.{png, jpg, jpeg, ico, gif}'],
           },
+        },
+        {
+          // Images are copied to root instead of assets for FW-6222.
+          from: 'public',
+          to: '.',
+          globOptions: {
+            glob: '**/*.{png, jpg, jpeg, ico, gif}',
+            ignore: ['**/index.html', '**/robots.txt'],
+          }
         },
         {
           from: 'public/robots.txt',

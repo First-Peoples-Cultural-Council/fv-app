@@ -1,45 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<style>
-  body.word-of-the-day-modal-open {
-    overflow: hidden !important;
-  }
+  <style>
+    body.word-of-the-day-modal-open {
+      overflow: hidden !important;
+    }
 
-  /* CRITICAL CSS */
-  body {
-    margin: 0;
-    padding: 0;
-  }
+    /* CRITICAL CSS */
+    body {
+      margin: 0;
+      padding: 0;
+    }
 
-  .root {
-    min-height: 100vh;
-  }
-</style>
+    .root {
+      min-height: 100vh;
+    }
+  </style>
 
-<head>
-  <meta charset="utf-8" />
-  <title>Download FirstVoices App</title>
-  <meta name="description" content="Web apps for BC Indigenous languages, from FirstVoices" />
+  <head>
+    <meta charset="utf-8" />
+    <title>Download FirstVoices App</title>
+    <meta name="description" content="Web apps for BC Indigenous languages, from FirstVoices" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
 
-  <script src="./assets/redirect.js"></script>
-  <!--
+    <script src="./assets/redirect.js"></script>
+    <!--
       manifest.default.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-  <script>
-    const origin = window.origin;
-    const hostnameParts = window.location.hostname.split('.');
-    let subdomain = hostnameParts[0]
-    const manifestUrl = `${origin}/assets/manifest.${subdomain}.json`;
+    <script>
+      const origin = window.origin
+      const hostnameParts = window.location.hostname.split('.')
+      let subdomain = hostnameParts[0]
+      const manifestUrl = `${origin}/assets/manifest.${subdomain}.json`
 
-    // link the manifest
-    const linkElement = document.createElement('link');
-    linkElement.rel = 'manifest';
-    linkElement.href = manifestUrl;
-    document.head.appendChild(linkElement);
+      // link the manifest
+      const linkElement = document.createElement('link')
+      linkElement.rel = 'manifest'
+      linkElement.href = manifestUrl
+      document.head.appendChild(linkElement)
 
       // Link the logos
       const faviconLink = document.createElement('link');
@@ -51,15 +51,13 @@
       logoLink.href = `${origin}/${subdomain}/logo192.png`;
       document.head.appendChild(logoLink);
 
-    // customize the title for this language
-    const request = new Request(manifestUrl);
-    const response = fetch(request)
-      .then((response) => response.json())
-      .then(
-        (json) => (document.title = `Download ${json.name} Language App`)
-      );
-  </script>
-  <!--
+      // customize the title for this language
+      const request = new Request(manifestUrl)
+      const response = fetch(request)
+        .then((response) => response.json())
+        .then((json) => (document.title = `Download ${json.name} Language App`))
+    </script>
+    <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -69,14 +67,14 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
 
-  <!-- This is required for the MTD Levenstein search (https://aclanthology.org/W17-0119.pdf) AKA offline fuzzy search -->
-  <script src="./assets/mtd-ui.min.js"></script>
-</head>
+    <!-- This is required for the MTD Levenstein search (https://aclanthology.org/W17-0119.pdf) AKA offline fuzzy search -->
+    <script src="./assets/mtd-ui.min.js"></script>
+  </head>
 
-<body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
-  <!--
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -86,21 +84,24 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  <!-- Matomo -->
-  <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function () {
-      var u = "https://analytics.firstvoices.com/";
-      _paq.push(['setTrackerUrl', u + 'matomo.php']);
-      _paq.push(['setSiteId', '5']);
-      var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-      g.async = true; g.src = u +'matomo.js'; s.parentNode.insertBefore(g, s);
-    })();
-  </script>
-  <!-- End Matomo Code -->
-</body>
-
+    <!-- Matomo -->
+    <script>
+      var _paq = (window._paq = window._paq || [])
+      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      _paq.push(['trackPageView'])
+      _paq.push(['enableLinkTracking'])
+      ;(function () {
+        var u = 'https://analytics.firstvoices.com/'
+        _paq.push(['setTrackerUrl', u + 'matomo.php'])
+        _paq.push(['setSiteId', '5'])
+        var d = document,
+          g = d.createElement('script'),
+          s = d.getElementsByTagName('script')[0]
+        g.async = true
+        g.src = u + 'matomo.js'
+        s.parentNode.insertBefore(g, s)
+      })()
+    </script>
+    <!-- End Matomo Code -->
+  </body>
 </html>

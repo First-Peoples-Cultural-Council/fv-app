@@ -57,6 +57,18 @@ jobs:
           mkdir uploads 
           mv modules/* uploads/
           mv build uploads/build
+
+      # This Trivy step is to scan the working directory and dependencies
+      - name: Trivy Scan for vulnerabilities
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'table'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          exit-code: 0 # Do not fail the build on vulnerabilities, just report them
+
       - name: Run Tests
         run: npm test
       - uses: actions/upload-artifact@v4

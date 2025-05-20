@@ -129,9 +129,7 @@ export function FlashcardsView() {
           })}
           {flashCardType('Bookmarks', 'fv-bookmark', () => {
             handleFlashcardTypeSelection(
-              dataDict.filter((entry) =>
-                bookmarks.some((bookmark) => bookmark.id === entry.entryID && bookmark.type === entry.source)
-              )
+              dataDict.filter((entry) => bookmarks.some((bookmark) => bookmark.id === entry.entryID))
             )
           })}
         </div>

@@ -32,7 +32,7 @@ export function CoverView({ story, startReading }: Readonly<CoverViewProps>) {
           {story?.relatedImages[0] && (
             <FvImage
               className="h-[58vh] w-auto object-contain"
-              src={story?.relatedImages[0].original.path ?? ''}
+              src={story?.relatedImages[0].small?.path ?? ''}
               alt={story?.title ?? ''}
             />
           )}

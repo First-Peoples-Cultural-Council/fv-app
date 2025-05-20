@@ -30,7 +30,7 @@ export function SongView({ song }: Readonly<SongViewProps>) {
       <div className="flex flex-col h-full space-y-5">
         <div className="h-3/5 flex-1">
           {song?.relatedImages.length !== 0 && (
-            <FvImage src={song?.relatedImages[0].original.path} alt={song?.relatedImages[0].title} />
+            <FvImage src={String(song.relatedImages[0]?.small?.path)} alt={String(song.relatedImages[0]?.title)} />
           )}
         </div>
         <div className="space-y-1">

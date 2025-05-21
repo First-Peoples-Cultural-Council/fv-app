@@ -14,7 +14,7 @@ export function AboutView({ children }: Readonly<AboutViewProps>) {
   const origin = window.origin
   const hostnameParts = window.location.hostname.split('.')
   const subdomain = hostnameParts[0]
-  const manifestUrl = `${origin}/assets/manifest.${subdomain}.json`
+  const manifestUrl = `${origin}/manifest.${subdomain}.json`
   const siteTitle = useSiteTitleFromManifest(manifestUrl)
   const siteURL = `https://www.firstvoices.com/${subdomain}/`
   const logoURL = `${origin}/${subdomain}/logo192.png`

@@ -34,7 +34,7 @@ function WordModal({ term, onClose }: Readonly<WordModalProps>) {
           <p className="grow font-bold text-2xl md:text-3xl">{term.word}</p>
           <p className="italic">
             {term?.optional?.['Part of Speech' as keyof typeof term.optional]
-              ? `(${term.optional['Part of Speech' as keyof typeof term.optional]})`
+              ? term.optional['Part of Speech' as keyof typeof term.optional]
               : ' '}
           </p>
         </div>

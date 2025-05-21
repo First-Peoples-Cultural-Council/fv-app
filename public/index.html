@@ -33,7 +33,7 @@
       const origin = window.origin;
       const hostnameParts = window.location.hostname.split('.');
       let subdomain = hostnameParts[0]
-      const manifestUrl = `${origin}/assets/manifest.${subdomain}.json`;
+      const manifestUrl = `${origin}/manifest.${subdomain}.json`;
 
       // link the manifest
       const linkElement = document.createElement('link');

@@ -142,7 +142,7 @@ module.exports = {
           from: 'public',
           to: 'assets',
           globOptions: {
-            ignore: ['**/index.html', '**/robots.txt', '**/*.{png, jpg, jpeg, ico, gif}'],
+            ignore: ['**/index.html', '**/robots.txt', '**/*.{png, jpg, jpeg, ico, gif}', '**/manifest.*.json'],
           },
         },
         {

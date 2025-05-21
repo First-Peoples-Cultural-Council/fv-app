@@ -21,7 +21,7 @@ export function convertWysiwygToComponent(inputString: string) {
     const parsedJson = JSON.parse(inputString)
     return (
       <>
-        {parsedJson.blocks.map(
+        {parsedJson?.blocks?.map(
           (
             block: {
               inlineStyleRanges: any[]

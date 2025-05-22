@@ -326,7 +326,7 @@ export function FlashcardsView() {
         case 'a2e': {
           setFlashcardData({
             type: 'audio',
-            frontWord: '',
+            frontWord: (dataForFlashcardGroup[fcIndex].audio?.length ? '' : dataForFlashcardGroup[fcIndex].word) ?? '',
             backWord: dataForFlashcardGroup[fcIndex].definition ?? '',
             audio: dataForFlashcardGroup[fcIndex].audio,
           })

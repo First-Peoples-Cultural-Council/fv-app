@@ -16,7 +16,7 @@
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier --write --ignore-path .gitignore \"**/*.+(js|ts|tsx|json)\"",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "jest": {
     "moduleNameMapper": {

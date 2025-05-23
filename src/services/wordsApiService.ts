@@ -4,6 +4,7 @@ import axios from 'axios'
 import IndexedDBService from './indexedDbService'
 import { MTDExportFormat } from '@mothertongues/search/src/lib/mtd'
 import isDateOlderThen from '../util/isDateOlderThen'
+import sortByCustomOrder from '../util/sortByCustomOrder'
 
 const db = new IndexedDBService('firstVoicesIndexedDb')
 
@@ -113,6 +114,12 @@ async function getData(url: string): Promise<MTDExportFormat> {
       timestamp: new Date().toISOString(),
       data: mtdData,
     }
+
+    // Sort the data before saving
+    const sortedData = dbEntry.data.data.toSorted((a, b) => {
+      return sortByCustomOrder(a, b)
+    })
+    dbEntry.data.data = sortedData
 
     // Store the data from the API call into the database.
     await db.saveData('words', dbEntry)

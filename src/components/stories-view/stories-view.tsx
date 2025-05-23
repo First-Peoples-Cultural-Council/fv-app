@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 
 // FPCC
 import { FVStory } from '../common/data/types'

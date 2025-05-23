@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 
 // FPCC
 import { FVSong } from '../common/data/types'

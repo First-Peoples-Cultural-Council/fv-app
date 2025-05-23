@@ -40,7 +40,7 @@ export function FlashcardView({ flashcardData, setFlashcard, flashcardIndex }: R
           </button>
         </div>
         <div className="flex-col items-center justify-center flex flex-wrap w-2/3">
-          {flashcardData?.type === 'word' && (
+          {flashcardData?.frontWord && (
             <div
               className={classNames('text-4xl text-center break-words w-full', {
                 'text-xl': flashcardData?.frontWord?.length > 120,

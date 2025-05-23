@@ -14,7 +14,6 @@ export interface FlashcardViewProps {
 }
 
 export function FlashcardView({ flashcardData, setFlashcard, flashcardIndex }: Readonly<FlashcardViewProps>) {
-  console.log('Flashcard View', { index: flashcardIndex, flashcardData })
   const [flipped, setFlipped] = useState(false)
 
   const frontContents = () => {

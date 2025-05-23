@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router'
 
 // FPCC
 import Header from 'components/common/header/header'

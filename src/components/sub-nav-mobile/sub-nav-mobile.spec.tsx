@@ -5,7 +5,7 @@
 import { render } from '@testing-library/react'
 
 import SubNavMobile from './sub-nav-mobile'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router'
 
 describe('SubNavMobile', () => {
   it('should render successfully', () => {

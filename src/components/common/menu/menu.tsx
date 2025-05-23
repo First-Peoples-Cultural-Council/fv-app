@@ -2,7 +2,7 @@ import ClickAwayListener from 'react-click-away-listener'
 import classNames from 'classnames'
 import { usePopper } from 'react-popper'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import {
   AnchorMenuItem,
   ButtonButtonMenuItem,

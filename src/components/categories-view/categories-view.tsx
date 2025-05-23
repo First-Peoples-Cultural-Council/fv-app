@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import fetchCategoryData from '../../services/categoriesApiService'
 import styles from './categories-view.module.css'
 import { useEffect, useState } from 'react'

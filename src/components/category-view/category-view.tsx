@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import classNames from 'classnames'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router'
 
 // FPCC
 import styles from './category-view.module.css'

@@ -2,8 +2,8 @@ import { useRef, useState } from 'react'
 import classNames from 'classnames'
 
 // FPCC
-import { DeleteListType } from '../data'
-import useOnClickOutside from '../../../util/clickOutside'
+import { DeleteListType } from 'components/common/data'
+import useOnClickOutside from 'util/clickOutside'
 
 interface Props {
   header: string

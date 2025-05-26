@@ -1,8 +1,10 @@
 import { useState } from 'react'
-import classNames from 'classnames'
-import FVLogo from '../../../assets/images/FVlogo.svg'
-import { NavigationItem } from '../data'
 import { Link } from 'react-router-dom'
+import classNames from 'classnames'
+
+// FPCC
+import FVLogo from 'assets/images/FVlogo.svg'
+import { NavigationItem } from 'components/common/data'
 
 export interface HeaderProps {
   className?: string

@@ -1,6 +1,8 @@
-import { MenuSection } from '../data'
-import Menu from '../menu/menu'
 import { ReactNode, useState } from 'react'
+
+// FPCC
+import { MenuSection } from 'components/common/data'
+import Menu from 'components/common/menu/menu'
 
 export interface IconMenuProps {
   className?: string

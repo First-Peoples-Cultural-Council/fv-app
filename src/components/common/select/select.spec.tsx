@@ -4,7 +4,7 @@
 
 import { render } from '@testing-library/react'
 
-import Select from './select'
+import Select from 'components/common/select/select'
 
 describe('Select', () => {
   it('should render successfully', () => {

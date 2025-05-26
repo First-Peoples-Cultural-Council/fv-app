@@ -4,7 +4,8 @@
 
 import { render } from '@testing-library/react'
 
-import IconMenu from './icon-menu'
+// FPCC
+import IconMenu from 'components/common/icon-menu/icon-menu'
 
 describe('IconMenu', () => {
   it('should render successfully', () => {

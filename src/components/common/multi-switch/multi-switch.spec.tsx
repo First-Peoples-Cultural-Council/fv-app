@@ -4,7 +4,7 @@
 
 import { render } from '@testing-library/react'
 
-import MultiSwitch from './multi-switch'
+import MultiSwitch from 'components/common/multi-switch/multi-switch'
 
 describe('MultiSwitch', () => {
   it('should render successfully', () => {

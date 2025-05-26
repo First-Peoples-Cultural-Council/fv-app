@@ -1,4 +1,5 @@
-import SanitizedHtml from './sanitize-html'
+// FPCC
+import SanitizedHtml from 'components/common/convert-json/sanitize-html'
 
 function isJson(inputString: string): boolean {
   let value = typeof inputString !== 'string' ? JSON.stringify(inputString) : inputString

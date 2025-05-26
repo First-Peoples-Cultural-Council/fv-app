@@ -4,7 +4,8 @@
 
 import { render } from '@testing-library/react'
 
-import Tooltip from './tooltip'
+// FPCC
+import Tooltip from 'components/common/tooltip/tooltip'
 
 describe('Tooltip', () => {
   it('should render successfully', () => {

@@ -1,8 +1,10 @@
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import ClickAwayListener from 'react-click-away-listener'
 import classNames from 'classnames'
 import { usePopper } from 'react-popper'
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+
+// FPCC
 import {
   AnchorMenuItem,
   ButtonButtonMenuItem,
@@ -12,7 +14,7 @@ import {
   MenuSection,
   StandardButtonButtonTypeEnum,
   SubmitButtonMenuItem,
-} from '../data'
+} from 'components/common/data'
 
 export interface MenuProps {
   className?: string

@@ -4,7 +4,8 @@
 
 import { render } from '@testing-library/react'
 
-import { ConfirmDialog } from './confirm'
+// FPCC
+import { ConfirmDialog } from 'components/common/confirm/confirm'
 
 describe('ConfirmDialog', () => {
   it('should render successfully', () => {

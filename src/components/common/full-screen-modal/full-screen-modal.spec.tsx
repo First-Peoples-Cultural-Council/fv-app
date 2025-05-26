@@ -4,7 +4,8 @@
 
 import { render } from '@testing-library/react'
 
-import FullScreenModal from './full-screen-modal'
+// FPCC
+import FullScreenModal from 'components/common/full-screen-modal/full-screen-modal'
 
 describe('FullScreenModal', () => {
   it('should render successfully', () => {

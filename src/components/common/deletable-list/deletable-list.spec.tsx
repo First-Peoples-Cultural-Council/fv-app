@@ -4,7 +4,8 @@
 
 import { render } from '@testing-library/react'
 
-import DeletableList from './deletable-list'
+// FPCC
+import DeletableList from 'components/common/deletable-list/deletable-list'
 
 describe('DeletableList', () => {
   it('should render successfully', () => {

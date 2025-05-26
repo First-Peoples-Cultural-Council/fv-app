@@ -5,7 +5,8 @@
 import { render } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
 
-import MobileNav from './mobile-nav'
+// FPCC
+import MobileNav from 'components/common/mobile-nav/mobile-nav'
 
 describe('MobileNav', () => {
   it('should render successfully', () => {

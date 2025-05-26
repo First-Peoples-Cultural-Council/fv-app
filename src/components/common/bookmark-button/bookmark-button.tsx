@@ -2,8 +2,9 @@ import { useCallback, useEffect, useState } from 'react'
 import classNames from 'classnames'
 
 // FPCC
-import { Bookmark } from '../data/types'
-import IndexedDBService from '../../../services/indexedDbService'
+import { Bookmark } from 'components/common/data/types'
+import IndexedDBService from 'services/indexedDbService'
+
 export interface BookmarkButtonProps {
   bookmark: Bookmark
 }

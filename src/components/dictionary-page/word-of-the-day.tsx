@@ -23,7 +23,8 @@ function WordOfTheDay({ dictionaryData }: Readonly<WordOfTheDayProps>) {
   const [data, setData] = useState<FvWord | null>(null)
 
   useEffect(() => {
-    if (today.toDateString() !== (localStorage.getItem('lastWOTDSeenOn') ?? '') && !showInstallPrompt) {
+    const lastSeen = localStorage.getItem('lastWOTDSeenOn') ?? ''
+    if (today.toDateString() !== lastSeen && !showInstallPrompt) {
       setShowModal(true)
     }
   }, [showInstallPrompt])

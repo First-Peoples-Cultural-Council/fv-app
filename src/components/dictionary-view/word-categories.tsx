@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 // FPCC
-import { FvCategory, FvWord } from '../common/data'
-import fetchCategoryData from '../../services/categoriesApiService'
+import { FvCategory, FvWord } from 'components/common/data'
+import fetchCategoryData from 'services/categoriesApiService'
 
 export interface WordCategoriesProps {
   term: FvWord

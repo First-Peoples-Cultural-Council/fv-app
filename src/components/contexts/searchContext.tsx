@@ -2,7 +2,7 @@ import { ReactNode, createContext, useCallback, useMemo, useState } from 'react'
 import { DictionaryEntryExportFormat, sortResults, Result, MTDSearch } from '@mothertongues/search'
 
 // FPCC
-import { FvWord } from '../common/data'
+import { FvWord } from 'components/common/data'
 
 type SearchContextType = {
   searchResults: FvWord[] | null

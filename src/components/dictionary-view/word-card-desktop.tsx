@@ -2,12 +2,12 @@ import classNames from 'classnames'
 import { Audio1 } from '@mothertongues/search'
 
 // FPCC
-import { FvWord, FvWordLocation } from '../common/data'
-import Modal from '../common/modal/modal'
-import { useModal } from '../common/use-modal/use-modal'
-import { useAudioContext } from '../contexts/audioContext'
-import { applyHighlighting } from '../../util/applyHighlighting'
-import WordModal from './word-modal'
+import { FvWord, FvWordLocation } from 'components/common/data'
+import Modal from 'components/common/modal/modal'
+import { useModal } from 'components/common/use-modal/use-modal'
+import { useAudioContext } from 'components/contexts/audioContext'
+import { applyHighlighting } from 'util/applyHighlighting'
+import WordModal from 'components/dictionary-view/word-modal'
 
 export interface WordCardDesktopProps {
   item: FvWord

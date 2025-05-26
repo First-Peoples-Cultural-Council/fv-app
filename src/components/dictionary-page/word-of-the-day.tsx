@@ -1,14 +1,14 @@
 import { useContext, useEffect, useState } from 'react'
 
 // FPCC
-import WordModal from '../dictionary-view/word-modal'
-import Modal from '../common/modal/modal'
-import fetchWordOfDayData from '../../services/wordOfTheDayApiService'
-import { FvWord } from '../common/data'
-import FullScreenModal from '../common/full-screen-modal/full-screen-modal'
-import { LoadingSpinner } from '../common/loading-spinner/loading-spinner'
-import { useAudioContext } from '../contexts/audioContext'
-import { InstallPromptContext } from '../contexts/installPromptContext'
+import WordModal from 'components/dictionary-view/word-modal'
+import Modal from 'components/common/modal/modal'
+import fetchWordOfDayData from 'services/wordOfTheDayApiService'
+import { FvWord } from 'components/common/data'
+import FullScreenModal from 'components/common/full-screen-modal/full-screen-modal'
+import { LoadingSpinner } from 'components/common/loading-spinner/loading-spinner'
+import { useAudioContext } from 'components/contexts/audioContext'
+import { InstallPromptContext } from 'components/contexts/installPromptContext'
 
 export interface WordOfTheDayProps {
   dictionaryData: FvWord[]

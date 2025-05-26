@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 // FPCC
-import { FVStory } from '../common/data/types'
-import fetchStoriesData from '../../services/storiesApiService'
-import { LoadingSpinner } from '../common/loading-spinner/loading-spinner'
-
-import StoriesView from '../stories-view/stories-view'
-import StoryView from '../story-view/story-view'
+import { FVStory } from 'components/common/data/types'
+import fetchStoriesData from 'services/storiesApiService'
+import { LoadingSpinner } from 'components/common/loading-spinner/loading-spinner'
+import StoriesView from 'components/stories-view/stories-view'
+import StoryView from 'components/story-view/story-view'
 
 export default function StoriesPage() {
   const [storiesData, setStoriesData] = useState<FVStory[]>([])

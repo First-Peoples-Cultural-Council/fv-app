@@ -2,16 +2,16 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 
 // FPCC
-import useOnClickOutside from '../../util/clickOutside'
-import { Bookmark, Flashcard, FvCategory, FvWord } from '../common/data'
-import shuffle from '../../util/shuffle'
-import fetchCategoryData from '../../services/categoriesApiService'
-import fetchWordsData from '../../services/wordsApiService'
-import IndexedDBService from '../../services/indexedDbService'
-import { ApiContext } from '../contexts/apiContext'
-import { FlashcardView } from './flashcard-view'
-import Modal from '../common/modal/modal'
-import { useAudioContext } from '../contexts/audioContext'
+import useOnClickOutside from 'util/clickOutside'
+import { Bookmark, Flashcard, FvCategory, FvWord } from 'components/common/data'
+import shuffle from 'util/shuffle'
+import fetchCategoryData from 'services/categoriesApiService'
+import fetchWordsData from 'services/wordsApiService'
+import IndexedDBService from 'services/indexedDbService'
+import { ApiContext } from 'components/contexts/apiContext'
+import { FlashcardView } from 'components/flashcards-view/flashcard-view'
+import Modal from 'components/common/modal/modal'
+import { useAudioContext } from 'components/contexts/audioContext'
 
 export function FlashcardsView() {
   const [showSelectModal, setShowSelectModal] = useState(false)

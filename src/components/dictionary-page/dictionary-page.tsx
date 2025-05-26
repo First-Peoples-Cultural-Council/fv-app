@@ -3,17 +3,17 @@ import { matchRoutes, Outlet, useLocation, useOutletContext } from 'react-router
 import { constructSearchers, DictionaryEntryExportFormat, MTDSearch } from '@mothertongues/search'
 
 // FPCC
-import SubNavDesktop from '../sub-nav-desktop/sub-nav-desktop'
-import SubNavMobile from '../sub-nav-mobile/sub-nav-mobile'
-import WordOfTheDay from './word-of-the-day'
-import { dictionarySubNavItems } from '../../constants/navigation'
-import SearchInput from '../common/search-input/search-input'
-import PageHeader from '../common/page-header/page-header'
-import { FvWord } from '../common/data'
-import { ApiContext } from '../contexts/apiContext'
-import fetchWordsData from '../../services/wordsApiService'
-import { LoadingSpinner } from '../common/loading-spinner/loading-spinner'
-import SearchProvider from '../contexts/searchContext'
+import SubNavDesktop from 'components/sub-nav-desktop/sub-nav-desktop'
+import SubNavMobile from 'components/sub-nav-mobile/sub-nav-mobile'
+import WordOfTheDay from 'components/dictionary-page/word-of-the-day'
+import { dictionarySubNavItems } from 'constants/navigation'
+import SearchInput from 'components/common/search-input/search-input'
+import PageHeader from 'components/common/page-header/page-header'
+import { FvWord } from 'components/common/data'
+import { ApiContext } from 'components/contexts/apiContext'
+import fetchWordsData from 'services/wordsApiService'
+import { LoadingSpinner } from 'components/common/loading-spinner/loading-spinner'
+import SearchProvider from 'components/contexts/searchContext'
 
 type ContextType = {
   dictionaryData: FvWord[] | []

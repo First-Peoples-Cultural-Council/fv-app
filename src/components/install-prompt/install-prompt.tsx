@@ -1,9 +1,9 @@
 import { useContext } from 'react'
 
 // FPCC
-import Modal from '../common/modal/modal'
-import { InstallPromptContext } from '../contexts/installPromptContext'
-import AboutView from '../about-view/about-view'
+import Modal from 'components/common/modal/modal'
+import { InstallPromptContext } from 'components/contexts/installPromptContext'
+import AboutView from 'components/about-view/about-view'
 
 export function InstallPrompt() {
   const { showInstallPrompt, handleInstallPrompt, setShowInstallPrompt } = useContext(InstallPromptContext)

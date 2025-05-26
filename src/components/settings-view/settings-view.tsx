@@ -1,6 +1,8 @@
-import IndexedDBService from '../../services/indexedDbService'
 import { useEffect, useState } from 'react'
-import ConfirmDialog from '../common/confirm/confirm'
+
+// FPCC
+import IndexedDBService from 'services/indexedDbService'
+import ConfirmDialog from 'components/common/confirm/confirm'
 
 export function SettingsView() {
   const [db, setDb] = useState<IndexedDBService>()

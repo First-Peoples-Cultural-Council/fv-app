@@ -1,5 +1,5 @@
 // FPCC
-import ErrorView from '../common/error-view/error-view'
+import ErrorView from 'components/common/error-view/error-view'
 
 export function PageNotFound() {
   return (

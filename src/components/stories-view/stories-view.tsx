@@ -2,8 +2,8 @@ import classNames from 'classnames'
 import { Link } from 'react-router-dom'
 
 // FPCC
-import { FVStory } from '../common/data/types'
-import FvImage from '../common/image/image'
+import { FVStory } from 'components/common/data/types'
+import FvImage from 'components/common/image/image'
 
 export interface StoriesViewProps {
   storiesData: FVStory[]

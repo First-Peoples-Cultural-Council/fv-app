@@ -2,13 +2,12 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 // FPCC
-
-import WordModal from '../dictionary-view/word-modal'
-import { FvWord, isFvWord } from '../common/data'
-import { useAudioContext } from '../contexts/audioContext'
-import PageNotFound from '../page-not-found/page-not-found'
-import BackButton from '../common/back-button/back-button'
-import { useDictionaryData } from '../dictionary-page/dictionary-page'
+import WordModal from 'components/dictionary-view/word-modal'
+import { FvWord, isFvWord } from 'components/common/data'
+import { useAudioContext } from 'components/contexts/audioContext'
+import PageNotFound from 'components/page-not-found/page-not-found'
+import BackButton from 'components/common/back-button/back-button'
+import { useDictionaryData } from 'components/dictionary-page/dictionary-page'
 
 function DictionaryEntryView() {
   const { id } = useParams()

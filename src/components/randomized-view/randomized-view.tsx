@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 
 // FPCC
-import WordCardMobile from '../dictionary-view/word-card-mobile'
-import WordCardDesktop from '../dictionary-view/word-card-desktop'
-import { DictionaryType } from '../common/data/enums'
-import MultiSwitch from '../common/multi-switch/multi-switch'
-import { FvWord } from '../common/data'
-import generateUniqueRandomItems from '../../util/randomSet'
-import { useDictionaryData } from '../dictionary-page/dictionary-page'
+import WordCardMobile from 'components/dictionary-view/word-card-mobile'
+import WordCardDesktop from 'components/dictionary-view/word-card-desktop'
+import { DictionaryType } from 'components/common/data/enums'
+import MultiSwitch from 'components/common/multi-switch/multi-switch'
+import { FvWord } from 'components/common/data'
+import generateUniqueRandomItems from 'util/randomSet'
+import { useDictionaryData } from 'components/dictionary-page/dictionary-page'
 
 export function RandomizedView() {
   const { dictionaryData } = useDictionaryData()

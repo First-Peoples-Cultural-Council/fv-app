@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
 
 // FPCC
-import { Bookmark, DeleteListType } from '../common/data'
-import DeletableList from '../common/deletable-list/deletable-list'
-import IndexedDBService from '../../services/indexedDbService'
-import PageHeader from '../common/page-header/page-header'
+import { Bookmark, DeleteListType } from 'components/common/data'
+import DeletableList from 'components/common/deletable-list/deletable-list'
+import IndexedDBService from 'services/indexedDbService'
+import PageHeader from 'components/common/page-header/page-header'
 
 /* eslint-disable-next-line */
 export interface ProfileViewProps {}

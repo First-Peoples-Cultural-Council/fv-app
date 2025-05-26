@@ -1,11 +1,12 @@
-// FPCC
-import FullScreenModal from '../common/full-screen-modal/full-screen-modal'
-import WordModal from './word-modal'
-import { FvWord, FvWordLocation } from '../common/data'
-import { useModal } from '../common/use-modal/use-modal'
-import { useAudioContext } from '../contexts/audioContext'
-import { applyHighlighting } from '../../util/applyHighlighting'
 import { Audio1 } from '@mothertongues/search'
+
+// FPCC
+import FullScreenModal from 'components/common/full-screen-modal/full-screen-modal'
+import WordModal from 'components/dictionary-view/word-modal'
+import { FvWord, FvWordLocation } from 'components/common/data'
+import { useModal } from 'components/common/use-modal/use-modal'
+import { useAudioContext } from 'components/contexts/audioContext'
+import { applyHighlighting } from 'util/applyHighlighting'
 
 export interface WordCardMobileProps {
   item: FvWord

@@ -1,6 +1,8 @@
 import { Link, useLocation, matchRoutes } from 'react-router-dom'
 import classNames from 'classnames'
-import { SubNavItem } from '../common/data'
+
+// FPCC
+import { SubNavItem } from 'components/common/data'
 
 export interface SubNavDesktopProps {
   navItems: SubNavItem[]

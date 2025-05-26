@@ -3,9 +3,10 @@
  */
 
 import { render } from '@testing-library/react'
-
-import SubNavMobile from './sub-nav-mobile'
 import { BrowserRouter } from 'react-router-dom'
+
+// FPCC
+import SubNavMobile from 'components/sub-nav-mobile/sub-nav-mobile'
 
 describe('SubNavMobile', () => {
   it('should render successfully', () => {

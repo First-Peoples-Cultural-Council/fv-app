@@ -1,12 +1,12 @@
 import { ReactNode, useEffect, useState } from 'react'
 
 // FPCC
-import { FVPage } from '../common/data'
-import FvImage from '../common/image/image'
-import { convertWysiwygToComponent } from '../common/convert-json/convert-json'
-import AudioControl from '../common/audio-control/audio-control'
-import Modal from '../common/modal/modal'
-import PageControls from '../story-view/page-controls'
+import { FVPage } from 'components/common/data'
+import FvImage from 'components/common/image/image'
+import { convertWysiwygToComponent } from 'components/common/convert-json/convert-json'
+import AudioControl from 'components/common/audio-control/audio-control'
+import Modal from 'components/common/modal/modal'
+import PageControls from 'components/story-view/page-controls'
 
 export interface PageViewProps {
   page: FVPage

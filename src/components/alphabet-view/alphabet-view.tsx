@@ -1,16 +1,16 @@
 import { useRef, useContext, useEffect, useState } from 'react'
 
 // FPCC
-import { useIsMobile } from '../../util/useMediaQuery'
-import { FvCharacter } from '../common/data'
-import FullScreenModal from '../common/full-screen-modal/full-screen-modal'
-import { ApiContext } from '../contexts/apiContext'
-import fetchCharactersData from '../../services/charactersApiService'
-import { useDictionaryData } from '../dictionary-page/dictionary-page'
-import { Keyboard } from './keyboard'
-import { SelectedLetterDisplay } from './selected-letter-display'
-import { WordExampleList } from './word-example-list'
-import { WordStartsWithList } from './word-starts-with-list'
+import { useIsMobile } from 'util/useMediaQuery'
+import { FvCharacter } from 'components/common/data'
+import FullScreenModal from 'components/common/full-screen-modal/full-screen-modal'
+import { ApiContext } from 'components/contexts/apiContext'
+import fetchCharactersData from 'services/charactersApiService'
+import { useDictionaryData } from 'components/dictionary-page/dictionary-page'
+import { Keyboard } from 'components/alphabet-view/keyboard'
+import { SelectedLetterDisplay } from 'components/alphabet-view/selected-letter-display'
+import { WordExampleList } from 'components/alphabet-view/word-example-list'
+import { WordStartsWithList } from 'components/alphabet-view/word-starts-with-list'
 
 export function AlphabetView() {
   const { dictionaryData } = useDictionaryData()

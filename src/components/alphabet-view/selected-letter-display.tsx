@@ -1,8 +1,8 @@
 // FPCC
-import { CopyButton } from './copy-button'
+import { CopyButton } from 'components/alphabet-view/copy-button'
 // import { DownloadButton } from './download-button';
-import AudioControl from '../common/audio-control/audio-control'
-import { FvCharacter, FVMedia, FvWord } from '../common/data'
+import AudioControl from 'components/common/audio-control/audio-control'
+import { FvCharacter, FVMedia, FvWord } from 'components/common/data'
 
 export interface SelectedLetterDisplayProps {
   dictionaryData: FvWord[] | []

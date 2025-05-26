@@ -1,10 +1,12 @@
-import classNames from 'classnames'
-import { Link } from 'react-router-dom'
-import fetchCategoryData from '../../services/categoriesApiService'
-import styles from './categories-view.module.css'
 import { useEffect, useState } from 'react'
-import { FvCategory } from '../common/data'
-import { LoadingSpinner } from '../common/loading-spinner/loading-spinner'
+import { Link } from 'react-router-dom'
+import classNames from 'classnames'
+
+// FPCC
+import fetchCategoryData from 'services/categoriesApiService'
+import styles from 'components/categories-view/categories-view.module.css'
+import { FvCategory } from 'components/common/data'
+import { LoadingSpinner } from 'components/common/loading-spinner/loading-spinner'
 
 export function CategoriesView() {
   const [dataCategories, setDataCategories] = useState<FvCategory[]>([])

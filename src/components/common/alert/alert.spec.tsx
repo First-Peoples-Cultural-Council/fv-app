@@ -4,6 +4,7 @@
 
 import { render } from '@testing-library/react'
 
+// FPCC
 import Alert from 'components/common/alert/alert'
 
 describe('Alert', () => {

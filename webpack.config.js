@@ -52,7 +52,7 @@ module.exports = {
   // but can be configured further if required
 
   resolve: {
-    modules: ['node_modules'],
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.scss', '.sass', '.css'],
   },
 

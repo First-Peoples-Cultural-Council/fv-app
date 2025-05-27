@@ -3,9 +3,9 @@ import classNames from 'classnames'
 import { useNavigate } from 'react-router'
 
 // FPCC
-import { FVSong } from '../common/data/types'
-import FvImage from '../common/image/image'
-import SongView from '../song-view/song-view'
+import { FVSong } from 'components/common/data/types'
+import FvImage from 'components/common/image/image'
+import SongView from 'components/song-view/song-view'
 
 export interface SongsViewProps {
   songsData: FVSong[]

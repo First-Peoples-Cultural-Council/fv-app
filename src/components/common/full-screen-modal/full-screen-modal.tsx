@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 
 // FPCC
-import { useAudioContext } from '../../contexts/audioContext'
+import { useAudioContext } from 'components/contexts/audioContext'
 
 export interface FullScreenModalProps {
   onClose: () => void

@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 // FPCC
-import { FVSong } from '../common/data/types'
-import fetchSongsData from '../../services/songsApiService'
-import { LoadingSpinner } from '../common/loading-spinner/loading-spinner'
-
-import SongsView from '../songs-view/songs-view'
-import SongPage from '../song-page/song-page'
+import { FVSong } from 'components/common/data/types'
+import fetchSongsData from 'services/songsApiService'
+import { LoadingSpinner } from 'components/common/loading-spinner/loading-spinner'
+import SongsView from 'components/songs-view/songs-view'
+import SongPage from 'components/song-page/song-page'
 
 export default function SongsPage() {
   const [songsData, setSongsData] = useState<FVSong[]>([])

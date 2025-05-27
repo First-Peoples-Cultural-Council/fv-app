@@ -1,7 +1,5 @@
 import { useNavigate } from 'react-router-dom'
 
-// FPCC
-
 export function BackButton() {
   const navigate = useNavigate()
   const goBack = () => navigate(-1)

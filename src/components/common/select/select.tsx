@@ -2,9 +2,11 @@ import { useState } from 'react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import classNames from 'classnames'
 import ClickAwayListener from 'react-click-away-listener'
-import styles from './select.module.css'
 import { usePopper } from 'react-popper'
-import { SelectOption } from '../data'
+
+// FPCC
+import styles from 'components/common/select/select.module.css'
+import { SelectOption } from 'components/common/data'
 
 export interface SelectProps {
   label?: string

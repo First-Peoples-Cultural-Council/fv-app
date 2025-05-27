@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom'
 
 // FPCC
-import { FVSong } from '../common/data/types'
-import SongView from '../song-view/song-view'
-import PageNotFound from '../page-not-found/page-not-found'
-import BackButton from '../common/back-button/back-button'
+import { FVSong } from 'components/common/data/types'
+import SongView from 'components/song-view/song-view'
+import PageNotFound from 'components/page-not-found/page-not-found'
+import BackButton from 'components/common/back-button/back-button'
 
 export interface SongPageProps {
   songsData: FVSong[]

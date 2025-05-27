@@ -1,7 +1,9 @@
 import React from 'react'
-import { FvCharacter } from '../common/data'
 import classNames from 'classnames'
-import { LoadingSpinner } from '../common/loading-spinner/loading-spinner'
+
+// FPCC
+import { FvCharacter } from 'components/common/data'
+import { LoadingSpinner } from 'components/common/loading-spinner/loading-spinner'
 
 export interface KeyboardProps {
   selected: FvCharacter | null

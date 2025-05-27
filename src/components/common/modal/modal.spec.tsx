@@ -4,7 +4,8 @@
 
 import { render } from '@testing-library/react'
 
-import Modal from './modal'
+// FPCC
+import Modal from 'components/common/modal/modal'
 
 describe('Modal', () => {
   it('should render successfully', () => {

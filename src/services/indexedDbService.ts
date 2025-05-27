@@ -1,5 +1,7 @@
 import { openDB, DBSchema, IDBPDatabase } from 'idb'
-import { Bookmark } from '../components/common/data'
+
+// FPCC
+import { Bookmark } from 'components/common/data'
 
 interface FVDB extends DBSchema {
   bookmarks: {

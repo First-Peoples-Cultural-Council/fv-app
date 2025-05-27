@@ -1,9 +1,9 @@
 import { ReactNode } from 'react'
 
 // FPCC
-import fpccLogo from '../../assets/images/fpccLogoColorWhite.svg'
-import fpcfLogo from '../../assets/images/fpcfLogoWhite.svg'
-import useSiteTitleFromManifest from '../../util/useSiteTitleFromManifest'
+import fpccLogo from 'assets/images/fpccLogoColorWhite.svg'
+import fpcfLogo from 'assets/images/fpcfLogoWhite.svg'
+import useSiteTitleFromManifest from 'util/useSiteTitleFromManifest'
 
 export interface AboutViewProps {
   children?: ReactNode

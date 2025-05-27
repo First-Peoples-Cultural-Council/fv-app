@@ -1,5 +1,7 @@
 import axios from 'axios'
-import { getCurrentDialect } from '../util/getCurrentDialect'
+
+// FPCC
+import { getCurrentDialect } from 'util/getCurrentDialect'
 
 export interface WordOfDayDataResponse {
   dictionaryEntry: {

@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react'
 import { matchRoutes, Outlet, useLocation } from 'react-router-dom'
 
 // FPCC
-import SubNavDesktop from '../sub-nav-desktop/sub-nav-desktop'
-import SubNavMobile from '../sub-nav-mobile/sub-nav-mobile'
-import PageHeader from '../common/page-header/page-header'
-import { learnSubNavItems } from '../../constants/navigation'
-import { SubNavItem } from '../common/data'
+import SubNavDesktop from 'components/sub-nav-desktop/sub-nav-desktop'
+import SubNavMobile from 'components/sub-nav-mobile/sub-nav-mobile'
+import PageHeader from 'components/common/page-header/page-header'
+import { learnSubNavItems } from 'constants/navigation'
+import { SubNavItem } from 'components/common/data'
 
 export function LearnView() {
   const location = useLocation()

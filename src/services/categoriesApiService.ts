@@ -1,6 +1,6 @@
-import { FvCategory } from '../components/common/data'
-import { fetchPaginatedData } from './apiService'
-import { getCurrentDialect } from '../util/getCurrentDialect'
+import { FvCategory } from 'components/common/data'
+import { fetchPaginatedData } from 'services/apiService'
+import { getCurrentDialect } from 'util/getCurrentDialect'
 
 export const fetchAllData = async (pageSize: number): Promise<FvCategory[]> => {
   return await fetchPaginatedData(

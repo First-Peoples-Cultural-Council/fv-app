@@ -1,8 +1,8 @@
 // FPCC
-import WordAlphabetRowCard from './word-row-card'
-import { FvCharacter, FvWord } from '../common/data'
-import { useDictionaryData } from '../dictionary-page/dictionary-page'
-import { useStartsWithChar } from '../../util/useStartsWithChar'
+import WordAlphabetRowCard from 'components/alphabet-view//word-row-card'
+import { FvCharacter, FvWord } from 'components/common/data'
+import { useDictionaryData } from 'components/dictionary-page/dictionary-page'
+import { useStartsWithChar } from 'util/useStartsWithChar'
 
 export interface WordStartsWithListProps {
   selected: FvCharacter

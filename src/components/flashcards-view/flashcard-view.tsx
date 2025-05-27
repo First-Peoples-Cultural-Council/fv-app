@@ -3,9 +3,9 @@ import classNames from 'classnames'
 import { Audio1 } from '@mothertongues/search'
 
 // FPCC
-import { Flashcard } from '../common/data'
-import { FlipButton } from './flip-button'
-import AudioControl from '../common/audio-control/audio-control'
+import { Flashcard } from 'components/common/data'
+import { FlipButton } from 'components/flashcards-view/flip-button'
+import AudioControl from 'components/common/audio-control/audio-control'
 
 export interface FlashcardViewProps {
   flashcardData: Flashcard | undefined

@@ -2,7 +2,7 @@ import { ChangeEvent, useContext, useState } from 'react'
 import classNames from 'classnames'
 
 // FPCC
-import { SearchContext } from '../../contexts/searchContext'
+import { SearchContext } from 'components/contexts/searchContext'
 
 export function SearchInput() {
   const [searchValue, setSearchValue] = useState<string>('')

@@ -1,7 +1,9 @@
-import { ButtonTypeEnum, StandardButtonButtonTypeEnum } from './enums'
 import { ReactNode } from 'react'
-
 import { Audio1, DictionaryEntryExportFormat } from '@mothertongues/search'
+
+// FPCC
+import { ButtonTypeEnum, StandardButtonButtonTypeEnum } from 'components/common/data/enums'
+
 export type SelectOption = {
   id: string
   label: string

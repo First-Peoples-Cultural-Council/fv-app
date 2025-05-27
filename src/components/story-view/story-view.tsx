@@ -2,11 +2,11 @@ import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 // FPCC
-import { FVStory, FVPage } from '../common/data/types'
-import CoverView from '../story-view/cover-view'
-import PageView from '../story-view/page-view'
-import BackButton from '../common/back-button/back-button'
-import PageNotFound from '../page-not-found/page-not-found'
+import { FVStory, FVPage } from 'components/common/data/types'
+import CoverView from 'components/story-view/cover-view'
+import PageView from 'components/story-view/page-view'
+import BackButton from 'components/common/back-button/back-button'
+import PageNotFound from 'components/page-not-found/page-not-found'
 
 export interface StoryViewProps {
   storiesData: FVStory[]

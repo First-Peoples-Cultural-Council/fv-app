@@ -1,13 +1,13 @@
 import { useState, useEffect, useContext, useMemo } from 'react'
 
 // FPCC
-import WordCardMobile from './word-card-mobile'
-import WordCardDesktop from './word-card-desktop'
-import { DictionaryType, FvWord } from '../common/data'
-import MultiSwitch from '../common/multi-switch/multi-switch'
-import { useDictionaryData } from '../dictionary-page/dictionary-page'
-import { SearchContext } from '../contexts/searchContext'
-import sortByCustomOrder from '../../util/sortByCustomOrder'
+import WordCardMobile from 'components/dictionary-view/word-card-mobile'
+import WordCardDesktop from 'components/dictionary-view/word-card-desktop'
+import { DictionaryType, FvWord } from 'components/common/data'
+import MultiSwitch from 'components/common/multi-switch/multi-switch'
+import { useDictionaryData } from 'components/dictionary-page/dictionary-page'
+import { SearchContext } from 'components/contexts/searchContext'
+import sortByCustomOrder from 'util/sortByCustomOrder'
 
 export function DictionaryView() {
   const { dictionaryData } = useDictionaryData()

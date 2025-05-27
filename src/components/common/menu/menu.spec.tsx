@@ -4,7 +4,8 @@
 
 import { render } from '@testing-library/react'
 
-import Menu from './menu'
+// FPCC
+import Menu from 'components/common/menu/menu'
 
 describe('Menu', () => {
   it('should render successfully', () => {

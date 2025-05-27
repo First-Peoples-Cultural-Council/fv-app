@@ -1,13 +1,12 @@
-import WordModal from '../dictionary-view/word-modal'
-import { FvWord, FvWordLocation } from '../common/data'
+import WordModal from 'components/dictionary-view/word-modal'
+import { FvWord, FvWordLocation } from 'components/common/data'
 
 // FPCC
-import Modal from '../common/modal/modal'
-import FullScreenModal from '../common/full-screen-modal/full-screen-modal'
-import { useModal } from '../common/use-modal/use-modal'
-
-import { useAudioContext } from '../contexts/audioContext'
-import { applyHighlighting } from '../../util/applyHighlighting'
+import Modal from 'components/common/modal/modal'
+import FullScreenModal from 'components/common/full-screen-modal/full-screen-modal'
+import { useModal } from 'components/common/use-modal/use-modal'
+import { useAudioContext } from 'components/contexts/audioContext'
+import { applyHighlighting } from 'util/applyHighlighting'
 
 export interface WordAlphabetRowCardProps {
   term: FvWord

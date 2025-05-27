@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import classNames from 'classnames'
-import { NavigationItem } from '../data'
+
+// FPCC
+import { NavigationItem } from 'components/common/data'
 
 export interface MobileNavProps {
   navItems?: NavigationItem[]

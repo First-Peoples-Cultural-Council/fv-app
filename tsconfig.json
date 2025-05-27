@@ -15,7 +15,8 @@
     "isolatedModules": true,
     "noEmit": false,
     "jsx": "react-jsx",
-    "outDir": "build"
+    "outDir": "build",
+    "baseUrl": "src"
   },
   "include": ["src", "public/mtd-ui.min.js", "custom.d.ts"],
   "exclude": ["node_modules", "tests"]

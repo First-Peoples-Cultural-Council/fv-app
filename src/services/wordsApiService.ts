@@ -1,10 +1,11 @@
-import { getCurrentDialect } from '../util/getCurrentDialect'
 import axios from 'axios'
-
-import IndexedDBService from './indexedDbService'
 import { MTDExportFormat } from '@mothertongues/search/src/lib/mtd'
-import isDateOlderThen from '../util/isDateOlderThen'
-import sortByCustomOrder from '../util/sortByCustomOrder'
+
+// FPCC
+import { getCurrentDialect } from 'util/getCurrentDialect'
+import IndexedDBService from 'services/indexedDbService'
+import isDateOlderThen from 'util/isDateOlderThen'
+import sortByCustomOrder from 'util/sortByCustomOrder'
 
 const db = new IndexedDBService('firstVoicesIndexedDb')
 

@@ -4,7 +4,8 @@
 
 import { render } from '@testing-library/react'
 
-import Alert from './alert'
+// FPCC
+import Alert from 'components/common/alert/alert'
 
 describe('Alert', () => {
   it('should render successfully', () => {

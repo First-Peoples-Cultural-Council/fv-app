@@ -3,12 +3,12 @@ import axios from 'axios'
 import { Audio1, DictionaryEntryExportFormat } from '@mothertongues/search'
 
 // FPCC
-import Alert from '../common/alert/alert'
-import { useDetectOnlineStatus } from '../../util/useDetectOnlineStatus'
-import ConfirmDialog from '../common/confirm/confirm'
-import Modal from '../common/modal/modal'
-import { FvCharacter, FvWord } from '../common/data'
-import { useStartsWithChar } from '../../util/useStartsWithChar'
+import Alert from 'components/common/alert/alert'
+import { useDetectOnlineStatus } from 'util/useDetectOnlineStatus'
+import ConfirmDialog from 'components/common/confirm/confirm'
+import Modal from 'components/common/modal/modal'
+import { FvCharacter, FvWord } from 'components/common/data'
+import { useStartsWithChar } from 'util/useStartsWithChar'
 
 export interface DownloadButtonProps {
   dictionaryData: DictionaryEntryExportFormat[]

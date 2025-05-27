@@ -2,12 +2,12 @@ import { useMemo } from 'react'
 import { Audio1 } from '@mothertongues/search'
 
 // FPCC
-import { Bookmark, FvWord } from '../common/data'
-import WordCategories from './word-categories'
-import { FvImage } from '../common/image/image'
-import AudioControl from '../common/audio-control/audio-control'
-import CopyButton from '../common/copy-button/copy-button'
-import BookmarkButton from '../common/bookmark-button/bookmark-button'
+import { Bookmark, FvWord } from 'components/common/data'
+import WordCategories from 'components/dictionary-view/word-categories'
+import { FvImage } from 'components/common/image/image'
+import AudioControl from 'components/common/audio-control/audio-control'
+import CopyButton from 'components/common/copy-button/copy-button'
+import BookmarkButton from 'components/common/bookmark-button/bookmark-button'
 
 export interface WordModalProps {
   term: FvWord

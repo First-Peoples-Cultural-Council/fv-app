@@ -2,10 +2,10 @@ import { useMemo } from 'react'
 import classNames from 'classnames'
 
 // FPCC
-import { Bookmark, FVStory } from '../common/data/types'
-import FvImage from '../common/image/image'
-import CopyButton from '../common/copy-button/copy-button'
-import BookmarkButton from '../common/bookmark-button/bookmark-button'
+import { Bookmark, FVStory } from 'components/common/data/types'
+import FvImage from 'components/common/image/image'
+import CopyButton from 'components/common/copy-button/copy-button'
+import BookmarkButton from 'components/common/bookmark-button/bookmark-button'
 
 export interface CoverViewProps {
   story: FVStory

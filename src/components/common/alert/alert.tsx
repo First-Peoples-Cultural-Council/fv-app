@@ -1,7 +1,9 @@
-import styles from './alert.module.css'
-import classNames from 'classnames'
 import { ReactNode, useRef } from 'react'
-import useOnClickOutside from '../../../util/clickOutside'
+import classNames from 'classnames'
+
+// FPCC
+import styles from 'components/common/alert/alert.module.css'
+import useOnClickOutside from 'util/clickOutside'
 
 export interface AlertProps {
   type: 'success' | 'error' | 'warning' | 'info'

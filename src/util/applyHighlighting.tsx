@@ -1,4 +1,4 @@
-import { FvWordLocation } from '../components/common/data'
+import { FvWordLocation } from 'components/common/data'
 
 export const applyHighlighting = (str: string, wordLocations: FvWordLocation[], type: string) => {
   if (!wordLocations) {

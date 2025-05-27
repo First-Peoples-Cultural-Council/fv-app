@@ -1,8 +1,10 @@
-import { FVStory } from '../components/common/data'
-import { getCurrentDialect } from '../util/getCurrentDialect'
 import axios from 'axios'
-import IndexedDBService from './indexedDbService'
-import isDateOlderThen from '../util/isDateOlderThen'
+
+// FPCC
+import { FVStory } from 'components/common/data'
+import { getCurrentDialect } from 'util/getCurrentDialect'
+import IndexedDBService from 'services/indexedDbService'
+import isDateOlderThen from 'util/isDateOlderThen'
 
 const db = new IndexedDBService('firstVoicesIndexedDb')
 

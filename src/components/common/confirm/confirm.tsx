@@ -1,4 +1,5 @@
-import Modal from '../modal/modal'
+// FPCC
+import Modal from 'components/common/modal/modal'
 
 type ConfirmDialogProps = {
   title: string

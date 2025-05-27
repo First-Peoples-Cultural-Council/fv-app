@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react'
-import classNames from 'classnames'
 import { Link, useParams } from 'react-router-dom'
+import classNames from 'classnames'
 
 // FPCC
-import styles from './category-view.module.css'
-import fetchCategoryData from '../../services/categoriesApiService'
-import WordCardDesktop from '../dictionary-view/word-card-desktop'
-import WordCardMobile from '../dictionary-view/word-card-mobile'
-import { DictionaryType, FvCategory, FvWord } from '../common/data'
-import MultiSwitch from '../common/multi-switch/multi-switch'
-import { LoadingSpinner } from '../common/loading-spinner/loading-spinner'
-import { useDictionaryData } from '../dictionary-page/dictionary-page'
+import styles from 'components/category-view/category-view.module.css'
+import fetchCategoryData from 'services/categoriesApiService'
+import WordCardDesktop from 'components/dictionary-view/word-card-desktop'
+import WordCardMobile from 'components/dictionary-view/word-card-mobile'
+import { DictionaryType, FvCategory, FvWord } from 'components/common/data'
+import MultiSwitch from 'components/common/multi-switch/multi-switch'
+import { LoadingSpinner } from 'components/common/loading-spinner/loading-spinner'
+import { useDictionaryData } from 'components/dictionary-page/dictionary-page'
 
 export function CategoryView() {
   const { id } = useParams()

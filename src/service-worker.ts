@@ -11,7 +11,7 @@ import { ExpirationPlugin } from 'workbox-expiration'
 import { createHandlerBoundToURL, precacheAndRoute } from 'workbox-precaching'
 import { registerRoute } from 'workbox-routing'
 import { StaleWhileRevalidate } from 'workbox-strategies'
-import IndexedDBService from './services/indexedDbService'
+import IndexedDBService from 'services/indexedDbService'
 
 declare const self: ServiceWorkerGlobalScope
 

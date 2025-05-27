@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 
 // FPCC
-import IndexedDBService from '../../../services/indexedDbService'
-import Alert from '../alert/alert'
-import { useDetectOnlineStatus } from '../../../util/useDetectOnlineStatus'
+import IndexedDBService from 'services/indexedDbService'
+import Alert from 'components/common/alert/alert'
+import { useDetectOnlineStatus } from 'util/useDetectOnlineStatus'
 
 export interface FvVideoProps {
   className?: string

@@ -1,13 +1,13 @@
 import { useMemo } from 'react'
 
 // FPCC
-import { Bookmark, FVSong } from '../common/data/types'
-import FvImage from '../common/image/image'
-import FvVideo from '../common/video/video'
-import AudioControl from '../common/audio-control/audio-control'
-import { convertWysiwygToComponent } from '../common/convert-json/convert-json'
-import CopyButton from '../common/copy-button/copy-button'
-import BookmarkButton from '../common/bookmark-button/bookmark-button'
+import { Bookmark, FVSong } from 'components/common/data/types'
+import FvImage from 'components/common/image/image'
+import FvVideo from 'components/common/video/video'
+import AudioControl from 'components/common/audio-control/audio-control'
+import { convertWysiwygToComponent } from 'components/common/convert-json/convert-json'
+import CopyButton from 'components/common/copy-button/copy-button'
+import BookmarkButton from 'components/common/bookmark-button/bookmark-button'
 
 export interface SongViewProps {
   song: FVSong

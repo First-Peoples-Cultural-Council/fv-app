@@ -1,6 +1,8 @@
 import axios from 'axios'
-import IndexedDBService from './indexedDbService'
-import isDateOlderThen from '../util/isDateOlderThen'
+
+// FPCC
+import IndexedDBService from 'services/indexedDbService'
+import isDateOlderThen from 'util/isDateOlderThen'
 
 const db = new IndexedDBService('firstVoicesIndexedDb')
 

@@ -1,4 +1,4 @@
-import { NavigationItem, SubNavItem } from '../components/common/data'
+import { NavigationItem, SubNavItem } from 'components/common/data'
 
 export const dictionarySubNavItems: SubNavItem[] = [
   {

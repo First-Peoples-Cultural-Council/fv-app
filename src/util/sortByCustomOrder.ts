@@ -1,5 +1,5 @@
 // FPCC
-import { FvWord } from '../components/common/data'
+import { FvWord } from 'components/common/data'
 
 function sortByCustomOrder(a: FvWord, b: FvWord) {
   const len = Math.min(a.sorting_form.length, b.sorting_form.length)

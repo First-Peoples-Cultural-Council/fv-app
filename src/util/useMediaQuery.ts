@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+
 export function useMediaQuery(query: string): boolean {
   const getMatches = (query: string): boolean => {
     // Prevents SSR issues

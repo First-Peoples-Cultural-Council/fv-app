@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 
 // FPCC
-import IndexedDBService from '../services/indexedDbService'
-import { useDetectOnlineStatus } from './useDetectOnlineStatus'
-import { useAudioContext } from '../components/contexts/audioContext'
+import IndexedDBService from 'services/indexedDbService'
+import { useDetectOnlineStatus } from 'util/useDetectOnlineStatus'
+import { useAudioContext } from 'components/contexts/audioContext'
 
 export function useAudio(audioSrc: string) {
   const { addAudio, removeAudio, stopAll } = useAudioContext()

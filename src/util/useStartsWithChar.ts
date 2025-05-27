@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
 // FPCC
-import { FvCharacter, FvWord } from '../components/common/data'
-import sortByCustomOrder from './sortByCustomOrder'
+import { FvCharacter, FvWord } from 'components/common/data'
+import sortByCustomOrder from 'util/sortByCustomOrder'
 
 export const useStartsWithChar = (dictionaryData: FvWord[], character: FvCharacter) => {
   const [entriesStartingWith, setEntriesStartingWith] = useState<FvWord[]>([])

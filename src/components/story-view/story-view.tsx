@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 // FPCC
@@ -7,15 +7,29 @@ import CoverView from 'components/story-view/cover-view'
 import PageView from 'components/story-view/page-view'
 import BackButton from 'components/common/back-button/back-button'
 import PageNotFound from 'components/page-not-found/page-not-found'
+import fetchStoriesData from 'services/storiesApiService'
+import { LoadingSpinner } from 'components/common/loading-spinner/loading-spinner'
 
-export interface StoryViewProps {
-  storiesData: FVStory[]
-}
-
-export function StoryView({ storiesData }: Readonly<StoryViewProps>) {
+export function StoryView() {
   const { id } = useParams()
-  const storyId = id
-  const story: FVStory | undefined = storiesData.find((story) => story.id === storyId)
+  const [story, setStory] = useState<FVStory | undefined>(undefined)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchDataAsync = async () => {
+      try {
+        const result = await fetchStoriesData()
+        const fetchedStory = result.find((story) => story.id === id)
+        setStory(fetchedStory)
+        setLoading(false)
+      } catch (error) {
+        // Handle error scenarios
+        console.error(error)
+      }
+    }
+
+    fetchDataAsync()
+  }, [])
 
   const [currentPage, setCurrentPage] = useState<number>(-2)
 
@@ -63,7 +77,9 @@ export function StoryView({ storiesData }: Readonly<StoryViewProps>) {
     }
   }
 
-  return (
+  return loading ? (
+    <LoadingSpinner />
+  ) : (
     <div data-testid="story-view" className="max-w-3xl w-full mx-auto">
       <div className="p-2 md:p-3">
         <BackButton />

@@ -1,16 +1,35 @@
-import classNames from 'classnames'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import classNames from 'classnames'
 
 // FPCC
 import { FVStory } from 'components/common/data/types'
+import fetchStoriesData from 'services/storiesApiService'
 import FvImage from 'components/common/image/image'
+import { LoadingSpinner } from 'components/common/loading-spinner/loading-spinner'
 
-export interface StoriesViewProps {
-  storiesData: FVStory[]
-}
+export function StoriesView() {
+  const [storiesData, setStoriesData] = useState<FVStory[]>([])
+  const [loading, setLoading] = useState(true)
 
-export function StoriesView({ storiesData }: Readonly<StoriesViewProps>) {
-  return (
+  useEffect(() => {
+    const fetchDataAsync = async () => {
+      try {
+        const result = await fetchStoriesData()
+        setStoriesData(result)
+        setLoading(false)
+      } catch (error) {
+        // Handle error scenarios
+        console.error(error)
+      }
+    }
+
+    fetchDataAsync()
+  }, [])
+
+  return loading ? (
+    <LoadingSpinner />
+  ) : (
     <div className="grid grid-cols-1 w-full">
       <div className="flex flex-col overflow-y-auto max-h-calc-185 md:max-h-calc-125 md:space-y-2 md:p-2">
         {storiesData.map((story: FVStory) => {

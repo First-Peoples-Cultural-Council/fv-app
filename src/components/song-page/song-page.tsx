@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 // FPCC
@@ -5,15 +6,33 @@ import { FVSong } from 'components/common/data/types'
 import SongView from 'components/song-view/song-view'
 import PageNotFound from 'components/page-not-found/page-not-found'
 import BackButton from 'components/common/back-button/back-button'
+import fetchSongsData from 'services/songsApiService'
+import { LoadingSpinner } from 'components/common/loading-spinner/loading-spinner'
 
-export interface SongPageProps {
-  songsData: FVSong[]
-}
-export function SongPage({ songsData }: Readonly<SongPageProps>) {
+export function SongPage() {
   const { id } = useParams()
-  const songData: FVSong | undefined = songsData.find((song) => song.id === id)
+  const [songData, setSongData] = useState<FVSong | undefined>(undefined)
+  const [loading, setLoading] = useState(true)
 
-  return (
+  useEffect(() => {
+    const fetchDataAsync = async () => {
+      try {
+        const result = await fetchSongsData()
+        const fetchedSong = result.find((song) => song.id === id)
+        setSongData(fetchedSong)
+        setLoading(false)
+      } catch (error) {
+        // Handle error scenarios
+        console.error(error)
+      }
+    }
+
+    fetchDataAsync()
+  }, [])
+
+  return loading ? (
+    <LoadingSpinner />
+  ) : (
     <div data-testid="song-page" className="max-w-3xl w-full mx-auto">
       <div className="p-2 md:p-3">
         <BackButton />

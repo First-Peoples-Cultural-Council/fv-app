@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { useNavigate } from 'react-router'
 
@@ -6,13 +6,29 @@ import { useNavigate } from 'react-router'
 import { FVSong } from 'components/common/data/types'
 import FvImage from 'components/common/image/image'
 import SongView from 'components/song-view/song-view'
+import fetchSongsData from 'services/songsApiService'
+import { LoadingSpinner } from 'components/common/loading-spinner/loading-spinner'
 
-export interface SongsViewProps {
-  songsData: FVSong[]
-}
-
-export function SongsView({ songsData }: Readonly<SongsViewProps>) {
+export function SongsView() {
   const navigate = useNavigate()
+  const [songsData, setSongsData] = useState<FVSong[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchDataAsync = async () => {
+      try {
+        const result = await fetchSongsData()
+        setSongsData(result)
+        setLoading(false)
+      } catch (error) {
+        // Handle error scenarios
+        console.error(error)
+      }
+    }
+
+    fetchDataAsync()
+  }, [])
+
   const [selectedSong, setSelectedSong] = useState<FVSong | null>(null)
 
   const onSongClick = (song: FVSong) => {
@@ -22,7 +38,9 @@ export function SongsView({ songsData }: Readonly<SongsViewProps>) {
     }
   }
 
-  return (
+  return loading ? (
+    <LoadingSpinner />
+  ) : (
     <div data-testid="songs-view" className="w-full">
       <div className="grid grid-cols-2 w-full h-full max-h-calc-185 md:max-h-calc-125">
         <div className="col-span-2 md:col-span-1 overflow-y-auto md:space-y-2 md:p-2">

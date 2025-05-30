@@ -3,7 +3,7 @@
  */
 
 import { render } from '@testing-library/react'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router'
 
 // FPCC
 import MobileNav from 'components/common/mobile-nav/mobile-nav'

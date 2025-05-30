@@ -3,7 +3,7 @@
  */
 
 import { render } from '@testing-library/react'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router'
 
 // FPCC
 import SubNavMobile from 'components/sub-nav-mobile/sub-nav-mobile'

@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from 'react-router-dom'
+import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from 'react-router'
 
 // FPCC
 import 'index.css'

@@ -7,15 +7,11 @@ import CoverView from 'components/story-view/cover-view'
 import PageView from 'components/story-view/page-view'
 import BackButton from 'components/common/back-button/back-button'
 import PageNotFound from 'components/page-not-found/page-not-found'
+import fetchStoriesData from 'services/storiesApiService'
+import { LoadingWrapper } from 'components/loadingWrapper/loadingWrapper'
 
-export interface StoryViewProps {
-  storiesData: FVStory[]
-}
-
-export function StoryView({ storiesData }: Readonly<StoryViewProps>) {
+export function StoryView() {
   const { id } = useParams()
-  const storyId = id
-  const story: FVStory | undefined = storiesData.find((story) => story.id === storyId)
 
   const [currentPage, setCurrentPage] = useState<number>(-2)
 
@@ -64,14 +60,21 @@ export function StoryView({ storiesData }: Readonly<StoryViewProps>) {
   }
 
   return (
-    <div data-testid="story-view" className="max-w-3xl w-full mx-auto">
-      <div className="p-2 md:p-3">
-        <BackButton />
-      </div>
-      <div className="w-full mx-auto p-2 md:p-4 mb-4 md:border border-gray-300 rounded-lg md:shadow-lg bg-white">
-        {story === undefined ? <PageNotFound /> : pageToRender(currentPage, story)}
-      </div>
-    </div>
+    <LoadingWrapper fetchData={fetchStoriesData}>
+      {(storiesData) => {
+        const story = storiesData.find((story) => story.id === id)
+        return (
+          <div data-testid="story-view" className="max-w-3xl w-full mx-auto">
+            <div className="p-2 md:p-3">
+              <BackButton />
+            </div>
+            <div className="w-full mx-auto p-2 md:p-4 mb-4 md:border border-gray-300 rounded-lg md:shadow-lg bg-white">
+              {story === undefined ? <PageNotFound /> : pageToRender(currentPage, story)}
+            </div>
+          </div>
+        )
+      }}
+    </LoadingWrapper>
   )
 }
 export default StoryView

@@ -41,6 +41,7 @@ module.exports = {
     pathinfo: isDev,
     filename: isDev ? 'assets/js/bundle.js' : 'assets/js/[name].[contenthash:8].js',
     chunkFilename: isDev ? 'assets/js/[name].chunk.js' : 'assets/js/[name].[contenthash:8].chunk.js',
+    publicPath: '/',
   },
   optimization: {
     minimize: !isDev,
@@ -205,6 +206,10 @@ module.exports = {
   ].filter(Boolean),
 
   devServer: {
+    historyApiFallback: {
+      disableDotRule: true,
+      index: '/index.html'
+    },
     compress: true,
     server: 'http',
     port: 3000,

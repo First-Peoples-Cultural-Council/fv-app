@@ -23,8 +23,10 @@ import PageNotFound from 'components/page-not-found/page-not-found'
 import ProfileView from 'components/profile-view/profile-view'
 import RandomizedView from 'components/randomized-view/randomized-view'
 import SettingsView from 'components/settings-view/settings-view'
-import SongsPage from 'components/songs-page/songs-page'
-import StoriesPage from 'components/stories-page/stories-page'
+import StoriesView from 'components/stories-view/stories-view'
+import StoryView from 'components/story-view/story-view'
+import SongsView from 'components/songs-view/songs-view'
+import SongPage from 'components/song-page/song-page'
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -39,10 +41,12 @@ export const router = createBrowserRouter(
         <Route index element={<DictionaryView />} />
       </Route>
       <Route path="learn" element={<Learn />} errorElement={<ErrorPage />}>
-        <Route path="stories/*" element={<StoriesPage />} />
-        <Route path="songs/*" element={<SongsPage />} />
+        <Route path="stories" element={<StoriesView />} />
+        <Route path="stories/:id" element={<StoryView />} />
+        <Route path="songs" element={<SongsView />} />
+        <Route path="songs/:id" element={<SongPage />} />
         <Route path="flashcards" element={<FlashcardsView />} />
-        <Route index element={<StoriesPage />} />
+        <Route index element={<StoriesView />} />
       </Route>
       <Route path="bookmarks" element={<ProfileView />} />
       <Route path="settings" element={<SettingsView />} />

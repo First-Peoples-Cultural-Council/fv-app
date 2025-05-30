@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 // FPCC
@@ -8,28 +8,10 @@ import PageView from 'components/story-view/page-view'
 import BackButton from 'components/common/back-button/back-button'
 import PageNotFound from 'components/page-not-found/page-not-found'
 import fetchStoriesData from 'services/storiesApiService'
-import { LoadingSpinner } from 'components/common/loading-spinner/loading-spinner'
+import { LoadingWrapper } from 'components/loadingWrapper/loadingWrapper'
 
 export function StoryView() {
   const { id } = useParams()
-  const [story, setStory] = useState<FVStory | undefined>(undefined)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const fetchDataAsync = async () => {
-      try {
-        const result = await fetchStoriesData()
-        const fetchedStory = result.find((story) => story.id === id)
-        setStory(fetchedStory)
-        setLoading(false)
-      } catch (error) {
-        // Handle error scenarios
-        console.error(error)
-      }
-    }
-
-    fetchDataAsync()
-  }, [])
 
   const [currentPage, setCurrentPage] = useState<number>(-2)
 
@@ -77,17 +59,22 @@ export function StoryView() {
     }
   }
 
-  return loading ? (
-    <LoadingSpinner />
-  ) : (
-    <div data-testid="story-view" className="max-w-3xl w-full mx-auto">
-      <div className="p-2 md:p-3">
-        <BackButton />
-      </div>
-      <div className="w-full mx-auto p-2 md:p-4 mb-4 md:border border-gray-300 rounded-lg md:shadow-lg bg-white">
-        {story === undefined ? <PageNotFound /> : pageToRender(currentPage, story)}
-      </div>
-    </div>
+  return (
+    <LoadingWrapper fetchData={fetchStoriesData}>
+      {(storiesData) => {
+        const story = storiesData.find((story) => story.id === id)
+        return (
+          <div data-testid="story-view" className="max-w-3xl w-full mx-auto">
+            <div className="p-2 md:p-3">
+              <BackButton />
+            </div>
+            <div className="w-full mx-auto p-2 md:p-4 mb-4 md:border border-gray-300 rounded-lg md:shadow-lg bg-white">
+              {story === undefined ? <PageNotFound /> : pageToRender(currentPage, story)}
+            </div>
+          </div>
+        )
+      }}
+    </LoadingWrapper>
   )
 }
 export default StoryView

@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import { matchRoutes, Outlet, useLocation, useOutletContext } from 'react-router-dom'
+import { matchRoutes, Outlet, useLocation, useOutletContext } from 'react-router'
 import { constructSearchers, DictionaryEntryExportFormat, MTDSearch } from '@mothertongues/search'
 
 // FPCC

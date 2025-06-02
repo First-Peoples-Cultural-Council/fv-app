@@ -13,7 +13,7 @@ export function InstallPrompt() {
       onClose={() => setShowInstallPrompt(false)}
       showCloseButton={true}
       closeOnOutsideClick={false}
-      zContent="z-[9999]"
+      zIndex="z-[9999]"
     >
       <div className="rounded-lg overflow-hidden">
         <AboutView>

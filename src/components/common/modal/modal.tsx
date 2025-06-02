@@ -10,10 +10,10 @@ export interface ModalProps {
   children: ReactNode
   showCloseButton?: boolean
   closeOnOutsideClick?: boolean
-  zContent?: string
+  zIndex?: string
 }
 
-export function Modal({ onClose, children, showCloseButton = true, closeOnOutsideClick = true, zContent }: ModalProps) {
+export function Modal({ onClose, children, showCloseButton = true, closeOnOutsideClick = true, zIndex }: ModalProps) {
   const { stopAll } = useAudioContext()
   const modalContentRef = useRef<HTMLDivElement>(null)
 
@@ -31,11 +31,11 @@ export function Modal({ onClose, children, showCloseButton = true, closeOnOutsid
   return createPortal(
     <div
       style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
-      className={`fixed inset-0 w-full h-full backdrop ${zContent ?? 'z-50'}`}
+      className={`fixed inset-0 w-full h-full backdrop ${zIndex ?? 'z-50'}`}
     >
       <div
         className={`justify-center items-center w-full overflow-x-hidden overflow-y-auto fixed inset-0 
-        ${zContent ?? 'z-50'} outline-none focus:outline-none`}
+        ${zIndex ?? 'z-50'} outline-none focus:outline-none`}
       >
         <div className="relative w-auto my-6 mx-auto max-w-3xl">
           <div

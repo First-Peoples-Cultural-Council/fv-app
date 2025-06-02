@@ -79,7 +79,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.27.1",
-    "@babel/eslint-parser": "^7.25.8",
+    "@babel/eslint-parser": "^7.27.1",
     "@babel/eslint-plugin": "^7.27.1",
     "@babel/preset-env": "^7.25.8",
     "@babel/preset-react": "^7.27.1",

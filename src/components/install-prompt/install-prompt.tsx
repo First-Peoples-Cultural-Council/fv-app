@@ -9,7 +9,12 @@ export function InstallPrompt() {
   const { showInstallPrompt, handleInstallPrompt, setShowInstallPrompt } = useContext(InstallPromptContext)
 
   return showInstallPrompt ? (
-    <Modal onClose={() => setShowInstallPrompt(false)} showCloseButton={true} closeOnOutsideClick={false}>
+    <Modal
+      onClose={() => setShowInstallPrompt(false)}
+      showCloseButton={true}
+      closeOnOutsideClick={false}
+      zIndex="z-[9999]"
+    >
       <div className="rounded-lg overflow-hidden">
         <AboutView>
           <button onClick={handleInstallPrompt} className="bg-secondary-500 text-white px-8 py-3 rounded-lg text-lg">

@@ -120,7 +120,7 @@
     "lint-staged": "^15.4.3",
     "mini-css-extract-plugin": "^2.9.2",
     "postcss-loader": "^8.1.1",
-    "prettier": "^3.3.3",
+    "prettier": "^3.5.3",
     "react-refresh": "^0.16.0",
     "serve": "^14.2.4",
     "style-loader": "^4.0.0",

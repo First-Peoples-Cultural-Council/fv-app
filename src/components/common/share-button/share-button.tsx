@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Modal from 'components/common/modal/modal'
 import Mail from 'assets/icons/Mail'
 import Link from 'assets/icons/link'
 import Twitter from 'assets/icons/twitter'
@@ -12,7 +11,7 @@ export interface ShareButtonProps {
   url: string
 }
 
-export function ShareButton({ title, text, url }: { title: string; text: string; url: string }) {
+export function ShareButton({ title, text, url }: ShareButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -24,24 +23,37 @@ export function ShareButton({ title, text, url }: { title: string; text: string;
       </button>
 
       {isOpen && (
-        <Modal onClose={() => setIsOpen(false)} showCloseButton={false} closeOnOutsideClick={false}>
-          <div className="space-y-5 p-6">
+        <div
+          style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
+          className="fixed inset-0 z-50 flex items-start justify-center pt-20"
+        >
+          <div className="relative w-auto max-w-lg mx-auto bg-white rounded-lg shadow-lg p-6 space-y-5">
+            <div className="flex justify-end">
+              <button onClick={() => setIsOpen(false)} className="text-black text-xl leading-none">
+                <i className="fv-close"></i>
+              </button>
+            </div>
+
             <h3 className="text-center text-xl font-medium text-charcoal-900">
               Share: <em>{title}</em>
             </h3>
 
-            <div className="flex justify-center space-x-2">
+            <div className="flex justify-center space-x-2 flex-wrap">
               <a
-                href={`mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`Translation:${text}\n\nLearn more here: \n${url}`)}`}
+                href={`mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(
+                  `Translation:${text}\n\nLearn more here: \n${url}`
+                )}`}
                 target="_blank"
-                rel="_blank noreferrer"
+                rel="noreferrer"
                 className="my-2 mx-1 h-10 w-10 p-1 inline-flex items-center justify-center rounded bg-stone-600 hover:bg-stone-700"
               >
                 <Mail className="fill-current h-5 w-5 text-white" />
               </a>
 
               <a
-                href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`}
+                href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(
+                  title
+                )}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="my-2 mx-1 h-10 w-10 p-1 inline-flex items-center justify-center rounded bg-stone-600 hover:bg-stone-700"
@@ -61,7 +73,7 @@ export function ShareButton({ title, text, url }: { title: string; text: string;
               <a
                 href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`}
                 target="_blank"
-                rel="_blank noreferrer"
+                rel="noreferrer"
                 className="my-2 mx-1 h-10 w-10 p-1 inline-flex items-center justify-center rounded bg-stone-600 hover:bg-stone-700"
               >
                 <LinkedIn className="fill-current h-5 w-5 text-white" />
@@ -70,12 +82,7 @@ export function ShareButton({ title, text, url }: { title: string; text: string;
               <button
                 type="button"
                 onClick={() => {
-                  navigator.clipboard
-                    .writeText(url)
-                    .then(() => {})
-                    .catch((err) => {
-                      console.error('Failed to copy', err)
-                    })
+                  navigator.clipboard.writeText(url).catch((err) => console.error('Failed to copy', err))
                 }}
                 className="my-2 mx-1 h-10 w-10 p-1 inline-flex items-center justify-center rounded bg-stone-600 hover:bg-stone-700"
               >
@@ -83,11 +90,15 @@ export function ShareButton({ title, text, url }: { title: string; text: string;
               </button>
             </div>
 
-            <button type="button" className="btn-contained bg-scarlet-800 w-full" onClick={() => setIsOpen(false)}>
+            <button
+              type="button"
+              className="btn-contained bg-scarlet-800 w-full text-white py-2 rounded"
+              onClick={() => setIsOpen(false)}
+            >
               Close
             </button>
           </div>
-        </Modal>
+        </div>
       )}
     </>
   )

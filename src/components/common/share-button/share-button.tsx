@@ -6,9 +6,9 @@ import LinkedIn from 'assets/icons/Linkedin'
 import Facebook from 'assets/icons/Facebook'
 
 export interface ShareButtonProps {
-  title: string
-  text: string
-  url: string
+  readonly title: string
+  readonly text: string
+  readonly url: string
 }
 
 export function ShareButton({ title, text, url }: ShareButtonProps) {

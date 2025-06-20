@@ -8,6 +8,7 @@ import { FvImage } from 'components/common/image/image'
 import AudioControl from 'components/common/audio-control/audio-control'
 import CopyButton from 'components/common/copy-button/copy-button'
 import BookmarkButton from 'components/common/bookmark-button/bookmark-button'
+import ShareButton from 'components/common/share-button/share-button'
 
 export interface WordModalProps {
   term: FvWord
@@ -40,7 +41,11 @@ function WordModal({ term, onClose }: Readonly<WordModalProps>) {
         </div>
         <div className="block space-y-3">
           <CopyButton text={term?.word} />
-          {/* Hiding share button for now FW-5780 {shareButton()} */}
+          <ShareButton
+            title={term?.word}
+            text={`Translation: ${term.definition}\n\n Learn more here:`}
+            url={`${window.location.origin}/dictionary/${term?.entryID}`}
+          />
           <BookmarkButton bookmark={bookmark} />
         </div>
       </div>

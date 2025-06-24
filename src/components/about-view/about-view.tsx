@@ -42,9 +42,9 @@ export function AboutView({ children }: Readonly<AboutViewProps>) {
       </main>
       <footer className="bg-charcoal-500 p-4">
         <p className="text-white text-center text-sm">An initiative of:</p>
-        <div className="flex justify-center flex-wrap md:space-x-5 my-2">
+        <div className="flex flex-col items-center justify-center my-2 space-y-4 md:space-y-0 md:flex-row md:space-x-5">
           <a href="https://www.fpcc.ca/" target="_blank" rel="noreferrer">
-            <img className="h-14" src={fpccLogo} alt="First People's Cultural Council Logo" loading="lazy" />
+            <img className="h-11" src={fpccLogo} alt="First People's Cultural Council Logo" loading="lazy" />
           </a>
           <a href="https://www.fpcf.ca/" target="_blank" rel="noreferrer">
             <img className="h-14" src={fpcfLogo} alt="First People's Cultural Foundation Logo" loading="lazy" />

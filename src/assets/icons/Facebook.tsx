@@ -1,10 +1,10 @@
 import React from 'react'
 
-interface FacebookProps {
+type FacebookProps = {
   className?: string
 }
 
-const Facebook: React.FC<FacebookProps> = ({ className }) => {
+function Facebook({ className }: FacebookProps) {
   return (
     <svg
       viewBox="0 0 512 512"

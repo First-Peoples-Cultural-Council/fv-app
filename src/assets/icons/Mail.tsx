@@ -1,10 +1,10 @@
 import React from 'react'
 
-interface MailProps {
+type MailProps = {
   className?: string
 }
 
-const Mail: React.FC<MailProps> = ({ className }) => {
+function Mail({ className }: MailProps) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={className}>
       <title>Send link by email</title>

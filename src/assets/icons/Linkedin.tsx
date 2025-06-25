@@ -1,10 +1,10 @@
 import React from 'react'
 
-interface LinkedInProps {
+type LinkedInProps = {
   className?: string
 }
 
-const LinkedIn: React.FC<LinkedInProps> = ({ className }) => {
+function LinkedIn({ className }: LinkedInProps) {
   return (
     <svg
       viewBox="0 0 512 512"

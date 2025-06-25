@@ -1,10 +1,10 @@
 import React from 'react'
 
-interface MailProps {
+type TwitterProps = {
   className?: string
 }
 
-const Twitter: React.FC<MailProps> = ({ className }) => {
+function Twitter({ className }: TwitterProps) {
   return (
     <svg
       viewBox="0 0 512 512"

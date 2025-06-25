@@ -1,10 +1,10 @@
 import React from 'react'
 
-interface LinkProps {
+type LinkProps = {
   className?: string
 }
 
-const Link: React.FC<LinkProps> = ({ className }) => {
+function Link({ className }: LinkProps) {
   return (
     <svg viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" className={className}>
       <title>Link</title>

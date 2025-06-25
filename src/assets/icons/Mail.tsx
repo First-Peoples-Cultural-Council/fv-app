@@ -1,8 +1,8 @@
 import React from 'react'
 
-type MailProps = {
+type MailProps = Readonly<{
   className?: string
-}
+}>
 
 function Mail({ className }: MailProps) {
   return (

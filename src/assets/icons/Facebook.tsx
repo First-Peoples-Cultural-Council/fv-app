@@ -1,8 +1,8 @@
 import React from 'react'
 
-type FacebookProps = {
+type FacebookProps = Readonly<{
   className?: string
-}
+}>
 
 function Facebook({ className }: FacebookProps) {
   return (

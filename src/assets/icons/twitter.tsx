@@ -1,8 +1,8 @@
 import React from 'react'
 
-type TwitterProps = {
+type TwitterProps = Readonly<{
   className?: string
-}
+}>
 
 function Twitter({ className }: TwitterProps) {
   return (

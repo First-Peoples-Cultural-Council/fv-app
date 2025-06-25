@@ -1,8 +1,8 @@
 import React from 'react'
 
-type LinkProps = {
+type LinkProps = Readonly<{
   className?: string
-}
+}>
 
 function Link({ className }: LinkProps) {
   return (

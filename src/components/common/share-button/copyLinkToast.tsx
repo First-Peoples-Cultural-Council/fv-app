@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 
 export interface CopyLinkToastProps {
-  message: string
-  duration?: number
-  onDone: () => void
+  readonly message: string
+  readonly duration?: number
+  readonly onDone: () => void
 }
 
 export default function CopyLinkToast({ message, duration = 2000, onDone }: CopyLinkToastProps) {

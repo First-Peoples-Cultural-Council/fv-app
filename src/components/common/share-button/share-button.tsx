@@ -4,6 +4,7 @@ import Link from 'assets/icons/link'
 import Twitter from 'assets/icons/twitter'
 import LinkedIn from 'assets/icons/Linkedin'
 import Facebook from 'assets/icons/Facebook'
+import CopyLinkToast from './copyLinkToast'
 
 export interface ShareButtonProps {
   readonly title: string
@@ -13,6 +14,7 @@ export interface ShareButtonProps {
 
 export function ShareButton({ title, text, url }: ShareButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const [toastMsg, setToastMsg] = useState<string>('')
 
   return (
     <>
@@ -82,7 +84,10 @@ export function ShareButton({ title, text, url }: ShareButtonProps) {
               <button
                 type="button"
                 onClick={() => {
-                  navigator.clipboard.writeText(url).catch((err) => console.error('Failed to copy', err))
+                  navigator.clipboard
+                    .writeText(url)
+                    .then(() => setToastMsg('Link copied!'))
+                    .catch(() => setToastMsg('Copy failed'))
                 }}
                 className="my-2 mx-1 h-10 w-10 p-1 inline-flex items-center justify-center rounded bg-stone-600 hover:bg-stone-700"
               >
@@ -100,6 +105,7 @@ export function ShareButton({ title, text, url }: ShareButtonProps) {
           </div>
         </div>
       )}
+      {toastMsg && <CopyLinkToast message={toastMsg} duration={2000} onDone={() => setToastMsg('')} />}
     </>
   )
 }

@@ -87,6 +87,7 @@ export function DictionaryView() {
 
   return (
     <div className="w-full">
+      <h1>Testing Cached updates</h1>
       <MultiSwitch
         selected={selected}
         items={[

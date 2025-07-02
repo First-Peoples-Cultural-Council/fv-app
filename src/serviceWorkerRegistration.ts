@@ -138,3 +138,9 @@ export function unregister() {
       })
   }
 }
+
+navigator.serviceWorker.addEventListener('message', (event) => {
+  if (event.data?.type === 'RELOAD_PAGE') {
+    window.location.reload()
+  }
+})

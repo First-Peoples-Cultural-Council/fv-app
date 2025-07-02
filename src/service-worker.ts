@@ -73,24 +73,23 @@ registerRoute(
 )
 
 // This allows the web app to trigger skipWaiting via
-// registration.waiting.postMessage({type: 'SKIP_WAITING'})
 self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting().then(() => {
-      self.clients.matchAll({ type: 'window' }).then((clients) => {
-        clients.forEach((client) => {
-          if (client.url && 'navigate' in client) {
-            client.navigate(client.url).then((navClient) => navClient?.focus())
-          }
+  if (event.data?.type === 'SKIP_WAITING') {
+    self
+      .skipWaiting()
+      .then(() => self.clients.claim())
+      .then(() => {
+        self.clients.matchAll({ type: 'window' }).then((clients) => {
+          clients.forEach((client) => {
+            client.postMessage({ type: 'RELOAD_PAGE' })
+          })
         })
       })
-    })
   }
 })
 
 // Any other custom service worker logic can go here.
 self.addEventListener('fetch', function (event) {
-  event.preventDefault()
   const url = event.request.url
 
   event.respondWith(
@@ -143,10 +142,15 @@ self.addEventListener('fetch', function (event) {
 self.addEventListener('install', (event) => {
   event.waitUntil(
     (async function () {
-      // Activate the new service worker immediately without waiting
       self.skipWaiting()
+    })()
+  )
+})
 
-      self.clients.claim()
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    (async function () {
+      await self.clients.claim()
     })()
   )
 })

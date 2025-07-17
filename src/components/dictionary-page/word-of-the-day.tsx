@@ -23,14 +23,23 @@ function WordOfTheDay({ dictionaryData }: Readonly<WordOfTheDayProps>) {
   const [data, setData] = useState<FvWord | null>(null)
 
   useEffect(() => {
-    if (
-      dictionaryData.length > 0 &&
-      today.toDateString() !== (localStorage.getItem('lastWOTDSeenOn') ?? '') &&
-      !showInstallPrompt
-    ) {
-      setShowModal(true)
+    const lastSeen = localStorage.getItem('lastWOTDSeenOn')
+    const isTodaySeen = lastSeen === today.toDateString()
+    const hasData = dictionaryData.length > 0
+
+    if (isTodaySeen || !hasData) return
+
+    const tryShowWOTD = () => {
+      const installPromptStillOpen = sessionStorage.getItem('installPromptActive') === 'true'
+      if (!installPromptStillOpen) {
+        setTimeout(() => setShowModal(true), 100)
+      } else {
+        setTimeout(tryShowWOTD, 250)
+      }
     }
-  }, [showInstallPrompt, dictionaryData])
+
+    tryShowWOTD()
+  }, [dictionaryData])
 
   useEffect(() => {
     if (showModal) {

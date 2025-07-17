@@ -21,7 +21,8 @@ export function Modal({ onClose, children, showCloseButton = true, closeOnOutsid
   }
 
   useOnClickOutside(modalContentRef, () => {
-    if (closeOnOutsideClick) {
+    const installPromptActive = sessionStorage.getItem('installPromptActive') === 'true'
+    if (closeOnOutsideClick && !installPromptActive) {
       onCloseClick()
     }
   })

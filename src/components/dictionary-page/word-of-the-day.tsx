@@ -85,7 +85,7 @@ function WordOfTheDay({ dictionaryData }: Readonly<WordOfTheDayProps>) {
     if (showModal) {
       if (window.matchMedia('(min-width: 768px').matches) {
         return (
-          <Modal onClose={() => wordOfTheDaySeen()}>
+          <Modal onClose={() => wordOfTheDaySeen()} closeOnOutsideClick={false}>
             <div className="w-full text-center text-3xl mb-5">Word of the Day</div>
             <WordModal
               term={data}

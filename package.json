@@ -49,7 +49,7 @@
     "@heroicons/react": "^2.2.0",
     "@mothertongues/search": "^0.0.3",
     "@popperjs/core": "^2.11.8",
-    "axios": "^1.8.2",
+    "axios": "^1.11.0",
     "classnames": "^2.5.1",
     "core-js": "^3.45.1",
     "dompurify": "^3.2.6",

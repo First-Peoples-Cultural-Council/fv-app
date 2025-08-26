@@ -21,6 +21,10 @@ export const InstallPromptProvider = ({ children }: InstallPromptProviderProps) 
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
 
   useEffect(() => {
+    sessionStorage.setItem('installPromptActive', showInstallPrompt ? 'true' : 'false')
+  }, [showInstallPrompt])
+
+  useEffect(() => {
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault()
       setDeferredPrompt(e)

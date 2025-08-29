@@ -88,56 +88,46 @@ self.addEventListener('message', (event) => {
   }
 })
 
-// Any other custom service worker logic can go here.
 self.addEventListener('fetch', function (event) {
-  event.preventDefault()
-  const url = event.request.url
+  const url = new URL(event.request.url)
 
-  event.respondWith(
-    (async function () {
-      // Check to see if the request can be served from the cache
-      if (isMediaFile(url)) {
+  // Only intercept media files
+  if (isMediaFile(url.href)) {
+    event.respondWith(
+      (async function () {
         try {
-          const file: File | null = await getMediaFile(url)
-
+          const file: File | null = await getMediaFile(url.href)
           if (file) {
             return new Response(file, { status: 200 })
           }
         } catch (err) {
-          console.error('service-worker: error getting media file from db: ', url, err)
+          console.error('service-worker: error getting media file from db: ', url.href, err)
         }
-      }
 
-      // Request new file if necessary
-      try {
-        const response = await fetch(event.request, { mode: 'cors' })
-
-        // Cache file if necessary
-
-        if (isMediaFile(url) && isNotFailedResponse(response)) {
-          //  Confirm no file exists
-          const alreadyHasFile = await db.hasMediaFile(url.toString())
-          if (!alreadyHasFile) {
-            // Try to save the media file as a new entry in the database.
-            const filename = getFileNameFromUrl(url)
-            const file = await getFileFromResponse(response.clone(), filename).catch(() => {
-              /* no action necessary */
-            })
-            if (file) db.addMediaFile(url, file).catch(() => {})
+        // Request new file if necessary
+        try {
+          const response = await fetch(event.request)
+          if (isNotFailedResponse(response)) {
+            //  Confirm no file exists
+            const alreadyHasFile = await db.hasMediaFile(url.href)
+            if (!alreadyHasFile) {
+              // Try to save the media file as a new entry in the database.
+              const filename = getFileNameFromUrl(url.href)
+              const file = await getFileFromResponse(response.clone(), filename).catch(() => {})
+              if (file) db.addMediaFile(url.href, file).catch(() => {})
+            }
           }
+          return response
+        } catch (error) {
+          console.error('service-worker fetch error', error)
+          return new Response('Offline', {
+            status: 503,
+            statusText: 'Service Unavailable',
+          })
         }
-
-        return response
-      } catch (error) {
-        console.error(error)
-        // Return a custom offline response
-        return new Response('Offline', {
-          status: 503,
-          statusText: 'Service Unavailable',
-        })
-      }
-    })()
-  )
+      })()
+    )
+  }
 })
 
 self.addEventListener('install', (event) => {

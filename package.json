@@ -119,7 +119,7 @@
     "jest-environment-jsdom": "^30.0.5",
     "lint-staged": "^15.4.3",
     "mini-css-extract-plugin": "^2.9.2",
-    "postcss-loader": "^8.1.1",
+    "postcss-loader": "^8.2.0",
     "prettier": "^3.6.2",
     "react-refresh": "^0.16.0",
     "serve": "^14.2.4",

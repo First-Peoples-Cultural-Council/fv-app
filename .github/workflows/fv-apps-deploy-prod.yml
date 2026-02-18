@@ -83,6 +83,7 @@ jobs:
           mv downloads/* modules/
           rm -rf modules/pre-prod-terraform.tf
           rm -rf modules/dev-terraform.tf
+          rm -rf modules/host-fonts-terraform.tf
           mv modules/prod-terraform.tf modules/terraform.tf
           cd modules
           ls
@@ -119,6 +120,7 @@ jobs:
           mv downloads/* modules/
           rm -rf modules/pre-prod-terraform.tf
           rm -rf modules/dev-terraform.tf
+          rm -rf modules/host-fonts-terraform.tf
           mv modules/prod-terraform.tf modules/terraform.tf
           cd modules
           ls

@@ -8,15 +8,18 @@ import { LoadingSpinner } from 'components/common/loading-spinner/loading-spinne
 import { navItems, extraNavItems } from 'constants/navigation'
 import InstallPrompt from 'components/install-prompt/install-prompt'
 import { InstallPromptProvider } from 'components/contexts/installPromptContext'
+import { NotificationProvider } from 'components/contexts/notificationContext'
 
 export function App() {
   return (
     <Suspense fallback={<LoadingSpinner />}>
       <InstallPromptProvider>
-        <Header navItems={navItems} extraNavItems={extraNavItems} />
-        <Outlet />
-        <InstallPrompt />
-        <MobileNav navItems={navItems} extraNavItems={extraNavItems} />
+        <NotificationProvider>
+          <Header navItems={navItems} extraNavItems={extraNavItems} />
+          <Outlet />
+          <InstallPrompt />
+          <MobileNav navItems={navItems} extraNavItems={extraNavItems} />
+        </NotificationProvider>
       </InstallPromptProvider>
     </Suspense>
   )

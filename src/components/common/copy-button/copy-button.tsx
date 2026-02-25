@@ -8,31 +8,34 @@ export interface CopyButtonProps {
 
 export function CopyButton({ label, text }: Readonly<CopyButtonProps>) {
   const { setNotification } = useNotification()
-  return text ? (
-    <button
-      data-testid="copy-btn"
-      className="flex items-center"
-      onClick={() => {
-        navigator.clipboard
-          .writeText(text ?? '')
-          .then(() => {
-            setTimeout(() => {
-              setNotification({
-                type: ALERT_TYPES.SUCCESS,
-                message: 'Success! The link has been copied to your clipboard.',
-              })
-            }, 100)
-          })
-          .catch((err: any) => {
-            console.error(err)
-          })
-      }}
-    >
+
+  if (!text) return null
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setNotification({
+        type: ALERT_TYPES.SUCCESS,
+        message: 'Success! The link has been copied to your clipboard.',
+      })
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error(err.message)
+      } else {
+        console.error('Unknown error copying to clipboard.', err)
+      }
+      setNotification({
+        type: ALERT_TYPES.ERROR,
+        message: 'Failed to copy to clipboard.',
+      })
+    }
+  }
+
+  return (
+    <button type="button" data-testid="copy-btn" className="flex items-center" onClick={handleCopy}>
       <i className="fv-copy pr-2 text-xl" />
       <span className="text-lg">{label ?? 'COPY'}</span>
     </button>
-  ) : (
-    <></>
   )
 }
 

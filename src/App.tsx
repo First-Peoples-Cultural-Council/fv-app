@@ -9,12 +9,14 @@ import { navItems, extraNavItems } from 'constants/navigation'
 import InstallPrompt from 'components/install-prompt/install-prompt'
 import { InstallPromptProvider } from 'components/contexts/installPromptContext'
 import { NotificationProvider } from 'components/contexts/notificationContext'
+import { Notification } from 'components/common/notification/notification'
 
 export function App() {
   return (
     <Suspense fallback={<LoadingSpinner />}>
       <InstallPromptProvider>
         <NotificationProvider>
+          <Notification />
           <Header navItems={navItems} extraNavItems={extraNavItems} />
           <Outlet />
           <InstallPrompt />

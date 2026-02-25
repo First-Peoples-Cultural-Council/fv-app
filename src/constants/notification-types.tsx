@@ -3,5 +3,4 @@ export const ALERT_TYPES = {
   ERROR: 'ERROR',
   WARNING: 'WARNING',
   INFO: 'INFO',
-  NEUTRAL: 'NEUTRAL',
 } as const

@@ -10,7 +10,7 @@ export function AlertBanner({ alertType, handleClose, message }: Readonly<AlertB
   switch (alertType) {
     case ALERT_TYPES.SUCCESS:
       return (
-        <div className="rounded-lg bg-jade-50 p-4">
+        <div className="rounded-lg bg-green-50 p-4">
           <div className="flex">
             <div className="shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" className="fill-current h-5 w-5">
@@ -18,7 +18,7 @@ export function AlertBanner({ alertType, handleClose, message }: Readonly<AlertB
               </svg>
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-jade-800">{message}</p>
+              <p className="text-sm font-medium text-green-800">{message}</p>
             </div>
             <div className="ml-auto pl-3">
               <div className="-mx-1.5 -my-1.5">
@@ -27,7 +27,7 @@ export function AlertBanner({ alertType, handleClose, message }: Readonly<AlertB
                     data-testid="success-close-btn"
                     type="button"
                     onClick={handleClose}
-                    className="inline-flex rounded-lg p-1.5 text-jade-500"
+                    className="inline-flex rounded-lg p-1.5 text-green-800 bg-green-50 border-green-800 focus:ring-green-600 focus:ring-offset-green-50"
                   >
                     <span className="sr-only">Dismiss</span>
                     <svg
@@ -48,7 +48,7 @@ export function AlertBanner({ alertType, handleClose, message }: Readonly<AlertB
       )
     case ALERT_TYPES.ERROR:
       return (
-        <div className="rounded-lg bg-scarlet-50 p-4">
+        <div className="rounded-lg p-4 bg-red-50">
           <div className="flex">
             <div className="shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" className="fill-current h-5 w-5">
@@ -56,7 +56,7 @@ export function AlertBanner({ alertType, handleClose, message }: Readonly<AlertB
               </svg>
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-scarlet-900">{message}</p>
+              <p className="text-sm font-medium text-red-800">{message}</p>
             </div>
             <div className="ml-auto pl-3">
               <div className="-mx-1.5 -my-1.5">
@@ -65,7 +65,7 @@ export function AlertBanner({ alertType, handleClose, message }: Readonly<AlertB
                     data-testid="error-close-btn"
                     type="button"
                     onClick={handleClose}
-                    className="inline-flex rounded-lg p-1.5 text-scarlet-700"
+                    className="inline-flex rounded-lg p-1.5 text-red-800 bg-red-50 border-red-800 focus:ring-red-600 focus:ring-offset-red-50"
                   >
                     <span className="sr-only">Dismiss</span>
                     <svg
@@ -86,7 +86,7 @@ export function AlertBanner({ alertType, handleClose, message }: Readonly<AlertB
       )
     case ALERT_TYPES.WARNING:
       return (
-        <div className="rounded-lg bg-ochre-50 p-4">
+        <div className="rounded-lg p-4 bg-yellow-50">
           <div className="flex">
             <div className="shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" className="fill-current h-5 w-5">
@@ -94,7 +94,7 @@ export function AlertBanner({ alertType, handleClose, message }: Readonly<AlertB
               </svg>
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-ochre-800">{message}</p>
+              <p className="text-sm font-medium text-yellow-800">{message}</p>
             </div>
             <div className="ml-auto pl-3">
               <div className="-mx-1.5 -my-1.5">
@@ -103,7 +103,7 @@ export function AlertBanner({ alertType, handleClose, message }: Readonly<AlertB
                     data-testid="warning-close-btn"
                     type="button"
                     onClick={handleClose}
-                    className="inline-flex rounded-lg p-1.5 text-ochre-500"
+                    className="inline-flex rounded-lg p-1.5 text-yellow-800 bg-yellow-50 border-yellow-800 focus:ring-yellow-600 focus:ring-offset-yellow-50"
                   >
                     <span className="sr-only">Dismiss</span>
                     <svg
@@ -123,8 +123,9 @@ export function AlertBanner({ alertType, handleClose, message }: Readonly<AlertB
         </div>
       )
     case ALERT_TYPES.INFO:
+    default:
       return (
-        <div className="rounded-lg bg-blumine-50 p-4">
+        <div className="rounded-lg p-4 bg-blue-50">
           <div className="flex">
             <div className="shrink-0">
               <svg
@@ -137,7 +138,7 @@ export function AlertBanner({ alertType, handleClose, message }: Readonly<AlertB
               </svg>
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-blumine-800">{message}</p>
+              <p className="text-sm font-medium text-blue-800">{message}</p>
             </div>
             <div className="ml-auto pl-3">
               <div className="-mx-1.5 -my-1.5">
@@ -146,51 +147,7 @@ export function AlertBanner({ alertType, handleClose, message }: Readonly<AlertB
                     data-testid="info-close-btn"
                     type="button"
                     onClick={handleClose}
-                    className="inline-flex rounded-lg p-1.5 text-blumine-500"
-                  >
-                    <span className="sr-only">Dismiss</span>
-                    <svg
-                      className="fill-current h-5 w-5"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      )
-    case ALERT_TYPES.NEUTRAL:
-    default:
-      return (
-        <div className="rounded-lg bg-charcoal-50 shadow-lg p-4">
-          <div className="flex">
-            <div className="shrink-0">
-              <svg
-                className="fill-current h-5 w-5"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 450 450"
-                stroke="currentColor"
-              >
-                <path d="M225 0C100.74 0 0 100.74 0 225s100.74 225 225 225 225-100.74 225-225S349.26 0 225 0zm-26 322.12v-103a26 26 0 0152 0v103a26 26 0 01-52 0zm26-157.37a31.25 31.25 0 1131.25-31.25A31.25 31.25 0 01225 164.75z" />
-              </svg>
-            </div>
-            <div className="ml-3">
-              <p className="text-sm font-medium text-charcoal-900">{message}</p>
-            </div>
-            <div className="ml-auto pl-3">
-              <div className="-mx-1.5 -my-1.5">
-                {handleClose && (
-                  <button
-                    data-testid="neutral-close-btn"
-                    type="button"
-                    onClick={handleClose}
-                    className="inline-flex rounded-lg p-1.5 text-charcoal-500"
+                    className="inline-flex rounded-lg p-1.5 text-blue-800 bg-blue-50 border-blue-800 focus:ring-blue-600 focus:ring-offset-blue-50"
                   >
                     <span className="sr-only">Dismiss</span>
                     <svg

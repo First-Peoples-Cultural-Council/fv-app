@@ -1,4 +1,5 @@
 import { useNotification } from 'components/contexts/notificationContext'
+import { ALERT_TYPES } from 'constants/notification-types'
 
 export interface CopyButtonProps {
   label?: string
@@ -17,7 +18,7 @@ export function CopyButton({ label, text }: Readonly<CopyButtonProps>) {
           .then(() => {
             setTimeout(() => {
               setNotification({
-                type: 'SUCCESS',
+                type: ALERT_TYPES.SUCCESS,
                 message: 'Success! The link has been copied to your clipboard.',
               })
             }, 100)

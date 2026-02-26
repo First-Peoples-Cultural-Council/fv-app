@@ -1,10 +1,10 @@
-import { useState } from 'react'
 import { Description } from '@mothertongues/search'
 import classNames from 'classnames'
 
 // FPCC
-import Alert from 'components/common/alert/alert'
+import { ALERT_TYPES } from 'constants/notification-types'
 import { useAudio } from 'util/useAudio'
+import { useNotification } from 'components/contexts/notificationContext'
 
 export interface AudioControlProps {
   audioSrc: string
@@ -13,8 +13,10 @@ export interface AudioControlProps {
 }
 
 export function AudioControl({ audioSrc, description, styleType }: Readonly<AudioControlProps>) {
-  const [showAlert, setShowAlert] = useState(false)
   const { audioAvailable, audioPlaying, toggleAudio } = useAudio(audioSrc)
+  const { setNotification } = useNotification()
+
+  const offlineWarning = 'Audio files are not available offline. Please go online to listen to this audio.'
 
   return (
     <>
@@ -26,8 +28,14 @@ export function AudioControl({ audioSrc, description, styleType }: Readonly<Audi
             'opacity-30': !audioAvailable,
           })}
           onClick={() => {
-            if (audioAvailable) return toggleAudio()
-            return setShowAlert(true)
+            if (audioAvailable) {
+              return toggleAudio()
+            } else {
+              return setNotification({
+                type: ALERT_TYPES.WARNING,
+                message: offlineWarning,
+              })
+            }
           }}
         >
           <i className="fv-volume-up text-3xl" />
@@ -42,8 +50,14 @@ export function AudioControl({ audioSrc, description, styleType }: Readonly<Audi
             'opacity-30 bg-gray-500': !audioAvailable,
           })}
           onClick={() => {
-            if (audioAvailable) return toggleAudio()
-            return setShowAlert(true)
+            if (audioAvailable) {
+              return toggleAudio()
+            } else {
+              return setNotification({
+                type: ALERT_TYPES.WARNING,
+                message: offlineWarning,
+              })
+            }
           }}
         >
           {audioPlaying ? <i className="fv-pause" /> : <i className="fv-play" />}
@@ -56,20 +70,19 @@ export function AudioControl({ audioSrc, description, styleType }: Readonly<Audi
           {audioAvailable ? (
             <audio src={audioSrc} controls />
           ) : (
-            <button type="button" className="fv-songs text-3xl text-gray-400" onClick={() => setShowAlert(true)} />
+            <button
+              type="button"
+              className="fv-songs text-3xl text-gray-400"
+              onClick={() => {
+                setNotification({
+                  type: ALERT_TYPES.WARNING,
+                  message: offlineWarning,
+                })
+              }}
+            />
           )}
         </>
       )}
-
-      <Alert
-        type={'warning'}
-        message="Audio files are not available offline. Please go online to listen to this audio."
-        showDismissButton={true}
-        showAlert={showAlert}
-        dismissAlert={function (): void {
-          setShowAlert(false)
-        }}
-      />
     </>
   )
 }

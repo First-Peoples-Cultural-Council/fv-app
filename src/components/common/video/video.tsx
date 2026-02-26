@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 
 // FPCC
 import IndexedDBService from 'services/indexedDbService'
-import Alert from 'components/common/alert/alert'
+import { ALERT_TYPES } from 'constants/notification-types'
+import { useNotification } from 'components/contexts/notificationContext'
 import { useDetectOnlineStatus } from 'util/useDetectOnlineStatus'
 
 export interface FvVideoProps {
@@ -12,9 +13,9 @@ export interface FvVideoProps {
 }
 
 export function FvVideo({ className, disabledClassName, src }: Readonly<FvVideoProps>) {
-  const [showAlert, setShowAlert] = useState(false)
   const [hasFile, setHasFile] = useState(false)
   const { isOnline } = useDetectOnlineStatus()
+  const { setNotification } = useNotification()
 
   useEffect(() => {
     const db = new IndexedDBService('firstVoicesIndexedDb')
@@ -33,19 +34,14 @@ export function FvVideo({ className, disabledClassName, src }: Readonly<FvVideoP
         <button
           type="button"
           className={`fv-video text-20xl text-gray-500/25 ${disabledClassName}`}
-          onClick={() => setShowAlert(true)}
+          onClick={() =>
+            setNotification({
+              type: ALERT_TYPES.WARNING,
+              message: 'Videos are not available offline. Please go online to access this video.',
+            })
+          }
         />
       )}
-
-      <Alert
-        type={'warning'}
-        message="Videos are not available offline. Please go online to access this video."
-        showDismissButton={true}
-        showAlert={showAlert}
-        dismissAlert={function (): void {
-          setShowAlert(false)
-        }}
-      />
     </>
   )
 }

@@ -3,12 +3,13 @@ import axios from 'axios'
 import { Audio1, DictionaryEntryExportFormat } from '@mothertongues/search'
 
 // FPCC
-import Alert from 'components/common/alert/alert'
+import { ALERT_TYPES } from 'constants/notification-types'
 import { useDetectOnlineStatus } from 'util/useDetectOnlineStatus'
 import ConfirmDialog from 'components/common/confirm/confirm'
 import Modal from 'components/common/modal/modal'
 import { FvCharacter, FvWord } from 'components/common/data'
 import { useStartsWithChar } from 'util/useStartsWithChar'
+import { useNotification } from 'components/contexts/notificationContext'
 
 export interface DownloadButtonProps {
   dictionaryData: DictionaryEntryExportFormat[]
@@ -21,23 +22,24 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
   const [showDownloadProgress, setShowDownloadProgress] = useState(false)
   const [currentlyDownloading, setCurrentlyDownloading] = useState(false)
   const { isOnline } = useDetectOnlineStatus()
-  const [showAlertNotOnline, setShowAlertNotOnline] = useState(false)
   const { entriesStartingWith } = useStartsWithChar(dictionaryData, selected)
+  const { setNotification } = useNotification()
+
   return (
     <>
       <div className="flex justify-center items-center">
-        <button onClick={() => (isOnline ? promptForDownload() : setShowAlertNotOnline(true))}>
+        <button
+          onClick={() =>
+            isOnline
+              ? promptForDownload()
+              : setNotification({
+                  type: ALERT_TYPES.WARNING,
+                  message: 'Content not downloaded.  Please try again when you have access to the internet.',
+                })
+          }
+        >
           <span className="fv-cloud-arrow-down-regular text-3xl justify-self-end cursor-pointer" />
         </button>
-        <Alert
-          type={'warning'}
-          message="Content not downloaded.  Please try again when you have access to the internet."
-          showDismissButton={true}
-          showAlert={showAlertNotOnline}
-          dismissAlert={function (): void {
-            setShowAlertNotOnline(false)
-          }}
-        />
       </div>
       {showConfirmDialog && (
         <ConfirmDialog

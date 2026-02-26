@@ -31,7 +31,6 @@ export interface NotificationProviderProps {
 export function NotificationProvider({ children }: Readonly<NotificationProviderProps>) {
   const [notification, setNotification] = useState<Notification>(null)
 
-  // Only change the value object if notification changes
   const value = useMemo(() => ({ notification, setNotification }), [notification])
 
   return <NotificationContext.Provider value={value}>{children}</NotificationContext.Provider>

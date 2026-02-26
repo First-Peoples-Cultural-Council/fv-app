@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Dialog, DialogPanel } from '@headlessui/react'
 
 import { useNotification } from 'components/contexts/notificationContext'
-import { AlertBanner } from '../alert-banner/alert-banner'
+import { AlertBanner } from 'components/common/alert-banner/alert-banner'
 
 export function NotificationBanner() {
   const { notification, setNotification } = useNotification()

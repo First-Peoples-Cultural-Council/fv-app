@@ -4,7 +4,6 @@ import Link from 'assets/icons/link'
 import Twitter from 'assets/icons/twitter'
 import LinkedIn from 'assets/icons/Linkedin'
 import Facebook from 'assets/icons/Facebook'
-import CopyLinkToast from './copyLinkToast'
 import { useNotification } from 'components/contexts/notificationContext'
 import { ALERT_TYPES } from 'constants/notification-types'
 
@@ -16,7 +15,6 @@ export interface ShareButtonProps {
 
 export function ShareButton({ title, text, url }: ShareButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const [toastMsg, setToastMsg] = useState<string>('')
   const { setNotification } = useNotification()
 
   const handleCopy = async () => {
@@ -123,7 +121,6 @@ export function ShareButton({ title, text, url }: ShareButtonProps) {
           </div>
         </div>
       )}
-      {toastMsg && <CopyLinkToast message={toastMsg} duration={2000} onDone={() => setToastMsg('')} />}
     </>
   )
 }

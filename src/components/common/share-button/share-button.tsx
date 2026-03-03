@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Mail from 'assets/icons/Mail'
 import Link from 'assets/icons/link'
 import Twitter from 'assets/icons/twitter'
 import LinkedIn from 'assets/icons/Linkedin'
 import Facebook from 'assets/icons/Facebook'
-import CopyLinkToast from './copyLinkToast'
+import { useNotification } from 'components/contexts/notificationContext'
+import { ALERT_TYPES } from 'constants/notification-types'
 
 export interface ShareButtonProps {
   readonly title: string
@@ -14,7 +15,27 @@ export interface ShareButtonProps {
 
 export function ShareButton({ title, text, url }: ShareButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const [toastMsg, setToastMsg] = useState<string>('')
+  const { setNotification } = useNotification()
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setNotification({
+        type: ALERT_TYPES.SUCCESS,
+        message: 'Success! The link has been copied to your clipboard.',
+      })
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error(err.message)
+      } else {
+        console.error('Unknown error copying to clipboard.', err)
+      }
+      setNotification({
+        type: ALERT_TYPES.ERROR,
+        message: 'Failed to copy to clipboard.',
+      })
+    }
+  }
 
   return (
     <>
@@ -83,12 +104,7 @@ export function ShareButton({ title, text, url }: ShareButtonProps) {
 
               <button
                 type="button"
-                onClick={() => {
-                  navigator.clipboard
-                    .writeText(url)
-                    .then(() => setToastMsg('Link copied!'))
-                    .catch(() => setToastMsg('Copy failed'))
-                }}
+                onClick={handleCopy}
                 className="my-2 mx-1 h-10 w-10 p-1 inline-flex items-center justify-center rounded bg-stone-600 hover:bg-stone-700"
               >
                 <Link className="fill-current h-5 w-5 text-white" />
@@ -105,7 +121,6 @@ export function ShareButton({ title, text, url }: ShareButtonProps) {
           </div>
         </div>
       )}
-      {toastMsg && <CopyLinkToast message={toastMsg} duration={2000} onDone={() => setToastMsg('')} />}
     </>
   )
 }

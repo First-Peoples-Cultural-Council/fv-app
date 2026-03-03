@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 
 // FPCC
+import { ALERT_TYPES } from 'constants/notification-types'
 import IndexedDBService from 'services/indexedDbService'
-import Alert from 'components/common/alert/alert'
 import { useDetectOnlineStatus } from 'util/useDetectOnlineStatus'
+import { useNotification } from 'components/contexts/notificationContext'
 
 export interface FvImageProps {
   className?: string
@@ -13,9 +14,9 @@ export interface FvImageProps {
 }
 
 export function FvImage({ className, disabledClassName, src, alt }: Readonly<FvImageProps>) {
-  const [showAlert, setShowAlert] = useState(false)
   const [hasFile, setHasFile] = useState(false)
   const { isOnline } = useDetectOnlineStatus()
+  const { setNotification } = useNotification()
 
   useEffect(() => {
     const db = new IndexedDBService('firstVoicesIndexedDb')
@@ -32,19 +33,14 @@ export function FvImage({ className, disabledClassName, src, alt }: Readonly<FvI
         <button
           type="button"
           className={`fv-picture text-20xl text-gray-500/25 ${disabledClassName}`}
-          onClick={() => setShowAlert(true)}
+          onClick={() => {
+            setNotification({
+              type: ALERT_TYPES.WARNING,
+              message: 'Images are not available offline. Please go online to access this image.',
+            })
+          }}
         />
       )}
-
-      <Alert
-        type={'warning'}
-        message="Images are not available offline. Please go online to access this image."
-        showDismissButton={true}
-        showAlert={showAlert}
-        dismissAlert={function (): void {
-          setShowAlert(false)
-        }}
-      />
     </>
   )
 }

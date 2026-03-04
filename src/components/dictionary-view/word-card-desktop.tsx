@@ -5,7 +5,6 @@ import { Audio1 } from '@mothertongues/search'
 import { FvWord, FvWordLocation } from 'components/common/data'
 import Modal from 'components/common/modal/modal'
 import { useModal } from 'components/common/use-modal/use-modal'
-import { useAudioContext } from 'components/contexts/audioContext'
 import { applyHighlighting } from 'util/applyHighlighting'
 import WordModal from 'components/dictionary-view/word-modal'
 
@@ -18,7 +17,6 @@ function WordCardDesktop({ item, wordWidthClass }: Readonly<WordCardDesktopProps
   const wordLocations: FvWordLocation[] | null = item?.locations ?? null
   const { word, definition, audio } = item
   const { setShowModal, showModal, closeModal } = useModal()
-  const { stopAll } = useAudioContext()
 
   return (
     <>
@@ -33,7 +31,9 @@ function WordCardDesktop({ item, wordWidthClass }: Readonly<WordCardDesktopProps
             </div>
           </div>
           <div className="col-span-1">
-            {audio?.map((mtAudio: Audio1) => <i key={mtAudio.filename} className="fv-volume-up" />)}
+            {audio?.map((mtAudio: Audio1) => (
+              <i key={mtAudio.filename} className="fv-volume-up" />
+            ))}
           </div>
           <div className="col-span-7 text-left">
             <p className="truncate">
@@ -51,7 +51,6 @@ function WordCardDesktop({ item, wordWidthClass }: Readonly<WordCardDesktopProps
             term={item}
             onClose={() => {
               closeModal()
-              stopAll()
             }}
           />
         </Modal>

@@ -4,14 +4,12 @@ import { useParams } from 'react-router'
 // FPCC
 import WordModal from 'components/dictionary-view/word-modal'
 import { FvWord, isFvWord } from 'components/common/data'
-import { useAudioContext } from 'components/contexts/audioContext'
 import PageNotFound from 'components/page-not-found/page-not-found'
 import BackButton from 'components/common/back-button/back-button'
 import { useDictionaryData } from 'components/dictionary-page/dictionary-page'
 
 function DictionaryEntryView() {
   const { id } = useParams()
-  const { stopAll } = useAudioContext()
   const { dictionaryHash } = useDictionaryData()
 
   const [dictionaryEntry, setDictionaryEntry] = useState<FvWord | null | undefined>(null)
@@ -30,14 +28,7 @@ function DictionaryEntryView() {
           <BackButton />
         </div>
         {dictionaryEntry === undefined && <PageNotFound />}
-        {isFvWord(dictionaryEntry) && (
-          <WordModal
-            term={dictionaryEntry}
-            onClose={() => {
-              stopAll()
-            }}
-          />
-        )}
+        {isFvWord(dictionaryEntry) && <WordModal term={dictionaryEntry} onClose={() => {}} />}
       </div>
     </div>
   )

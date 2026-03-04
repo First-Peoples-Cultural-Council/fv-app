@@ -1,10 +1,15 @@
-import { createContext, ReactNode, useCallback, useContext, useMemo, useState } from 'react'
+import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
-export const AudioContext = createContext({
-  audios: [] as HTMLAudioElement[],
-  addAudio: (audio: HTMLAudioElement) => {},
-  removeAudio: (audio: HTMLAudioElement) => {},
-  stopAll: () => {},
+interface AudioContextValue {
+  currentAudio: HTMLAudioElement | null
+  playAudio: (src: string) => void
+  pauseAudio: () => void
+}
+
+export const AudioContext = createContext<AudioContextValue>({
+  currentAudio: null,
+  playAudio: () => {},
+  pauseAudio: () => {},
 })
 
 export interface AudioProviderProps {
@@ -12,31 +17,45 @@ export interface AudioProviderProps {
 }
 
 export const AudioProvider = ({ children }: AudioProviderProps) => {
-  const [audios, setAudios] = useState<HTMLAudioElement[]>([])
+  const [currentAudio, setCurrentAudio] = useState<HTMLAudioElement | null>(null)
 
-  const addAudio = useCallback((audio: HTMLAudioElement) => {
-    setAudios((audios: HTMLAudioElement[]): HTMLAudioElement[] => [...audios, audio])
-  }, [])
+  const pauseAudio = useCallback(() => {
+    if (currentAudio) {
+      currentAudio.pause()
+    }
+  }, [currentAudio])
 
-  const removeAudio = useCallback((audio: HTMLAudioElement) => {
-    setAudios((audios) => audios.filter((a) => a !== audio))
-  }, [])
+  const playAudio = useCallback(
+    (src: string) => {
+      // Stop current audio
+      if (currentAudio) {
+        currentAudio.pause()
+        currentAudio.currentTime = 0
+      }
 
-  const stopAll = useCallback(() => {
-    audios.forEach((audio) => {
-      audio.pause()
-      audio.currentTime = 0
-    })
-  }, [audios])
+      const audio = new Audio(src)
+      setCurrentAudio(audio)
+      audio.play()
+    },
+    [currentAudio]
+  )
+
+  // Unmount
+  useEffect(() => {
+    return () => {
+      if (currentAudio) {
+        currentAudio.pause()
+      }
+    }
+  }, [currentAudio])
 
   const value = useMemo(
     () => ({
-      audios,
-      addAudio,
-      removeAudio,
-      stopAll,
+      currentAudio,
+      playAudio,
+      pauseAudio,
     }),
-    [audios, addAudio, removeAudio, stopAll]
+    [currentAudio, playAudio, pauseAudio]
   )
 
   return <AudioContext.Provider value={value}>{children}</AudioContext.Provider>

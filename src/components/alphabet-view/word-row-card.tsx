@@ -5,7 +5,6 @@ import { FvWord, FvWordLocation } from 'components/common/data'
 import Modal from 'components/common/modal/modal'
 import FullScreenModal from 'components/common/full-screen-modal/full-screen-modal'
 import { useModal } from 'components/common/use-modal/use-modal'
-import { useAudioContext } from 'components/contexts/audioContext'
 import { applyHighlighting } from 'util/applyHighlighting'
 
 export interface WordAlphabetRowCardProps {
@@ -17,7 +16,6 @@ function WordAlphabetRowCard({ term }: Readonly<WordAlphabetRowCardProps>) {
   const wordLocations: FvWordLocation[] | null = term?.locations ?? null
 
   const { word, definition } = term
-  const { stopAll } = useAudioContext()
 
   return (
     <>
@@ -43,7 +41,6 @@ function WordAlphabetRowCard({ term }: Readonly<WordAlphabetRowCardProps>) {
             term={term}
             onClose={() => {
               closeModal()
-              stopAll()
             }}
           />
         </Modal>
@@ -54,7 +51,6 @@ function WordAlphabetRowCard({ term }: Readonly<WordAlphabetRowCardProps>) {
             term={term}
             onClose={() => {
               closeModal()
-              stopAll()
             }}
           />
         </FullScreenModal>

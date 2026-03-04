@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // FPCC
 import WordModal from 'components/dictionary-view/word-modal'
@@ -7,8 +7,6 @@ import fetchWordOfDayData from 'services/wordOfTheDayApiService'
 import { FvWord } from 'components/common/data'
 import FullScreenModal from 'components/common/full-screen-modal/full-screen-modal'
 import { LoadingSpinner } from 'components/common/loading-spinner/loading-spinner'
-import { useAudioContext } from 'components/contexts/audioContext'
-import { InstallPromptContext } from 'components/contexts/installPromptContext'
 
 export interface WordOfTheDayProps {
   dictionaryData: FvWord[]
@@ -16,8 +14,6 @@ export interface WordOfTheDayProps {
 
 function WordOfTheDay({ dictionaryData }: Readonly<WordOfTheDayProps>) {
   const today = new Date()
-  const { stopAll } = useAudioContext()
-  const { showInstallPrompt } = useContext(InstallPromptContext)
 
   const [showModal, setShowModal] = useState(false)
   const [data, setData] = useState<FvWord | null>(null)
@@ -91,7 +87,6 @@ function WordOfTheDay({ dictionaryData }: Readonly<WordOfTheDayProps>) {
               term={data}
               onClose={() => {
                 wordOfTheDaySeen()
-                stopAll()
               }}
             />
           </Modal>
@@ -104,7 +99,6 @@ function WordOfTheDay({ dictionaryData }: Readonly<WordOfTheDayProps>) {
               term={data}
               onClose={() => {
                 wordOfTheDaySeen()
-                stopAll()
               }}
             />
           </FullScreenModal>

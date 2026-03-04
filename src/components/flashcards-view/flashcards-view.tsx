@@ -11,7 +11,6 @@ import IndexedDBService from 'services/indexedDbService'
 import { ApiContext } from 'components/contexts/apiContext'
 import { FlashcardView } from 'components/flashcards-view/flashcard-view'
 import Modal from 'components/common/modal/modal'
-import { useAudioContext } from 'components/contexts/audioContext'
 
 export function FlashcardsView() {
   const [showSelectModal, setShowSelectModal] = useState(false)
@@ -32,7 +31,6 @@ export function FlashcardsView() {
   const [dataCategories, setDataCategories] = useState<any>([])
 
   const { isApiCallInProgress } = useContext(ApiContext)
-  const { stopAll } = useAudioContext()
 
   const SelectModalRef = useRef<HTMLDivElement>(null)
   const CategoryModalRef = useRef<HTMLDivElement>(null)
@@ -288,7 +286,6 @@ export function FlashcardsView() {
 
   function setDataForFlashcard(fcIndex: number) {
     // Stop all audio when flashcard changes
-    stopAll()
     if (fcIndex === dataForFlashcardGroup.length) {
       setShowFlashcardModal(false)
       setShowDonePromptModal(true)

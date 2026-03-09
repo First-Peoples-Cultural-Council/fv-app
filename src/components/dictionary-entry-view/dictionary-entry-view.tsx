@@ -7,10 +7,12 @@ import { FvWord, isFvWord } from 'components/common/data'
 import PageNotFound from 'components/page-not-found/page-not-found'
 import BackButton from 'components/common/back-button/back-button'
 import { useDictionaryData } from 'components/dictionary-page/dictionary-page'
+import { useAudioContext } from 'components/contexts/audioContext'
 
 function DictionaryEntryView() {
   const { id } = useParams()
   const { dictionaryHash } = useDictionaryData()
+  const { stopAudio } = useAudioContext()
 
   const [dictionaryEntry, setDictionaryEntry] = useState<FvWord | null | undefined>(null)
 
@@ -28,7 +30,14 @@ function DictionaryEntryView() {
           <BackButton />
         </div>
         {dictionaryEntry === undefined && <PageNotFound />}
-        {isFvWord(dictionaryEntry) && <WordModal term={dictionaryEntry} onClose={() => {}} />}
+        {isFvWord(dictionaryEntry) && (
+          <WordModal
+            term={dictionaryEntry}
+            onClose={() => {
+              stopAudio()
+            }}
+          />
+        )}
       </div>
     </div>
   )

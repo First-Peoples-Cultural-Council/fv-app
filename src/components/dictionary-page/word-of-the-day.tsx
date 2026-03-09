@@ -7,6 +7,7 @@ import fetchWordOfDayData from 'services/wordOfTheDayApiService'
 import { FvWord } from 'components/common/data'
 import FullScreenModal from 'components/common/full-screen-modal/full-screen-modal'
 import { LoadingSpinner } from 'components/common/loading-spinner/loading-spinner'
+import { useAudioContext } from 'components/contexts/audioContext'
 
 export interface WordOfTheDayProps {
   dictionaryData: FvWord[]
@@ -14,6 +15,7 @@ export interface WordOfTheDayProps {
 
 function WordOfTheDay({ dictionaryData }: Readonly<WordOfTheDayProps>) {
   const today = new Date()
+  const { stopAudio } = useAudioContext()
 
   const [showModal, setShowModal] = useState(false)
   const [data, setData] = useState<FvWord | null>(null)
@@ -55,7 +57,7 @@ function WordOfTheDay({ dictionaryData }: Readonly<WordOfTheDayProps>) {
       setData(response)
     }
 
-    fetchData().catch((err: any) => {
+    fetchData().catch((err: unknown) => {
       console.error(err)
     })
   }, [dictionaryData])
@@ -81,11 +83,18 @@ function WordOfTheDay({ dictionaryData }: Readonly<WordOfTheDayProps>) {
     if (showModal) {
       if (window.matchMedia('(min-width: 768px').matches) {
         return (
-          <Modal onClose={() => wordOfTheDaySeen()} closeOnOutsideClick={false}>
+          <Modal
+            onClose={() => {
+              stopAudio()
+              wordOfTheDaySeen()
+            }}
+            closeOnOutsideClick={false}
+          >
             <div className="w-full text-center text-3xl mb-5">Word of the Day</div>
             <WordModal
               term={data}
               onClose={() => {
+                stopAudio()
                 wordOfTheDaySeen()
               }}
             />
@@ -93,11 +102,17 @@ function WordOfTheDay({ dictionaryData }: Readonly<WordOfTheDayProps>) {
         )
       } else if (!window.matchMedia('(min-width: 768px').matches) {
         return (
-          <FullScreenModal onClose={() => wordOfTheDaySeen()}>
+          <FullScreenModal
+            onClose={() => {
+              stopAudio()
+              wordOfTheDaySeen()
+            }}
+          >
             <div className="flex w-full text-center text-3xl mb-5">Word of the Day</div>
             <WordModal
               term={data}
               onClose={() => {
+                stopAudio()
                 wordOfTheDaySeen()
               }}
             />

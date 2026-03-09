@@ -24,15 +24,18 @@ export function useAudio(audioSrc: string) {
 
     const handleEnded = () => setAudioPlaying(false)
     const handlePause = () => setAudioPlaying(false)
+    const handleStop = () => setAudioPlaying(false)
     const handlePlay = () => setAudioPlaying(true)
 
     currentAudio.addEventListener('ended', handleEnded)
     currentAudio.addEventListener('pause', handlePause)
+    currentAudio.addEventListener('stop', handleStop)
     currentAudio.addEventListener('play', handlePlay)
 
     return () => {
       currentAudio.removeEventListener('ended', handleEnded)
       currentAudio.removeEventListener('pause', handlePause)
+      currentAudio.removeEventListener('stop', handleStop)
       currentAudio.removeEventListener('play', handlePlay)
     }
   }, [currentAudio])

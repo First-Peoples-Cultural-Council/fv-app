@@ -11,8 +11,10 @@ import IndexedDBService from 'services/indexedDbService'
 import { ApiContext } from 'components/contexts/apiContext'
 import { FlashcardView } from 'components/flashcards-view/flashcard-view'
 import Modal from 'components/common/modal/modal'
+import { useAudioContext } from 'components/contexts/audioContext'
 
 export function FlashcardsView() {
+  const { stopAudio } = useAudioContext()
   const [showSelectModal, setShowSelectModal] = useState(false)
   const [showCategoryModal, setShowCategoryModal] = useState(false)
   const [showFlashcardModal, setShowFlashcardModal] = useState(false)
@@ -189,7 +191,10 @@ export function FlashcardsView() {
                 <div className="grid h-10 w-10 bg-gray-50 float-right rounded-full mb-2 md:place-items-center">
                   <button
                     className="p-2 ml-auto bg-transparent border-0 text-black float-right text-1xl leading-none font-semibold outline-none focus:outline-none"
-                    onClick={() => setShowFlashcardModal(false)}
+                    onClick={() => {
+                      stopAudio()
+                      setShowFlashcardModal(false)
+                    }}
                   >
                     <i className="fv-close"></i>
                   </button>
@@ -285,7 +290,9 @@ export function FlashcardsView() {
   }
 
   function setDataForFlashcard(fcIndex: number) {
-    // Stop all audio when flashcard changes
+    // Stop current audio when flashcard changes
+    stopAudio()
+
     if (fcIndex === dataForFlashcardGroup.length) {
       setShowFlashcardModal(false)
       setShowDonePromptModal(true)

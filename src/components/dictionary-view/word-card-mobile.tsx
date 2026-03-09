@@ -6,6 +6,7 @@ import WordModal from 'components/dictionary-view/word-modal'
 import { FvWord, FvWordLocation } from 'components/common/data'
 import { useModal } from 'components/common/use-modal/use-modal'
 import { applyHighlighting } from 'util/applyHighlighting'
+import { useAudioContext } from 'components/contexts/audioContext'
 
 export interface WordCardMobileProps {
   item: FvWord
@@ -15,6 +16,7 @@ function WordCardMobile({ item }: Readonly<WordCardMobileProps>) {
   const wordLocations: FvWordLocation[] | null = item?.locations ?? null
   const { setShowModal, showModal, closeModal } = useModal()
   const { word, definition, audio } = item
+  const { stopAudio } = useAudioContext()
 
   return (
     <>
@@ -42,7 +44,12 @@ function WordCardMobile({ item }: Readonly<WordCardMobileProps>) {
         </div>
       </button>
       {showModal && (
-        <FullScreenModal onClose={() => closeModal()}>
+        <FullScreenModal
+          onClose={() => {
+            stopAudio()
+            closeModal()
+          }}
+        >
           <WordModal
             term={item}
             onClose={() => {

@@ -7,6 +7,7 @@ import Modal from 'components/common/modal/modal'
 import { useModal } from 'components/common/use-modal/use-modal'
 import { applyHighlighting } from 'util/applyHighlighting'
 import WordModal from 'components/dictionary-view/word-modal'
+import { useAudioContext } from 'components/contexts/audioContext'
 
 export interface WordCardDesktopProps {
   item: FvWord
@@ -17,6 +18,7 @@ function WordCardDesktop({ item, wordWidthClass }: Readonly<WordCardDesktopProps
   const wordLocations: FvWordLocation[] | null = item?.locations ?? null
   const { word, definition, audio } = item
   const { setShowModal, showModal, closeModal } = useModal()
+  const { stopAudio } = useAudioContext()
 
   return (
     <>
@@ -46,7 +48,12 @@ function WordCardDesktop({ item, wordWidthClass }: Readonly<WordCardDesktopProps
         </div>
       </button>
       {showModal && (
-        <Modal onClose={() => closeModal()}>
+        <Modal
+          onClose={() => {
+            stopAudio()
+            closeModal()
+          }}
+        >
           <WordModal
             term={item}
             onClose={() => {

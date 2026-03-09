@@ -1,11 +1,9 @@
-import { useAudioContext } from 'components/contexts/audioContext'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 
 // Custom hook to handle modal functionality
 export function useModal() {
   const navigate = useNavigate()
-  const { stopAudio } = useAudioContext()
   const [showModal, setShowModal] = useState<boolean>(false)
 
   function handleBodyOverflow() {
@@ -27,7 +25,6 @@ export function useModal() {
     if (sourcePageUrl) {
       navigate(sourcePageUrl)
     }
-    stopAudio()
     setShowModal(false)
   }
 

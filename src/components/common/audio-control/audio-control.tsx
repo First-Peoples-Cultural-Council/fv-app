@@ -38,7 +38,7 @@ export function AudioControl({ audioSrc, description, styleType }: Readonly<Audi
             }
           }}
         >
-          <i className="fv-volume-up text-3xl" />
+          {audioPlaying ? <i className="fv-pause text-3xl" /> : <i className="fv-play text-3xl" />}
         </button>
       )}
 

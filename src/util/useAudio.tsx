@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useMemo } from 'react'
 import IndexedDBService from 'services/indexedDbService'
 import { useDetectOnlineStatus } from 'util/useDetectOnlineStatus'
 import { useAudioContext } from 'components/contexts/audioContext'
@@ -16,27 +16,46 @@ export function useAudio(audioSrc: string) {
     db.hasMediaFile(audioSrc).then((exists) => setHasFile(exists))
   }, [isOnline, audioSrc])
 
+  // Check if the global audio element is associated with provided src
+  const isSameAudio = useMemo(() => {
+    if (!currentAudio) return false
+    return currentAudio.src.includes(audioSrc)
+  }, [currentAudio, audioSrc])
+
   // Sync UI state with global audio element
   useEffect(() => {
     if (!currentAudio) {
+      setAudioPlaying(false)
       return () => {}
     }
 
-    const handleEnded = () => setAudioPlaying(false)
-    const handlePause = () => setAudioPlaying(false)
-    const handleStop = () => setAudioPlaying(false)
-    const handlePlay = () => setAudioPlaying(true)
+    setAudioPlaying(isSameAudio && !currentAudio.paused)
+
+    const handlePlay = () => {
+      if (isSameAudio) setAudioPlaying(true)
+    }
+    const handlePause = () => {
+      if (isSameAudio) setAudioPlaying(false)
+    }
+    const handleEnded = () => {
+      if (isSameAudio) setAudioPlaying(false)
+    }
 
     currentAudio.addEventListener('ended', handleEnded)
     currentAudio.addEventListener('pause', handlePause)
-    currentAudio.addEventListener('stop', handleStop)
     currentAudio.addEventListener('play', handlePlay)
 
     return () => {
       currentAudio.removeEventListener('ended', handleEnded)
       currentAudio.removeEventListener('pause', handlePause)
-      currentAudio.removeEventListener('stop', handleStop)
       currentAudio.removeEventListener('play', handlePlay)
+    }
+  }, [currentAudio, isSameAudio])
+
+  // Update if global audio is explicity stopped
+  useEffect(() => {
+    if (!currentAudio) {
+      setAudioPlaying(false)
     }
   }, [currentAudio])
 
@@ -44,14 +63,12 @@ export function useAudio(audioSrc: string) {
   const toggleAudio = useCallback(() => {
     if (!audioSrc) return
 
-    const isSameAudio = currentAudio && currentAudio.src.includes(audioSrc)
-
     if (isSameAudio && audioPlaying) {
       pauseAudio()
     } else {
       playAudio(audioSrc)
     }
-  }, [audioSrc, currentAudio, audioPlaying, pauseAudio, playAudio])
+  }, [audioSrc, isSameAudio, audioPlaying, pauseAudio, playAudio])
 
   const audioAvailable = hasFile || isOnline
 

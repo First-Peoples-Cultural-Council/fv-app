@@ -43,7 +43,7 @@ function WordModal({ term, onClose }: Readonly<WordModalProps>) {
           <CopyButton text={term?.word} />
           <ShareButton
             title={term?.word}
-            text={`Translation: ${term.definition}\n\n Learn more here:`}
+            text={`Translation: ${term.definition}\n\n Learn more on our FirstVoices language app:`}
             url={`${window.location.origin}/dictionary/${term?.entryID}`}
           />
           <BookmarkButton bookmark={bookmark} />

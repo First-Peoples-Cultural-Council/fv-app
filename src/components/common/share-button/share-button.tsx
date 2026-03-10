@@ -5,6 +5,7 @@ import Twitter from 'assets/icons/twitter'
 import LinkedIn from 'assets/icons/Linkedin'
 import Facebook from 'assets/icons/Facebook'
 import { useNotification } from 'components/contexts/notificationContext'
+import useSiteTitleFromManifest from 'util/useSiteTitleFromManifest'
 import { ALERT_TYPES } from 'constants/notification-types'
 
 export interface ShareButtonProps {
@@ -16,6 +17,7 @@ export interface ShareButtonProps {
 export function ShareButton({ title, text, url }: ShareButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
   const { setNotification } = useNotification()
+  const siteTitle = useSiteTitleFromManifest()
 
   const handleCopy = async () => {
     try {
@@ -63,9 +65,7 @@ export function ShareButton({ title, text, url }: ShareButtonProps) {
 
             <div className="flex justify-center space-x-2 flex-wrap">
               <a
-                href={`mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(
-                  `Translation:${text}\n\nLearn more here: \n${url}`
-                )}`}
+                href={`mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`Language: ${siteTitle}\n\nTitle: ${title}\n${text}\n${url}`)}`}
                 target="_blank"
                 rel="noreferrer"
                 className="my-2 mx-1 h-10 w-10 p-1 inline-flex items-center justify-center rounded bg-stone-600 hover:bg-stone-700"

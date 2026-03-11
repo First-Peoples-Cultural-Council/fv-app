@@ -1,7 +1,14 @@
 import { useState, useEffect } from 'react'
 
-const useSiteTitleFromManifest = (manifestUrl: string) => {
+const useSiteTitleFromManifest = (manifestUrl: string = '') => {
   const [siteTitle, setSiteTitle] = useState<string>('')
+
+  if (!manifestUrl) {
+    const origin = globalThis.origin
+    const hostnameParts = globalThis.location.hostname.split('.')
+    const subdomain = hostnameParts[0]
+    manifestUrl = `${origin}/manifest.${subdomain}.json`
+  }
 
   useEffect(() => {
     const fetchManifest = async () => {

@@ -19,6 +19,11 @@ export function ShareButton({ title, text, url }: ShareButtonProps) {
   const { setNotification } = useNotification()
   const siteTitle = useSiteTitleFromManifest()
 
+  // Email body
+  const subject = encodeURIComponent(title)
+  const bodyContent = [`Language: ${siteTitle}`, ``, `Title: ${title}`, text, url].join('\n')
+  const body = encodeURIComponent(bodyContent)
+
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(text)
@@ -65,7 +70,7 @@ export function ShareButton({ title, text, url }: ShareButtonProps) {
 
             <div className="flex justify-center space-x-2 flex-wrap">
               <a
-                href={`mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`Language: ${siteTitle}\n\nTitle: ${title}\n${text}\n${url}`)}`}
+                href={`mailto:?subject=${subject}&body=${body}`}
                 target="_blank"
                 rel="noreferrer"
                 className="my-2 mx-1 h-10 w-10 p-1 inline-flex items-center justify-center rounded bg-stone-600 hover:bg-stone-700"

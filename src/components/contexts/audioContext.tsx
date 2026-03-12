@@ -1,10 +1,18 @@
-import { createContext, ReactNode, useCallback, useContext, useMemo, useState } from 'react'
+import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { useLocation } from 'react-router'
 
-export const AudioContext = createContext({
-  audios: [] as HTMLAudioElement[],
-  addAudio: (audio: HTMLAudioElement) => {},
-  removeAudio: (audio: HTMLAudioElement) => {},
-  stopAll: () => {},
+interface AudioContextValue {
+  currentAudio: HTMLAudioElement | null
+  playAudio: (src: string) => void
+  pauseAudio: () => void
+  stopAudio: () => void
+}
+
+export const AudioContext = createContext<AudioContextValue>({
+  currentAudio: null,
+  playAudio: () => {},
+  pauseAudio: () => {},
+  stopAudio: () => {},
 })
 
 export interface AudioProviderProps {
@@ -12,31 +20,64 @@ export interface AudioProviderProps {
 }
 
 export const AudioProvider = ({ children }: AudioProviderProps) => {
-  const [audios, setAudios] = useState<HTMLAudioElement[]>([])
+  const location = useLocation()
+  const [currentAudio, setCurrentAudio] = useState<HTMLAudioElement | null>(null)
 
-  const addAudio = useCallback((audio: HTMLAudioElement) => {
-    setAudios((audios: HTMLAudioElement[]): HTMLAudioElement[] => [...audios, audio])
-  }, [])
+  const playAudio = useCallback(
+    (src: string) => {
+      // Stop current audio
+      if (currentAudio) {
+        currentAudio.pause()
+        currentAudio.currentTime = 0
+      }
 
-  const removeAudio = useCallback((audio: HTMLAudioElement) => {
-    setAudios((audios) => audios.filter((a) => a !== audio))
-  }, [])
+      const audio = new Audio(src)
+      setCurrentAudio(audio)
+      audio.play()
+    },
+    [currentAudio]
+  )
 
-  const stopAll = useCallback(() => {
-    audios.forEach((audio) => {
-      audio.pause()
-      audio.currentTime = 0
-    })
-  }, [audios])
+  const pauseAudio = useCallback(() => {
+    if (currentAudio) {
+      currentAudio.pause()
+    }
+  }, [currentAudio])
+
+  const stopAudio = useCallback(() => {
+    if (currentAudio) {
+      currentAudio.pause()
+      currentAudio.currentTime = 0
+      setCurrentAudio(null)
+    }
+  }, [currentAudio])
+
+  // Unmount
+  useEffect(() => {
+    return () => {
+      if (currentAudio) {
+        currentAudio.pause()
+      }
+    }
+  }, [currentAudio])
+
+  // Unmount if user navigates away
+  useEffect(() => {
+    if (currentAudio) {
+      currentAudio.pause()
+      currentAudio.currentTime = 0
+      setCurrentAudio(null)
+    }
+  }, [location.pathname])
 
   const value = useMemo(
     () => ({
-      audios,
-      addAudio,
-      removeAudio,
-      stopAll,
+      currentAudio,
+      playAudio,
+      pauseAudio,
+      stopAudio,
     }),
-    [audios, addAudio, removeAudio, stopAll]
+    [currentAudio, playAudio, pauseAudio, stopAudio]
   )
 
   return <AudioContext.Provider value={value}>{children}</AudioContext.Provider>

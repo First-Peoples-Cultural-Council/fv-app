@@ -5,8 +5,8 @@ import FullScreenModal from 'components/common/full-screen-modal/full-screen-mod
 import WordModal from 'components/dictionary-view/word-modal'
 import { FvWord, FvWordLocation } from 'components/common/data'
 import { useModal } from 'components/common/use-modal/use-modal'
-import { useAudioContext } from 'components/contexts/audioContext'
 import { applyHighlighting } from 'util/applyHighlighting'
+import { useAudioContext } from 'components/contexts/audioContext'
 
 export interface WordCardMobileProps {
   item: FvWord
@@ -16,7 +16,7 @@ function WordCardMobile({ item }: Readonly<WordCardMobileProps>) {
   const wordLocations: FvWordLocation[] | null = item?.locations ?? null
   const { setShowModal, showModal, closeModal } = useModal()
   const { word, definition, audio } = item
-  const { stopAll } = useAudioContext()
+  const { stopAudio } = useAudioContext()
 
   return (
     <>
@@ -34,7 +34,9 @@ function WordCardMobile({ item }: Readonly<WordCardMobileProps>) {
             </p>
           </div>
           <div className="col-span-1 self-center">
-            {audio?.map((mtAudio: Audio1) => <i key={mtAudio.filename} className="fv-volume-up" />)}
+            {audio?.map((mtAudio: Audio1) => (
+              <i key={mtAudio.filename} className="fv-volume-up" />
+            ))}
           </div>
           <div className="col-span-1 place-self-end self-center">
             <i className="fv-right-open" />
@@ -42,12 +44,16 @@ function WordCardMobile({ item }: Readonly<WordCardMobileProps>) {
         </div>
       </button>
       {showModal && (
-        <FullScreenModal onClose={() => closeModal()}>
+        <FullScreenModal
+          onClose={() => {
+            stopAudio()
+            closeModal()
+          }}
+        >
           <WordModal
             term={item}
             onClose={() => {
               closeModal()
-              stopAll()
             }}
           />
         </FullScreenModal>

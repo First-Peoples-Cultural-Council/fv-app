@@ -7,7 +7,7 @@ import 'index.css'
 import App from 'App'
 import * as serviceWorkerRegistration from 'serviceWorkerRegistration'
 import { ApiProvider } from 'components/contexts/apiContext'
-import { AudioProvider } from 'components/contexts/audioContext'
+
 // Components
 import AboutView from 'components/about-view/about-view'
 import AlphabetView from 'components/alphabet-view/alphabet-view'
@@ -60,9 +60,7 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <StrictMode>
     <ApiProvider>
-      <AudioProvider>
-        <RouterProvider router={router} />
-      </AudioProvider>
+      <RouterProvider router={router} />
     </ApiProvider>
   </StrictMode>
 )

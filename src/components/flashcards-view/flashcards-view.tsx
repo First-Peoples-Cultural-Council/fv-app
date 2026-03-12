@@ -14,6 +14,7 @@ import Modal from 'components/common/modal/modal'
 import { useAudioContext } from 'components/contexts/audioContext'
 
 export function FlashcardsView() {
+  const { stopAudio } = useAudioContext()
   const [showSelectModal, setShowSelectModal] = useState(false)
   const [showCategoryModal, setShowCategoryModal] = useState(false)
   const [showFlashcardModal, setShowFlashcardModal] = useState(false)
@@ -32,7 +33,6 @@ export function FlashcardsView() {
   const [dataCategories, setDataCategories] = useState<any>([])
 
   const { isApiCallInProgress } = useContext(ApiContext)
-  const { stopAll } = useAudioContext()
 
   const SelectModalRef = useRef<HTMLDivElement>(null)
   const CategoryModalRef = useRef<HTMLDivElement>(null)
@@ -191,7 +191,10 @@ export function FlashcardsView() {
                 <div className="grid h-10 w-10 bg-gray-50 float-right rounded-full mb-2 md:place-items-center">
                   <button
                     className="p-2 ml-auto bg-transparent border-0 text-black float-right text-1xl leading-none font-semibold outline-none focus:outline-none"
-                    onClick={() => setShowFlashcardModal(false)}
+                    onClick={() => {
+                      stopAudio()
+                      setShowFlashcardModal(false)
+                    }}
                   >
                     <i className="fv-close"></i>
                   </button>
@@ -287,8 +290,9 @@ export function FlashcardsView() {
   }
 
   function setDataForFlashcard(fcIndex: number) {
-    // Stop all audio when flashcard changes
-    stopAll()
+    // Stop current audio when flashcard changes
+    stopAudio()
+
     if (fcIndex === dataForFlashcardGroup.length) {
       setShowFlashcardModal(false)
       setShowDonePromptModal(true)

@@ -1,69 +1,81 @@
-import { useEffect, useState } from 'react'
-
-// FPCC
+import { useEffect, useState, useCallback, useMemo } from 'react'
 import IndexedDBService from 'services/indexedDbService'
 import { useDetectOnlineStatus } from 'util/useDetectOnlineStatus'
 import { useAudioContext } from 'components/contexts/audioContext'
 
 export function useAudio(audioSrc: string) {
-  const { addAudio, removeAudio, stopAll } = useAudioContext()
+  const { currentAudio, playAudio, pauseAudio } = useAudioContext()
   const { isOnline } = useDetectOnlineStatus()
 
-  const [audio, setAudio] = useState<HTMLAudioElement>()
   const [audioPlaying, setAudioPlaying] = useState(false)
   const [hasFile, setHasFile] = useState(false)
 
-  useEffect(() => {
-    if (audioSrc.length > 0) {
-      const audioElement = new Audio(audioSrc)
-      addAudio(audioElement)
-      setAudio(audioElement)
-    }
-    return () => {
-      if (audio) removeAudio(audio)
-    }
-  }, [])
-
+  // Check if file exists locally or online
   useEffect(() => {
     const db = new IndexedDBService('firstVoicesIndexedDb')
-    db.hasMediaFile(audioSrc).then((hasFile) => {
-      setHasFile(hasFile)
-    })
+    db.hasMediaFile(audioSrc).then((exists) => setHasFile(exists))
   }, [isOnline, audioSrc])
 
-  useEffect(() => {
-    if (audio) {
-      audio.onended = () => {
-        setAudioPlaying(false)
-      }
-    }
-    if (audio) {
-      audio.onpause = () => {
-        setAudioPlaying(false)
-      }
-    }
-  }, [audio])
+  // Check if the global audio element is associated with provided src
+  const isSameAudio = useMemo(() => {
+    if (!currentAudio) return false
+    return currentAudio.src.includes(audioSrc)
+  }, [currentAudio, audioSrc])
 
-  function toggleAudio(audio: HTMLAudioElement) {
-    if (audioPlaying) {
+  // Sync UI state with global audio element
+  useEffect(() => {
+    if (!currentAudio) {
       setAudioPlaying(false)
-      audio.pause()
-    } else {
-      stopAll()
-      setAudioPlaying(true)
-      audio.play().catch((err: any) => {
-        console.error(err)
-      })
+      return () => {}
     }
-  }
+
+    setAudioPlaying(isSameAudio && !currentAudio.paused)
+
+    const handlePlay = () => {
+      if (isSameAudio) setAudioPlaying(true)
+    }
+    const handlePause = () => {
+      if (isSameAudio) setAudioPlaying(false)
+    }
+    const handleEnded = () => {
+      if (isSameAudio) setAudioPlaying(false)
+    }
+
+    currentAudio.addEventListener('ended', handleEnded)
+    currentAudio.addEventListener('pause', handlePause)
+    currentAudio.addEventListener('play', handlePlay)
+
+    return () => {
+      currentAudio.removeEventListener('ended', handleEnded)
+      currentAudio.removeEventListener('pause', handlePause)
+      currentAudio.removeEventListener('play', handlePlay)
+    }
+  }, [currentAudio, isSameAudio])
+
+  // Update if global audio is explicity stopped
+  useEffect(() => {
+    if (!currentAudio) {
+      setAudioPlaying(false)
+    }
+  }, [currentAudio])
+
+  // Toggle logic using global audio controller
+  const toggleAudio = useCallback(() => {
+    if (!audioSrc) return
+
+    if (isSameAudio && audioPlaying) {
+      pauseAudio()
+    } else {
+      playAudio(audioSrc)
+    }
+  }, [audioSrc, isSameAudio, audioPlaying, pauseAudio, playAudio])
 
   const audioAvailable = hasFile || isOnline
 
   return {
-    audio,
     audioAvailable,
     audioPlaying,
-    toggleAudio: () => audio && toggleAudio(audio),
+    toggleAudio,
   }
 }
 

@@ -5,8 +5,8 @@ import { FvWord, FvWordLocation } from 'components/common/data'
 import Modal from 'components/common/modal/modal'
 import FullScreenModal from 'components/common/full-screen-modal/full-screen-modal'
 import { useModal } from 'components/common/use-modal/use-modal'
-import { useAudioContext } from 'components/contexts/audioContext'
 import { applyHighlighting } from 'util/applyHighlighting'
+import { useAudioContext } from 'components/contexts/audioContext'
 
 export interface WordAlphabetRowCardProps {
   term: FvWord
@@ -14,10 +14,10 @@ export interface WordAlphabetRowCardProps {
 
 function WordAlphabetRowCard({ term }: Readonly<WordAlphabetRowCardProps>) {
   const { setShowModal, showModal, closeModal } = useModal()
-  const wordLocations: FvWordLocation[] | null = term?.locations ?? null
+  const { stopAudio } = useAudioContext()
 
+  const wordLocations: FvWordLocation[] | null = term?.locations ?? null
   const { word, definition } = term
-  const { stopAll } = useAudioContext()
 
   return (
     <>
@@ -38,23 +38,31 @@ function WordAlphabetRowCard({ term }: Readonly<WordAlphabetRowCardProps>) {
         </div>
       </button>
       {window.matchMedia('(min-width: 768px').matches && showModal && (
-        <Modal onClose={() => closeModal()}>
+        <Modal
+          onClose={() => {
+            stopAudio()
+            closeModal()
+          }}
+        >
           <WordModal
             term={term}
             onClose={() => {
               closeModal()
-              stopAll()
             }}
           />
         </Modal>
       )}
       {!window.matchMedia('(min-width: 768px').matches && showModal && (
-        <FullScreenModal onClose={() => closeModal()}>
+        <FullScreenModal
+          onClose={() => {
+            stopAudio()
+            closeModal()
+          }}
+        >
           <WordModal
             term={term}
             onClose={() => {
               closeModal()
-              stopAll()
             }}
           />
         </FullScreenModal>

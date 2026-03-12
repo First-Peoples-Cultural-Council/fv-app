@@ -72,11 +72,11 @@ export function CategoryView() {
   useEffect(() => {
     switch (selected) {
       case DictionaryType.Words: {
-        setEntriesToDisplay(dictionaryData.filter((entry) => entry.source === 'words'))
+        setEntriesToDisplay(dictionaryData.filter((entry) => entry.source === 'word'))
         break
       }
       case DictionaryType.Phrases: {
-        setEntriesToDisplay(dictionaryData.filter((entry) => entry.source === 'phrases'))
+        setEntriesToDisplay(dictionaryData.filter((entry) => entry.source === 'phrase'))
         break
       }
       default:

@@ -25,11 +25,11 @@ export function RandomizedView() {
   useEffect(() => {
     switch (selected) {
       case DictionaryType.Words: {
-        setData(dictionaryData.filter((entry) => entry.source === 'words'))
+        setData(dictionaryData.filter((entry) => entry.source === 'word'))
         break
       }
       case DictionaryType.Phrases: {
-        setData(dictionaryData.filter((entry) => entry.source === 'phrases'))
+        setData(dictionaryData.filter((entry) => entry.source === 'phrase'))
         break
       }
       default: {

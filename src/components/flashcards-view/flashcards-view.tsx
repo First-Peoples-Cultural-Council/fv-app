@@ -118,10 +118,10 @@ export function FlashcardsView() {
       <div className="w-full">
         <div className="flex flex-wrap justify-center">
           {flashCardType('Words', 'fv-wordsfc', () => {
-            handleFlashcardTypeSelection(dataDict.filter((entry) => entry.source === 'words'))
+            handleFlashcardTypeSelection(dataDict.filter((entry) => entry.source === 'word'))
           })}
           {flashCardType('Phrases', 'fv-phrasesfc', () => {
-            handleFlashcardTypeSelection(dataDict.filter((entry) => entry.source === 'phrases'))
+            handleFlashcardTypeSelection(dataDict.filter((entry) => entry.source === 'phrase'))
           })}
           {flashCardType('Category', 'fv-categories', () => {
             setSelectedFlashcardDisplayType('')

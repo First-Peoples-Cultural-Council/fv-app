@@ -52,10 +52,10 @@ export function DictionaryView() {
   const dataToDisplay: FvWord[] = useMemo(() => {
     switch (selected) {
       case DictionaryType.Words: {
-        return [...dataUnfiltered.filter((entry: FvWord) => entry.source === 'words')]
+        return [...dataUnfiltered.filter((entry: FvWord) => entry.source === 'word')]
       }
       case DictionaryType.Phrases: {
-        return [...dataUnfiltered.filter((entry: FvWord) => entry.source === 'phrases')]
+        return [...dataUnfiltered.filter((entry: FvWord) => entry.source === 'phrase')]
       }
       default: {
         return [...dataUnfiltered]

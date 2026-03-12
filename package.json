@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "license": "MIT",
   "private": true,
+  "engines": {
+    "node": "^22.18.0",
+    "npm": "^10.9.3"
+  },
   "scripts": {
     "start": "webpack serve --mode=development",
     "start:sw": "SERVICE_WORKERS=true webpack serve --mode=development",

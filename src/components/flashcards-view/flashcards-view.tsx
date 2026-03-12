@@ -3,7 +3,7 @@ import classNames from 'classnames'
 
 // FPCC
 import useOnClickOutside from 'util/clickOutside'
-import { Bookmark, Flashcard, FvCategory, FvWord } from 'components/common/data'
+import { Bookmark, Flashcard, FvCategory, FvWord, SourceType } from 'components/common/data'
 import shuffle from 'util/shuffle'
 import fetchCategoryData from 'services/categoriesApiService'
 import fetchWordsData from 'services/wordsApiService'
@@ -118,10 +118,10 @@ export function FlashcardsView() {
       <div className="w-full">
         <div className="flex flex-wrap justify-center">
           {flashCardType('Words', 'fv-wordsfc', () => {
-            handleFlashcardTypeSelection(dataDict.filter((entry) => entry.source === 'words'))
+            handleFlashcardTypeSelection(dataDict.filter((entry) => entry.source === SourceType.Word))
           })}
           {flashCardType('Phrases', 'fv-phrasesfc', () => {
-            handleFlashcardTypeSelection(dataDict.filter((entry) => entry.source === 'phrases'))
+            handleFlashcardTypeSelection(dataDict.filter((entry) => entry.source === SourceType.Phrase))
           })}
           {flashCardType('Category', 'fv-categories', () => {
             setSelectedFlashcardDisplayType('')

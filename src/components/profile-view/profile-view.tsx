@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router'
 import classNames from 'classnames'
 
 // FPCC
-import { Bookmark, DeleteListType } from 'components/common/data'
+import { Bookmark, DeleteListType, SourceType } from 'components/common/data'
 import DeletableList from 'components/common/deletable-list/deletable-list'
 import IndexedDBService from 'services/indexedDbService'
 import PageHeader from 'components/common/page-header/page-header'
@@ -43,16 +43,16 @@ export function ProfileView() {
   const list: DeleteListType[] = bookmarks.map((bookmark) => {
     let color = '-charcoal-500'
     switch (bookmark.type?.toLowerCase()) {
-      case 'word':
+      case SourceType.Word:
         color = '-word-500'
         break
-      case 'phrase':
+      case SourceType.Phrase:
         color = '-phrase-500'
         break
-      case 'story':
+      case SourceType.Story:
         color = '-story-500'
         break
-      case 'song':
+      case SourceType.Song:
         color = '-song-500'
         break
       case 'letter':

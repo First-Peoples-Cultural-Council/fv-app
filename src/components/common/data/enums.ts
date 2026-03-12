@@ -27,3 +27,10 @@ export enum DictionaryType {
   Phrases = 1,
   Both = 2,
 }
+
+export enum SourceType {
+  Word = 'word',
+  Phrase = 'phrase',
+  Song = 'song',
+  Story = 'story',
+}

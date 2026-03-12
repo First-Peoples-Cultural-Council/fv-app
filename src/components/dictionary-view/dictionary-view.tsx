@@ -3,7 +3,7 @@ import { useState, useEffect, useContext, useMemo } from 'react'
 // FPCC
 import WordCardMobile from 'components/dictionary-view/word-card-mobile'
 import WordCardDesktop from 'components/dictionary-view/word-card-desktop'
-import { DictionaryType, FvWord } from 'components/common/data'
+import { DictionaryType, FvWord, SourceType } from 'components/common/data'
 import MultiSwitch from 'components/common/multi-switch/multi-switch'
 import { useDictionaryData } from 'components/dictionary-page/dictionary-page'
 import { SearchContext } from 'components/contexts/searchContext'
@@ -52,10 +52,10 @@ export function DictionaryView() {
   const dataToDisplay: FvWord[] = useMemo(() => {
     switch (selected) {
       case DictionaryType.Words: {
-        return [...dataUnfiltered.filter((entry: FvWord) => entry.source === 'words')]
+        return [...dataUnfiltered.filter((entry: FvWord) => entry.source === SourceType.Word)]
       }
       case DictionaryType.Phrases: {
-        return [...dataUnfiltered.filter((entry: FvWord) => entry.source === 'phrases')]
+        return [...dataUnfiltered.filter((entry: FvWord) => entry.source === SourceType.Phrase)]
       }
       default: {
         return [...dataUnfiltered]

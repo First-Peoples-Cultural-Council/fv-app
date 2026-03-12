@@ -8,6 +8,7 @@ import AudioControl from 'components/common/audio-control/audio-control'
 import { convertWysiwygToComponent } from 'components/common/convert-json/convert-json'
 import CopyButton from 'components/common/copy-button/copy-button'
 import BookmarkButton from 'components/common/bookmark-button/bookmark-button'
+import { SourceType } from 'components/common/data'
 
 export interface SongViewProps {
   song: FVSong
@@ -16,7 +17,7 @@ export function SongView({ song }: Readonly<SongViewProps>) {
   const bookmark: Bookmark = useMemo(() => {
     return {
       id: song.id,
-      type: 'song',
+      type: SourceType.Song,
       definition: song?.titleTranslation ?? '',
       name: song.title,
       hasAudio: song.relatedAudio?.length !== 0,

@@ -7,7 +7,7 @@ import styles from 'components/category-view/category-view.module.css'
 import fetchCategoryData from 'services/categoriesApiService'
 import WordCardDesktop from 'components/dictionary-view/word-card-desktop'
 import WordCardMobile from 'components/dictionary-view/word-card-mobile'
-import { DictionaryType, FvCategory, FvWord } from 'components/common/data'
+import { DictionaryType, FvCategory, FvWord, SourceType } from 'components/common/data'
 import MultiSwitch from 'components/common/multi-switch/multi-switch'
 import { LoadingSpinner } from 'components/common/loading-spinner/loading-spinner'
 import { useDictionaryData } from 'components/dictionary-page/dictionary-page'
@@ -72,11 +72,11 @@ export function CategoryView() {
   useEffect(() => {
     switch (selected) {
       case DictionaryType.Words: {
-        setEntriesToDisplay(dictionaryData.filter((entry) => entry.source === 'words'))
+        setEntriesToDisplay(dictionaryData.filter((entry) => entry.source === SourceType.Word))
         break
       }
       case DictionaryType.Phrases: {
-        setEntriesToDisplay(dictionaryData.filter((entry) => entry.source === 'phrases'))
+        setEntriesToDisplay(dictionaryData.filter((entry) => entry.source === SourceType.Phrase))
         break
       }
       default:

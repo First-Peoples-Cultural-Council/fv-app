@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 // FPCC
 import WordCardMobile from 'components/dictionary-view/word-card-mobile'
 import WordCardDesktop from 'components/dictionary-view/word-card-desktop'
-import { DictionaryType } from 'components/common/data/enums'
+import { DictionaryType, SourceType } from 'components/common/data/enums'
 import MultiSwitch from 'components/common/multi-switch/multi-switch'
 import { FvWord } from 'components/common/data'
 import generateUniqueRandomItems from 'util/randomSet'
@@ -25,11 +25,11 @@ export function RandomizedView() {
   useEffect(() => {
     switch (selected) {
       case DictionaryType.Words: {
-        setData(dictionaryData.filter((entry) => entry.source === 'words'))
+        setData(dictionaryData.filter((entry) => entry.source === SourceType.Word))
         break
       }
       case DictionaryType.Phrases: {
-        setData(dictionaryData.filter((entry) => entry.source === 'phrases'))
+        setData(dictionaryData.filter((entry) => entry.source === SourceType.Phrase))
         break
       }
       default: {

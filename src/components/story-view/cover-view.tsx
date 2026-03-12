@@ -6,6 +6,7 @@ import { Bookmark, FVStory } from 'components/common/data/types'
 import FvImage from 'components/common/image/image'
 import CopyButton from 'components/common/copy-button/copy-button'
 import BookmarkButton from 'components/common/bookmark-button/bookmark-button'
+import { SourceType } from 'components/common/data'
 
 export interface CoverViewProps {
   story: FVStory
@@ -16,7 +17,7 @@ export function CoverView({ story, startReading }: Readonly<CoverViewProps>) {
   const bookmark: Bookmark = useMemo(() => {
     return {
       id: story.id,
-      type: 'story',
+      type: SourceType.Story,
       definition: story?.titleTranslation ?? '',
       name: story.title ?? '',
       hasAudio: story.relatedAudio?.length !== 0,

@@ -6,6 +6,7 @@ import { FvWord } from 'components/common/data'
 
 type SearchContextType = {
   searchQuery: string
+  updateQuery: (query: string) => void
   searchResults: FvWord[] | null
   submitSearch: (query: string | null) => void
   clearSearch: () => void
@@ -28,10 +29,12 @@ export const SearchProvider = ({ dictionaryHash, searchers, children }: SearchPr
   const l1Search: MTDSearch = searchers[0]
   const l2Search: MTDSearch = searchers[1]
 
+  const updateQuery = (query: string) => {
+    setSearchQuery(query)
+  }
+
   const submitSearch = useCallback(
     (query: string | null) => {
-      setSearchQuery(query ?? '')
-
       if (!query) {
         setSearchResults(null)
       } else if (l1Search && l2Search) {
@@ -79,11 +82,12 @@ export const SearchProvider = ({ dictionaryHash, searchers, children }: SearchPr
   const searchContext = useMemo(() => {
     return {
       searchQuery,
+      updateQuery,
       searchResults,
       submitSearch,
       clearSearch,
     }
-  }, [searchResults, submitSearch])
+  }, [searchQuery, searchResults, submitSearch])
 
   return (
     <SearchContext.Provider value={searchContext as unknown as SearchContextType}>{children}</SearchContext.Provider>

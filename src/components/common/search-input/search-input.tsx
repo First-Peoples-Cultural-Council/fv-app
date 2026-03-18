@@ -8,10 +8,10 @@ export function SearchInput() {
   const searchContext = useContext(SearchContext)
   if (!searchContext) return null
 
-  const { searchQuery, submitSearch, clearSearch } = searchContext
+  const { searchQuery, updateQuery, submitSearch, clearSearch } = searchContext
 
   const onSearchInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    submitSearch(event.target.value)
+    updateQuery(event.target.value)
   }
 
   const onKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {

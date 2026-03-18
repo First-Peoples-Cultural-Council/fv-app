@@ -5,6 +5,7 @@ import { DictionaryEntryExportFormat, sortResults, Result, MTDSearch } from '@mo
 import { FvWord } from 'components/common/data'
 
 type SearchContextType = {
+  searchQuery: string
   searchResults: FvWord[] | null
   submitSearch: (query: string | null) => void
   clearSearch: () => void
@@ -21,6 +22,7 @@ export interface SearchProviderProps {
 }
 
 export const SearchProvider = ({ dictionaryHash, searchers, children }: SearchProviderProps) => {
+  const [searchQuery, setSearchQuery] = useState<string>('')
   const [searchResults, setSearchResults] = useState<FvWord[] | null>(null)
 
   const l1Search: MTDSearch = searchers[0]
@@ -28,7 +30,9 @@ export const SearchProvider = ({ dictionaryHash, searchers, children }: SearchPr
 
   const submitSearch = useCallback(
     (query: string | null) => {
-      if (query === '' || query === null) {
+      setSearchQuery(query ?? '')
+
+      if (!query) {
         setSearchResults(null)
       } else if (l1Search && l2Search) {
         // Search Results in target language
@@ -67,11 +71,17 @@ export const SearchProvider = ({ dictionaryHash, searchers, children }: SearchPr
     [dictionaryHash, l1Search, l2Search]
   )
 
+  const clearSearch = () => {
+    setSearchQuery('')
+    setSearchResults(null)
+  }
+
   const searchContext = useMemo(() => {
     return {
+      searchQuery,
       searchResults,
       submitSearch,
-      clearSearch: () => setSearchResults(null),
+      clearSearch,
     }
   }, [searchResults, submitSearch])
 

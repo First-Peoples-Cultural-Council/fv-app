@@ -10,23 +10,25 @@ $ npm run build
 ```
 
 4. Start the application.
+
 ```bash
 $ npm run start
 ```
+
 Optionally if you want to enable service-workers for local testing,
+
 ```bash
 $ npm run start:sw
 ```
-**This is an experimental feature**. Ideally, service workers are only enabled on servers, but can be tested locally with this command.  
-To eable the service workers, you will also need to add the url to the *unsafely-treat-insecure-origin-as-secure* setting. This can be done by going to the url:`Chrome://flags`, and looking for #unsafely-treat-insecure-origin-as-secure flag. Enable the flag, and then paste the site you are trying to access in the input box, e.g. `http://localhost:3000,http://smalgyax.localhost:3000,http://default.localhost:3000`.
 
+**This is an experimental feature**. Ideally, service workers are only enabled on servers, but can be tested locally with this command.  
+To eable the service workers, you will also need to add the url to the _unsafely-treat-insecure-origin-as-secure_ setting. This can be done by going to the url:`Chrome://flags`, and looking for #unsafely-treat-insecure-origin-as-secure flag. Enable the flag, and then paste the site you are trying to access in the input box, e.g. `http://localhost:3000,http://smalgyax.localhost:3000,http://default.localhost:3000`.
 
 5. Access the application at `http://[sitename].localhost:3000`
 
-    a. If you are switching between different sites locally, you may need to clear your local data in between depending on your browser.
+   a. If you are switching between different sites locally, you may need to clear your local data in between depending on your browser.
 
-    b. If you want custom icons and site titles locally, you need to add the required `manifest.[sitename].json` file in the `public` folder, as well as a `[sitename]` subfolder containing the required icons. (See [Adding new dialects/languages](#adding-new-dialectslanguages) below for file specs.)
-
+   b. If you want custom icons and site titles locally, you need to add the required `manifest.[sitename].json` file in the `public` folder, as well as a `[sitename]` subfolder containing the required icons. (See [Adding new dialects/languages](#adding-new-dialectslanguages) below for file specs.)
 
 ## Running the tests
 
@@ -39,6 +41,7 @@ $ npm test
 ```bash
 $ npm run icons:open
 ```
+
 This will open the fontello website in your browser.
 
 Drag and drop the icons you want to add to the fontello website.
@@ -63,9 +66,8 @@ In order to add an app for a new language:
 
 1. You will need to add a subdomain for the new language app. Then a DNS record needs to be created to point that subdomain to the application server. All subdomains can point to the same place; the application will detect the subdomain.
 
-1. Create a manifest file for the new language in the `public` folder using the pattern `manifest.language-sub-domain.json`. Any new manifest files can be kept in a directory that is named the language sub-domain in the `public` folder. For example, for the Esperanto language, the manifest file would be `public/manifest.esperanto.json` and any new manifest files would be kept in the `public/esperanto` directory. That is also where all the asset files (e.g., favicons) in the manifest file will be kept for that language. Make sure to update the `src` properties in the manifest file to match where the assets are kept. *Note* for the FirstVoices deployments these configuration files are managed in a separate repository and moved to the `public` folder during deployment.
+1. Create a manifest file for the new language in the `public` folder using the pattern `manifest.language-sub-domain.json`. Any new manifest files can be kept in a directory that is named the language sub-domain in the `public` folder. For example, for the Esperanto language, the manifest file would be `public/manifest.esperanto.json` and any new manifest files would be kept in the `public/esperanto` directory. That is also where all the asset files (e.g., favicons) in the manifest file will be kept for that language. Make sure to update the `src` properties in the manifest file to match where the assets are kept. _Note_ for the FirstVoices deployments these configuration files are managed in a separate repository and moved to the `public` folder during deployment.
 
 ## Note on Service Worker Caching
 
-Workbox didn't automatically cache all of the files that are needed for the app to run offline. So in the service-worker.ts under precacheAndRoute there are files that have been added via the manifestFileList.json file that is generated during the build process. The two files to keep in mtd-ui.min.js and service-worker.js
-
+Workbox didn't automatically cache all of the files that are needed for the app to run offline. So in the service-worker.ts under precacheAndRoute there are files that have been added via the manifestFileList.json file that is generated during the build process.

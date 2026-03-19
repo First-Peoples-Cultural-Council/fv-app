@@ -11,15 +11,7 @@ import eslintPluginReactHooks from 'eslint-plugin-react-hooks'
 export default [
   { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
   {
-    ignores: [
-      'node_modules/',
-      'build/',
-      'src/assets/',
-      '__mocks__/',
-      'public/mtd-ui.min.js',
-      'config-overrides.js',
-      '*.config.js',
-    ],
+    ignores: ['node_modules/', 'build/', 'src/assets/', '__mocks__/', 'config-overrides.js', '*.config.js'],
   },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,

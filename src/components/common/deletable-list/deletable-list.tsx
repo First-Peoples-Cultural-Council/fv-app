@@ -94,6 +94,7 @@ export function DeletableList({
             if (selectedItems.includes(item.id)) {
               return (
                 <button
+                  data-testid={`selected-bookmark-${item.id}`}
                   key={item.id}
                   type="button"
                   className="bg-secondary-100 flex w-full items-center rounded-lg shadow-md cursor-pointer outline outline-secondary-500 outline-2"
@@ -105,6 +106,7 @@ export function DeletableList({
             } else {
               return (
                 <button
+                  data-testid={`bookmark-${item.id}`}
                   key={item.id}
                   type="button"
                   className={classNames(

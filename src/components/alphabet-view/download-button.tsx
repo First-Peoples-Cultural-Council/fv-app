@@ -25,10 +25,26 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
   const { entriesStartingWith } = useStartsWithChar(dictionaryData, selected)
   const { setNotification } = useNotification()
 
+  const getMediaCount = () => {
+    let mediaCount = 0
+    entriesStartingWith.forEach((term: FvWord) => {
+      if (term.img) {
+        mediaCount += 1
+      }
+      if (term.audio) {
+        mediaCount += term.audio.length
+      }
+    })
+    return mediaCount
+  }
+  const buttonDisabled = getMediaCount() === 0
+
   return (
     <>
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center m-4">
         <button
+          disabled={buttonDisabled}
+          className={buttonDisabled ? 'btn-contained bg-gray-500' : 'btn-contained bg-primary-300 cursor-pointer'}
           onClick={() =>
             isOnline
               ? promptForDownload()
@@ -38,7 +54,9 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
                 })
           }
         >
-          <span className="fv-cloud-arrow-down-regular text-3xl justify-self-end cursor-pointer" />
+          <p className="text-xl">
+            Download related media files <span className="fv-cloud-arrow-down-regular justify-self-end" />
+          </p>
         </button>
       </div>
       {showConfirmDialog && (

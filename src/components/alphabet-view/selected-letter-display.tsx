@@ -1,6 +1,6 @@
 // FPCC
 import { CopyButton } from 'components/alphabet-view/copy-button'
-// import { DownloadButton } from './download-button';
+import { DownloadButton } from 'components/alphabet-view/download-button'
 import AudioControl from 'components/common/audio-control/audio-control'
 import { FvCharacter, FVMedia, FvWord } from 'components/common/data'
 
@@ -21,13 +21,11 @@ export function SelectedLetterDisplay({ selected, dictionaryData }: Readonly<Sel
       {audioCount === 0 && (
         <div className="flex w-full justify-center">
           <CopyButton selected={selected} />
-          {/* <DownloadButton selected={selected} dictionaryData={dictionaryData} /> */}
         </div>
       )}
       {audioCount === 1 && (
         <div className="grid grid-cols-2">
           <CopyButton selected={selected} />
-          {/* <DownloadButton selected={selected} dictionaryData={dictionaryData} /> */}
           {selected?.relatedAudio.map((fvAudio: FVMedia) => {
             return <AudioControl key={fvAudio.id} audioSrc={fvAudio.original.path} styleType="icon" />
           })}
@@ -38,12 +36,6 @@ export function SelectedLetterDisplay({ selected, dictionaryData }: Readonly<Sel
           <div className="flex w-full justify-center">
             <CopyButton selected={selected} />
           </div>
-          {/* <div className="flex w-full justify-center">
-            <DownloadButton
-              selected={selected}
-              dictionaryData={dictionaryData}
-            />
-          </div> */}
           <div className="flex justify-evenly mt-5">
             {selected?.relatedAudio.map((fvAudio: FVMedia) => {
               return <AudioControl key={fvAudio.id} audioSrc={fvAudio.original.path} styleType="icon" />
@@ -51,6 +43,7 @@ export function SelectedLetterDisplay({ selected, dictionaryData }: Readonly<Sel
           </div>
         </>
       )}
+      <DownloadButton selected={selected} dictionaryData={dictionaryData} />
     </>
   )
 }

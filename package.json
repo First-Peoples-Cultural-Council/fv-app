@@ -82,7 +82,7 @@
     "workbox-streams": "^7.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.27.1",
+    "@babel/core": "^7.29.0",
     "@babel/eslint-parser": "^7.28.6",
     "@babel/eslint-plugin": "^7.27.1",
     "@babel/preset-env": "^7.28.3",
@@ -133,7 +133,7 @@
     "ts-loader": "^9.5.4",
     "typescript-eslint": "^8.32.1",
     "uuid": "^11.1.0",
-    "webpack": "^5.102.1",
+    "webpack": "^5.105.4",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.2.3",
     "workbox-webpack-plugin": "^7.4.0"

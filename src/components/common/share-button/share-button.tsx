@@ -26,7 +26,7 @@ export function ShareButton({ title, text, url }: ShareButtonProps) {
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(text)
+      await navigator.clipboard.writeText(url)
       setNotification({
         type: ALERT_TYPES.SUCCESS,
         message: 'Success! The link has been copied to your clipboard.',

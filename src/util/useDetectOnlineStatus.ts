@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
 
-export const useDetectOnlineStatus = () => {
+export const useDetectOnlineStatus = (onReconnect?: () => void) => {
   const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine)
 
   useEffect(() => {
-    const handleOnline = () => setIsOnline(true)
+    const handleOnline = () => {
+      setIsOnline(true)
+      onReconnect?.()
+    }
     const handleOffline = () => setIsOnline(false)
 
     window.addEventListener('online', handleOnline)
@@ -14,7 +17,7 @@ export const useDetectOnlineStatus = () => {
       window.removeEventListener('online', handleOnline)
       window.removeEventListener('offline', handleOffline)
     }
-  }, [])
+  }, [onReconnect])
 
   return { isOnline }
 }

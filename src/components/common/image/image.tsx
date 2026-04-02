@@ -1,8 +1,5 @@
-import { useEffect, useState } from 'react'
-
 // FPCC
 import { ALERT_TYPES } from 'constants/notification-types'
-import IndexedDBService from 'services/indexedDbService'
 import { useDetectOnlineStatus } from 'util/useDetectOnlineStatus'
 import { useNotification } from 'components/contexts/notificationContext'
 
@@ -14,20 +11,12 @@ export interface FvImageProps {
 }
 
 export function FvImage({ className, disabledClassName, src, alt }: Readonly<FvImageProps>) {
-  const [hasFile, setHasFile] = useState(false)
-  const { isOnline } = useDetectOnlineStatus()
   const { setNotification } = useNotification()
-
-  useEffect(() => {
-    const db = new IndexedDBService('firstVoicesIndexedDb')
-    db.hasMediaFile(src).then((hasFile) => {
-      setHasFile(hasFile)
-    })
-  }, [isOnline, src])
+  const { isOnline } = useDetectOnlineStatus()
 
   return (
     <>
-      {isOnline || hasFile ? (
+      {isOnline ? (
         <img className={className} src={src} alt={alt} />
       ) : (
         <button

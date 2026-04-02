@@ -1,7 +1,4 @@
-import { useEffect, useState } from 'react'
-
 // FPCC
-import IndexedDBService from 'services/indexedDbService'
 import { ALERT_TYPES } from 'constants/notification-types'
 import { useNotification } from 'components/contexts/notificationContext'
 import { useDetectOnlineStatus } from 'util/useDetectOnlineStatus'
@@ -13,20 +10,12 @@ export interface FvVideoProps {
 }
 
 export function FvVideo({ className, disabledClassName, src }: Readonly<FvVideoProps>) {
-  const [hasFile, setHasFile] = useState(false)
-  const { isOnline } = useDetectOnlineStatus()
   const { setNotification } = useNotification()
-
-  useEffect(() => {
-    const db = new IndexedDBService('firstVoicesIndexedDb')
-    db.hasMediaFile(src).then((hasFile) => {
-      setHasFile(hasFile)
-    })
-  }, [isOnline, src])
+  const { isOnline } = useDetectOnlineStatus()
 
   return (
     <>
-      {isOnline || hasFile ? (
+      {isOnline ? (
         <video src={src} className={className} controls>
           <p>Your browser cannot play the provided video file.</p>
         </video>

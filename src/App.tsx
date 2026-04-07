@@ -11,6 +11,7 @@ import { InstallPromptProvider } from 'components/contexts/installPromptContext'
 import { NotificationProvider } from 'components/contexts/notificationContext'
 import { NotificationBanner } from 'components/common/notification-banner/notification-banner'
 import { AudioProvider } from 'components/contexts/audioContext'
+import { ConnectionMonitor } from 'util/connectionMonitor'
 
 export function App() {
   return (
@@ -19,6 +20,7 @@ export function App() {
         <NotificationProvider>
           <AudioProvider>
             <NotificationBanner />
+            <ConnectionMonitor />
             <Header navItems={navItems} extraNavItems={extraNavItems} />
             <Outlet />
             <InstallPrompt />

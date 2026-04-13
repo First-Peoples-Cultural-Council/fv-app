@@ -11,7 +11,7 @@ import { ExpirationPlugin } from 'workbox-expiration'
 import { createHandlerBoundToURL, precacheAndRoute } from 'workbox-precaching'
 import { registerRoute } from 'workbox-routing'
 import { StaleWhileRevalidate } from 'workbox-strategies'
-import IndexedDBService from 'services/indexedDbService'
+import { StoredMediaFile, IndexedDBService } from 'services/indexedDbService'
 
 declare const self: ServiceWorkerGlobalScope
 
@@ -75,7 +75,7 @@ registerRoute(
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
 self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
+  if (event.data?.type === 'SKIP_WAITING') {
     self.skipWaiting().then(() => {
       self.clients.matchAll({ type: 'window' }).then((clients) => {
         clients.forEach((client) => {
@@ -85,48 +85,6 @@ self.addEventListener('message', (event) => {
         })
       })
     })
-  }
-})
-
-self.addEventListener('fetch', function (event) {
-  const url = new URL(event.request.url)
-
-  // Only intercept media files
-  if (isMediaFile(url.href)) {
-    event.respondWith(
-      (async function () {
-        try {
-          const file: File | null = await getMediaFile(url.href)
-          if (file) {
-            return new Response(file, { status: 200 })
-          }
-        } catch (err) {
-          console.error('service-worker: error getting media file from db: ', url.href, err)
-        }
-
-        // Request new file if necessary
-        try {
-          const response = await fetch(event.request)
-          if (isNotFailedResponse(response)) {
-            //  Confirm no file exists
-            const alreadyHasFile = await db.hasMediaFile(url.href)
-            if (!alreadyHasFile) {
-              // Try to save the media file as a new entry in the database.
-              const filename = getFileNameFromUrl(url.href)
-              const file = await getFileFromResponse(response.clone(), filename).catch(() => {})
-              if (file) db.addMediaFile(url.href, file).catch(() => {})
-            }
-          }
-          return response
-        } catch (error) {
-          console.error('service-worker fetch error', error)
-          return new Response('Offline', {
-            status: 503,
-            statusText: 'Service Unavailable',
-          })
-        }
-      })()
-    )
   }
 })
 
@@ -141,36 +99,91 @@ self.addEventListener('install', (event) => {
   )
 })
 
+// Media Handling
+self.addEventListener('fetch', (event) => {
+  const request = event.request
+  const url = new URL(request.url)
+  const normalizedUrl = normalizeUrl(url.href)
+
+  // Do not handle if its not a media file
+  if (!isMediaFile(normalizedUrl)) return
+
+  event.respondWith(
+    (async () => {
+      // Try IndexedDB first
+      try {
+        const storedFile = await db.getMediaFile(normalizedUrl)
+
+        if (storedFile) {
+          const blob = new Blob([storedFile.blob], { type: storedFile.type })
+
+          return new Response(blob, {
+            status: storedFile.status,
+            statusText: storedFile.statusText,
+            headers: storedFile.headers,
+          })
+        }
+      } catch (err) {
+        console.error('service-worker: error getting media file from DB: ', normalizedUrl, err)
+      }
+
+      // If not present in DB, fetch and save
+      try {
+        const updatedCorsReq = new Request(request.url, {
+          mode: 'cors',
+          method: request.method,
+          redirect: request.redirect,
+          headers: request.headers,
+        })
+        const networkResponse = await fetch(updatedCorsReq)
+
+        // Fetch and cache the full file in background for audio/video if it was a range request
+        const isRangeRequest = request.headers.has('range')
+        if (isRangeRequest) {
+          fetchFullFileForCaching(normalizedUrl).catch((err) => {
+            console.error('service-worker: error fetching full media file: ', normalizedUrl, err)
+          })
+
+          return networkResponse
+        }
+
+        // For non-range media (images), save the response
+        if (networkResponse.ok) {
+          try {
+            const blob = await networkResponse.clone().blob()
+            const arrayBuffer = await blob.arrayBuffer()
+            const headers = extractHeaders(networkResponse)
+
+            const storedFile: StoredMediaFile = {
+              blob: arrayBuffer,
+              type: blob.type,
+              headers,
+              status: networkResponse.status,
+              statusText: networkResponse.statusText,
+              downloadedAt: '',
+              lastAccessedAt: '',
+            }
+
+            await db.addMediaFile(normalizedUrl, storedFile)
+          } catch (err) {
+            console.error('service-worker: error saving media file to DB: ', normalizedUrl, err)
+          }
+        }
+
+        return networkResponse
+      } catch (err) {
+        console.error('service-worker: Fetch error', err)
+        return new Response('Offline', {
+          status: 503,
+          statusText: 'Service Unavailable',
+        })
+      }
+    })()
+  )
+})
+
 function isMediaFile(url: string) {
-  return endsWithOneOf(url, [
-    '.jpeg',
-    '.jpg',
-    '.gif',
-    '.png',
-    '.tiff',
-    '.tif',
-    '.mp3',
-    '.wav',
-    '.mov',
-    '.mp4',
-    ':content/',
-  ])
-}
-
-async function getMediaFile(urlPath: string): Promise<File | null> {
-  const url = new URL(urlPath)
-  url.search = ''
-  const result = await db.getMediaFile(url.toString())
-  if (result === undefined) {
-    return null
-  }
-
-  const { file: blob } = result as {
-    file: Blob
-  }
-  return new File([blob], getFileNameFromUrl(url.toString()), {
-    type: blob.type,
-  })
+  return endsWithOneOf(url, ['.jpeg', '.jpg', '.gif', '.png', '.tiff', '.tif', '.mp3', '.wav'])
 }
 
 function endsWithOneOf(text: string, endings: string[]): boolean {
@@ -182,22 +195,46 @@ function endsWithOneOf(text: string, endings: string[]): boolean {
   return false
 }
 
-async function getFileFromResponse(response: Response, filename: string): Promise<File | null> {
-  const blob = await response.blob()
+function normalizeUrl(url: string): string {
+  const u = new URL(url)
+  u.search = ''
+  u.hash = ''
+  return u.toString()
+}
 
-  if (blob) {
-    return new File([blob], filename)
+function extractHeaders(response: Response): Record<string, string> {
+  const headers: Record<string, string> = {}
+  response.headers.forEach((value, key) => {
+    headers[key] = value
+  })
+  return headers
+}
+
+async function fetchFullFileForCaching(url: string) {
+  // Avoid duplicate fetches
+  if (await db.hasMediaFile(url)) return
+
+  const fullResponse = await fetch(url, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {}, // To request for full file and not partial response
+  })
+
+  if (fullResponse.ok) {
+    const blob = await fullResponse.clone().blob()
+    const arrayBuffer = await blob.arrayBuffer()
+    const headers = extractHeaders(fullResponse)
+
+    const stored: StoredMediaFile = {
+      blob: arrayBuffer,
+      type: blob.type,
+      headers,
+      status: fullResponse.status,
+      statusText: fullResponse.statusText,
+      downloadedAt: new Date().toISOString(),
+      lastAccessedAt: new Date().toISOString(),
+    }
+
+    await db.addMediaFile(url, stored)
   }
-
-  return null
-}
-
-function getFileNameFromUrl(url: string): string {
-  // Extract the file name from the URL
-  const parts = url.split('/')
-  return parts[parts.length - 1]
-}
-
-function isNotFailedResponse(response: Response): boolean {
-  return response.status === 200
 }

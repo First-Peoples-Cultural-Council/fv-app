@@ -21,7 +21,7 @@ const buildPath = path.join(__dirname, 'build')
 const publicPath = path.join(__dirname, 'public')
 
 const appSrc = path.resolve(srcPath, 'index.tsx')
-const swSrc = path.resolve(srcPath, 'service-worker.ts')
+const swSrc = path.resolve(srcPath, 'serviceWorker/index.ts')
 
 module.exports = {
   mode: isDev ? 'development' : 'production',

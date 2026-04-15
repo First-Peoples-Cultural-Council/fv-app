@@ -70,21 +70,22 @@ registerRoute(
   })
 )
 
-// This allows the web app to trigger skipWaiting via
-// registration.waiting.postMessage({type: 'SKIP_WAITING'})
-self.addEventListener('message', (event) => {
-  if (event.data?.type === 'SKIP_WAITING') {
-    self.skipWaiting().then(() => {
-      self.clients.matchAll({ type: 'window' }).then((clients) => {
-        clients.forEach((client) => {
-          if (client.url && 'navigate' in client) {
-            client.navigate(client.url).then((navClient) => navClient?.focus())
-          }
-        })
-      })
-    })
-  }
-})
+// Deactivates the current service worker, and activates a new service worker
+// with the updated code using skipWaiting trigger
+self.addEventListener('message', handleServiceWorkerMessage)
+
+async function handleServiceWorkerMessage(event: ExtendableMessageEvent) {
+  if (event.data?.type !== 'SKIP_WAITING') return
+
+  await self.skipWaiting()
+  const clients = await self.clients.matchAll({ type: 'window' })
+
+  clients.forEach((client: WindowClient) => {
+    if (client.url && 'navigate' in client) {
+      client.navigate(client.url).then((navClient) => navClient?.focus())
+    }
+  })
+}
 
 self.addEventListener('install', (event) => {
   event.waitUntil(

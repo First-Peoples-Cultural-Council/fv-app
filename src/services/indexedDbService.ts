@@ -107,21 +107,19 @@ export class IndexedDBService {
     return mediaFile !== undefined
   }
 
-  async addMediaFile(url: string, data: StoredMediaFile) {
+  async addMediaFile(url: string, mediaFile: StoredMediaFile) {
     const store = await this.getMediaStore()
-    const mediaFile = {
-      blob: data.blob,
-      type: data.type,
-      headers: data.headers,
-      status: data.status,
-      statusText: data.statusText,
-      downloadedAt: new Date().toISOString(),
-      lastAccessedAt: new Date().toISOString(),
-    }
+    const now = new Date().toISOString()
 
     try {
-      const request = store.put(mediaFile, url)
-      await request
+      await store.put(
+        {
+          ...mediaFile,
+          downloadedAt: now,
+          lastAccessedAt: now,
+        },
+        url
+      )
     } catch (err) {
       console.error('Error caching media: ', err, url)
     }

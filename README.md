@@ -70,4 +70,4 @@ In order to add an app for a new language:
 
 ## Note on Service Worker Caching
 
-Workbox didn't automatically cache all of the files that are needed for the app to run offline. So in the service-worker.ts under precacheAndRoute there are files that have been added via the manifestFileList.json file that is generated during the build process.
+Workbox didn't automatically cache all of the files that are needed for the app to run offline. So in the serviceWorker/index.ts under precacheAndRoute there are files that have been added via the manifestFileList.json file that is generated during the build process.

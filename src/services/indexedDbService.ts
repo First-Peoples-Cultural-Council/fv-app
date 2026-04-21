@@ -3,6 +3,17 @@ import { openDB, DBSchema, IDBPDatabase } from 'idb'
 // FPCC
 import { Bookmark } from 'components/common/data'
 
+export interface StoredMediaFile {
+  // Files are stored as ArrayBuffers instead of Blobs to work around webkit/ios bugs.
+  // See: https://stackoverflow.com/questions/68386273/error-loading-blob-to-img-in-safari-webkitblobresource-error-1
+  blob: ArrayBuffer
+  type: string
+  headers: Record<string, string>
+  status: number
+  statusText: string
+  downloadedAt: string
+  lastAccessedAt: string
+}
 interface FVDB extends DBSchema {
   bookmarks: {
     key: string
@@ -11,12 +22,7 @@ interface FVDB extends DBSchema {
   }
   mediaFiles: {
     key: string
-    value: {
-      downloadedAt: string
-      lastAccessedAt: string
-      buffer: ArrayBuffer
-      type: string
-    }
+    value: StoredMediaFile
   }
   data: {
     key: string
@@ -24,8 +30,8 @@ interface FVDB extends DBSchema {
   }
 }
 
-class IndexedDBService {
-  private database: Promise<IDBPDatabase<FVDB>>
+export class IndexedDBService {
+  private readonly database: Promise<IDBPDatabase<FVDB>>
 
   constructor(databaseName: string) {
     this.database = openDB<FVDB>(databaseName, 1, {
@@ -101,65 +107,37 @@ class IndexedDBService {
     return mediaFile !== undefined
   }
 
-  async addMediaFile(url: string, file: Blob) {
-    const fileBuffer = await file.arrayBuffer()
+  async addMediaFile(url: string, mediaFile: StoredMediaFile) {
     const store = await this.getMediaStore()
-    const type = file.type
-
-    const mediaFile = {
-      downloadedAt: new Date().toISOString(),
-      lastAccessedAt: new Date().toISOString(),
-      buffer: fileBuffer,
-      type,
-    }
+    const now = new Date().toISOString()
 
     try {
-      const request = store.add(mediaFile, url)
-      request.catch(() => {
-        // this is generally not a problem; mostly due to duplicate requests
-      })
-      await request
+      await store.put(
+        {
+          ...mediaFile,
+          downloadedAt: now,
+          lastAccessedAt: now,
+        },
+        url
+      )
     } catch (err) {
       console.error('Error caching media: ', err, url)
     }
   }
 
-  async getMediaFile(url: string): Promise<
-    | {
-        downloadedAt: string
-        lastAccessedAt: string
-        file: Blob
-      }
-    | undefined
-  > {
+  async getMediaFile(url: string): Promise<StoredMediaFile | undefined> {
     const store = await this.getMediaStore()
+    const mediaFile = await store.get(url)
+    if (!mediaFile) return undefined
 
-    // Files are stored as ArrayBuffers instead of Blobs to work around webkit/ios bugs.
-    // See: https://stackoverflow.com/questions/68386273/error-loading-blob-to-img-in-safari-webkitblobresource-error-1
-    const mediaFile = (await store.get(url)) as {
-      downloadedAt: string
-      lastAccessedAt: string
-      buffer: ArrayBuffer
-      type: string
-    }
-
-    if (mediaFile) {
-      await store.put(
-        {
-          ...mediaFile,
-          lastAccessedAt: new Date().toISOString(),
-        },
-        url
-      )
-
-      // Files are returned as Blobs for ease of use
-      const blob = new Blob([mediaFile.buffer], { type: mediaFile.type })
-      return {
-        downloadedAt: mediaFile.downloadedAt,
-        lastAccessedAt: mediaFile.lastAccessedAt,
-        file: blob,
-      }
-    }
+    // Update lastAccessedAt
+    await store.put(
+      {
+        ...mediaFile,
+        lastAccessedAt: new Date().toISOString(),
+      },
+      url
+    )
 
     return mediaFile
   }

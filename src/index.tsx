@@ -5,7 +5,7 @@ import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } 
 // FPCC
 import 'index.css'
 import App from 'App'
-import * as serviceWorkerRegistration from 'serviceWorkerRegistration'
+import * as serviceWorkerRegistration from 'serviceWorker/registration'
 import { ApiProvider } from 'components/contexts/apiContext'
 
 // Components

@@ -87,15 +87,4 @@ async function handleServiceWorkerMessage(event: ExtendableMessageEvent) {
   })
 }
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    (async function () {
-      // Activate the new service worker immediately without waiting
-      self.skipWaiting()
-
-      self.clients.claim()
-    })()
-  )
-})
-
 setupMediaCaching()

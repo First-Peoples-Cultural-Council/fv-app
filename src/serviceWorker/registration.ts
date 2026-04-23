@@ -8,9 +8,9 @@ export type Config = {
 }
 
 export function register(config?: Config) {
-  if (!('serviceWorker' in navigator)) return
-  const enabled = process.env.NODE_ENV === 'production'
-  if (!enabled) return
+  if (!('serviceWorker' in navigator) || process.env.NODE_ENV !== 'production') {
+    return
+  }
 
   window.addEventListener('load', async () => {
     const wb = new Workbox(SW_URL)
@@ -29,15 +29,7 @@ export function register(config?: Config) {
     try {
       await wb.register()
     } catch (err) {
-      console.error('[SW] registration failed:', err)
+      console.error('[service-worker] registration failed:', err)
     }
   })
-}
-
-export function unregister() {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.ready
-      .then((reg) => reg.unregister())
-      .catch((err) => console.error('[SW] unregister failed:', err))
-  }
 }

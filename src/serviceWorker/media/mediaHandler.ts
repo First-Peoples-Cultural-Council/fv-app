@@ -33,7 +33,7 @@ async function handleMediaRequest(request: Request, normalizedUrl: string) {
       })
     }
   } catch (err) {
-    console.error('service-worker: error getting media file from DB: ', normalizedUrl, err)
+    console.error('[service-worker] error getting media file from DB: ', normalizedUrl, err)
   }
 
   // If not present in DB, fetch and save
@@ -50,7 +50,7 @@ async function handleMediaRequest(request: Request, normalizedUrl: string) {
     const isRangeRequest = request.headers.has('range')
     if (isRangeRequest) {
       fetchFullFileForCaching(normalizedUrl).catch((err) => {
-        console.error('service-worker: error fetching full media file: ', normalizedUrl, err)
+        console.error('[service-worker] error fetching full media file: ', normalizedUrl, err)
       })
 
       return networkResponse
@@ -75,13 +75,13 @@ async function handleMediaRequest(request: Request, normalizedUrl: string) {
 
         await db.addMediaFile(normalizedUrl, storedFile)
       } catch (err) {
-        console.error('service-worker: error saving media file to DB: ', normalizedUrl, err)
+        console.error('[service-worker] error saving media file to DB: ', normalizedUrl, err)
       }
     }
 
     return networkResponse
   } catch (err) {
-    console.error('service-worker: Fetch error', err)
+    console.error('[service-worker] Fetch error', err)
     return new Response('Offline', {
       status: 503,
       statusText: 'Service Unavailable',

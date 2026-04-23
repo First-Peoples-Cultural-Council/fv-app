@@ -14,7 +14,6 @@ const { InjectManifest } = require('workbox-webpack-plugin')
 dotenv.config()
 
 const isDev = process.env.NODE_ENV !== 'production'
-const serviceWorkersEnabled = !isDev || process.env.SERVICE_WORKERS === 'true'
 
 const srcPath = path.join(__dirname, 'src')
 const buildPath = path.join(__dirname, 'build')
@@ -189,12 +188,12 @@ module.exports = {
         filename: `assets/css/[name].[contenthash:8].css`,
         chunkFilename: 'assets/css/[name].[contenthash:8].chunk.css',
       }),
-    serviceWorkersEnabled &&
+    !isDev &&
       new WebpackManifestPlugin({
         fileName: 'asset-manifest.json',
         publicPath: publicPath,
       }),
-    serviceWorkersEnabled &&
+    !isDev &&
       new InjectManifest({
         swSrc,
         swDest: 'service-worker.js',

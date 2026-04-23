@@ -18,7 +18,7 @@ $ npm run start
 Optionally if you want to enable service-workers for local testing,
 
 ```bash
-$ npm run start:sw
+$ npm run buildnserve
 ```
 
 **This is an experimental feature**. Ideally, service workers are only enabled on servers, but can be tested locally with this command.  

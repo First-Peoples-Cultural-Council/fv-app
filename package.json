@@ -9,7 +9,6 @@
   },
   "scripts": {
     "start": "webpack serve --mode=development",
-    "start:sw": "SERVICE_WORKERS=true webpack serve --mode=development",
     "build": "NODE_ENV=production webpack",
     "test": "jest",
     "buildnserve": "npm run build && serve -s build",

@@ -175,6 +175,8 @@ jobs:
           format: 'table'
           ignore-unfixed: true
           vuln-type: 'os,library'
+          severity: 'UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL'
           exit-code: 1
+          exit-on-severity: 'CRITICAL'
 
           

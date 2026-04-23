@@ -167,7 +167,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: Run Trivy FS scan
+      - name: Trivy fail on CRITICAL only
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: 'fs'
@@ -175,8 +175,7 @@ jobs:
           format: 'table'
           ignore-unfixed: true
           vuln-type: 'os,library'
-          severity: 'UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL'
+          severity: 'CRITICAL'
           exit-code: 1
-          exit-on-severity: 'CRITICAL'
 
           

@@ -2,6 +2,7 @@ import { openDB, DBSchema, IDBPDatabase } from 'idb'
 
 // FPCC
 import { Bookmark } from 'components/common/data'
+import { normalizeUrl } from 'serviceWorker/media/mediaUtils'
 
 export interface StoredMediaFile {
   // Files are stored as ArrayBuffers instead of Blobs to work around webkit/ios bugs.
@@ -145,6 +146,15 @@ export class IndexedDBService {
   async getMediaCount(): Promise<number> {
     const store = await this.getReadOnlyMediaStore()
     return store.count()
+  }
+
+  async hasAllMediaFiles(urls: string[]): Promise<boolean> {
+    for (const url of urls) {
+      const normalized = normalizeUrl(url)
+      const exists = await this.hasMediaFile(normalized.toString())
+      if (!exists) return false
+    }
+    return true
   }
 
   async saveData(key: string, data: any) {

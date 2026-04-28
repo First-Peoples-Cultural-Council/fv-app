@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
 import { Audio1, DictionaryEntryExportFormat } from '@mothertongues/search'
 
@@ -10,6 +10,7 @@ import Modal from 'components/common/modal/modal'
 import { FvCharacter, FvWord } from 'components/common/data'
 import { useStartsWithChar } from 'util/useStartsWithChar'
 import { useNotification } from 'components/contexts/notificationContext'
+import IndexedDBService from 'services/indexedDbService'
 
 export interface DownloadButtonProps {
   dictionaryData: DictionaryEntryExportFormat[]
@@ -24,20 +25,56 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
   const { isOnline } = useDetectOnlineStatus()
   const { entriesStartingWith } = useStartsWithChar(dictionaryData, selected)
   const { setNotification } = useNotification()
+  const [areAssetsCached, setAreAssetsCached] = useState(false)
 
-  const getMediaCount = () => {
-    let mediaCount = 0
+  const mediaList = useMemo(() => {
+    const set = new Set<string>()
     entriesStartingWith.forEach((term: FvWord) => {
+      // Adding image urls
       if (term.img) {
-        mediaCount += 1
+        set.add(term.img)
       }
-      if (term.audio) {
-        mediaCount += term.audio.length
-      }
+
+      // Adding all audio urls
+      term.audio?.forEach((a: Audio1) => set.add(a.filename))
     })
-    return mediaCount
+    return Array.from(set)
+  }, [entriesStartingWith])
+
+  useEffect(() => {
+    // To prevent setting state on an unmounted component in case
+    // the async function finishes after the user has moved away
+    let isMounted = true
+
+    async function checkCache() {
+      if (mediaList.length === 0) {
+        if (isMounted) setAreAssetsCached(true)
+        return
+      }
+
+      const db = new IndexedDBService('firstVoicesIndexedDb')
+      const result = await db.hasAllMediaFiles(mediaList)
+
+      if (isMounted) setAreAssetsCached(result)
+    }
+
+    checkCache()
+
+    return () => {
+      isMounted = false
+    }
+  }, [mediaList])
+
+  let buttonLabel = ''
+
+  if (mediaList.length === 0) {
+    buttonLabel = 'No related media'
+  } else if (areAssetsCached) {
+    buttonLabel = 'All media downloaded'
+  } else {
+    buttonLabel = 'Download related media files'
   }
-  const buttonDisabled = getMediaCount() === 0
+  const buttonDisabled = mediaList.length === 0 || areAssetsCached || currentlyDownloading
 
   return (
     <>
@@ -55,7 +92,7 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
           }
         >
           <p className="text-xl">
-            Download related media files <span className="fv-cloud-arrow-down-regular justify-self-end" />
+            {buttonLabel} <span className="fv-cloud-arrow-down-regular justify-self-end" />
           </p>
         </button>
       </div>

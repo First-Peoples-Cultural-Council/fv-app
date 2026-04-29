@@ -26,6 +26,28 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
   const { entriesStartingWith } = useStartsWithChar(dictionaryData, selected)
   const { setNotification } = useNotification()
   const [areAssetsCached, setAreAssetsCached] = useState(false)
+  const [isCheckingCache, setIsCheckingCache] = useState(true)
+
+  const checkCache = async () => {
+    setIsCheckingCache(true)
+    if (mediaList.length === 0) {
+      setAreAssetsCached(true)
+      setIsCheckingCache(false)
+    }
+
+    const db = new IndexedDBService('firstVoicesIndexedDb')
+    const result = await db.hasAllMediaFiles(mediaList)
+
+    setAreAssetsCached(result)
+    setIsCheckingCache(false)
+  }
+
+  const getButtonLabel = () => {
+    if (isCheckingCache) return 'Checking media...'
+    if (mediaList.length === 0) return 'No related media'
+    if (areAssetsCached) return 'All media downloaded'
+    return 'Download related media files'
+  }
 
   const mediaList = useMemo(() => {
     const set = new Set<string>()
@@ -42,39 +64,10 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
   }, [entriesStartingWith])
 
   useEffect(() => {
-    // To prevent setting state on an unmounted component in case
-    // the async function finishes after the user has moved away
-    let isMounted = true
-
-    async function checkCache() {
-      if (mediaList.length === 0) {
-        if (isMounted) setAreAssetsCached(true)
-        return
-      }
-
-      const db = new IndexedDBService('firstVoicesIndexedDb')
-      const result = await db.hasAllMediaFiles(mediaList)
-
-      if (isMounted) setAreAssetsCached(result)
-    }
-
     checkCache()
-
-    return () => {
-      isMounted = false
-    }
   }, [mediaList])
 
-  let buttonLabel = ''
-
-  if (mediaList.length === 0) {
-    buttonLabel = 'No related media'
-  } else if (areAssetsCached) {
-    buttonLabel = 'All media downloaded'
-  } else {
-    buttonLabel = 'Download related media files'
-  }
-  const buttonDisabled = mediaList.length === 0 || areAssetsCached || currentlyDownloading
+  const buttonDisabled = mediaList.length === 0 || isCheckingCache || areAssetsCached || currentlyDownloading
 
   return (
     <>
@@ -92,7 +85,7 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
           }
         >
           <p className="text-xl">
-            {buttonLabel} <span className="fv-cloud-arrow-down-regular justify-self-end" />
+            {getButtonLabel()} <span className="fv-cloud-arrow-down-regular justify-self-end" />
           </p>
         </button>
       </div>
@@ -171,6 +164,7 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
       await Promise.all(promises)
       setCurrentlyDownloading(false)
       setShowDownloadProgress(false)
+      checkCache()
     }
   }
 }

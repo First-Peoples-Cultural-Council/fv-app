@@ -1,4 +1,17 @@
-export const CACHEABLE_MEDIA_EXTENSIONS = ['.jpeg', '.jpg', '.gif', '.png', '.tiff', '.tif', '.mp3', '.wav'] as const
+export const CACHEABLE_MEDIA_EXTENSIONS = [
+  // Images
+  '.jpeg',
+  '.jpg',
+  '.gif',
+  '.png',
+  '.tiff',
+  '.tif',
+  // Audio
+  '.mp3',
+  '.wav',
+  '.ogg',
+  '.oga',
+] as const
 
 export function isCacheableMediaFile(url: string) {
   const lower = url.toLowerCase()

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
 import { Audio1, DictionaryEntryExportFormat } from '@mothertongues/search'
 
@@ -10,6 +10,7 @@ import Modal from 'components/common/modal/modal'
 import { FvCharacter, FvWord } from 'components/common/data'
 import { useStartsWithChar } from 'util/useStartsWithChar'
 import { useNotification } from 'components/contexts/notificationContext'
+import IndexedDBService from 'services/indexedDbService'
 
 export interface DownloadButtonProps {
   dictionaryData: DictionaryEntryExportFormat[]
@@ -24,20 +25,49 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
   const { isOnline } = useDetectOnlineStatus()
   const { entriesStartingWith } = useStartsWithChar(dictionaryData, selected)
   const { setNotification } = useNotification()
+  const [areAssetsCached, setAreAssetsCached] = useState(false)
+  const [isCheckingCache, setIsCheckingCache] = useState(true)
 
-  const getMediaCount = () => {
-    let mediaCount = 0
-    entriesStartingWith.forEach((term: FvWord) => {
-      if (term.img) {
-        mediaCount += 1
-      }
-      if (term.audio) {
-        mediaCount += term.audio.length
-      }
-    })
-    return mediaCount
+  const checkCache = async () => {
+    setIsCheckingCache(true)
+    if (mediaList.length === 0) {
+      setAreAssetsCached(true)
+      setIsCheckingCache(false)
+    }
+
+    const db = new IndexedDBService('firstVoicesIndexedDb')
+    const result = await db.hasAllMediaFiles(mediaList)
+
+    setAreAssetsCached(result)
+    setIsCheckingCache(false)
   }
-  const buttonDisabled = getMediaCount() === 0
+
+  const getButtonLabel = () => {
+    if (isCheckingCache) return 'Checking media...'
+    if (mediaList.length === 0) return 'No related media'
+    if (areAssetsCached) return 'All media downloaded'
+    return 'Download related media files'
+  }
+
+  const mediaList = useMemo(() => {
+    const set = new Set<string>()
+    entriesStartingWith.forEach((term: FvWord) => {
+      // Adding image urls
+      if (term.img) {
+        set.add(term.img)
+      }
+
+      // Adding all audio urls
+      term.audio?.forEach((a: Audio1) => set.add(a.filename))
+    })
+    return Array.from(set)
+  }, [entriesStartingWith])
+
+  useEffect(() => {
+    checkCache()
+  }, [mediaList])
+
+  const buttonDisabled = mediaList.length === 0 || isCheckingCache || areAssetsCached || currentlyDownloading
 
   return (
     <>
@@ -55,7 +85,7 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
           }
         >
           <p className="text-xl">
-            Download related media files <span className="fv-cloud-arrow-down-regular justify-self-end" />
+            {getButtonLabel()} <span className="fv-cloud-arrow-down-regular justify-self-end" />
           </p>
         </button>
       </div>
@@ -134,6 +164,7 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
       await Promise.all(promises)
       setCurrentlyDownloading(false)
       setShowDownloadProgress(false)
+      checkCache()
     }
   }
 }

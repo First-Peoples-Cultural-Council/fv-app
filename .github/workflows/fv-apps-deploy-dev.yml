@@ -134,8 +134,8 @@ jobs:
           terraform fmt
           terraform plan
           terraform apply -auto-approve -lock=false
-          terraform output -raw cloudfront_discribution
-          DISTRO_ID=$(terraform output -raw cloudfront_discribution)
+          terraform output -json cloudfront_discribution
+          DISTRO_ID=$(terraform output -json cloudfront_discribution | jq -r '.')
           echo "Distro_ID=$DISTRO_ID" >> "$GITHUB_ENV"
       - name: Invalidate cloudfront cache
         env:

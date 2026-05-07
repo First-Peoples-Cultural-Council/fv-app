@@ -39,7 +39,7 @@ export function SongsView() {
                     )}
                     onClick={() => onSongClick(song)}
                   >
-                    <div className="grid grid-cols-8 gap-2">
+                    <div className="grid grid-cols-8 items-center gap-2">
                       <div className="col-span-2">
                         {song?.relatedImages.length > 0 ? (
                           <FvImage
@@ -48,14 +48,12 @@ export function SongsView() {
                             alt={song?.relatedImages[0].title}
                           />
                         ) : (
-                          <div className="fv-songs text-5xl self-center border border-solid" />
+                          <div className="fv-songs text-6xl self-center border border-solid" />
                         )}
                       </div>
-                      <div className="col-span-5 flex items-center justify-center">
-                        <div>
-                          <div className="font-bold">{song.title}</div>
-                          <div className="truncate">{song.titleTranslation}</div>
-                        </div>
+                      <div className="col-span-5 text-center">
+                        <div className="font-bold">{song.title}</div>
+                        <div className="truncate">{song.titleTranslation}</div>
                       </div>
                       <div className="col-span-1 flex items-center justify-end">
                         <i className="fv-right-open" />

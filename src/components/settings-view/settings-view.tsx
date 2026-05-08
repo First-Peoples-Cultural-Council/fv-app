@@ -21,27 +21,28 @@ export function SettingsView() {
 
   return (
     <>
-      <div>
-        <div className="m-4">
-          <p className="mb-3">
+      <div className="m-4 space-y-6">
+        <h1 className="text-2xl text-primary-500">Settings</h1>
+        <div className="space-y-2">
+          <p>
             We store media files to assist with app performance. You can clear this cache to free up space on your
             device.
           </p>
-          <p className="mb-6">
+          <p>
             Currently you have <span id="localMediaCount">{mediaCount}</span> files in your local cache.
           </p>
-
-          <p>
-            <button className="btn-contained bg-secondary-500" onClick={() => setShowConfirmDialog(true)}>
-              Clear Media Cache
-            </button>
-          </p>
         </div>
+
+        <button className="btn-contained bg-primary-300" onClick={() => setShowConfirmDialog(true)}>
+          Clear Media Cache
+        </button>
       </div>
       {showConfirmDialog && (
         <ConfirmDialog
-          title="Confirm Clear"
-          message="You are about to clear out all the media files that have been downloaded."
+          title="Clear offline media cache"
+          message="Are you sure you want to remove all the media files that have been downloaded to your device?"
+          confirmLabel="Clear"
+          cancelLabel="Cancel"
           onConfirm={() => handleClearCache()}
           onCancel={() => setShowConfirmDialog(false)}
         />

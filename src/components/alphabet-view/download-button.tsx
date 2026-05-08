@@ -30,13 +30,13 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
 
   const checkCache = async () => {
     setIsCheckingCache(true)
-    if (mediaList.length === 0) {
+    if (mediaArray.length === 0) {
       setAreAssetsCached(true)
       setIsCheckingCache(false)
     }
 
     const db = new IndexedDBService('firstVoicesIndexedDb')
-    const result = await db.hasAllMediaFiles(mediaList)
+    const result = await db.hasAllMediaFiles(mediaArray)
 
     setAreAssetsCached(result)
     setIsCheckingCache(false)
@@ -44,30 +44,40 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
 
   const getButtonLabel = () => {
     if (isCheckingCache) return 'Checking media...'
-    if (mediaList.length === 0) return 'No related media'
+    if (mediaArray.length === 0) return 'No related media'
     if (areAssetsCached) return 'All media downloaded'
     return 'Download related media files'
   }
 
-  const mediaList = useMemo(() => {
+  const audioSet = useMemo(() => {
     const set = new Set<string>()
     entriesStartingWith.forEach((term: FvWord) => {
-      // Adding image urls
+      // Get all of the audio files associated with the word/phrase.
+      term.audio?.forEach((audio: Audio1) => set.add(audio.filename))
+    })
+
+    return set
+  }, [entriesStartingWith])
+
+  const imageSet = useMemo(() => {
+    const set = new Set<string>()
+    entriesStartingWith.forEach((term: FvWord) => {
       if (term.img) {
         set.add(term.img)
       }
-
-      // Adding all audio urls
-      term.audio?.forEach((a: Audio1) => set.add(a.filename))
     })
-    return Array.from(set)
+
+    return set
   }, [entriesStartingWith])
+
+  const mediaSet = useMemo(() => new Set([...audioSet, ...imageSet]), [audioSet, imageSet])
+  const mediaArray = useMemo(() => Array.from(mediaSet), [mediaSet])
 
   useEffect(() => {
     checkCache()
-  }, [mediaList])
+  }, [mediaArray])
 
-  const buttonDisabled = mediaList.length === 0 || isCheckingCache || areAssetsCached || currentlyDownloading
+  const buttonDisabled = mediaArray.length === 0 || isCheckingCache || areAssetsCached || currentlyDownloading
 
   return (
     <>
@@ -91,27 +101,35 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
       </div>
       {showConfirmDialog && (
         <ConfirmDialog
-          title="Confirm Download"
-          message={`You are about to download all the media files for dictionary entries beginning with ${selected.title}.`}
-          confirmLabel="Continue"
-          cancelLabel="No, Thanks"
-          onConfirm={() => downloadAssets()}
+          title="Do you want to download the audio and images for offline use?"
+          message={
+            <p className="space-y-2">
+              This includes <span className="font-bold">{audioSet.size} audio files</span> and{' '}
+              <span className="font-bold">{imageSet.size} images</span> related to the dictionary entries that begin
+              with <span className="font-bold">&quot;{selected.title}&quot;</span>.
+            </p>
+          }
+          confirmLabel="Download"
+          cancelLabel="Cancel"
+          onConfirm={() => downloadAssets(mediaSet)}
           onCancel={() => setShowConfirmDialog(false)}
         />
       )}
       {showDownloadProgress && (
         <Modal closeOnOutsideClick={false} onClose={() => setShowDownloadProgress(false)}>
-          <div className="w-full text-center text-3xl mb-5">Download Progress</div>
-          <div className="grid place-items-center">
-            <div className={`rounded-md bg-gray-300 w-[400px] h-2 ml-10 mr-10`}>
-              <div
-                className={`rounded-l-md bg-green-500 h-2`}
-                style={{
-                  width: `${downloadPercentage}%`,
-                }}
-              />
+          <div className="w-full text-center p-5 space-y-5">
+            <div className="text-2xl">Download Progress</div>
+            <div className="grid place-items-center">
+              <div className="rounded-md bg-gray-300 w-full h-2 mx-5">
+                <div
+                  className="rounded-l-md bg-word-500 h-2"
+                  style={{
+                    width: `${downloadPercentage}%`,
+                  }}
+                />
+              </div>
             </div>
-            <div className="text-xl p-2">{downloadPercentage}%</div>
+            <div className="text-lg">{downloadPercentage}%</div>
           </div>
         </Modal>
       )}
@@ -126,37 +144,22 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
     }
   }
 
-  async function downloadAssets() {
+  async function downloadAssets(mediaSet: Set<string>) {
     setDownloadPercentage(0)
     setCurrentlyDownloading(true)
 
-    const mediaList: Set<string> = new Set()
-
-    // Get a list of the assets associated with the words/phrases
-    // that start with the selected letter.
-    entriesStartingWith.forEach((term: FvWord) => {
-      // Get the image associated with the word/phrase.
-      if (term.img) {
-        mediaList.add(term.img)
-      }
-      // Get all of the audio files associated with the word/phrase.
-      term.audio?.forEach((audio: Audio1) => {
-        mediaList.add(audio.filename)
-      })
-    })
-
     // If there is media to download get it and update the percentage.
-    if (mediaList.size > 0) {
+    if (mediaSet.size > 0) {
       const promises: Promise<void>[] = []
 
       setShowDownloadProgress(true)
       let downloadComplete = 0
 
-      mediaList.forEach((media) => {
+      mediaSet.forEach((media) => {
         promises.push(
           axios.get(media).then(() => {
             downloadComplete++
-            setDownloadPercentage(Math.round((downloadComplete / mediaList.size) * 100))
+            setDownloadPercentage(Math.round((downloadComplete / mediaSet.size) * 100))
           })
         )
       })

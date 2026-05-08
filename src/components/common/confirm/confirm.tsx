@@ -3,7 +3,7 @@ import Modal from 'components/common/modal/modal'
 
 type ConfirmDialogProps = {
   title: string
-  message: string
+  message: React.ReactNode
   confirmLabel?: string
   cancelLabel?: string
   onConfirm: () => void
@@ -29,15 +29,15 @@ export function ConfirmDialog({
 
   return (
     <Modal onClose={closeModal} showCloseButton={false} closeOnOutsideClick={false}>
-      <div className="w-full text-center text-3xl mb-5">{title}</div>
-      <div className="p-4">{message}</div>
-      <div className="flex justify-end">
-        <div className="p-4">
-          <button className="btn-contained bg-secondary-500 mr-2" onClick={handleConfirm}>
-            {confirmLabel}
-          </button>
-          <button className="btn-contained bg-primary-500 mr-2" onClick={closeModal}>
+      <div className="w-full text-center p-5 space-y-5">
+        <div className="text-xl">{title}</div>
+        <div className="text-pretty">{message}</div>
+        <div className="mx-auto space-x-3">
+          <button className="btn-outlined" onClick={closeModal}>
             {cancelLabel}
+          </button>
+          <button className="btn-contained bg-primary-300" onClick={handleConfirm}>
+            {confirmLabel}
           </button>
         </div>
       </div>

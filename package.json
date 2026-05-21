@@ -102,7 +102,7 @@
     "@types/react-dom": "^18.3.7",
     "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^8.59.2",
-    "@typescript-eslint/parser": "^8.59.2",
+    "@typescript-eslint/parser": "^8.59.3",
     "babel-jest": "^30.4.1",
     "case-sensitive-paths-webpack-plugin": "^2.4.0",
     "clean-webpack-plugin": "^4.0.0",

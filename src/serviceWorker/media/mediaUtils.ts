@@ -11,7 +11,9 @@ export const CACHEABLE_MEDIA_EXTENSIONS = [
   '.wav',
   '.ogg',
   '.oga',
+  '.opus',
   '.m4a',
+  '.weba',
 ] as const
 
 export function isCacheableMediaFile(url: string) {

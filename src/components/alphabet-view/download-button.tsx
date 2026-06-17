@@ -84,7 +84,9 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
       <div className="flex justify-center items-center m-4">
         <button
           disabled={buttonDisabled}
-          className={buttonDisabled ? 'btn-contained bg-gray-500' : 'btn-contained bg-primary-300 cursor-pointer'}
+          className={
+            buttonDisabled ? 'btn-contained h-24 bg-gray-500' : 'btn-contained h-24 bg-primary-300 cursor-pointer'
+          }
           onClick={() =>
             isOnline
               ? promptForDownload()

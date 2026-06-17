@@ -33,10 +33,10 @@ export function ConfirmDialog({
         <div className="text-xl">{title}</div>
         <div className="text-pretty">{message}</div>
         <div className="mx-auto space-x-3">
-          <button className="btn-outlined" onClick={closeModal}>
+          <button className="btn-outlined" onClick={closeModal} data-testid="confirmDialog-cancel">
             {cancelLabel}
           </button>
-          <button className="btn-contained bg-primary-300" onClick={handleConfirm}>
+          <button className="btn-contained bg-primary-300" onClick={handleConfirm} data-testid="confirmDialog-confirm">
             {confirmLabel}
           </button>
         </div>

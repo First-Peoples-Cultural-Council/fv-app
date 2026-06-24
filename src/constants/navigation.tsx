@@ -132,6 +132,12 @@ export const navItems: NavigationItem[] = [
 
 export const extraNavItems: NavigationItem[] = [
   {
+    id: 'install',
+    label: 'Installation',
+    to: '/install',
+    icon: <i className="fv-download" />,
+  },
+  {
     id: 'settings',
     label: 'Settings',
     to: '/settings',

@@ -85,7 +85,8 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
         <button
           disabled={buttonDisabled}
           className={
-            buttonDisabled ? 'btn-contained h-24 bg-gray-500' : 'btn-contained h-24 bg-primary-300 cursor-pointer'
+            (buttonDisabled ? 'bg-gray-500 ' : 'bg-primary-300 cursor-pointer') +
+            ' btn-contained w-full max-w-xs transition-colors duration-300'
           }
           onClick={() =>
             isOnline
@@ -96,9 +97,17 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
                 })
           }
         >
-          <p className="text-xl">
-            {getButtonLabel()} <span className="fv-cloud-arrow-down-regular justify-self-end" />
-          </p>
+          <div className="flex flex-col items-center justify-center space-y-2">
+            <div className="relative w-[240px] h-6 overflow-hidden">
+              <p
+                key={getButtonLabel()}
+                className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 opacity-100"
+              >
+                {getButtonLabel()}
+                <span className="fv-cloud-arrow-down-regular text-2xl" />
+              </p>
+            </div>
+          </div>
         </button>
       </div>
       {showConfirmDialog && (

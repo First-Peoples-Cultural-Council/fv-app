@@ -18,6 +18,7 @@ import DictionaryView from 'components/dictionary-view/dictionary-view'
 import DictionaryEntryView from 'components/dictionary-entry-view/dictionary-entry-view'
 import ErrorPage from 'components/error-page/error-page'
 import FlashcardsView from 'components/flashcards-view/flashcards-view'
+import InstallView from 'components/install-view/install-view'
 import Learn from 'components/learn/learn'
 import PageNotFound from 'components/page-not-found/page-not-found'
 import ProfileView from 'components/profile-view/profile-view'
@@ -51,6 +52,7 @@ export const router = createBrowserRouter(
       <Route path="bookmarks" element={<ProfileView />} />
       <Route path="settings" element={<SettingsView />} />
       <Route path="about" element={<AboutView />} />
+      <Route path="install" element={<InstallView />} />
       <Route path="*" element={<PageNotFound />} />
     </Route>
   )

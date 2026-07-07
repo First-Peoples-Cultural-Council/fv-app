@@ -17,7 +17,7 @@ export function MobileNav({ navItems, extraNavItems }: Readonly<MobileNavProps>)
   return (
     <>
       {/* Mobile Nav Spacer */}
-      <div className="w-full block md:hidden h-[56px]"></div>
+      <div className={(showExtraNav ? 'h-[120px]' : 'h-[72px]') + ' w-full block md:hidden'}></div>
       <nav className="fixed bottom-0 left-0 w-full bg-charcoal-500 flex-auto p-4 justify-between items-center md:hidden">
         <ul className="flex justify-around w-full">
           {navItems?.map((item) => (

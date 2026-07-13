@@ -133,7 +133,7 @@
     "typescript-eslint": "^8.59.2",
     "uuid": "^14.0.0",
     "webpack": "^5.107.1",
-    "webpack-cli": "^7.0.2",
+    "webpack-cli": "^7.2.1",
     "webpack-dev-server": "^5.2.4",
     "workbox-webpack-plugin": "^7.4.1"
   }

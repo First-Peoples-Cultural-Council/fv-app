@@ -129,7 +129,7 @@
     "serve": "^14.2.6",
     "style-loader": "^4.0.0",
     "ts-jest": "^29.4.11",
-    "ts-loader": "^9.6.0",
+    "ts-loader": "^9.6.2",
     "typescript-eslint": "^8.59.2",
     "uuid": "^14.0.0",
     "webpack": "^5.107.1",

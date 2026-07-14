@@ -42,13 +42,6 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
     setIsCheckingCache(false)
   }
 
-  const getButtonLabel = () => {
-    if (isCheckingCache) return 'Checking media...'
-    if (mediaArray.length === 0) return 'No related media'
-    if (areAssetsCached) return 'All media downloaded'
-    return 'Download related media files'
-  }
-
   const audioSet = useMemo(() => {
     const set = new Set<string>()
     entriesStartingWith.forEach((term: FvWord) => {
@@ -77,38 +70,60 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
     checkCache()
   }, [mediaArray])
 
-  const buttonDisabled = mediaArray.length === 0 || isCheckingCache || areAssetsCached || currentlyDownloading
+  const getStatus = () => {
+    if (isCheckingCache) {
+      return {
+        label: 'Checking media...',
+        icon: 'fv-spinner',
+      }
+    }
+
+    if (mediaArray.length === 0) {
+      return {
+        label: 'No related media',
+        icon: 'fv-video',
+      }
+    }
+
+    if (areAssetsCached) {
+      return {
+        label: 'All media downloaded',
+        icon: 'fv-check',
+      }
+    }
+
+    return null
+  }
+
+  const status = getStatus()
+  const showDownloadButton = !status
 
   return (
     <>
       <div className="flex justify-center items-center m-4">
-        <button
-          disabled={buttonDisabled}
-          className={
-            (buttonDisabled ? 'bg-gray-500 ' : 'bg-primary-300 cursor-pointer') +
-            ' btn-contained w-full max-w-xs transition-colors duration-300'
-          }
-          onClick={() =>
-            isOnline
-              ? promptForDownload()
-              : setNotification({
-                  type: ALERT_TYPES.WARNING,
-                  message: 'Content not downloaded.  Please try again when you have access to the internet.',
-                })
-          }
-        >
-          <div className="flex flex-col items-center justify-center space-y-2">
-            <div className="relative w-[240px] h-6 overflow-hidden">
-              <p
-                key={getButtonLabel()}
-                className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 opacity-100"
-              >
-                {getButtonLabel()}
-                <span className="fv-cloud-arrow-down-regular text-2xl" />
-              </p>
+        {showDownloadButton ? (
+          <button
+            className="bg-primary-300 btn-contained w-full max-w-xs transition-colors duration-300 cursor-pointer"
+            onClick={() =>
+              isOnline
+                ? promptForDownload()
+                : setNotification({
+                    type: ALERT_TYPES.WARNING,
+                    message: 'Content not downloaded. Please try again when you have access to the internet.',
+                  })
+            }
+          >
+            <div className="flex items-center justify-center gap-2">
+              <span>Download related media files</span>
+              <span className="fv-cloud-arrow-down-regular text-2xl" />
             </div>
+          </button>
+        ) : (
+          <div className={`flex items-center justify-center gap-2 w-full max-w-xs py-2 font-medium`}>
+            <span>{status.label}</span>
+            <span className={status.icon} />
           </div>
-        </button>
+        )}
       </div>
       {showConfirmDialog && (
         <ConfirmDialog

@@ -1,4 +1,4 @@
-.fv-download {
+.fv-close {
   *zoom: expression(this.runtimeStyle[ 'zoom'] = '1', this.innerHTML = '&#xe800;&nbsp;');
 }
 .fv-shuffle {
@@ -118,6 +118,9 @@
 .fv-dictionary {
   *zoom: expression(this.runtimeStyle[ 'zoom'] = '1', this.innerHTML = '&#xe826;&nbsp;');
 }
+.fv-ok-circled {
+  *zoom: expression(this.runtimeStyle[ 'zoom'] = '1', this.innerHTML = '&#xe827;&nbsp;');
+}
 .fv-cog {
   *zoom: expression(this.runtimeStyle[ 'zoom'] = '1', this.innerHTML = '&#xf013;&nbsp;');
 }
@@ -139,6 +142,6 @@
 .fv-share {
   *zoom: expression(this.runtimeStyle[ 'zoom'] = '1', this.innerHTML = '&#xf1e0;&nbsp;');
 }
-.fv-close {
+.fv-download {
   *zoom: expression(this.runtimeStyle[ 'zoom'] = '1', this.innerHTML = '&#x1f500;&nbsp;');
 }

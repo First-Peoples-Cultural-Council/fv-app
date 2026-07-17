@@ -88,7 +88,7 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
     if (areAssetsCached) {
       return {
         label: 'All media downloaded',
-        icon: '',
+        icon: 'fv-ok-circled',
       }
     }
 

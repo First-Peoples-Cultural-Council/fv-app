@@ -1,5 +1,6 @@
 import { ChangeEvent, useContext } from 'react'
 import classNames from 'classnames'
+import { FaX } from 'react-icons/fa6'
 
 // FPCC
 import { SearchContext } from 'components/contexts/searchContext'
@@ -32,11 +33,11 @@ export function SearchInput() {
       />
       <button
         onClick={clearSearch}
-        className={classNames('opacity-0 absolute right-12 top-1/4 text-xs cursor-pointer', {
+        className={classNames('opacity-0 absolute right-12 top-2 text-xs cursor-pointer', {
           'opacity-100': searchQuery,
         })}
       >
-        <i className="fv-close text-gray-500" />
+        <FaX className="text-gray-500" />
       </button>
       <button
         onClick={() => submitSearch(searchQuery)}

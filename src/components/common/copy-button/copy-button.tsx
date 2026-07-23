@@ -1,5 +1,6 @@
 import { useNotification } from 'components/contexts/notificationContext'
 import { ALERT_TYPES } from 'constants/notification-types'
+import { FaRegCopy } from 'react-icons/fa6'
 
 export interface CopyButtonProps {
   label?: string
@@ -32,8 +33,8 @@ export function CopyButton({ label, text }: Readonly<CopyButtonProps>) {
   }
 
   return (
-    <button type="button" data-testid="copy-btn" className="flex items-center" onClick={handleCopy}>
-      <i className="fv-copy pr-2 text-xl" />
+    <button type="button" data-testid="copy-btn" className="flex items-center space-x-2" onClick={handleCopy}>
+      <FaRegCopy className="text-xl" />
       <span className="text-lg">{label ?? 'COPY'}</span>
     </button>
   )

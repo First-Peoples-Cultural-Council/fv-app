@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import classNames from 'classnames'
 import { useNavigate } from 'react-router'
+import { FaChevronRight } from 'react-icons/fa6'
 
 // FPCC
 import { FVSong } from 'components/common/data/types'
@@ -56,7 +57,7 @@ export function SongsView() {
                         <div className="truncate">{song.titleTranslation}</div>
                       </div>
                       <div className="col-span-1 flex items-center justify-end">
-                        <i className="fv-right-open" />
+                        <FaChevronRight />
                       </div>
                     </div>
                   </button>

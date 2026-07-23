@@ -1,5 +1,6 @@
 import classNames from 'classnames'
 import { Audio1 } from '@mothertongues/search'
+import { FaVolumeHigh, FaChevronRight } from 'react-icons/fa6'
 
 // FPCC
 import { FvWord, FvWordLocation } from 'components/common/data'
@@ -32,9 +33,9 @@ function WordCardDesktop({ item, wordWidthClass }: Readonly<WordCardDesktopProps
               {wordLocations ? applyHighlighting(word, wordLocations, 'word') : word}
             </div>
           </div>
-          <div className="col-span-1">
+          <div className="col-span-1 flex justify-center items-center">
             {audio?.map((mtAudio: Audio1) => (
-              <i key={mtAudio.filename} className="fv-volume-up" />
+              <FaVolumeHigh key={mtAudio.filename} />
             ))}
           </div>
           <div className="col-span-7 text-left">
@@ -43,7 +44,7 @@ function WordCardDesktop({ item, wordWidthClass }: Readonly<WordCardDesktopProps
             </p>
           </div>
           <div className="col-span-1 flex h-full justify-end items-center">
-            <i className="fv-right-open" />
+            <FaChevronRight />
           </div>
         </div>
       </button>

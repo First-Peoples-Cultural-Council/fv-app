@@ -1,5 +1,6 @@
 import { Link } from 'react-router'
 import classNames from 'classnames'
+import { FaChevronRight } from 'react-icons/fa6'
 
 // FPCC
 import { FVStory } from 'components/common/data/types'
@@ -46,7 +47,7 @@ export function StoriesView() {
                     </div>
                     <div className="self-center col-span-1"></div>
                     <div className="place-self-end self-center">
-                      <i className="fv-right-open" />
+                      <FaChevronRight />
                     </div>
                   </div>
                 </Link>

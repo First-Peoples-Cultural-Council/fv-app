@@ -1,4 +1,5 @@
 import { Audio1 } from '@mothertongues/search'
+import { FaVolumeHigh, FaChevronRight } from 'react-icons/fa6'
 
 // FPCC
 import FullScreenModal from 'components/common/full-screen-modal/full-screen-modal'
@@ -33,13 +34,13 @@ function WordCardMobile({ item }: Readonly<WordCardMobileProps>) {
               {wordLocations ? applyHighlighting(definition, wordLocations, 'definition') : definition}
             </p>
           </div>
-          <div className="col-span-1 self-center">
+          <div className="col-span-1 flex items-center justify-center">
             {audio?.map((mtAudio: Audio1) => (
-              <i key={mtAudio.filename} className="fv-volume-up" />
+              <FaVolumeHigh key={mtAudio.filename} />
             ))}
           </div>
           <div className="col-span-1 place-self-end self-center">
-            <i className="fv-right-open" />
+            <FaChevronRight />
           </div>
         </div>
       </button>

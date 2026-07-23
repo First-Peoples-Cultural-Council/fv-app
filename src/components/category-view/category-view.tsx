@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { Link, useParams } from 'react-router'
 import { BiSolidCategory } from 'react-icons/bi'
+import { FaQuoteRight, FaComment } from 'react-icons/fa6'
 
 // FPCC
 import styles from 'components/category-view/category-view.module.css'
@@ -219,8 +220,8 @@ export function CategoryView() {
       <MultiSwitch
         selected={selected}
         items={[
-          { name: 'WORDS', icon: 'fv-words' },
-          { name: 'PHRASES', icon: 'fv-quote-right' },
+          { name: 'WORDS', icon: FaComment },
+          { name: 'PHRASES', icon: FaQuoteRight },
           { name: 'BOTH', icon: null },
         ]}
         onToggle={(index: number) => {

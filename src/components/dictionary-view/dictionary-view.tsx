@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext, useMemo } from 'react'
+import { FaQuoteRight, FaComment } from 'react-icons/fa6'
 
 // FPCC
 import WordCardMobile from 'components/dictionary-view/word-card-mobile'
@@ -90,8 +91,8 @@ export function DictionaryView() {
       <MultiSwitch
         selected={selected}
         items={[
-          { name: 'WORDS', icon: 'fv-words' },
-          { name: 'PHRASES', icon: 'fv-quote-right' },
+          { name: 'WORDS', icon: FaComment },
+          { name: 'PHRASES', icon: FaQuoteRight },
           { name: 'BOTH', icon: null },
         ]}
         onToggle={(index: number) => {

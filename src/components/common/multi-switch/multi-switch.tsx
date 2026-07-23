@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import classNames from 'classnames'
+import { IconType } from 'react-icons'
 
 export interface MultiSwitchProps {
   selected: number
   items: {
     name: string
-    icon: string | null
+    icon: IconType | null
   }[]
   onToggle: (index: number) => void
 }
@@ -17,6 +18,7 @@ export function MultiSwitch({ selected: initialSelected, items, onToggle }: Read
     <div className={'multi-switch p-2'}>
       <div className={'w-fit rounded-lg'}>
         {items.map((item, index) => {
+          const ItemIcon = item?.icon
           return (
             <button
               key={item.name}
@@ -31,9 +33,9 @@ export function MultiSwitch({ selected: initialSelected, items, onToggle }: Read
                 onToggle(index)
               }}
             >
-              {item.icon && (
-                <i
-                  className={classNames(item.icon, {
+              {ItemIcon && (
+                <ItemIcon
+                  className={classNames({
                     'text-primary-500': selected !== index,
                     'text-white': selected === index,
                   })}

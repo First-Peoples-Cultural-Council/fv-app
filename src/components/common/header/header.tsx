@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router'
 import classNames from 'classnames'
+import { FaBars } from 'react-icons/fa6'
 
 // FPCC
 import FVLogo from 'assets/images/FVlogo.svg'
@@ -46,7 +47,7 @@ export function Header({ className, navItems, extraNavItems }: Readonly<HeaderPr
           <li key="extra-nav" className="mr-5">
             <div className="relative mr-2">
               <button onClick={() => setShowExtraNav(!showExtraNav)}>
-                <i className="fv-menu text-white cursor-pointer" />
+                <FaBars className="text-white cursor-pointer" />
               </button>
             </div>
             {showExtraNav && (

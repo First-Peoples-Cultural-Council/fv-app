@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router'
 import classNames from 'classnames'
+import { FaBars } from 'react-icons/fa6'
 
 // FPCC
 import { NavigationItem } from 'components/common/data'
@@ -36,7 +37,7 @@ export function MobileNav({ navItems, extraNavItems }: Readonly<MobileNavProps>)
           {!showExtraNav && (
             <li key="extra-nav">
               <button onClick={() => setShowExtraNav(true)}>
-                <i className="fv-menu text-white cursor-pointer text-3xl" />
+                <FaBars className="text-white cursor-pointer text-3xl" />
               </button>
             </li>
           )}
@@ -59,7 +60,7 @@ export function MobileNav({ navItems, extraNavItems }: Readonly<MobileNavProps>)
             {showExtraNav && (
               <li key="extra-nav">
                 <button onClick={() => setShowExtraNav(false)}>
-                  <i className="fv-menu text-white cursor-pointer text-3xl" />
+                  <FaBars className="text-white cursor-pointer text-3xl" />
                 </button>
               </li>
             )}

@@ -1,6 +1,6 @@
 import { ChangeEvent, useContext } from 'react'
 import classNames from 'classnames'
-import { FaX } from 'react-icons/fa6'
+import { FaX, FaMagnifyingGlass } from 'react-icons/fa6'
 
 // FPCC
 import { SearchContext } from 'components/contexts/searchContext'
@@ -43,7 +43,7 @@ export function SearchInput() {
         onClick={() => submitSearch(searchQuery)}
         className="p-2 h-7 rounded-r-lg bg-white border border-gray-400 border-l-0 flex items-center"
       >
-        <i className="fv-search text-text-gray" />
+        <FaMagnifyingGlass className="text-gray-500" />
       </button>
     </div>
   )

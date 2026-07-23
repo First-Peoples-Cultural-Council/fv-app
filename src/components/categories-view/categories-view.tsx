@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import classNames from 'classnames'
+import { BiSolidCategory } from 'react-icons/bi'
 
 // FPCC
 import fetchCategoryData from 'services/categoriesApiService'
@@ -32,7 +33,7 @@ export function CategoriesView() {
                 to={`/categories/${category.id}`}
                 className="w-40 h-40 m-2 content-center grid grid-cols-1 cursor-pointer bg-tertiaryB-500 text-white py-2 px-4 rounded shadow text-center"
               >
-                <i className={classNames('fv-categories', 'text-4xl')} />
+                <BiSolidCategory className="text-6xl mx-auto" />
 
                 <div className="pt-2 text-sm">{category.title}</div>
               </Link>
@@ -54,10 +55,10 @@ export function CategoriesView() {
               >
                 <Link
                   to={`/categories/${category.id}`}
-                  className={classNames('w-full rounded-lg inline-flex items-center hover:opacity-75')}
+                  className="w-full rounded-lg inline-flex items-center hover:opacity-75 space-x-2"
                 >
-                  <i className={classNames('fv-categories', 'text-3xl hover:opacity-75 text-tertiaryB-500')} />
-                  <div className="pt-2 inline-flex ml-3 text-lg font-medium">{category.title}</div>
+                  <BiSolidCategory className="text-4xl hover:opacity-75 text-tertiaryB-500" />
+                  <div className="text-lg font-medium">{category.title}</div>
                 </Link>
                 <div className="space-y-2 ml-6">
                   {category.children?.map((subCategory) => {

@@ -23,8 +23,8 @@ export function StoriesView() {
                     'border border-gray-200 md:rounded-lg bg-white p-4 shadow-lg hover:bg-gray-100 cursor-pointer'
                   )}
                 >
-                  <div className="grid grid-cols-10 items-center gap-2">
-                    <div className="col-span-1 h-16 w-16 sm:h-24 sm:w-24">
+                  <div className="flex items-center justify-between space-x-2">
+                    <div className="h-16 w-16 sm:h-24 sm:w-24 shrink-0">
                       {story?.relatedImages?.length > 0 ? (
                         <FvImage
                           className="h-full w-full object-contain shadow-lg"
@@ -38,13 +38,13 @@ export function StoriesView() {
                         </div>
                       )}
                     </div>
-                    <div className="col-span-8 flex text-center items-center justify-center">
+                    <div className="flex text-center items-center justify-center">
                       <div>
                         <div className="font-bold">{story.title}</div>
                         <div className="truncate">{story.titleTranslation}</div>
                       </div>
                     </div>
-                    <div className="col-span-1 place-self-end self-center">
+                    <div className="self-center">
                       <FaChevronRight />
                     </div>
                   </div>

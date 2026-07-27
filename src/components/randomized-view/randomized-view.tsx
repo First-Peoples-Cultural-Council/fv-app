@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { FaQuoteRight, FaComment } from 'react-icons/fa6'
+import { FaQuoteRight, FaComment, FaArrowsRotate } from 'react-icons/fa6'
 
 // FPCC
 import WordCardMobile from 'components/dictionary-view/word-card-mobile'
@@ -65,7 +65,7 @@ export function RandomizedView() {
           }}
           className="ml-4"
         >
-          <i className="fv-arrows-cw text-lg" />
+          <FaArrowsRotate className="text-xl" />
         </button>
       </div>
       <div id="wordList" className="overflow-y-auto max-h-calc-245 md:max-h-calc-195">

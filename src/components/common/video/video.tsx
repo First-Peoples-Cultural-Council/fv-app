@@ -1,3 +1,5 @@
+import { FaFilm } from 'react-icons/fa6'
+
 // FPCC
 import { ALERT_TYPES } from 'constants/notification-types'
 import { useNotification } from 'components/contexts/notificationContext'
@@ -22,14 +24,16 @@ export function FvVideo({ className, disabledClassName, src }: Readonly<FvVideoP
       ) : (
         <button
           type="button"
-          className={`fv-video text-20xl text-gray-500/25 ${disabledClassName}`}
+          className={`text-20xl text-gray-300 flex items-center justify-center ${disabledClassName}`}
           onClick={() =>
             setNotification({
               type: ALERT_TYPES.WARNING,
               message: 'Videos are not available offline. Please go online to access this video.',
             })
           }
-        />
+        >
+          <FaFilm />
+        </button>
       )}
     </>
   )

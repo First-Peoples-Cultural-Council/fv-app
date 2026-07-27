@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import classNames from 'classnames'
 import { useNavigate } from 'react-router'
-import { FaChevronRight } from 'react-icons/fa6'
+import { FaChevronRight, FaMusic } from 'react-icons/fa6'
 
 // FPCC
 import { FVSong } from 'components/common/data/types'
@@ -40,23 +40,26 @@ export function SongsView() {
                     )}
                     onClick={() => onSongClick(song)}
                   >
-                    <div className="grid grid-cols-8 items-center gap-2">
-                      <div className="col-span-2">
-                        {song?.relatedImages.length > 0 ? (
+                    <div className="grid grid-cols-10 items-center gap-2">
+                      <div className="col-span-1 h-16 w-16 sm:h-24 sm:w-24">
+                        {song?.relatedImages?.length > 0 ? (
                           <FvImage
+                            className="w-full h-full object-contain shadow-lg"
                             disabledClassName="text-6xl"
                             src={song?.relatedImages[0]?.thumbnail?.path ?? ''}
-                            alt={song?.relatedImages[0].title}
+                            alt={song?.title ?? ''}
                           />
                         ) : (
-                          <div className="fv-songs text-6xl self-center border border-solid" />
+                          <div className="h-full w-full object-contain shadow-lg flex justify-center items-center">
+                            <FaMusic className="text-6xl text-gray-400" />
+                          </div>
                         )}
                       </div>
-                      <div className="col-span-5 text-center">
+                      <div className="col-span-8 flex text-center items-center justify-center">
                         <div className="font-bold">{song.title}</div>
                         <div className="truncate">{song.titleTranslation}</div>
                       </div>
-                      <div className="col-span-1 flex items-center justify-end">
+                      <div className="col-span-1 place-self-end self-center">
                         <FaChevronRight />
                       </div>
                     </div>

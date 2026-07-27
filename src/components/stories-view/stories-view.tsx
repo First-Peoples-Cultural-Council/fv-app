@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
 import classNames from 'classnames'
-import { FaChevronRight } from 'react-icons/fa6'
+import { FaChevronRight, FaBookOpen } from 'react-icons/fa6'
 
 // FPCC
 import { FVStory } from 'components/common/data/types'
@@ -23,30 +23,28 @@ export function StoriesView() {
                     'border border-gray-200 md:rounded-lg bg-white p-4 shadow-lg hover:bg-gray-100 cursor-pointer'
                   )}
                 >
-                  <div className="grid grid-cols-10 gap-4">
-                    <div className="col-span-3 h-16 w-16 sm:h-24 sm:w-24">
-                      {story?.relatedImages === null && (
-                        <div className="h-full w-full object-contain shadow-lg flex justify-center items-center">
-                          <div className="fv-stories text-6xl"></div>
-                        </div>
-                      )}
-                      {story?.relatedImages[0] && (
+                  <div className="grid grid-cols-10 items-center gap-2">
+                    <div className="col-span-1 h-16 w-16 sm:h-24 sm:w-24">
+                      {story?.relatedImages?.length > 0 ? (
                         <FvImage
                           className="h-full w-full object-contain shadow-lg"
                           disabledClassName="text-6xl"
                           src={story?.relatedImages[0]?.thumbnail?.path ?? ''}
                           alt={story?.title ?? ''}
                         />
+                      ) : (
+                        <div className="h-full w-full object-contain shadow-lg flex justify-center items-center">
+                          <FaBookOpen className="text-6xl text-gray-400" />
+                        </div>
                       )}
                     </div>
-                    <div className="col-span-5 flex text-center items-center justify-center">
+                    <div className="col-span-8 flex text-center items-center justify-center">
                       <div>
                         <div className="font-bold">{story.title}</div>
                         <div className="truncate">{story.titleTranslation}</div>
                       </div>
                     </div>
-                    <div className="self-center col-span-1"></div>
-                    <div className="place-self-end self-center">
+                    <div className="col-span-1 place-self-end self-center">
                       <FaChevronRight />
                     </div>
                   </div>

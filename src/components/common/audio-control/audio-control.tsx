@@ -73,14 +73,16 @@ export function AudioControl({ audioSrc, description, styleType }: Readonly<Audi
           ) : (
             <button
               type="button"
-              className="fv-songs text-3xl text-gray-400"
+              className="btn-contained bg-gray-300"
               onClick={() => {
                 setNotification({
                   type: ALERT_TYPES.WARNING,
                   message: offlineWarning,
                 })
               }}
-            />
+            >
+              <FaVolumeHigh className="text-3xl" />
+            </button>
           )}
         </>
       )}

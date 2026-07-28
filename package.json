@@ -13,8 +13,6 @@
     "test": "jest",
     "buildnserve": "npm run build && serve -s build",
     "serve": "serve -s build",
-    "icons:generate": "npx fontello-cli install --config fontello.config.json --css ./src/assets/fonts/css --font ./src/assets/fonts/font",
-    "icons:open": "npx fontello-cli open --config fontello.config.json",
     "lintStaged": "lint-staged",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
@@ -50,7 +48,6 @@
   "dependencies": {
     "@bcgov/bc-sans": "^2.1.0",
     "@headlessui/react": "^2.2.10",
-    "@heroicons/react": "^2.2.0",
     "@mothertongues/search": "^0.0.3",
     "@popperjs/core": "^2.11.8",
     "axios": "^1.16.1",

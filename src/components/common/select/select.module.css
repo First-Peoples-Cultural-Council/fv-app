@@ -1,7 +1,0 @@
-.optionItem .checkmark {
-  @apply text-indigo-600;
-}
-
-.optionItem:hover .checkmark {
-  @apply text-white;
-}

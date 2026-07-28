@@ -38,7 +38,7 @@ export function Keyboard({ selected, setSelected, loading, dataAlphabet, wordLis
                 className={classNames(
                   'border col-span-1 font-medium inline-flex justify-center p-5 md:p-3 rounded shadow text-2xl',
                   {
-                    'bg-primary-500 text-white hover:bg-primary-400': characterData.title === selected?.title,
+                    'bg-primary-300 text-white hover:bg-primary-500': characterData.title === selected?.title,
                     'hover:bg-gray-200': characterData.title !== selected?.title,
                   }
                 )}

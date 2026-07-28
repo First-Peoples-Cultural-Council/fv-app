@@ -1,5 +1,19 @@
 import { useContext, useEffect, useRef, useState } from 'react'
-import classNames from 'classnames'
+import { IconType } from 'react-icons'
+import {
+  FaVolumeHigh,
+  FaX,
+  FaQuoteRight,
+  FaComment,
+  FaArrowRotateLeft,
+  FaArrowRotateRight,
+  FaShuffle,
+  FaArrowLeftLong,
+  FaArrowRightLong,
+  FaRegSquareCheck,
+  FaBookmark,
+} from 'react-icons/fa6'
+import { BiSolidCategory } from 'react-icons/bi'
 
 // FPCC
 import useOnClickOutside from 'util/clickOutside'
@@ -117,17 +131,17 @@ export function FlashcardsView() {
     <div>
       <div className="w-full">
         <div className="flex flex-wrap justify-center">
-          {flashCardType('Words', 'fv-wordsfc', () => {
+          {flashCardType('Words', FaComment, () => {
             handleFlashcardTypeSelection(dataDict.filter((entry) => entry.source === SourceType.Word))
           })}
-          {flashCardType('Phrases', 'fv-phrasesfc', () => {
+          {flashCardType('Phrases', FaQuoteRight, () => {
             handleFlashcardTypeSelection(dataDict.filter((entry) => entry.source === SourceType.Phrase))
           })}
-          {flashCardType('Category', 'fv-categories', () => {
+          {flashCardType('Category', BiSolidCategory, () => {
             setSelectedFlashcardDisplayType('')
             setShowCategoryModal(true)
           })}
-          {flashCardType('Bookmarks', 'fv-bookmark', () => {
+          {flashCardType('Bookmarks', FaBookmark, () => {
             handleFlashcardTypeSelection(
               dataDict.filter((entry) => bookmarks.some((bookmark) => bookmark.id === entry.entryID))
             )
@@ -140,16 +154,16 @@ export function FlashcardsView() {
           <div ref={SelectModalRef} className="bg-white rounded-lg overflow-y-auto">
             <div className="w-full text-center uppercase text-primary-500 text-2xl">{selectedFlashcardType}</div>
             <div className="max-w-sm mx-auto grid grid-cols-1 gap-2 p-6">
-              {menuItem('English to Language', 'fv-refresh-counter-clockwise', () => {
+              {menuItem('English to Language', FaArrowRotateLeft, () => {
                 setSelectedFlashcardDisplayType('e2l')
               })}
-              {menuItem('Language to English', 'fv-refresh-clockwise', () => {
+              {menuItem('Language to English', FaArrowRotateRight, () => {
                 setSelectedFlashcardDisplayType('l2e')
               })}
-              {menuItem('Audio to English', 'fv-volume-up', () => {
+              {menuItem('Audio to English', FaVolumeHigh, () => {
                 setSelectedFlashcardDisplayType('a2e')
               })}
-              {menuItem('Mix', 'fv-mix', () => {
+              {menuItem('Mix', FaShuffle, () => {
                 setSelectedFlashcardDisplayType('mix')
               })}
             </div>
@@ -165,7 +179,7 @@ export function FlashcardsView() {
               {dataCategories.map((category: FvCategory) => {
                 return (
                   <div key={category.id}>
-                    {menuItem(category.title, 'fv-categories', () => {
+                    {menuItem(category.title, BiSolidCategory, () => {
                       const categoryData = dataDict.filter((term) => {
                         return term.theme === category.title || term.secondary_theme === category.title
                       })
@@ -190,13 +204,13 @@ export function FlashcardsView() {
                 </p>
                 <div className="grid h-10 w-10 bg-gray-50 float-right rounded-full mb-2 md:place-items-center">
                   <button
-                    className="p-2 ml-auto bg-transparent border-0 text-black float-right text-1xl leading-none font-semibold outline-none focus:outline-none"
+                    className="p-2 ml-auto bg-transparent border-0 text-black float-right text-xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => {
                       stopAudio()
                       setShowFlashcardModal(false)
                     }}
                   >
-                    <i className="fv-close"></i>
+                    <FaX />
                   </button>
                 </div>
               </div>
@@ -223,17 +237,17 @@ export function FlashcardsView() {
               )}
             </div>
             <div className="max-w-sm mx-auto grid grid-cols-1 gap-2 p-6">
-              {menuItem('Restart Set', 'fv-ccw', () => {
+              {menuItem('Restart Set', FaArrowLeftLong, () => {
                 setDataForFlashcard(0)
                 setShowDonePromptModal(false)
                 setShowFlashcardModal(true)
               })}
               {data.length !== 0 &&
-                menuItem('Next Set', 'fv-right-big', () => {
+                menuItem('Next Set', FaArrowRightLong, () => {
                   saveDataForFlashcards(data)
                   setShowDonePromptModal(false)
                 })}
-              {menuItem('Done', 'fv-check', () => {
+              {menuItem('Done', FaRegSquareCheck, () => {
                 setShowDonePromptModal(false)
               })}
             </div>
@@ -262,27 +276,34 @@ export function FlashcardsView() {
     saveDataForFlashcards(data)
   }
 
-  function flashCardType(name: string, icon: string, getTypeData: Function) {
+  function flashCardType(name: string, icon: IconType, getTypeData: Function) {
+    const IconToUse = icon
     return (
       <button
         onClick={() => {
           getTypeData()
           setSelectedFlashcardType(name)
         }}
-        className="w-44 h-44 md:w-80 md:h-40 m-2 content-center grid grid-cols-1 md:grid-cols-2 cursor-pointer justify-center text-white bg-tertiaryB-500 py-2 px-4 rounded-lg shadow text-center"
+        className="w-44 h-44 md:w-80 md:h-40 m-2 grid grid-cols-1 md:grid-cols-2 cursor-pointer items-center justify-center text-left text-white bg-tertiaryB-500 p-4 rounded-lg"
       >
-        <i className={classNames(icon, 'text-6xl ')} />
+        <IconToUse className="text-6xl mx-auto" />
 
-        <div className="pt-2 text-lg md:text-2xl">{name}</div>
+        <div className="text-lg md:text-2xl">{name}</div>
       </button>
     )
   }
 
-  function menuItem(name: string, icon: string, onClick: Function) {
+  function menuItem(name: string, icon: IconType, onClick: Function) {
+    const IconToUse = icon
     return (
       <div className="col-span-1">
-        <button className="btn-outlined border-2 h-full w-full justify-start text-left" onClick={() => onClick()}>
-          <div className={classNames('text-3xl text-primary', icon)}></div>
+        <button
+          data-testid={`${name}-btn`}
+          type="button"
+          className="btn-outlined border-2 h-full w-full justify-start text-left space-x-4"
+          onClick={() => onClick()}
+        >
+          <IconToUse className="text-3xl text-primary" />
           <div className="text-xl">{name}</div>
         </button>
       </div>

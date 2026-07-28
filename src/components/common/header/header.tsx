@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router'
 import classNames from 'classnames'
+import { FaBars } from 'react-icons/fa6'
 
 // FPCC
 import FVLogo from 'assets/images/FVlogo.svg'
@@ -38,7 +39,9 @@ export function Header({ className, navItems, extraNavItems }: Readonly<HeaderPr
                 onClick={() => setShowExtraNav(false)}
                 className={classNames('flex items-center text-white cursor-pointer', { 'ml-2': !!item.icon })}
               >
-                <div className="mr-2">{item.icon}</div>
+                <div className="mr-2">
+                  <item.icon />
+                </div>
                 {item.label}
               </Link>
             </li>
@@ -46,7 +49,7 @@ export function Header({ className, navItems, extraNavItems }: Readonly<HeaderPr
           <li key="extra-nav" className="mr-5">
             <div className="relative mr-2">
               <button onClick={() => setShowExtraNav(!showExtraNav)}>
-                <i className="fv-menu text-white cursor-pointer" />
+                <FaBars className="text-white cursor-pointer" />
               </button>
             </div>
             {showExtraNav && (
@@ -57,7 +60,10 @@ export function Header({ className, navItems, extraNavItems }: Readonly<HeaderPr
                       to={item.to}
                       className={classNames('flex items-center text-white cursor-pointer', { 'ml-2': !!item.icon })}
                     >
-                      <div className="mr-2">{item.icon}</div>
+                      <div className="mr-2">
+                        {' '}
+                        <item.icon />
+                      </div>
                       {item.label}
                     </Link>
                   </button>

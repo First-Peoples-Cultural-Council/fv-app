@@ -1,18 +1,21 @@
+import { FaRegCopy } from 'react-icons/fa6'
+
 export interface CopyButtonProps {
   selected: any
 }
 
 export function CopyButton({ selected }: Readonly<CopyButtonProps>) {
   return (
-    <div className="flex justify-center items-center">
+    <div id="CopyButton" className="flex justify-center items-center">
       <button
+        data-testid="copy-btn"
         onClick={() => {
           navigator.clipboard.writeText(selected?.title ?? '').catch((err: any) => {
             console.error(err)
           })
         }}
       >
-        <span className="fv-copy text-3xl cursor-pointer" />
+        <FaRegCopy className="text-3xl cursor-pointer" />
       </button>
     </div>
   )

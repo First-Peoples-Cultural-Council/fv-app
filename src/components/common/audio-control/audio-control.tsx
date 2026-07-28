@@ -1,5 +1,6 @@
 import { Description } from '@mothertongues/search'
 import classNames from 'classnames'
+import { FaVolumeHigh, FaStop } from 'react-icons/fa6'
 
 // FPCC
 import { ALERT_TYPES } from 'constants/notification-types'
@@ -38,7 +39,7 @@ export function AudioControl({ audioSrc, description, styleType }: Readonly<Audi
             }
           }}
         >
-          {audioPlaying ? <i className="fv-pause text-3xl" /> : <i className="fv-play text-3xl" />}
+          {audioPlaying ? <FaStop className="text-3xl" /> : <FaVolumeHigh className="text-3xl" />}
         </button>
       )}
 
@@ -46,7 +47,7 @@ export function AudioControl({ audioSrc, description, styleType }: Readonly<Audi
         <button
           data-testid={`audio-btn-${audioSrc}`}
           type="button"
-          className={classNames('btn-contained bg-secondary-500', {
+          className={classNames('btn-contained bg-primary-500', {
             'opacity-30 bg-gray-500': !audioAvailable,
           })}
           onClick={() => {
@@ -60,7 +61,7 @@ export function AudioControl({ audioSrc, description, styleType }: Readonly<Audi
             }
           }}
         >
-          {audioPlaying ? <i className="fv-pause" /> : <i className="fv-play" />}
+          {audioPlaying ? <FaStop /> : <FaVolumeHigh />}
           {description && <div>{description}</div>}
         </button>
       )}
@@ -72,14 +73,16 @@ export function AudioControl({ audioSrc, description, styleType }: Readonly<Audi
           ) : (
             <button
               type="button"
-              className="fv-songs text-3xl text-gray-400"
+              className="btn-contained bg-gray-300"
               onClick={() => {
                 setNotification({
                   type: ALERT_TYPES.WARNING,
                   message: offlineWarning,
                 })
               }}
-            />
+            >
+              <FaVolumeHigh className="text-3xl" />
+            </button>
           )}
         </>
       )}

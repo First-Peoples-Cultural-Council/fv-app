@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import classNames from 'classnames'
+import { FaVolumeHigh, FaChevronRight } from 'react-icons/fa6'
 
 // FPCC
 import { Bookmark, DeleteListType, SourceType } from 'components/common/data'
@@ -79,13 +80,13 @@ export function ProfileView() {
                 <div className="font-bold text-left">{bookmark.name}</div>
               </div>
               <div className="col-span-1">
-                <div>{bookmark.hasAudio && <i className="fv-volume-up" />}</div>
+                <div>{bookmark.hasAudio && <FaVolumeHigh />}</div>
               </div>
               <div className="col-span-4">
                 <div className="text-left">{bookmark.definition}</div>
               </div>
-              <div className="col-span-1 flex  justify-end">
-                <i className="fv-right-open" />
+              <div className="col-span-1 flex justify-end">
+                <FaChevronRight />
               </div>
             </div>
           </div>
@@ -95,11 +96,11 @@ export function ProfileView() {
               <div className="col-span-9 space-y-1">
                 <div className="font-bold">{bookmark.name}</div>
                 <div className="truncate">{bookmark.definition}</div>
-                {bookmark.hasAudio && <i className="fv-volume-up" />}
+                {bookmark.hasAudio && <FaVolumeHigh className="mx-auto" />}
               </div>
 
               <div className="col-span-1 flex items-center justify-end">
-                <i className="fv-right-open" />
+                <FaChevronRight />
               </div>
             </div>
           </div>

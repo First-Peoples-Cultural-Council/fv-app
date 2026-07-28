@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import classNames from 'classnames'
 import { Audio1 } from '@mothertongues/search'
+import { FaChevronRight, FaChevronLeft } from 'react-icons/fa6'
 
 // FPCC
 import { Flashcard } from 'components/common/data'
@@ -36,7 +37,7 @@ export function FlashcardView({ flashcardData, setFlashcard, flashcardIndex }: R
             <label htmlFor="previous-btn" className="sr-only">
               Previous word
             </label>
-            <i className="fv-left-open text-gray-50"></i>
+            <FaChevronLeft className="text-gray-50" />
           </button>
         </div>
         <div className="flex-col items-center justify-center flex flex-wrap w-2/3">
@@ -73,7 +74,7 @@ export function FlashcardView({ flashcardData, setFlashcard, flashcardIndex }: R
             <label htmlFor="previous-btn" className="sr-only">
               Next word
             </label>
-            <i className="fv-right-open text-gray-50"></i>
+            <FaChevronRight className="text-gray-50" />
           </button>
         </div>
       </div>

@@ -26,9 +26,11 @@ export function SelectedLetterDisplay({ selected, dictionaryData }: Readonly<Sel
       {audioCount === 1 && (
         <div className="grid grid-cols-2">
           <CopyButton selected={selected} />
-          {selected?.relatedAudio.map((fvAudio: FVMedia) => {
-            return <AudioControl key={fvAudio.id} audioSrc={fvAudio.original.path} styleType="icon" />
-          })}
+          <div className="flex justify-center items-center">
+            {selected?.relatedAudio.map((fvAudio: FVMedia) => {
+              return <AudioControl key={fvAudio.id} audioSrc={fvAudio.original.path} styleType="icon" />
+            })}
+          </div>
         </div>
       )}
       {audioCount > 1 && (

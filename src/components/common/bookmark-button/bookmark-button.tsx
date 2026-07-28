@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import classNames from 'classnames'
+import { FaBookmark, FaRegBookmark } from 'react-icons/fa6'
 
 // FPCC
 import { Bookmark } from 'components/common/data/types'
@@ -44,8 +44,8 @@ export function BookmarkButton({ bookmark }: Readonly<BookmarkButtonProps>) {
   }
 
   return (
-    <button data-testid="bookmark-btn" className="flex items-center" onClick={onBookmarkClick}>
-      <i className={classNames(bookmarked ? 'fv-bookmark' : 'fv-bookmark-empty', 'pr-2  text-xl')} />
+    <button data-testid="bookmark-btn" className="flex items-center space-x-2" onClick={onBookmarkClick}>
+      {bookmarked ? <FaBookmark className="text-xl" /> : <FaRegBookmark className="text-xl" />}
       <span className="text-lg">BOOKMARK</span>
     </button>
   )

@@ -1,9 +1,7 @@
 import { useState } from 'react'
-import Mail from 'assets/icons/Mail'
-import Link from 'assets/icons/link'
-import Twitter from 'assets/icons/twitter'
-import LinkedIn from 'assets/icons/Linkedin'
-import Facebook from 'assets/icons/Facebook'
+import { FaShareNodes, FaX, FaEnvelope, FaSquareFacebook, FaSquareXTwitter, FaLink, FaLinkedin } from 'react-icons/fa6'
+
+// FPCC
 import { useNotification } from 'components/contexts/notificationContext'
 import useSiteTitleFromManifest from 'util/useSiteTitleFromManifest'
 import { ALERT_TYPES } from 'constants/notification-types'
@@ -46,9 +44,13 @@ export function ShareButton({ title, text, url }: ShareButtonProps) {
 
   return (
     <>
-      <button type="button" data-testid="share-btn" className="flex items-center" onClick={() => setIsOpen(true)}>
-        <span className="sr-only">Share</span>
-        <i className="fv-share pr-2 text-xl" />
+      <button
+        type="button"
+        data-testid="share-btn"
+        className="flex items-center space-x-2"
+        onClick={() => setIsOpen(true)}
+      >
+        <FaShareNodes className="text-2xl" />
         <span className="text-lg">SHARE</span>
       </button>
 
@@ -60,7 +62,7 @@ export function ShareButton({ title, text, url }: ShareButtonProps) {
           <div className="relative w-auto max-w-lg mx-auto bg-white rounded-lg shadow-lg p-6 space-y-5">
             <div className="flex justify-end">
               <button onClick={() => setIsOpen(false)} className="text-black text-xl leading-none">
-                <i className="fv-close"></i>
+                <FaX />
               </button>
             </div>
 
@@ -75,7 +77,7 @@ export function ShareButton({ title, text, url }: ShareButtonProps) {
                 rel="noreferrer"
                 className="my-2 mx-1 h-10 w-10 p-1 inline-flex items-center justify-center rounded bg-stone-600 hover:bg-stone-700"
               >
-                <Mail className="fill-current h-5 w-5 text-white" />
+                <FaEnvelope className="fill-current size-6 text-white" />
               </a>
 
               <a
@@ -86,7 +88,7 @@ export function ShareButton({ title, text, url }: ShareButtonProps) {
                 rel="noopener noreferrer"
                 className="my-2 mx-1 h-10 w-10 p-1 inline-flex items-center justify-center rounded bg-stone-600 hover:bg-stone-700"
               >
-                <Twitter className="fill-current h-5 w-5 text-white" />
+                <FaSquareXTwitter className="fill-current size-6 text-white" />
               </a>
 
               <a
@@ -95,7 +97,7 @@ export function ShareButton({ title, text, url }: ShareButtonProps) {
                 rel="noopener noreferrer"
                 className="my-2 mx-1 h-10 w-10 p-1 inline-flex items-center justify-center rounded bg-stone-600 hover:bg-stone-700"
               >
-                <Facebook className="fill-current h-5 w-5 text-white" />
+                <FaSquareFacebook className="fill-current size-6 text-white" />
               </a>
 
               <a
@@ -104,7 +106,7 @@ export function ShareButton({ title, text, url }: ShareButtonProps) {
                 rel="noreferrer"
                 className="my-2 mx-1 h-10 w-10 p-1 inline-flex items-center justify-center rounded bg-stone-600 hover:bg-stone-700"
               >
-                <LinkedIn className="fill-current h-5 w-5 text-white" />
+                <FaLinkedin className="fill-current size-6 text-white" />
               </a>
 
               <button
@@ -112,7 +114,7 @@ export function ShareButton({ title, text, url }: ShareButtonProps) {
                 onClick={handleCopy}
                 className="my-2 mx-1 h-10 w-10 p-1 inline-flex items-center justify-center rounded bg-stone-600 hover:bg-stone-700"
               >
-                <Link className="fill-current h-5 w-5 text-white" />
+                <FaLink className="fill-current size-6 text-white" />
               </button>
             </div>
 

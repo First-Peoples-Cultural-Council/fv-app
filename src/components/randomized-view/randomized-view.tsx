@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { FaQuoteRight, FaComment, FaArrowsRotate } from 'react-icons/fa6'
 
 // FPCC
 import WordCardMobile from 'components/dictionary-view/word-card-mobile'
@@ -49,8 +50,8 @@ export function RandomizedView() {
         <MultiSwitch
           selected={selected}
           items={[
-            { name: 'WORDS', icon: 'fv-words' },
-            { name: 'PHRASES', icon: 'fv-quote-right' },
+            { name: 'WORDS', icon: FaComment },
+            { name: 'PHRASES', icon: FaQuoteRight },
             { name: 'BOTH', icon: null },
           ]}
           onToggle={(index: number) => {
@@ -64,7 +65,7 @@ export function RandomizedView() {
           }}
           className="ml-4"
         >
-          <i className="fv-arrows-cw text-lg" />
+          <FaArrowsRotate className="text-xl" />
         </button>
       </div>
       <div id="wordList" className="overflow-y-auto max-h-calc-245 md:max-h-calc-195">

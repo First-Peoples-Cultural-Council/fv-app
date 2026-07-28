@@ -18,16 +18,12 @@ export function SubNavMobile({ navItems }: Readonly<SubNavMobileProps>) {
           <Link
             key={item.id}
             to={item.path}
-            className={classNames(
-              'py-4 flex flex-col justify-center items-center cursor-pointer hover:underline',
-              {
-                [`${item.colors.activeText} underline`]: matchRoutes(
-                  [...(item?.activePathMatches ?? []), { path: item.path }],
-                  location
-                ),
-              },
-              item.colors.hoverText
-            )}
+            className={classNames('py-4 flex flex-col justify-center items-center cursor-pointer hover:underline', {
+              [`${item.colors.activeText} underline`]: matchRoutes(
+                [...(item?.activePathMatches ?? []), { path: item.path }],
+                location
+              ),
+            })}
           >
             <div className="uppercase text-xs">{item.title}</div>
           </Link>

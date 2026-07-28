@@ -1,5 +1,6 @@
 import WordModal from 'components/dictionary-view/word-modal'
 import { FvWord, FvWordLocation } from 'components/common/data'
+import { FaChevronRight } from 'react-icons/fa6'
 
 // FPCC
 import Modal from 'components/common/modal/modal'
@@ -22,6 +23,7 @@ function WordAlphabetRowCard({ term }: Readonly<WordAlphabetRowCardProps>) {
   return (
     <>
       <button
+        id="WordAlphabetRowCard"
         className="w-full  bg-white p-4 rounded-lg shadow-md border border-gray-200 hover:bg-gray-100 cursor-pointer"
         onClick={() => setShowModal(true)}
       >
@@ -33,7 +35,7 @@ function WordAlphabetRowCard({ term }: Readonly<WordAlphabetRowCardProps>) {
             <h1>{wordLocations ? applyHighlighting(definition, wordLocations, 'definition') : definition}</h1>
           </div>
           <div className="place-self-end self-center">
-            <i className="fv-right-open" />
+            <FaChevronRight />
           </div>
         </div>
       </button>

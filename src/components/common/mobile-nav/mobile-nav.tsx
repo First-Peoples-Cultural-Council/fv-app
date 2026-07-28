@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router'
 import classNames from 'classnames'
+import { FaBars } from 'react-icons/fa6'
 
 // FPCC
 import { NavigationItem } from 'components/common/data'
@@ -29,20 +30,20 @@ export function MobileNav({ navItems, extraNavItems }: Readonly<MobileNavProps>)
                   'text-word-500': location.pathname.includes(item.id),
                 })}
               >
-                {item.icon}
+                <item.icon />
               </Link>
             </li>
           ))}
           {!showExtraNav && (
             <li key="extra-nav">
               <button onClick={() => setShowExtraNav(true)}>
-                <i className="fv-menu text-white cursor-pointer text-3xl" />
+                <FaBars className="text-white cursor-pointer text-3xl" />
               </button>
             </li>
           )}
         </ul>
         {showExtraNav && (
-          <ul className="flex justify-around w-full pt-3">
+          <ul className="flex justify-around w-full pt-4">
             {extraNavItems?.map((item) => (
               <li key={item.id}>
                 <Link
@@ -52,14 +53,14 @@ export function MobileNav({ navItems, extraNavItems }: Readonly<MobileNavProps>)
                     'text-word-500': location.pathname.includes(item.id),
                   })}
                 >
-                  {item.icon}
+                  <item.icon />
                 </Link>
               </li>
             ))}
             {showExtraNav && (
               <li key="extra-nav">
                 <button onClick={() => setShowExtraNav(false)}>
-                  <i className="fv-menu text-white cursor-pointer text-3xl" />
+                  <FaBars className="text-white cursor-pointer text-3xl" />
                 </button>
               </li>
             )}

@@ -1,5 +1,8 @@
 import { useRef, ReactNode } from 'react'
 import { createPortal } from 'react-dom'
+import { FaX } from 'react-icons/fa6'
+
+// FPCC
 import useOnClickOutside from 'util/clickOutside'
 
 export interface ModalProps {
@@ -39,8 +42,13 @@ export function Modal({ onClose, children, showCloseButton = true, closeOnOutsid
           >
             <div className="flex w-full justify-end rounded-t">
               {showCloseButton && (
-                <button className="p-4 text-black text-1xl leading-none" onClick={onCloseClick}>
-                  <i className="fv-close"></i>
+                <button
+                  data-testid="modal-close-btn"
+                  type="button"
+                  className="p-4 text-black text-xl leading-none"
+                  onClick={onCloseClick}
+                >
+                  <FaX />
                 </button>
               )}
             </div>

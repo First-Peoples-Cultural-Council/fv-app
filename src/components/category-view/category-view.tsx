@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { Link, useParams } from 'react-router'
+import { BiSolidCategory } from 'react-icons/bi'
+import { FaQuoteRight, FaComment } from 'react-icons/fa6'
 
 // FPCC
 import styles from 'components/category-view/category-view.module.css'
@@ -136,10 +138,10 @@ export function CategoryView() {
                       <Link
                         key={category.id}
                         to={`/categories/${category.id}`}
-                        className={classNames('flex items-center cursor-pointer mb-6 hover:opacity-75')}
+                        className="flex items-center cursor-pointer mb-6 hover:opacity-75 space-x-1"
                       >
-                        <i className={classNames('fv-categories', 'text-3xl hover:opacity-75 text-tertiaryB-500')} />
-                        <div className="pt-2 text-lg">{category.title}</div>
+                        <BiSolidCategory className="text-3xl hover:opacity-75 text-tertiaryB-500" />
+                        <div className="text-lg">{category.title}</div>
                       </Link>
                     )
                   })}
@@ -182,11 +184,9 @@ export function CategoryView() {
     return (
       <Link
         to={`/categories/${primaryCategory.id}`}
-        className={classNames(
-          'transition duration-500 ease-in-out rounded-lg pr-4 flex items-center cursor-pointer bg-gray-300 p-2 mt-2 hover:opacity-75'
-        )}
+        className="transition duration-500 ease-in-out rounded-lg pr-4 flex items-center cursor-pointer bg-gray-300 p-2 mt-2 hover:opacity-75 space-x-1"
       >
-        <i className={classNames('fv-categories', 'text-3xl hover:opacity-75 text-tertiaryB-500')} />
+        <BiSolidCategory className="text-3xl hover:opacity-75 text-tertiaryB-500" />
         <div className="inline-flex text-lg font-medium">{primaryCategory.title}</div>
       </Link>
     )
@@ -220,8 +220,8 @@ export function CategoryView() {
       <MultiSwitch
         selected={selected}
         items={[
-          { name: 'WORDS', icon: 'fv-words' },
-          { name: 'PHRASES', icon: 'fv-quote-right' },
+          { name: 'WORDS', icon: FaComment },
+          { name: 'PHRASES', icon: FaQuoteRight },
           { name: 'BOTH', icon: null },
         ]}
         onToggle={(index: number) => {

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { FaRegImage } from 'react-icons/fa6'
 
 // FPCC
 import { ALERT_TYPES } from 'constants/notification-types'
@@ -32,14 +33,16 @@ export function FvImage({ className, disabledClassName, src, alt }: Readonly<FvI
       ) : (
         <button
           type="button"
-          className={`fv-picture text-20xl text-gray-500/25 ${disabledClassName}`}
+          className={`text-20xl text-gray-300 flex items-center justify-center ${disabledClassName}`}
           onClick={() => {
             setNotification({
               type: ALERT_TYPES.WARNING,
               message: 'Images are not available offline. Please go online to access this image.',
             })
           }}
-        />
+        >
+          <FaRegImage />
+        </button>
       )}
     </>
   )

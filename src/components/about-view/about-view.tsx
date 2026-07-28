@@ -20,7 +20,7 @@ export function AboutView({ children }: Readonly<AboutViewProps>) {
   const logoURL = `${origin}/${subdomain}/logo192.png`
 
   return (
-    <div data-testid="AboutView" className="max-w-3xl mx-auto">
+    <div id="AboutView" className="max-w-3xl mx-auto">
       <main className="p-4 sm:p-6 md:p-6 lg:p-8 text-center space-y-4">
         <div className="space-y-4">
           <h1 className="w-full text-center text-3xl mb-4">{siteTitle + ' App'}</h1>

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
 import { Audio1, DictionaryEntryExportFormat } from '@mothertongues/search'
+import { FaCircleCheck, FaCloudArrowDown, FaRegImage, FaSpinner } from 'react-icons/fa6'
 
 // FPCC
 import { ALERT_TYPES } from 'constants/notification-types'
@@ -74,21 +75,21 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
     if (isCheckingCache) {
       return {
         label: 'Checking media...',
-        icon: 'fv-spinner',
+        icon: FaSpinner,
       }
     }
 
     if (mediaArray.length === 0) {
       return {
         label: 'No related media',
-        icon: 'fv-video',
+        icon: FaRegImage,
       }
     }
 
     if (areAssetsCached) {
       return {
         label: 'All media downloaded',
-        icon: 'fv-ok-circled',
+        icon: FaCircleCheck,
       }
     }
 
@@ -115,13 +116,13 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
           >
             <div className="flex items-center justify-center gap-2">
               <span>Download related media files</span>
-              <span className="fv-cloud-arrow-down-regular text-2xl" />
+              <FaCloudArrowDown className="text-2xl" />
             </div>
           </button>
         ) : (
           <div className={`flex items-center justify-center gap-2 w-full max-w-xs py-2 font-medium`}>
             <span>{status.label}</span>
-            <span className={status.icon} />
+            <status.icon />
           </div>
         )}
       </div>

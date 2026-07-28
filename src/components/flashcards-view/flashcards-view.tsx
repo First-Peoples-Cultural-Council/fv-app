@@ -298,6 +298,8 @@ export function FlashcardsView() {
     return (
       <div className="col-span-1">
         <button
+          data-testid={`${name}-btn`}
+          type="button"
           className="btn-outlined border-2 h-full w-full justify-start text-left space-x-4"
           onClick={() => onClick()}
         >

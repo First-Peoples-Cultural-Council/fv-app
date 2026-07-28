@@ -42,7 +42,12 @@ export function Modal({ onClose, children, showCloseButton = true, closeOnOutsid
           >
             <div className="flex w-full justify-end rounded-t">
               {showCloseButton && (
-                <button className="p-4 text-black text-xl leading-none" onClick={onCloseClick}>
+                <button
+                  data-testid="modal-close-btn"
+                  type="button"
+                  className="p-4 text-black text-xl leading-none"
+                  onClick={onCloseClick}
+                >
                   <FaX />
                 </button>
               )}

@@ -20,7 +20,7 @@ export function FullScreenModal({ onClose, children }: FullScreenModalProps) {
       <div className="modal-container fixed w-full h-full z-50 bg-grey">
         <div className="modal-content container mx-auto h-full text-left px-4 mb-14 w-full overflow-auto">
           <div className="flex h-14 items-center justify-left w-full">
-            <button data-testid="back-btn" className="flex items-center" onClick={onCloseClick}>
+            <button type="button" data-testid="back-btn" className="flex items-center" onClick={onCloseClick}>
               <FaChevronLeft className="pr-2 text-xl" />
               <span className="text-lg">BACK</span>
             </button>

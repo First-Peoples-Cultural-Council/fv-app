@@ -1,9 +1,11 @@
+import { FaDownload } from 'react-icons/fa6'
+
 export function InstallView() {
   return (
     <div data-testid="install-view" className="flex w-full justify-start p-4 mx-auto">
       <div className="flex flex-col w-full space-y-6">
         <div className="flex items-center space-x-2">
-          <i className="fv-install text-3xl" />
+          <FaDownload className="text-3xl" />
           <div className="text-2xl font-bold">Install This App</div>
         </div>
 

@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import { Audio1, DictionaryEntryExportFormat } from '@mothertongues/search'
+import { IconType } from 'react-icons'
 
 // FPCC
 import { ButtonTypeEnum, StandardButtonButtonTypeEnum } from 'components/common/data/enums'
@@ -90,13 +91,12 @@ export type SubNavItem = {
   id: string
   path: string
   activePathMatches?: { path: string }[]
-  icon: string
+  icon: IconType
   iconSize: string
   title: string
   colors: {
     to: string
     from: string
-    hoverText: string
     activeText: string
     border: string
   }
@@ -134,7 +134,7 @@ export type NavigationItem = {
   id: string
   to: string
   label: string
-  icon?: ReactNode
+  icon: IconType
 }
 
 export type Flashcard = {

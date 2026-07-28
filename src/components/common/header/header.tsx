@@ -39,7 +39,9 @@ export function Header({ className, navItems, extraNavItems }: Readonly<HeaderPr
                 onClick={() => setShowExtraNav(false)}
                 className={classNames('flex items-center text-white cursor-pointer', { 'ml-2': !!item.icon })}
               >
-                <div className="mr-2">{item.icon}</div>
+                <div className="mr-2">
+                  <item.icon />
+                </div>
                 {item.label}
               </Link>
             </li>
@@ -58,7 +60,10 @@ export function Header({ className, navItems, extraNavItems }: Readonly<HeaderPr
                       to={item.to}
                       className={classNames('flex items-center text-white cursor-pointer', { 'ml-2': !!item.icon })}
                     >
-                      <div className="mr-2">{item.icon}</div>
+                      <div className="mr-2">
+                        {' '}
+                        <item.icon />
+                      </div>
                       {item.label}
                     </Link>
                   </button>

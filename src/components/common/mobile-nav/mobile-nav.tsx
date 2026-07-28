@@ -30,7 +30,7 @@ export function MobileNav({ navItems, extraNavItems }: Readonly<MobileNavProps>)
                   'text-word-500': location.pathname.includes(item.id),
                 })}
               >
-                {item.icon}
+                <item.icon />
               </Link>
             </li>
           ))}
@@ -43,7 +43,7 @@ export function MobileNav({ navItems, extraNavItems }: Readonly<MobileNavProps>)
           )}
         </ul>
         {showExtraNav && (
-          <ul className="flex justify-around w-full pt-3">
+          <ul className="flex justify-around w-full pt-4">
             {extraNavItems?.map((item) => (
               <li key={item.id}>
                 <Link
@@ -53,7 +53,7 @@ export function MobileNav({ navItems, extraNavItems }: Readonly<MobileNavProps>)
                     'text-word-500': location.pathname.includes(item.id),
                   })}
                 >
-                  {item.icon}
+                  <item.icon />
                 </Link>
               </li>
             ))}

@@ -14,26 +14,18 @@ export function SubNavDesktop({ navItems }: Readonly<SubNavDesktopProps>) {
   return (
     <nav className="hidden md:flex flex-col h-screen sidebar text-charcoal-500 shadow-lg">
       {navItems.map((item) => {
+        const isCurrentRoute = matchRoutes([...(item?.activePathMatches ?? []), { path: item.path }], location)
         return (
           <Link
             key={item.id}
             to={item.path}
-            className={classNames('w-24 h-24 flex flex-col justify-center text-center items-center cursor-pointer')}
+            className={classNames(
+              'w-20 h-20 m-2 rounded-lg flex flex-col justify-center text-center items-center cursor-pointer text-gray-500',
+              { [`border ${item.colors.border} ${item.colors.activeText}`]: isCurrentRoute }
+            )}
           >
-            <i
-              className={classNames(
-                item.icon,
-                item.iconSize,
-                {
-                  [`${item.colors.activeText} ${item.colors.border}`]: matchRoutes(
-                    [...(item?.activePathMatches ?? []), { path: item.path }],
-                    location
-                  ),
-                },
-                item.colors.hoverText
-              )}
-            />
-            <div className="uppercase text-xs">{item.title}</div>
+            <item.icon className={classNames(item.iconSize)} />
+            <div className={classNames('uppercase text-xs')}>{item.title}</div>
           </Link>
         )
       })}

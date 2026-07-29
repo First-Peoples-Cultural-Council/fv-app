@@ -34,9 +34,9 @@ function WordCardMobile({ item }: Readonly<WordCardMobileProps>) {
               {wordLocations ? applyHighlighting(definition, wordLocations, 'definition') : definition}
             </p>
           </div>
-          <div className="col-span-1 flex items-center justify-center">
+          <div className="col-span-1 flex flex-wrap items-center justify-center">
             {audio?.map((mtAudio: Audio1) => (
-              <FaVolumeHigh key={mtAudio.filename} />
+              <FaVolumeHigh key={mtAudio.filename} className="inline-flex mr-2" />
             ))}
           </div>
           <div className="col-span-1 place-self-end self-center">

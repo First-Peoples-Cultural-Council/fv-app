@@ -47,7 +47,7 @@ function WordCategories({ term, categoryPressed }: Readonly<WordCategoriesProps>
         {primaryCategory !== undefined && (
           <Link
             to={`/categories/${primaryCategory.id}`}
-            className="btn-contained bg-tertiaryB-500 mr-1 whitespace-nowrap"
+            className="btn-outlined mr-1 whitespace-nowrap"
             onClick={categoryPressed}
           >
             {primaryCategory?.title}
@@ -56,7 +56,7 @@ function WordCategories({ term, categoryPressed }: Readonly<WordCategoriesProps>
         {secondaryCategory !== undefined && (
           <Link
             to={`/categories/${secondaryCategory.id}`}
-            className="btn-contained bg-tertiaryB-500 mr-1 whitespace-nowrap"
+            className="btn-outlined mr-1 whitespace-nowrap"
             onClick={categoryPressed}
           >
             {secondaryCategory?.title}

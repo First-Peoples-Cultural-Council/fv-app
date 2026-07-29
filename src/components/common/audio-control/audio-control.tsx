@@ -47,7 +47,7 @@ export function AudioControl({ audioSrc, description, styleType }: Readonly<Audi
         <button
           data-testid={`audio-btn-${audioSrc}`}
           type="button"
-          className={classNames('btn-contained bg-primary-500', {
+          className={classNames('btn-contained', {
             'opacity-30 bg-gray-500': !audioAvailable,
           })}
           onClick={() => {
@@ -62,7 +62,7 @@ export function AudioControl({ audioSrc, description, styleType }: Readonly<Audi
           }}
         >
           {audioPlaying ? <FaStop /> : <FaVolumeHigh />}
-          {description && <div>{description}</div>}
+          <div>{description || 'Speaker'}</div>
         </button>
       )}
 

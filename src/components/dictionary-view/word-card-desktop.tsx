@@ -24,6 +24,7 @@ function WordCardDesktop({ item, wordWidthClass }: Readonly<WordCardDesktopProps
   return (
     <>
       <button
+        data-testid="word-card-dt-btn"
         className="hidden md:block rounded-lg bg-white p-6 m-1 shadow-lg hover:bg-gray-100 cursor-pointer w-full mx-2"
         onClick={() => setShowModal(true)}
       >
@@ -33,12 +34,12 @@ function WordCardDesktop({ item, wordWidthClass }: Readonly<WordCardDesktopProps
               {wordLocations ? applyHighlighting(word, wordLocations, 'word') : word}
             </div>
           </div>
-          <div className="col-span-1 flex justify-center items-center">
+          <div className="col-span-1 flex flex-wrap justify-center items-center">
             {audio?.map((mtAudio: Audio1) => (
-              <FaVolumeHigh key={mtAudio.filename} />
+              <FaVolumeHigh key={mtAudio.filename} className="inline-flex mr-2 text-xl" />
             ))}
           </div>
-          <div className="col-span-7 text-left">
+          <div className="col-span-7 text-left flex items-center pl-2">
             <p className="truncate">
               {wordLocations ? applyHighlighting(definition, wordLocations, 'definition') : definition}
             </p>

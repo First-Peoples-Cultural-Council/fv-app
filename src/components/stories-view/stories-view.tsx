@@ -12,7 +12,7 @@ export function StoriesView() {
   return (
     <LoadingWrapper fetchData={fetchStoriesData}>
       {(storiesData) => (
-        <div className="grid grid-cols-1 w-full">
+        <div data-testid="stories-view" className="w-full">
           <div className="flex flex-col overflow-y-auto max-h-calc-185 md:max-h-calc-125 md:space-y-2 md:p-2">
             {storiesData.map((story: FVStory) => {
               return (
@@ -20,11 +20,11 @@ export function StoriesView() {
                   key={story.id}
                   to={`/learn/stories/${story.id}`}
                   className={classNames(
-                    'border border-gray-200 md:rounded-lg bg-white p-4 shadow-lg hover:bg-gray-100 cursor-pointer'
+                    'w-full text-center border border-gray-200 md:rounded-lg bg-white p-3 md:p-4 shadow-lg hover:bg-gray-100 cursor-pointer'
                   )}
                 >
-                  <div className="flex items-center justify-between space-x-2">
-                    <div className="h-16 w-16 sm:h-24 sm:w-24 shrink-0">
+                  <div className="flex items-center justify-between space-x-3">
+                    <div className="flex-none h-16 w-16 sm:h-24 sm:w-24">
                       {story?.relatedImages?.length > 0 ? (
                         <FvImage
                           className="h-full w-full object-contain shadow-lg"
@@ -34,17 +34,16 @@ export function StoriesView() {
                         />
                       ) : (
                         <div className="h-full w-full object-contain shadow-lg flex justify-center items-center">
-                          <FaBookOpen className="text-6xl text-gray-400" />
+                          <FaBookOpen className="text-5xl text-gray-400" />
                         </div>
                       )}
                     </div>
-                    <div className="flex text-center items-center justify-center">
-                      <div>
-                        <div className="font-bold">{story.title}</div>
-                        <div className="truncate">{story.titleTranslation}</div>
-                      </div>
+                    <div className="flex-col items-center grow">
+                      <span className="font-bold">{story.title}</span>
+                      <br />
+                      {story.titleTranslation}
                     </div>
-                    <div className="self-center">
+                    <div className="flex-none self-center">
                       <FaChevronRight />
                     </div>
                   </div>

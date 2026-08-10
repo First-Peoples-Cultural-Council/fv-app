@@ -177,21 +177,25 @@ export function DownloadButton({ dictionaryData, selected }: Readonly<DownloadBu
 
     // If there is media to download get it and update the percentage.
     if (mediaSet.size > 0) {
-      const promises: Promise<void>[] = []
-
       setShowDownloadProgress(true)
+
+      const files = Array.from(mediaSet)
+      const concurrency = 25
       let downloadComplete = 0
 
-      mediaSet.forEach((media) => {
-        promises.push(
-          axios.get(media).then(() => {
+      for (let i = 0; i < files.length; i += concurrency) {
+        const batch = files.slice(i, i + concurrency)
+
+        await Promise.all(
+          batch.map(async (media) => {
+            await axios.get(media)
+
             downloadComplete++
+
             setDownloadPercentage(Math.round((downloadComplete / mediaSet.size) * 100))
           })
         )
-      })
-
-      await Promise.all(promises)
+      }
       setCurrentlyDownloading(false)
       setShowDownloadProgress(false)
       checkCache()

@@ -33,15 +33,15 @@ export function SongsView() {
                     data-testid={`song-btn-${song.id}`}
                     key={song.id}
                     className={classNames(
-                      'w-full border border-gray-200 md:rounded-lg bg-white p-4 shadow-lg hover:bg-gray-100 cursor-pointer',
+                      'w-full text-center border border-gray-200 md:rounded-lg bg-white p-3 md:p-4 shadow-lg hover:bg-gray-100 cursor-pointer',
                       {
                         'md:border-song-500 md:border-2 hover:bg-white': song.id === selectedSong?.id,
                       }
                     )}
                     onClick={() => onSongClick(song)}
                   >
-                    <div className="flex items-center justify-between space-x-2">
-                      <div className="h-16 w-16 sm:h-24 sm:w-24">
+                    <div className="flex items-center justify-between space-x-3">
+                      <div className="flex-none h-16 w-16 sm:h-24 sm:w-24">
                         {song?.relatedImages?.length > 0 ? (
                           <FvImage
                             className="w-full h-full object-contain shadow-lg"
@@ -51,15 +51,16 @@ export function SongsView() {
                           />
                         ) : (
                           <div className="h-full w-full object-contain shadow-lg flex justify-center items-center">
-                            <FaMusic className="text-6xl text-gray-400" />
+                            <FaMusic className="text-5xl text-gray-400" />
                           </div>
                         )}
                       </div>
-                      <div className="flex text-center items-center justify-center">
-                        <div className="font-bold">{song.title}</div>
-                        <div className="truncate">{song.titleTranslation}</div>
+                      <div className="flex-col items-center justify-center grow text-center">
+                        <span className="font-bold">{song.title}</span>
+                        <br />
+                        {song.titleTranslation}
                       </div>
-                      <div className="self-center">
+                      <div className="flex-none self-center">
                         <FaChevronRight />
                       </div>
                     </div>

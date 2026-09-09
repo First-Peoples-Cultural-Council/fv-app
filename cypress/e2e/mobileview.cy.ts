@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('template spec', () => {
   beforeEach(() => {
       cy.viewport('samsung-s10')
@@ -7,6 +9,7 @@ describe('template spec', () => {
     })
 
   it('test app - internal links', () => {
+    cy.contains('Learn').should('be.visible')
     cy.contains('Learn')
     cy.contains('Bookmarks')
     cy.contains('WORDS').click()
@@ -21,6 +24,7 @@ describe('template spec', () => {
   })
 
   it('test alphabet', () => {
+    cy.get('[href="/alphabet"]').should('be.visible')
     cy.get('[href="/alphabet"]:visible').click()
     cy.get('[id^="character"]:visible').each(($char) => {
       cy.wrap($char).click({force:true})
@@ -28,10 +32,12 @@ describe('template spec', () => {
   })
 
   it('test categories', () => {
+    cy.get('[href="/categories"]').should('be.visible')
     cy.get('[href="/categories"]:visible').click()
   })
 
   it('test random', () => {
+    cy.get('[href="/randomized"]').should('be.visible')
     cy.get('[href="/randomized"]:visible').click()
 
     cy.contains('WORDS').click()
@@ -40,12 +46,14 @@ describe('template spec', () => {
   })
 
   it('test learn', () => {
+    cy.get('[href="/learn"]').should('be.visible')
     cy.get('[href="/learn"]:visible').click()
     cy.get('[href^="/learn/stories/"]:visible').first().click()
     cy.contains('BACK').click()
   })
 
   it('test songs', () => {
+    cy.get('[href="/learn"]').should('be.visible')
     cy.get('[href="/learn"]:visible').click()
     cy.get('[href^="/learn/songs"]:visible').click()
     cy.get('[data-testid^="song-"]').first().click()

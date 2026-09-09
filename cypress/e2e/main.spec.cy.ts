@@ -7,7 +7,7 @@ describe('template spec', () => {
     })
 
   it('test app - internal links', () => {
-    cy.contains('Learn')
+    cy.contains('Learn').should('exist')
     cy.contains('Bookmarks')
     cy.contains('WORDS').click()
     cy.contains('PHRASES').click()
@@ -23,6 +23,7 @@ describe('template spec', () => {
   it('test alphabet', () => {
     cy.get('[href="/alphabet"]:visible').click()
     cy.get('[id^="character"]:visible').each(($char) => {
+      cy.wrap($char).should('exist')
       cy.wrap($char).click({force:true})
     })
   })
@@ -35,14 +36,17 @@ describe('template spec', () => {
     cy.get('.fv-menu:visible').click()
     cy.contains('Settings').click()
     cy.contains('Clear Media Cache').click()
+    cy.contains(/^Clear$/).should('exist')
     cy.contains(/^Clear$/).click()
   })
 
   it('test categories', () => {
+    cy.contains('CATEGORIES').should('exist')
     cy.get('[href="/categories"]:visible').click()
   })
 
   it('test random', () => {
+    cy.get('[href="/randomized"]:visible').should('exist')
     cy.get('[href="/randomized"]:visible').click()
 
     cy.contains('WORDS').click()
@@ -53,16 +57,19 @@ describe('template spec', () => {
   it('test learn', () => {
     cy.get('[href="/learn"]:visible').click()
     cy.get('[href^="/learn/stories/"]:visible').first().click()
+    cy.contains('BACK').should('exist')
     cy.contains('BACK').click()
   })
 
   it('test songs', () => {
     cy.get('[href="/learn"]:visible').click()
+    cy.get('[href^="/learn/songs"]').should('be.visible')
     cy.get('[href^="/learn/songs"]:visible').click()
     cy.get('[data-testid^="song-"]').first().click()
   })
 
   it('test flashcards', () => {
+    cy.get('[href="/learn"]').should('be.visible')
     cy.get('[href="/learn"]:visible').click()
     cy.get('[href^="/learn/flashcards"]:visible').click()
 

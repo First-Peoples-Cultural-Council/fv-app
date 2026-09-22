@@ -3,18 +3,19 @@
 describe('template spec', () => {
   beforeEach(() => {
       cy.viewport('samsung-s10')
-    cy.visit(`${Cypress.env('CYPRESS_DIALECT')}.${Cypress.env('baseUrl')}`)
+    cy.env(['CYPRESS_DIALECT', 'baseUrl']).then(({CYPRESS_DIALECT, baseUrl}) => {
+      cy.visit(CYPRESS_DIALECT + '.' + baseUrl)
+    })
     cy.contains('404').should('not.exist')
     cy.contains('BACK').click()
     })
 
   it('test app - internal links', () => {
-    cy.contains('Learn').should('be.visible')
-    cy.contains('Learn')
-    cy.contains('Bookmarks')
-    cy.contains('WORDS').click()
-    cy.contains('PHRASES').click()
-    cy.contains('BOTH').click()
+    cy.get('[id="MultiSwitch"]').should('be.visible')
+    cy.contains('Alphabet')
+    cy.contains('Alphabet').click()
+    cy.contains('Categories').click()
+    cy.contains('Random').click()
 
     cy.get('button[data-testid="word-card-mobile"]:visible').each((_card) => {
       cy.wrap(_card).click()
@@ -27,7 +28,8 @@ describe('template spec', () => {
     cy.get('[href="/alphabet"]').should('be.visible')
     cy.get('[href="/alphabet"]:visible').click()
     cy.get('[id^="character"]:visible').each(($char) => {
-      cy.wrap($char).click({force:true})
+      cy.wrap($char).click()
+      cy.contains('BACK').click()
     })
   })
 
@@ -66,15 +68,15 @@ describe('template spec', () => {
 
     _types.forEach((_type) => {
         cy.contains('Words').should('be.visible')
-      cy.contains('Words').click({force:true})
+      cy.contains('Words').click()
       cy.contains(_type).click()
       cy.contains('flip card').click()
-      cy.get('.fv-close').click()
+      cy.get('.p-2').click()
 
       cy.contains('Phrases').click()
       cy.contains(_type).click()
       cy.contains('flip card').click()
-      cy.get('.fv-close').click()
+      cy.get('.p-2').click()
     })
   })
 

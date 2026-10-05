@@ -21,6 +21,6 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
-          spec: cypress/e2e/**/*.cy.js
+          spec: cypress/e2e/**/*.cy.ts
           install: npm ci
-          start: npm run build && serve -s build
+          start: npm run buildnserve

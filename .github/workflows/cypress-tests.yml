@@ -1,16 +1,12 @@
 name: Run Cypress Tests (dependabot)
 
 on:
-  pull_request:
-    branches:
-      - dev
   workflow_dispatch:
   schedule:
     - cron: '30 1 * * *'
 
 jobs:
   build:
-    if: github.event_name != 'pull_request' || github.head_ref == 'cypress_test_fixes'
     runs-on: ubuntu-latest
     env:
       CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
